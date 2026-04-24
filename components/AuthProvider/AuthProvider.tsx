@@ -24,6 +24,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
       try {
         const isAuthenticated = await checkSession();
+        console.log("cheak done");
+
         if (isAuthenticated) {
           const user = await getUser();
           if (user) setUser(user);
