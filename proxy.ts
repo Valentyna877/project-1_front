@@ -61,7 +61,7 @@ export const proxy = async (req: NextRequest) => {
     }
 
     if (isPrivateRoute) {
-      return NextResponse.redirect(new URL("/sign-in", req.url));
+      return NextResponse.redirect(new URL("/register", req.url));
     }
   }
 
@@ -84,6 +84,5 @@ export const config = {
     "/diary/:path*",
     "/journey/:path*",
     "/profile/change-password",
-    "/sign-up",
   ],
 };
