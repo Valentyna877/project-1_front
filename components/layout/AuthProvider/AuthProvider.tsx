@@ -14,29 +14,27 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     (state) => state.clearIsAuthenticated,
   );
 
-  const [isChecking, setIsCheacking] = useState<boolean>(false);
+  const [isChecking, setIsChecking] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchUser = async () => {
       setError(false);
-      setIsCheacking(true);
+      setIsChecking(true);
 
       try {
         const isAuthenticated = await checkSession();
-        console.log("cheak done", isAuthenticated);
+        console.log("check done");
 
         if (isAuthenticated) {
           const user = await getUser();
-          console.log(user);
-
           if (user) setUser(user);
           else clearIsAuthenticated();
         }
       } catch {
         setError(true);
       } finally {
-        setIsCheacking(false);
+        setIsChecking(false);
       }
     };
     fetchUser();
