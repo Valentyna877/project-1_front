@@ -1,9 +1,11 @@
 'use client'
 
-import { Formik, Form, Field, FormikHelpers } from 'formik';
+import { Formik, Form, Field, FormikHelpers, ErrorMessage } from 'formik';
 import { GENDER } from './OnboardingContent';
 import { useState } from 'react';
 import AvatarPicker from '@/components/common/AvatarPicker/AvatarPicker';
+import CalendarDatePicker from '@/components/common/CalendarDatePicker/CalendarDatePicker';
+import { FORTY_WEEKS, validationSchema } from './OnboardingValidation';
 
 interface OnboardingFormValues{
     gender: string;
@@ -17,7 +19,8 @@ const initialValues: OnboardingFormValues = {
 
 export default function OnboardingClient() {
     const [avatarFile, setAvatarFile] = useState<File | null>(null);
-    
+    const today = new Date().toISOString().split('T')[0];
+    const maxDate = new Date(Date.now() + FORTY_WEEKS).toISOString().split('T')[0];
     const handleSubmit = async (
         values: OnboardingFormValues,
         actions: FormikHelpers<OnboardingFormValues>
@@ -33,12 +36,14 @@ export default function OnboardingClient() {
         actions.resetForm();
     };
     return (
-        <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
             <Form>
                 <h2>Давайте познаймимось ближче</h2>
                 <AvatarPicker onFileChange={(file) => setAvatarFile(file)} />
                 <Field as="select" name="gender">{GENDER.map(({ value, label }) => (<option key={value} value={value}>{label}</option>))}</Field>
-                <Field type="date" name="dueDate" />
+                <ErrorMessage name='gender' component='p'/>
+                <CalendarDatePicker minDate={today} maxDate={maxDate} />
+                <ErrorMessage name='dueDate' component='p' />
                 <button type='submit'>Зберегти</button>
             </Form>
         </Formik>

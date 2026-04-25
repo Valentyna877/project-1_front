@@ -1,5 +1,7 @@
 import { useRef, useState } from "react";
 import css from './AvatarPicker.module.css'
+import { Toaster } from "sonner";
+
 
 interface AvatarPickerProps{
     onFileChange: (file: File) => void;
