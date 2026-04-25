@@ -1,0 +1,10 @@
+.defaultInput {
+  display: none;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: solid;
+}

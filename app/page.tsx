@@ -1,5 +1,10 @@
+import OnboardingForm from "@/components/profile/OnboardingForm/OnboardingForm";
+
+
 const page = () => {
-  return <></>;
+  return <>
+    <OnboardingForm/>
+  </>;
 };
 
 export default page;
