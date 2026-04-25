@@ -14,6 +14,7 @@ export const getUser = async (): Promise<User> => {
 
 export const checkSession = async () => {
   const { data } = await nextServer.get("/auth/refresh");
+
   return data.success;
 };
 
