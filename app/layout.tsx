@@ -1,17 +1,24 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Lato, Comfortaa } from "next/font/google";
 import "./globals.css";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Toaster } from 'sonner';
 import AuthProvider from "@/components/layout/AuthProvider/AuthProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const comfortaa = Comfortaa({
+  subsets: ['latin', 'latin-ext', 'cyrillic', 'cyrillic-ext'],
+  weight: ['700'],
+  variable: '--second-family',
+  display: 'swap',
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const lato = Lato({
+  subsets: ['latin', 'latin-ext'],
+  weight: ['400', '700'],
+  variable: '--font-family',
+  display: 'swap',
 });
+
 
 export const metadata: Metadata = {
   title: "Лелека",
@@ -24,9 +31,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body>
-        <AuthProvider>{children}</AuthProvider>
+    <html lang="uk">
+      <body className={`${comfortaa.variable} ${lato.variable}`}>
+        <AuthProvider>
+          {children}
+          <Toaster position="top-right" toastOptions={{ duration: 2000 }} />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </AuthProvider>
       </body>
     </html>
   );
