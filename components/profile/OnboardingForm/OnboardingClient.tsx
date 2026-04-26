@@ -9,6 +9,7 @@ import GenderSelect from '@/components/common/GenderSelect/GenderSelect';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import css from './OnboardingClient.module.css'
+import { nextServer } from '@/lib/api/api';
 
 interface OnboardingFormValues{
     gender: string;
@@ -33,11 +34,11 @@ export default function OnboardingClient() {
             if (avatarFile) {
                 const formData = new FormData();
                 formData.append('avatar', avatarFile);
-                await fetch('/api/users/me/avatar', { method: 'PATCH', body: formData, credentials: 'include', });
+                await nextServer.patch('/users/me/avatar', formData);
             }
-            await fetch('/api/users/me', {
-                method: 'PATCH', headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ gender: values.gender === 'unknown' ? null : values.gender, date: values.dueDate, }), credentials: 'include',
+            await nextServer.patch('/users/me', {
+                gender: values.gender === 'unknown' ? null : values.gender,
+                date: values.dueDate,
             });
             actions.resetForm();
             router.push('/');
