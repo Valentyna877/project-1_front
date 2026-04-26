@@ -1,7 +1,8 @@
 "use client";
 
-import { checkSession, getUser } from "@/lib/api/clientApi";
+import { checkSession, getUser, logoutUser } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface AuthProviderProps {
@@ -15,36 +16,39 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   );
 
   const [isChecking, setIsChecking] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchUser = async () => {
-      setError(false);
       setIsChecking(true);
 
       try {
         const isAuthenticated = await checkSession();
-        console.log("check done");
 
         if (isAuthenticated) {
           const user = await getUser();
-          if (user) setUser(user);
-          else clearIsAuthenticated();
+          if (user) {
+            setUser(user);
+          } else {
+            throw new Error("Користувач не знайдений");
+          }
+        } else {
+          throw new Error("Треба залогінитись");
         }
       } catch {
-        setError(true);
+        await logoutUser();
+        clearIsAuthenticated();
       } finally {
         setIsChecking(false);
       }
     };
     fetchUser();
-  }, [clearIsAuthenticated, setUser]);
+  }, [clearIsAuthenticated, router, setUser]);
 
   return (
     <>
-      {error && <p>Error!!!</p>}
       {isChecking && <p>Loading...</p>}
-      {!error && !isChecking && children}
+      {!isChecking && children}
     </>
   );
 };
