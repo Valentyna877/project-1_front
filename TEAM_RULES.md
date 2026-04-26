@@ -404,3 +404,90 @@ git merge main
 ```
 
 ```
+
+## BUTTON
+
+-
+- Використання:
+- - За замовчуванням (md + normal):
+- <Button>Зберегти</Button>
+-
+- - На всю ширину (форми):
+- <Button className={css.fullWidth}>Продовжити</Button>
+-
+- - Маленькі (модалки «Так/Ні», «Зберегти/Відмінити»):
+- <Button size="sm">Так</Button>
+-
+- - Вторинні / нейтральні (сірі):
+- <Button variant="cancel">Відмінити</Button>
+-
+- - Небезпечна дія - видалення:
+- <Button variant="delete">Видалити</Button>
+-
+- - Кнопка з іконкою зліва (Google 24×24):
+- <Button variant="cancel" leftIcon={<GoogleIcon />}>Увійти через Google</Button>
+-
+- \*\*\*\* - Стан завантаження (кнопка тимчасово disabled + спінер):
+- <Button
+-     isLoading={isCreating}
+-     loadingText="Створення…"
+- >
+-     Створити
+- </Button>
+
+---
+
+\*
+
+---
+
+## Приклад використання:
+
+- - import Button from '@/components/common/Button/Button';
+- - <Button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? 'Надсилаємо…' : 'Надіслати лист'}
+    </Button>
+
+\*
+
+## Date Picker
+
+- - <Field
+    id={`${fieldId}-date`}
+    name="date"
+    component={CalendarDatePicker}
+    onDateChange={handleDateChange}
+    className="date-picker"
+    wrapperClassName="date-picker-wrapper"
+    />
+
+\*
+
+## clsx
+
+- - <!-- import clsx from 'clsx';
+
+function Button({ isPrimary, isDisabled }: { isPrimary: boolean; isDisabled: boolean }) {
+return (
+<button
+className={clsx(
+'base-btn',
+isPrimary && 'btn-primary',
+isDisabled && 'btn-disabled'
+)} >
+Натисни мене
+</button>
+);
+} -->
+
+- - Замість
+  <div className={`${css.modal} ${extraClass}`}></div>
+- - Буде
+  <div className={clsx(css.modal, extraClass)}></div>
+
+- - <div className={clsx(css.modal, {
+      [css.active]: isOpen,
+      [css.error]: hasError,
+    })}></div>
+
+\*
