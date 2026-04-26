@@ -1,3 +1,21 @@
 .defaultInput {
   display: none;
 }
+
+.avatar {
+  background-color: var(--opacity-neutral-darkest-15);
+  width: 164px;
+  height: 164px;
+  border-radius: 100%;
+  margin-bottom: 24px;
+}
+
+.loadPhotoBtn {
+  border-bottom: 4px solid var(--opacity-neutral-darkest-5);
+  border-radius: 100px;
+  padding: 8px 20px;
+  width: 179px;
+  height: 42px;
+  font-size: 16px;
+  line-height: 1.6;
+}

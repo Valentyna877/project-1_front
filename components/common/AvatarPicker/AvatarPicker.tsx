@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import css from './AvatarPicker.module.css'
-import { Toaster } from "sonner";
+import { toast } from "sonner";
 
 
 interface AvatarPickerProps{
@@ -14,11 +14,11 @@ export default function AvatarPicker({ onFileChange }: AvatarPickerProps) {
         const file = e.target.files?.[0];
         if (!file) return;
         if (!file.type.startsWith('image/')) {
-            console.log('Файл повинен бути зображенням');
+            toast.error('Файл повинен бути зображенням');
             return;
         }
         if (file.size > 2 * 1024 * 1024) {
-            console.log('Файл повинен бути менше 2MB');
+            toast.error('Файл повинен бути менше 2MB');
             return;
         }
         setPreview(URL.createObjectURL(file));
@@ -28,7 +28,7 @@ export default function AvatarPicker({ onFileChange }: AvatarPickerProps) {
         <>
             <input className={css.defaultInput} type="file" ref={fileInputRef} accept="image/*" onChange={handleFileChange} />
                     {preview?<img src={preview}alt='avatar'/>:<div className={css.avatar}></div>}
-                    <button type="button" onClick={()=>fileInputRef.current?.click()}>Завантажити фото</button>
+                    <button className={css.loadPhotoBtn} type="button" onClick={()=>fileInputRef.current?.click()}>Завантажити фото</button>
         </>
     );
 }
