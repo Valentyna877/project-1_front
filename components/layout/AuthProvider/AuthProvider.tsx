@@ -36,12 +36,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
           throw new Error("Треба залогінитись");
         }
       } catch {
-        console.log("Тут має бути пуш повідомлення про помилку");
-
         await logoutUser();
         clearIsAuthenticated();
-
-        router.push("/auth/login");
       } finally {
         setIsChecking(false);
       }

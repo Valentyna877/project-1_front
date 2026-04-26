@@ -21,7 +21,6 @@ export async function POST() {
         },
       },
     );
-    console.log(1);
 
     cookieStore.delete("accessToken");
     cookieStore.delete("refreshToken");
