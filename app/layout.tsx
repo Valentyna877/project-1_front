@@ -23,7 +23,7 @@ const lato = Lato({
 
 export const metadata: Metadata = {
   title: "Лелека",
-  description: "Застосунок для вагітних",
+  description: "Застосунок для вагітних.",
 };
 
 export default function RootLayout({
