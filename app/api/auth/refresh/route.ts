@@ -16,11 +16,15 @@ export async function GET() {
     }
 
     if (refreshToken) {
-      const apiRes = await api.post("auth/refresh", {
-        headers: {
-          Cookie: cookieStore.toString(),
+      const apiRes = await api.post(
+        "auth/refresh",
+        {},
+        {
+          headers: {
+            Cookie: cookieStore.toString(),
+          },
         },
-      });
+      );
 
       const setCookie = apiRes.headers["set-cookie"];
 
@@ -49,9 +53,11 @@ export async function GET() {
   } catch (error) {
     if (isAxiosError(error)) {
       logErrorResponse(error.response?.data);
+      logErrorResponse(error.status);
       return NextResponse.json({ success: false }, { status: 200 });
     }
     logErrorResponse({ message: (error as Error).message });
+
     return NextResponse.json({ success: false }, { status: 200 });
   }
 }
