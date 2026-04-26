@@ -4,6 +4,7 @@ import "./globals.css";
 // import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "sonner";
 import AuthProvider from "@/components/layout/AuthProvider/AuthProvider";
+import TanStackProvider from "@/components/layout/TanStackProvider/TanStackProvider";
 // import TanStackProvider from "@/components/layout/TanStackProvider/TanStackProvider";
 
 const comfortaa = Comfortaa({
@@ -33,13 +34,13 @@ export default function RootLayout({
   return (
     <html lang="uk">
       <body className={`${comfortaa.variable} ${lato.variable}`}>
-        {/* <TanStackProvider> */}
-        <AuthProvider>
-          {children}
-          <Toaster position="top-right" toastOptions={{ duration: 2000 }} />
-          {/* <ReactQueryDevtools initialIsOpen={false} /> */}
-        </AuthProvider>
-        {/* </TanStackProvider> */}
+        <TanStackProvider>
+          <AuthProvider>
+            {children}
+            <Toaster position="top-right" toastOptions={{ duration: 2000 }} />
+            {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+          </AuthProvider>
+        </TanStackProvider>
       </body>
     </html>
   );

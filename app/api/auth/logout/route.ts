@@ -17,7 +17,7 @@ export async function POST() {
       {},
       {
         headers: {
-          Cookie: `accessToken=${accessToken}; refreshToken=${refreshToken}; ${sessionId ? "sessionId=${sessionId}" : ""}`,
+          Cookie: `accessToken=${accessToken}; refreshToken=${refreshToken}; ${sessionId ? "sessionId=" + sessionId : ""}`,
         },
       },
     );
