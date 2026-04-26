@@ -8,7 +8,12 @@ export interface UserCreds {
 }
 
 export const getUser = async (): Promise<User> => {
-  const { data } = await nextServer.get<User>("/users/current");
+  const { data } = await nextServer.get<User>("/users/current", {
+    headers: {
+      Authorization: 'UF00fu1z1zC4vNxL5Wi8RrI1IvvT%2B8AMcoLxf%2B7N; Path=/; Secure; HttpOnly; Expires=Sun, 26 Apr 2026 21:02:08 GMT'
+    }
+  }
+  );
   return data;
 };
 
