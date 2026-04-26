@@ -24,7 +24,6 @@ export const registerUser = async (user: UserCreds): Promise<User> => {
   return data;
 };
 
-///////////////////////////////////////
 export interface NewTask {
   name: string;
   date: string;
