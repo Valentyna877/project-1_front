@@ -1,9 +1,10 @@
-import { getUser } from "@/lib/api/clientApi";
+"use client";
+
 import css from "./GreetingBlock.module.css";
+import { useAuthStore } from "@/lib/store/authStore";
 
-export default async function GreetingBlock() {
-  const { name } = await getUser();
-  console.log(name);
+export default function GreetingBlock() {
+  const user = useAuthStore((state) => state.user);
 
-  return <h1 className={css.greetingTitle}>Вітаю, {name}!</h1>;
+  return <h1 className={css.greetingTitle}>Вітаю, {user?.name}!</h1>;
 }
