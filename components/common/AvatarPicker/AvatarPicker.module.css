@@ -1,3 +1,82 @@
+.picker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.picker.horizontal {
+  flex-direction: row;
+  align-items: center;
+  gap: 24px;
+}
+
+.picker.vertical {
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatarWrapper {
+  position: relative;
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.avatarImage {
+  object-fit: cover;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.changeButton {
+  font-family: "Lato", sans-serif;
+  width: 335px;
+  height: 38px;
+  border-bottom: 4px solid var(--opacity-neutral-darkest-15);
+  border-radius: 100px;
+  padding: 8px 20px;
+  background: var(--opacity-neutral-darkest-5);
+  text-align: center;
+  cursor: pointer;
+}
+
+.changeButton:hover {
+  background: #e6e6e6;
+}
+
+.error {
+  color: #e53935;
+  font-size: 12px;
+}
+
+@media (min-width: 768px) {
+  .picker {
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .content {
+    align-items: flex-start;
+  }
+
+  .changeButton {
+    width: 218px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .changeButton {
+    width: 218px;
+  }
+}
 .defaultInput {
   display: none;
 }
