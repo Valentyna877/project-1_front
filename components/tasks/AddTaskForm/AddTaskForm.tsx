@@ -6,6 +6,8 @@ import { Formik, Form, Field, type FormikHelpers, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createTask, NewTask } from '@/lib/api/clientApi';
+import Button from '@/components/common/Button/Button';
+import CalendarDatePicker from '@/components/common/CalendarDatePicker/CalendarDatePicker';
 
 interface TaskFormProps {
   onClose?: () => void;
@@ -67,6 +69,7 @@ export default function AddTaskForm({ onClose }: TaskFormProps) {
               id={`${fieldId}-name`}
               type="text"
               name="name"
+              placeholder="Введіть назву завдання"
               className={css.input}
             />
             <ErrorMessage name="name" component="span" className={css.error} />
@@ -75,22 +78,34 @@ export default function AddTaskForm({ onClose }: TaskFormProps) {
           <div className={css.formGroup}>
             <label htmlFor={`${fieldId}-date`}>Дата</label>
             <Field
-              id={`${fieldId}-date`}
-              type="date"
               name="date"
+              component={CalendarDatePicker}
+              id={`${fieldId}-date`}
+              //   type="date"
               className={css.input}
+              placeholderText="Оберіть дату"
             />
             <ErrorMessage name="date" component="span" className={css.error} />
           </div>
 
           <div className={css.actions}>
-            <button
+            {/* <button
+            type="submit"
+            className={css.submitButton}
+            disabled={mutation.isPending}
+        >
+            {mutation.isPending ? 'Зберігається...' : 'Зберегти'}
+        </button> */}
+            <Button
+              variant="normal"
+              size="lg"
               type="submit"
-              className={css.submitButton}
               disabled={mutation.isPending}
+              loadingText="Зберігається..."
+              className={css.fullWidth}
             >
-              {mutation.isPending ? 'Зберігається...' : 'Зберегти'}
-            </button>
+              Зберегти
+            </Button>
           </div>
         </fieldset>
       </Form>

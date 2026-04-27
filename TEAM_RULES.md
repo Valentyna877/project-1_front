@@ -233,7 +233,7 @@ git merge main
   --color-primary: #000000;
   --color-accent: #ff6b08;
   --color-bg: #ffffff;
-  --font-main: "Roboto", system-ui, sans-serif;
+  --font-main: 'Roboto', system-ui, sans-serif;
 }
 
 body {
