@@ -8,6 +8,7 @@ export default function OnboardingPage() {
     return (
         <div className={`${css.page} container`}>
             <div className={css.formSide}>
+                <img src="../../../../../public/logo.png" alt='Лелека лого'/>
                 <h2 className={css.header}>Давайте познаймимось ближче</h2>
                 {/* <OnboardingForm /> */}
                 <OnboardingClient/>
