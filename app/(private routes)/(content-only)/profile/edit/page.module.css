@@ -1,0 +1,25 @@
+.page {
+  display: flex;
+  height: 100vh;
+}
+
+.formSide {
+  width: 50%;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.imageSide {
+  width: 50%;
+}
+
+.header {
+  font-size: 48px;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  text-align: center;
+  margin-bottom: 32px;
+  width: 480px;
+}
