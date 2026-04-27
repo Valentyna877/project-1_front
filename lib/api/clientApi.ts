@@ -1,12 +1,15 @@
 import { User } from "@/types/user";
 import { nextServer } from "./api";
 import { WeekInfo } from "@/types/weeks";
+import { GetAllTasks, TaskDone } from "@/types/task";
 
 export interface UserRegCreds {
   name: string;
   email: string;
   password: string;
 }
+
+
 
 export type UserLogCreds = Omit<UserRegCreds, "name">;
 
@@ -47,3 +50,14 @@ export const weekInfoPublic = async () => {
   return data;
 }
 
+export const getAllTask = async () => {
+  const { data } = await nextServer.get<GetAllTasks>('/tasks');
+  
+  return data;
+}
+
+export const checkedTask = async (isDone: boolean) => {
+  const { data } = await nextServer.patch<TaskDone>('/tasks/taskId', isDone)
+  
+  return data
+}
