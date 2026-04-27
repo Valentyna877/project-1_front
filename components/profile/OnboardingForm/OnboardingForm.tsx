@@ -1,9 +1,9 @@
-import OnboardingClient from "./OnboardingClient";
+// import OnboardingClient from "./OnboardingClient";
 
-export default function OnboardingForm() {
-    return (
-        <>
-        <OnboardingClient />
-        </>
-    )
-}
+// export default function OnboardingForm() {
+//     return (
+//         <>
+//         <OnboardingClient />
+//         </>
+//     )
+// }

@@ -1,7 +1,6 @@
 'use client'
 
-import { Formik, Form, Field, FormikHelpers, ErrorMessage } from 'formik';
-import { useState } from 'react';
+import { Formik, Form, FormikHelpers, ErrorMessage } from 'formik';
 import AvatarPicker from '@/components/common/AvatarPicker/AvatarPicker';
 import CalendarDatePicker from '@/components/common/CalendarDatePicker/CalendarDatePicker';
 import { FORTY_WEEKS, validationSchema } from './OnboardingValidation';
@@ -10,6 +9,8 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import css from './OnboardingClient.module.css'
 import { nextServer } from '@/lib/api/api';
+import { useAuthStore } from '@/lib/store/authStore';
+import { getUser } from '@/lib/api/clientApi';
 
 interface OnboardingFormValues{
     gender: string;
@@ -22,8 +23,9 @@ const initialValues: OnboardingFormValues = {
 }
 
 export default function OnboardingClient() {
+    const setUser = useAuthStore((state) => state.setUser);
+    const user = useAuthStore((state) => state.user);
     const router = useRouter();
-    const [avatarFile, setAvatarFile] = useState<File | null>(null);
     const today = new Date();
     const maxDate = new Date(Date.now() + FORTY_WEEKS);
     const handleSubmit = async (
@@ -31,15 +33,22 @@ export default function OnboardingClient() {
         actions: FormikHelpers<OnboardingFormValues>
     ) => {
         try {
-            if (avatarFile) {
-                const formData = new FormData();
-                formData.append('avatar', avatarFile);
-                await nextServer.patch('/users/me/avatar', formData);
-            }
+            // if (avatarFile) {
+            //     const formData = new FormData();
+            //     formData.append('avatar', avatarFile);
+                // await nextServer.patch('/users/me/avatar', formData);
+            //     const { data } = await nextServer.patch('/users/me', {
+            //         gender: values.gender || null,
+            //         date: values.dueDate,
+            //     });
+            //     setUser(data);
+            // }
             await nextServer.patch('/users/me', {
                 gender: values.gender === 'unknown' ? null : values.gender,
                 date: values.dueDate,
             });
+            const updateUser = await getUser();
+            setUser(updateUser);
             actions.resetForm();
             router.push('/');
         } catch {
@@ -49,7 +58,7 @@ export default function OnboardingClient() {
     return (
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
             <Form className={css.form}>
-                <AvatarPicker onFileChange={(file) => setAvatarFile(file)} />
+                <AvatarPicker profilePhotoUrl={user?.avatar}/>
                 <GenderSelect />
                 <ErrorMessage name='gender' component='p'/>
                 <CalendarDatePicker minDate={today} maxDate={maxDate} />

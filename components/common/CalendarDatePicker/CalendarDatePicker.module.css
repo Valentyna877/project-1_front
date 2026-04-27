@@ -1,3 +1,10 @@
+.dateWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
 .label {
   font-family: "Lato", sans-serif;
   font-size: 16px;
@@ -11,5 +18,4 @@
   width: 480px;
   height: 40px;
   background-color: var(--color-neutral-lightest);
-  margin-bottom: 32px;
 }

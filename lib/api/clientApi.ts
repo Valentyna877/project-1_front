@@ -10,7 +10,7 @@ export interface UserRegCreds {
 export type UserLogCreds = Omit<UserRegCreds, "name">;
 
 export const getUser = async (): Promise<User> => {
-  const { data } = await nextServer.get<User>("/users/current");
+  const { data } = await nextServer.get<User>("/users/me");
   return data;
 };
 
@@ -32,4 +32,14 @@ export const loginUser = async (user: UserLogCreds): Promise<User> => {
 
 export const logoutUser = async (): Promise<void> => {
   await nextServer.post("/auth/logout");
+};
+
+export const updateAvatar = async (file: File): Promise<{ url: string }> => {
+  const formData = new FormData();
+  formData.append("avatar", file);
+  const { data } = await nextServer.patch<{ url: string }>(
+    "/users/me/avatar",
+    formData,
+  );
+  return data;
 };

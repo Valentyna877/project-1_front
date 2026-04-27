@@ -1,13 +1,16 @@
-import OnboardingForm from '@/components/profile/OnboardingForm/OnboardingForm';
+// import OnboardingForm from '@/components/profile/OnboardingForm/OnboardingForm';
+import '@/styles/container.css'
 import css from './page.module.css';
 import { IMG_VARS } from '@/app/imgVars';
+import OnboardingClient from '@/components/profile/OnboardingForm/OnboardingClient';
 
 export default function OnboardingPage() {
     return (
-        <div className={css.page}>
+        <div className={`${css.page} container`}>
             <div className={css.formSide}>
                 <h2 className={css.header}>Давайте познаймимось ближче</h2>
-                <OnboardingForm />
+                {/* <OnboardingForm /> */}
+                <OnboardingClient/>
             </div>
             <div className={css.imageSide}>
                 <img src={IMG_VARS.PLANT1X}

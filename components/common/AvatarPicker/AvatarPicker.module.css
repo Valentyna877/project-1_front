@@ -19,8 +19,8 @@
 
 .avatarWrapper {
   position: relative;
-  width: 132px;
-  height: 132px;
+  width: 164px;
+  height: 164px;
   border-radius: 50%;
   overflow: hidden;
 }
@@ -37,8 +37,8 @@
 
 .changeButton {
   font-family: "Lato", sans-serif;
-  width: 335px;
-  height: 38px;
+  width: 179px;
+  height: 42px;
   border-bottom: 4px solid var(--opacity-neutral-darkest-15);
   border-radius: 100px;
   padding: 8px 20px;
