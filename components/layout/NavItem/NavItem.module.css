@@ -1,0 +1,50 @@
+.nav_item {
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav_item_active {
+  background-color: var(--active-bg);
+  border-radius: 8px;
+}
+
+.boy {
+  --active-bg: var(--color-french-pass-lighter);
+}
+
+.girl {
+  --active-bg: var(--color-pastel-pink-lighter);
+}
+
+.neutral {
+  --active-bg: var(--color-oasis-lighter);
+}
+
+@media screen and (min-width: 1440px) {
+  .nav_item {
+    font-size: 16px;
+    outline: none;
+  }
+}
+
+.nav_item_label {
+  position: relative;
+}
+
+.nav_item_label::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 1px;
+  background-color: var(--color-neutral-darkest);
+  transition: width 0.3s ease-in-out;
+}
+
+.nav_item:hover .nav_item_label::after,
+.nav_item:focus-visible .nav_item_label::after {
+  width: 100%;
+}
