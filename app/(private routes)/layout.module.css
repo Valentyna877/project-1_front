@@ -1,0 +1,15 @@
+/* desktop */
+@media (min-width: 1440px) {
+  .layout {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .main {
+    width: 100%;
+  }
+
+  .mobile_only {
+    display: none;
+  }
+}
