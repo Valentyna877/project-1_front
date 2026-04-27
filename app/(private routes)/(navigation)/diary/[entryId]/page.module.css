@@ -1,0 +1,21 @@
+.page {
+  padding: 16px;
+}
+
+.loading {
+  padding: 16px;
+  font-size: 14px;
+  color: #888;
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .page {
+    display: none;
+  }
+}
