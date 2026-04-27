@@ -44,3 +44,13 @@ export const createTask = async (newTask: NewTask) => {
   const response = await nextServer.post<Task>('/tasks', newTask);
   return response.data;
 };
+
+export const updateAvatar = async (file: File): Promise<{ url: string }> => {
+  const formData = new FormData();
+  formData.append("avatar", file);
+  const { data } = await nextServer.patch<{ url: string }>(
+    "/users/me/avatar",
+    formData,
+  );
+  return data;
+};
