@@ -24,6 +24,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 16px;
 }
 
 .addTaskBtn {
@@ -101,6 +102,33 @@
     font-size: 14px;
     line-height: 150%;
 }
+
+
+
+.emptyTaskSubTitle {
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 160%;
+    color: var(--color-scheme-text);
+    margin-bottom: 4px;
+} 
+
+.emptyTaskText {
+    font-weight: 400;
+    line-height: 150%;
+    margin-bottom: 16px;
+}
+
+.emptyTaskBtn {
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 160%;
+    color: var(--color-scheme-text);
+}
+
+
 
 @media only screen and (min-width: 768px) {
     .taskCardBox {

@@ -1,14 +1,14 @@
 import css from "./MomTipCard.module.css";
 
-export default function MomTipCard() {
+type Props = {
+  momDailyTips: string;
+};
+
+export default function MomTipCard({ momDailyTips }: Props) {
   return (
     <div className={css.momTipBox}>
       <h2>Поррада для мами</h2>
-      <p className={css.momTipText}>
-        {
-          "Не забувайте про зволоження шкіри живота та стегон спеціальними олійками, щоб попередити появу розтяжок."
-        }
-      </p>
+      <p className={css.momTipText}>{momDailyTips}</p>
     </div>
   );
 }

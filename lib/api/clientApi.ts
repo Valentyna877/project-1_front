@@ -1,5 +1,6 @@
 import { User } from "@/types/user";
 import { nextServer } from "./api";
+import { WeekInfo } from "@/types/weeks";
 
 export interface UserRegCreds {
   name: string;
@@ -33,3 +34,16 @@ export const loginUser = async (user: UserLogCreds): Promise<User> => {
 export const logoutUser = async (): Promise<void> => {
   await nextServer.post("/auth/logout");
 };
+
+export const weekInfo = async () => {
+  const { data } = await nextServer.get<WeekInfo>('/weeks');
+
+  return data;
+}
+
+export const weekInfoPublic = async () => {
+  const { data } = await nextServer.get<WeekInfo>('/weeks/demo');
+
+  return data;
+}
+

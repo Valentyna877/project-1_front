@@ -22,25 +22,17 @@
     font-size: 14px;
     line-height: 150%;
     color: var(--color-scheme-text);
+    margin-bottom: 24px;
 }
 
 .feelingBtn {
-    border-bottom: 4px solid var(--color-scheme-accent);
-    border-radius: 100px;
-    padding: 10px 24px;
-    background-color: var(--color-scheme-foreground-alt);
-    margin-top: 24px;
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 160%;
+    color: var(--color-scheme-text);
 }
 
-.feelingBtn:hover {
-    border-bottom: 4px solid var(--opacity-neutral-darkest-15);
-    background-color: var(--color-scheme-foreground);
-}
-
-.feelingBtn:active {
-    border-bottom: none;
-    background-color: var(--color-scheme-accent);
-}
 
 @media only screen and (min-width: 768px) {
     .feelingCheckCardBox {
