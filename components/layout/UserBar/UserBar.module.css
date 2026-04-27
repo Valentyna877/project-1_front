@@ -1,0 +1,33 @@
+.user_bar_container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.user_bar_info {
+  display: flex;
+  gap: 8px;
+}
+
+.userbar_logout_btn {
+  padding: 8px;
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+}
+
+.userbar_username {
+  font-weight: var(--fw-medium);
+}
+
+.userbar_username,
+.userbar_useremail {
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+@media screen and (min-width: 1440px) {
+  .userbar_username,
+  .userbar_useremail {
+    font-size: var(--fz-14);
+  }
+}
