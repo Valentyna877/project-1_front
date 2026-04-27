@@ -3,12 +3,17 @@ import '@/styles/container.css'
 import css from './page.module.css';
 import { IMG_VARS } from '@/app/imgVars';
 import OnboardingClient from '@/components/profile/OnboardingForm/OnboardingClient';
+import Link from 'next/link';
 
 export default function OnboardingPage() {
     return (
         <div className={`${css.page} container`}>
             <div className={css.formSide}>
-                <img src="../../../../../public/logo.png" alt='Лелека лого'/>
+            <Link href="/" className={css.header_logo_link}>
+              <svg className={css.header_logo}>
+                <use href="/sprite.svg#icon-logo"></use>
+              </svg>
+            </Link>
                 <h2 className={css.header}>Давайте познаймимось ближче</h2>
                 {/* <OnboardingForm /> */}
                 <OnboardingClient/>
