@@ -33,3 +33,13 @@ export const loginUser = async (user: UserLogCreds): Promise<User> => {
 export const logoutUser = async (): Promise<void> => {
   await nextServer.post("/auth/logout");
 };
+
+export const updateAvatar = async (file: File): Promise<{ url: string }> => {
+  const formData = new FormData();
+  formData.append("avatar", file);
+  const { data } = await nextServer.patch<{ url: string }>(
+    "/users/me/avatar",
+    formData,
+  );
+  return data;
+};

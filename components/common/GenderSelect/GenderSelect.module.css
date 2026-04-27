@@ -1,0 +1,42 @@
+.genderWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.label {
+  font-family: "Lato", sans-serif;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.control {
+  border: 1px solid var(--opacity-transparent);
+  border-radius: 12px;
+  padding: 8px 12px;
+  width: 480px;
+  height: 40px;
+  background-color: var(--color-neutral-lightest);
+}
+
+.placeholder {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--color-neutral);
+}
+
+.indicatorSeparator {
+  display: none;
+}
+
+.menu {
+  border: 1px solid var(--opacity-white-15);
+  border-radius: 0 0 12px 12px;
+  padding: 8px 0px;
+  width: 480px;
+  height: 226px;
+  background-color: var(--color-neutral);
+}
