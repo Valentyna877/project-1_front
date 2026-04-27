@@ -1,0 +1,42 @@
+.confirmationModal {
+    --modal-max-w: 328px;
+    --modal-padding-y: 40px;
+    --modal-padding-x: 24px;
+    --modal-overflow: visible;
+}
+
+.confirmationModalTitle {
+margin-bottom: 32px;
+text-align: center;
+font-family: var(--second-family, 'Comfortaa', sans-serif);
+font-weight: var(--fw-medium, 500);
+font-size: 28px;
+line-height: 1.14;
+color: var(--color-scheme-text);
+}
+
+.confirmationModalActions {
+display: flex;
+justify-content: center;
+gap: 12px;
+}
+
+.confirmationModalButton {
+min-width: 104px;
+}
+
+@media (min-width: 768px) {
+.confirmationModal {
+    --modal-max-w: 448px;
+    --modal-padding-y: 48px;
+    --modal-padding-x: 40px;
+}
+
+.confirmationModalTitle {
+font-size: 32px;
+}
+
+.confirmationModalButton {
+min-width: 140px;
+}
+}
