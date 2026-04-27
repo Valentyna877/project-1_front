@@ -1,10 +1,11 @@
-import { loginUser, registerUser, UserLogCreds } from "@/lib/api/clientApi";
+import { loginUser, UserLogCreds } from "@/lib/api/clientApi";
 import css from "./LoginForm.module.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useId } from "react";
 import * as Yup from "yup";
 import { useMutation } from "@tanstack/react-query";
 import { useAuthStore } from "@/lib/store/authStore";
+import Button from "@/components/common/Button/Button";
 
 const initialValues: UserLogCreds = {
   email: "",
@@ -69,7 +70,7 @@ const LoginForm = () => {
           />
           <ErrorMessage name="password" component="span" />
         </div>
-        <button type="submit">Увійти</button>
+        <Button type="submit">Увійти</Button>
       </Form>
     </Formik>
   );

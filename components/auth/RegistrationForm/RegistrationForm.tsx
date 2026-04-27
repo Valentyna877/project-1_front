@@ -5,6 +5,7 @@ import { useId } from "react";
 import * as Yup from "yup";
 import { useMutation } from "@tanstack/react-query";
 import { useAuthStore } from "@/lib/store/authStore";
+import Button from "@/components/common/Button/Button";
 
 const initialValues: UserRegCreds = {
   name: "",
@@ -52,8 +53,8 @@ const RegistrationForm = () => {
       onSubmit={handleSubmit}
       validationSchema={formSchema}
     >
-      <Form>
-        <div>
+      <Form className={css.form}>
+        <div className={css["field-set"]}>
           <label htmlFor={`${fieldId}-title`}>Імʼя*</label>
           <Field
             type="text"
@@ -63,7 +64,7 @@ const RegistrationForm = () => {
           />
           <ErrorMessage name="name" component="span" />
         </div>
-        <div>
+        <div className={css["field-set"]}>
           <label htmlFor={`${fieldId}-email`}>Пошта*</label>
           <Field
             type="email"
@@ -73,7 +74,7 @@ const RegistrationForm = () => {
           />
           <ErrorMessage name="email" component="span" />
         </div>
-        <div>
+        <div className={css["field-set"]}>
           <label htmlFor={`${fieldId}-password`}>Пароль*</label>
           <Field
             type="password"
@@ -83,7 +84,7 @@ const RegistrationForm = () => {
           />
           <ErrorMessage name="password" component="span" />
         </div>
-        <button type="submit">Зареєструватись</button>
+        <Button type="submit">Зареєструватись</Button>
       </Form>
     </Formik>
   );
