@@ -32,7 +32,9 @@ export default function GenderSelect() {
     return (
         <div className={css.genderWrapper}>
             <label className={css.label} htmlFor='gender'>Стать дитини</label>
-            <Select classNames={{
+            <Select instanceId='gender-select'
+                inputId='gender'
+                classNames={{
                 control: () => css.control,
                 placeholder: () => css.placeholder,
                 option: () => css.option,
