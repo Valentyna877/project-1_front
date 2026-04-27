@@ -41,7 +41,6 @@ export default function GenderSelect() {
                 menu: () => css.menu,
                 indicatorSeparator:()=>css.indicatorSeparator,
             }}
-                inputId='gender'
                 options={GENDER}
                 placeholder='Оберіть стать'
                     onChange={(option) => helpers.setValue(option?.value ?? '')}

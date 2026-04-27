@@ -73,6 +73,7 @@ function AvatarPicker({
                         src={previewUrl}
                         alt="Avatar"
                         fill
+                        sizes='100px'
                         className={css.avatarImage}
                     />
                 </div>
