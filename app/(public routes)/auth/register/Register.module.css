@@ -1,13 +1,14 @@
 .section {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 139px 0 139px 0;
 }
 
 .content {
   display: flex;
   flex-direction: column;
-  padding: 139px 0 139px 0;
   width: 100%;
 }
 
@@ -21,4 +22,9 @@
 
 .img {
   display: none;
+}
+
+.redirection a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }

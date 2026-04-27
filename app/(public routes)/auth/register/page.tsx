@@ -6,6 +6,7 @@ import RegistrationForm from "@/components/auth/RegistrationForm/RegistrationFor
 import Image from "next/image";
 import { IMG_VARS } from "@/app/imgVars";
 import clsx from "clsx";
+import Link from "next/link";
 
 const Register = () => {
   return (
@@ -21,6 +22,9 @@ const Register = () => {
         width={500}
         height={500}
       ></Image>
+      <p className={css.redirection}>
+        Вже маєте аккаунт? <Link href={"/app/auth/login"}>Увійти</Link>
+      </p>
     </main>
   );
 };

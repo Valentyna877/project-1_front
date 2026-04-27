@@ -1,11 +1,12 @@
 import { registerUser, UserRegCreds } from "@/lib/api/clientApi";
 import css from "./RegistrationForm.module.css";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, FieldProps, ErrorMessage } from "formik";
 import { useId } from "react";
 import * as Yup from "yup";
 import { useMutation } from "@tanstack/react-query";
 import { useAuthStore } from "@/lib/store/authStore";
 import Button from "@/components/common/Button/Button";
+import clsx from "clsx";
 
 const initialValues: UserRegCreds = {
   name: "",
@@ -56,13 +57,24 @@ const RegistrationForm = () => {
       <Form className={css.form}>
         <div className={css["field-set"]}>
           <label htmlFor={`${fieldId}-title`}>Імʼя*</label>
-          <Field
-            type="text"
-            name="name"
-            id={`${fieldId}-title`}
-            placeholder={"Ваше імʼя"}
-          />
-          <ErrorMessage name="name" component="span" />
+          <Field name="name">
+            {({ field, meta }: FieldProps) => {
+              const hasError = meta.error;
+              return (
+                <>
+                  <input
+                    {...field}
+                    type="text"
+                    id={`${fieldId}-title`}
+                    placeholder={"Ваше імʼя"}
+                    className={`${css.input} ${hasError ? css["input-error"] : ""}`}
+                  ></input>
+
+                  {hasError && <span className={css.span}>{meta.error}</span>}
+                </>
+              );
+            }}
+          </Field>
         </div>
         <div className={css["field-set"]}>
           <label htmlFor={`${fieldId}-email`}>Пошта*</label>
@@ -71,6 +83,7 @@ const RegistrationForm = () => {
             name="email"
             id={`${fieldId}-email`}
             placeholder={"hello@leleka.com"}
+            className={css.input}
           />
           <ErrorMessage name="email" component="span" />
         </div>
@@ -81,6 +94,7 @@ const RegistrationForm = () => {
             name="password"
             id={`${fieldId}-password`}
             placeholder={"********"}
+            className={css.input}
           />
           <ErrorMessage name="password" component="span" />
         </div>
