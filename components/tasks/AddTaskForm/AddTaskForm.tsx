@@ -8,6 +8,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createTask, NewTask } from '@/lib/api/clientApi';
 import Button from '@/components/common/Button/Button';
 import CalendarDatePicker from '@/components/common/CalendarDatePicker/CalendarDatePicker';
+import { toast } from 'sonner';
 
 interface TaskFormProps {
   onClose?: () => void;
@@ -39,7 +40,11 @@ export default function AddTaskForm({ onClose }: TaskFormProps) {
     mutationFn: createTask,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] });
+      toast.success('Завдання успішно створено!');
       onClose?.();
+    },
+    onError: () => {
+      toast.error('Помилка при створенні завдання. Спробуйте ще раз.');
     },
   });
 
