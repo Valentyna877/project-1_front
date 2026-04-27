@@ -11,6 +11,7 @@ import css from './OnboardingClient.module.css'
 import { nextServer } from '@/lib/api/api';
 import { useAuthStore } from '@/lib/store/authStore';
 import { getUser } from '@/lib/api/clientApi';
+import Button from '@/components/common/Button/Button';
 
 interface OnboardingFormValues{
     gender: string;
@@ -63,7 +64,7 @@ export default function OnboardingClient() {
                 <ErrorMessage name='gender' component='p'/>
                 <CalendarDatePicker minDate={today} maxDate={maxDate} />
                 <ErrorMessage name='dueDate' component='p' />
-                <button className={css.submitBtn} type='submit'>Зберегти</button>
+                <Button type='submit'>Зберегти</Button>
             </Form>
         </Formik>
     );
