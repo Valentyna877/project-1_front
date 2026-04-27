@@ -1,3 +1,9 @@
-export default function ContentOnlyLayout({ children }: { children: React.ReactNode }) {
-    return <>{children}</>;
+interface ContentOnlyLayoutProps {
+  children: React.ReactNode;
+}
+
+export default function ContentOnlyLayout({
+  children,
+}: ContentOnlyLayoutProps) {
+  return <>{children}</>;
 }
