@@ -10,7 +10,7 @@ export interface UserRegCreds {
 export type UserLogCreds = Omit<UserRegCreds, "name">;
 
 export const getUser = async (): Promise<User> => {
-  const { data } = await nextServer.get<User>("/users/current");
+  const { data } = await nextServer.get<User>("/users/me");
   return data;
 };
 
