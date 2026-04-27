@@ -74,7 +74,9 @@
         border-radius: 32px;
         padding: 24px;
         width: 642px;
+        height: 421px;
         margin: 32px 32px 24px;
+        overflow: auto;
     }
 
     .babyInfoBox {

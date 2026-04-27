@@ -50,6 +50,16 @@ export const weekInfoPublic = async () => {
   return data;
 }
 
+export const updateAvatar = async (file: File): Promise<{ url: string }> => {
+  const formData = new FormData();
+  formData.append("avatar", file);
+  const { data } = await nextServer.patch<{ url: string }>(
+    "/users/me/avatar",
+    formData,
+  );
+  return data;
+};
+
 export const getAllTask = async () => {
   const { data } = await nextServer.get<GetAllTasks>('/tasks');
   
@@ -57,9 +67,8 @@ export const getAllTask = async () => {
 }
 
 export const checkedTask = async (isDone: boolean) => {
-  const { data } = await nextServer.patch<TaskDone>('/tasks/taskId', isDone)
+  const { data } = await nextServer.patch<TaskDone>('/tasks/taskId', isDone )
   
   return data
 }
-
 

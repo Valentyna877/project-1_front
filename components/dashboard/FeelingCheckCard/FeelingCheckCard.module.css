@@ -44,7 +44,9 @@
 @media only screen and (min-width: 1440px) {
     .feelingCheckCardBox {
         width: 390px;
+        height: 210px;
         margin: 0 32px 32px 0;
+        overflow: auto;
     }
 
     .feelingSubtitle {

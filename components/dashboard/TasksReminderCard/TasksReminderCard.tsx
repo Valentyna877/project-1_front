@@ -3,11 +3,10 @@ import css from "./TasksReminderCard.module.css";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { checkedTask, getAllTask } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
-import { Task } from "@/types/task";
+import { redirect } from "next/navigation";
 
 export default function TasksReminderCard() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-
   const { data, isLoading, isError } = useQuery({
     queryKey: ["task"],
     queryFn: getAllTask,
@@ -34,25 +33,47 @@ export default function TasksReminderCard() {
     taskMutation.mutate(isDone);
   };
 
-  if (!data) {
-    return "Error";
-  }
+  const handleModalClick = () => {
+    if (isAuthenticated) {
+      redirect("Modal");
+    } else {
+      redirect("/auth/login");
+    }
+  };
 
-  const tasks = data.result;
+  if (!data) {
+    return (
+      <div className={css.taskCardBox}>
+        <div className={css.taskTitleBox}>
+          <h2>Важливі завдання</h2>
+          <button className={css.addTaskBtn} onClick={handleModalClick}>
+            <svg width={24} height={24}>
+              <use href="/sprite.svg#icon-add_circle" />
+            </svg>
+          </button>
+        </div>
+        <p className={css.emptyTaskSubTitle}>Наразі немає жодних завдань</p>
+        <p className={css.emptyTaskText}>Створіть мершій нове завдання!</p>
+        <Button className={css.emptyTaskBtn} onClick={handleModalClick}>
+          Створити завдання
+        </Button>
+      </div>
+    );
+  }
 
   return (
     <div className={css.taskCardBox}>
       <div className={css.taskTitleBox}>
         <h2>Важливі завдання</h2>
-        <button className={css.addTaskBtn}>
+        <button className={css.addTaskBtn} onClick={handleModalClick}>
           <svg width={24} height={24}>
             <use href="/sprite.svg#icon-add_circle" />
           </svg>
         </button>
       </div>
-      {tasks.length > 0 ? (
+      {data?.result.length > 0 ? (
         <ul>
-          {tasks.map((task) => (
+          {data.result.map((task) => (
             <li key={task._id} className={css.taskItem}>
               <p className={css.taskItemTime}>{task.data}</p>
               <div className={css.taskCustomCheckbox}>
@@ -62,6 +83,7 @@ export default function TasksReminderCard() {
                   type="checkbox"
                   name="taskCheckbox"
                   id={task._id}
+                  // checked={task.isDone}
                 />
                 <label className={css.labelCheckbox} htmlFor={task._id}>
                   <span className={css.customCheckbox}>
@@ -79,7 +101,9 @@ export default function TasksReminderCard() {
         <div>
           <p className={css.emptyTaskSubTitle}>Наразі немає жодних завдань</p>
           <p className={css.emptyTaskText}>Створіть мершій нове завдання!</p>
-          <Button className={css.emptyTaskBtn}>Створити завдання</Button>
+          <Button className={css.emptyTaskBtn} onClick={handleModalClick}>
+            Створити завдання
+          </Button>
         </div>
       )}
     </div>

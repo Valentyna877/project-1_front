@@ -26,7 +26,9 @@
 @media only screen and (min-width: 1440px) {
     .momTipBox {
         width: 642px;
+        height: 138px;
         margin: 0 32px 32px;
+        overflow: auto;
     }
 
     .momTipText {
