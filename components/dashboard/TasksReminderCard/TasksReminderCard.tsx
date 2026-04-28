@@ -5,8 +5,10 @@ import { checkedTask, getAllTask } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
 import { redirect } from "next/navigation";
 import AddTaskModal from "@/components/tasks/AddTaskModal/AddTaskModal";
+import { useState } from "react";
 
 export default function TasksReminderCard() {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const { data, isLoading, isError } = useQuery({
     queryKey: ["task"],
@@ -34,11 +36,16 @@ export default function TasksReminderCard() {
     taskMutation.mutate(isDone);
   };
 
-  const handleModalClick = () => {
+  const handleOpenModal = () => {
     if (isAuthenticated) {
+      setIsOpen(true);
     } else {
       redirect("/auth/login");
     }
+  };
+
+  const handleCloseModal = () => {
+    setIsOpen(false);
   };
 
   if (!data) {
@@ -46,7 +53,7 @@ export default function TasksReminderCard() {
       <div className={css.taskCardBox}>
         <div className={css.taskTitleBox}>
           <h2>Важливі завдання</h2>
-          <button className={css.addTaskBtn} onClick={handleModalClick}>
+          <button className={css.addTaskBtn} onClick={handleOpenModal}>
             <svg width={24} height={24}>
               <use href="/sprite.svg#icon-add_circle" />
             </svg>
@@ -54,7 +61,7 @@ export default function TasksReminderCard() {
         </div>
         <p className={css.emptyTaskSubTitle}>Наразі немає жодних завдань</p>
         <p className={css.emptyTaskText}>Створіть мершій нове завдання!</p>
-        <Button className={css.emptyTaskBtn} onClick={handleModalClick}>
+        <Button className={css.emptyTaskBtn} onClick={handleOpenModal}>
           Створити завдання
         </Button>
       </div>
@@ -65,7 +72,7 @@ export default function TasksReminderCard() {
     <div className={css.taskCardBox}>
       <div className={css.taskTitleBox}>
         <h2>Важливі завдання</h2>
-        <button className={css.addTaskBtn} onClick={handleModalClick}>
+        <button className={css.addTaskBtn} onClick={handleOpenModal}>
           <svg width={24} height={24}>
             <use href="/sprite.svg#icon-add_circle" />
           </svg>
@@ -101,12 +108,12 @@ export default function TasksReminderCard() {
         <div>
           <p className={css.emptyTaskSubTitle}>Наразі немає жодних завдань</p>
           <p className={css.emptyTaskText}>Створіть мершій нове завдання!</p>
-          <Button className={css.emptyTaskBtn} onClick={handleModalClick}>
+          <Button className={css.emptyTaskBtn} onClick={handleOpenModal}>
             Створити завдання
           </Button>
         </div>
       )}
-      <AddTaskModal isOpen={isOpen} onClose={}></AddTaskModal>
+      <AddTaskModal isOpen={isOpen} onClose={handleCloseModal}></AddTaskModal>
     </div>
   );
 }
