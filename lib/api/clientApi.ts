@@ -10,10 +10,6 @@ export interface UserRegCreds {
   password: string;
 }
 
-
-
-
-
 export type UserLogCreds = Omit<UserRegCreds, 'name'>;
 
 export const getUser = async (): Promise<User> => {
@@ -77,11 +73,10 @@ export const getAllTask = async () => {
   const { data } = await nextServer.get<GetAllTasks[]>("/tasks");
 
   return data;
-};
+}
 
-export const checkedTask = async (isDone: boolean) => {
-  const { data } = await nextServer.patch<TaskDone>('/tasks/taskId', isDone )
+export const checkedTask = async (status: TaskDone) => {
+  const { data } = await nextServer.patch<TaskDone>('/tasks/status', status )
   
   return data
 }
-
