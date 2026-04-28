@@ -78,9 +78,9 @@ export default function TasksReminderCard() {
           </svg>
         </button>
       </div>
-      {data?.result?.length > 0 ? (
+      {data.length > 0 ? (
         <ul>
-          {data.result.map((task) => (
+          {data.map((task) => (
             <li key={task._id} className={css.taskItem}>
               <p className={css.taskItemTime}>{task.date}</p>
               <div className={css.taskCustomCheckbox}>

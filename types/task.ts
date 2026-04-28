@@ -1,13 +1,12 @@
-export interface GetTask {
+
+export interface GetAllTasks {
     _id: string;
     name: string;
     date: string;
     isDone: boolean;
-}
-
-export interface GetAllTasks {
-    result: Array<GetTask>;
 } 
+
+
 
 export interface TaskDone {
     isDone: boolean;
