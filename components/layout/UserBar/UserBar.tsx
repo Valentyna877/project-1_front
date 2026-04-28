@@ -31,7 +31,7 @@ export default function UserBar() {
           width={40}
           height={40}
           className={css.avatar}
-                  /> */}
+        /> */}
 
         <div>
           <div className={css.userbar_username}>{user.name}</div>
