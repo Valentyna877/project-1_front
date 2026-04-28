@@ -1,0 +1,28 @@
+'use client';
+
+import Modal from '@/components/common/Modal/Modal'; // Шлях до каркасу тімліда
+import { AddDiaryEntryForm } from '../AddDiaryEntryForm/AddDiaryEntryForm';
+import s from './AddDiaryEntryModal.module.css';
+
+interface Props {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const AddDiaryEntryModal = ({ isOpen, onClose }: Props) => {
+  return (
+    <Modal 
+      isOpen={isOpen} 
+      onClose={onClose}
+      modalClassName={s.modalWrapper}
+    >
+      <div className={s.container}>
+        <h2 className={s.title}>Новий запис</h2>
+        {/* Вставляємо нашу форму */}
+        <AddDiaryEntryForm onClose={onClose} />
+      </div>
+    </Modal>
+  );
+};
+
+export default AddDiaryEntryModal;
