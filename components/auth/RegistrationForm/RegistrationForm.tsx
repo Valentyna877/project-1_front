@@ -1,6 +1,6 @@
 import { registerUser, UserRegCreds } from "@/lib/api/clientApi";
 import css from "./RegistrationForm.module.css";
-import { Formik, Form, Field, FieldProps, ErrorMessage } from "formik";
+import { Formik, Form, Field, FieldProps } from "formik";
 import { useId } from "react";
 import * as Yup from "yup";
 import { useMutation } from "@tanstack/react-query";
