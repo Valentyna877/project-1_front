@@ -25,9 +25,9 @@ export default function CalendarDatePicker({
         id="dueDate"
         selected={field.value ? new Date(field.value) : null}
         onChange={(date: Date | null) => helpers.setValue(date)}
-        placeholderText="Оберіть дату пологів"
         minDate={minDate}
         maxDate={maxDate}
+        placeholderText='Оберіть дату'
       />
     </div>
   );
