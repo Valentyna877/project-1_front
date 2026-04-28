@@ -32,20 +32,26 @@ export default function GenderSelect() {
     return (
         <div className={css.genderWrapper}>
             <label className={css.label} htmlFor='gender'>Стать дитини</label>
-            <Select instanceId='gender-select'
+            <Select
+                unstyled
+                instanceId='gender-select'
                 inputId='gender'
                 classNames={{
-                control: () => css.control,
-                placeholder: () => css.placeholder,
-                option: () => css.option,
-                menu: () => css.menu,
-                indicatorSeparator:()=>css.indicatorSeparator,
-            }}
+                    control: ({ selectProps }) => selectProps.menuIsOpen ? css.controlOpen : css.control,
+                    option: ({ isFocused }) => isFocused ? css.optionFocused : css.option,
+                    menu: () => css.menu,
+                    indicatorSeparator: () => css.indicatorSeparator,
+                    dropdownIndicator: ({ selectProps }) => selectProps.menuIsOpen ? css.arrowUp : css.arrowDown,
+                    input: () => css.input,
+                    menuList: () => css.menuList,
+                    singleValue: () => css.singleValue,
+                    placeholder: ({ selectProps }) => selectProps.menuIsOpen ? css.placeholderOpen : css.placeholder,
+                }}
                 options={GENDER}
                 placeholder='Оберіть стать'
-                    onChange={(option) => helpers.setValue(option?.value ?? '')}
+                onChange={(option) => helpers.setValue(option?.value ?? '')}
                 value={GENDER.find(g => g.value === field.value) ?? null}
-                />
-            </div>
-        );
+            />
+        </div>
+    );
     }

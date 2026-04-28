@@ -74,6 +74,7 @@ export default function CalendarDatePicker({
         onChange={(date: Date | null) => helpers.setValue(date)}
         minDate={minDate}
         maxDate={maxDate}
+        placeholderText='Оберіть дату'
       />
     </div>
   );
