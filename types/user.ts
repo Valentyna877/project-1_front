@@ -5,8 +5,8 @@ export interface User {
   email: string;
   name: string;
   avatar: string;
-  dueDate?: string | null;
-  gender?: childGender;
+  dueDate?: string;
+  gender?: childGender | null;
   createdAt: string;
   updatedAt: string;
 }
