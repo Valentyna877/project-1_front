@@ -37,7 +37,7 @@ const RegistrationForm = () => {
     mutationFn: registerUser,
     onSuccess: (data) => {
       setUser(data);
-      router.push("/app/profile/edit");
+      router.push("/profile/edit");
     },
     onError: () => {
       console.log("має бути пуш повідомлення з помилкою");
