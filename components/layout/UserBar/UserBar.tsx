@@ -1,21 +1,22 @@
-"use client";
+'use client';
 
-import css from "./UserBar.module.css";
-import Image from "next/image";
-import { useAuthStore } from "@/lib/store/authStore";
-import { useSidebarStore } from "@/lib/store/sidebarStore";
-import { useRouter } from "next/navigation";
-import { logoutUser } from "@/lib/api/clientApi";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import ConfirmationModal from "@/components/common/ConfirmationModal/ConfirmationModal";
-import Loader from "@/components/common/Loader/Loader";
-import { createPortal } from "react-dom";
+import css from './UserBar.module.css';
+import Image from 'next/image';
+import { useAuthStore } from '@/lib/store/authStore';
+import { useSidebarStore } from '@/lib/store/sidebarStore';
+import { useRouter } from 'next/navigation';
+import { logoutUser } from '@/lib/api/clientApi';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import ConfirmationModal from '@/components/common/ConfirmationModal/ConfirmationModal';
+import Loader from '@/components/common/Loader/Loader';
+import { createPortal } from 'react-dom';
 
 export default function UserBar() {
   const { user, clearIsAuthenticated } = useAuthStore();
   const { isLogoutModalOpen, openLogoutModal, closeLogoutModal } =
     useSidebarStore();
-  const loaderTheme = user?.gender ?? "default";
+  const loaderTheme: 'boy' | 'girl' | 'default' =
+    user?.gender === 'boy' || user?.gender === 'girl' ? user.gender : 'default';
 
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -24,10 +25,10 @@ export default function UserBar() {
     onSuccess: () => {
       queryClient.clear();
       clearIsAuthenticated();
-      router.push("/");
+      router.push('/');
     },
     onError: (err) => {
-      console.error("Logout error", err);
+      console.error('Logout error', err);
     },
   });
 
@@ -44,7 +45,7 @@ export default function UserBar() {
       {isPending &&
         createPortal(
           <Loader theme={loaderTheme} variant="global" />,
-          document.body,
+          document.body
         )}
 
       <div className={css.user_bar_container}>
@@ -73,12 +74,12 @@ export default function UserBar() {
 
       <ConfirmationModal
         isOpen={isLogoutModalOpen}
-        title={"Ви точно хочете вийти?"}
-        confirmButtonText={"Так"}
-        cancelButtonText={"Ні"}
+        title={'Ви точно хочете вийти?'}
+        confirmButtonText={'Так'}
+        cancelButtonText={'Ні'}
         onConfirm={handleConfirm}
         onCancel={closeLogoutModal}
-        confirmButtonVariant={"logout"}
+        confirmButtonVariant={'logout'}
       />
     </>
   );
