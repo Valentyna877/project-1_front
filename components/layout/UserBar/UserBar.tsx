@@ -24,13 +24,14 @@ export default function UserBar() {
   return (
     <div className={css.user_bar_container}>
       <div className={css.user_bar_info}>
-        <Image
-          src={user.avatar || '/avatar.jpg'}
+        {/* <Image
+          "/avatar.jpg" це тимчасо щоб бачити хоч якусь аватарку
+          src={user.avatar || "/avatar.jpg"}
           alt="avatar"
           width={40}
           height={40}
           className={css.avatar}
-        />
+                  /> */}
 
         <div>
           <div className={css.userbar_username}>{user.name}</div>
