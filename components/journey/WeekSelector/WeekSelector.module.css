@@ -2,19 +2,14 @@
   display: flex;
   gap: 16px;
   overflow-x: auto;
-  padding: 4px 4px 14px;
+  padding: 4px;
   scroll-padding-inline: 32px;
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-pastel-pink-light) transparent;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .wrapper::-webkit-scrollbar {
-  height: 6px;
-}
-
-.wrapper::-webkit-scrollbar-thumb {
-  background: var(--color-pastel-pink-light);
-  border-radius: 999px;
+  display: none;
 }
 
 .week {

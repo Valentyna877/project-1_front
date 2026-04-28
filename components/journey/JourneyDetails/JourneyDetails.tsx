@@ -1,11 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  getBabyWeek,
-  getMomWeek,
-  WeekDataMissingError,
-} from "@/lib/api/clientApi";
+import { isAxiosError } from "axios";
+import { getBabyWeek, getMomWeek } from "@/lib/api/clientApi";
 import { BabyState, MomState } from "@/types/weeks";
 import Tabs from "../Tabs/Tabs";
 import BabyJourney from "../BabyJourney/BabyJourney";
@@ -40,7 +37,9 @@ const JourneyDetails = ({ weekNumber }: JourneyDetailsProps) => {
         setBabyData(baby);
         setMomData(mom);
       } catch (err) {
-        setStatus(err instanceof WeekDataMissingError ? "missing" : "error");
+        const isMissing =
+          isAxiosError(err) && err.response?.status === 404;
+        setStatus(isMissing ? "missing" : "error");
       } finally {
         setIsLoading(false);
       }
@@ -56,7 +55,7 @@ const JourneyDetails = ({ weekNumber }: JourneyDetailsProps) => {
         {isLoading && <p className={styles.loader}>Завантаження…</p>}
         {!isLoading && status === "missing" && (
           <p className={styles.empty}>
-            Для тижня {weekNumber} даних поки немає. Спробуйте інший тиждень.
+            Для тижня {weekNumber} даних поки немає.
           </p>
         )}
         {!isLoading && status === "error" && (

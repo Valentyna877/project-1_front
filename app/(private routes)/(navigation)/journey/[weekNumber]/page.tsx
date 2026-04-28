@@ -1,16 +1,32 @@
+import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
+import { isAxiosError } from "axios";
+import { api } from "@/app/api/api";
+import { WeekInfo } from "@/types/weeks";
 import JourneyPageClient from "@/components/journey/JourneyPageClient/JourneyPageClient";
 
 interface JourneyWeekPageProps {
   params: Promise<{ weekNumber: string }>;
 }
 
-const TOTAL_WEEKS = 40;
-
 export default async function JourneyWeekPage({
   params,
 }: JourneyWeekPageProps) {
   const { weekNumber } = await params;
-  const week = Math.max(1, Math.min(TOTAL_WEEKS, Number(weekNumber)));
+  const week = Number(weekNumber);
 
-  return <JourneyPageClient weekNumber={week} />;
+  try {
+    const cookieStore = await cookies();
+    const res = await api.get<WeekInfo>("/weeks", {
+      headers: { Cookie: cookieStore.toString() },
+    });
+    const currentWeek = res.data.weeks;
+
+    return <JourneyPageClient weekNumber={week} currentWeek={currentWeek} />;
+  } catch (error) {
+    if (isAxiosError(error) && error.response?.status === 401) {
+      redirect("/auth/login");
+    }
+    throw error;
+  }
 }

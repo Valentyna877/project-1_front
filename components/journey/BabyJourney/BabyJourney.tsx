@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { LuSparkles } from "react-icons/lu";
 import { BabyState } from "@/types/weeks";
 import styles from "./BabyJourney.module.css";
 
@@ -32,10 +31,7 @@ const BabyJourney = ({ data }: BabyJourneyProps) => {
         <p>{data.babyActivity}</p>
 
         <div className={styles.fact}>
-          <h3 className={styles.factTitle}>
-            <LuSparkles aria-hidden className={styles.factIcon} />
-            Цікавий факт тижня
-          </h3>
+          <h3 className={styles.factTitle}>Цікавий факт тижня</h3>
           <p className={styles.factText}>{primaryFact}</p>
           {restFacts.length > 0 && (
             <ul className={styles.factList}>
