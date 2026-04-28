@@ -4,6 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { checkedTask, getAllTask } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
 import { redirect } from "next/navigation";
+import AddTaskModal from "@/components/tasks/AddTaskModal/AddTaskModal";
 
 export default function TasksReminderCard() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
@@ -35,7 +36,6 @@ export default function TasksReminderCard() {
 
   const handleModalClick = () => {
     if (isAuthenticated) {
-      redirect("Modal");
     } else {
       redirect("/auth/login");
     }
@@ -106,6 +106,7 @@ export default function TasksReminderCard() {
           </Button>
         </div>
       )}
+      <AddTaskModal isOpen={isOpen} onClose={}></AddTaskModal>
     </div>
   );
 }
