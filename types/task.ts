@@ -11,4 +11,8 @@ export interface GetAllTasks {
 
 export interface TaskDone {
     isDone: boolean;
+}export interface Task {
+  name: string;
+  date: string;
+  isDone: boolean;
 }

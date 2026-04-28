@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import css from "./UserBar.module.css";
-import Image from "next/image";
-import { useAuthStore } from "@/lib/store/authStore";
-import { useEffect } from "react";
+import css from './UserBar.module.css';
+import Image from 'next/image';
+import { useAuthStore } from '@/lib/store/authStore';
+import { useEffect } from 'react';
 
 export default function UserBar() {
   const { user, setUser } = useAuthStore();
