@@ -36,8 +36,6 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
     dueDate: user.dueDate ?? "",
   };
   const router = useRouter();
-  //   const today = new Date();
-  //   const maxDate = new Date(Date.now() + FORTY_WEEKS);
   const today = useMemo(() => new Date(), []);
   const maxDate = useMemo(
     () => new Date(today.getTime() + FORTY_WEEKS),
@@ -48,16 +46,26 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
     actions: FormikHelpers<ProfileEditFormValues>,
   ) => {
     try {
-      await nextServer.patch("/users/me", {
-        gender: values.gender === "unknown" ? null : values.gender,
-        date: values.dueDate,
-      });
+      const payload: Record<string, unknown> = {};
+
+      if (values.gender !== undefined) {
+        payload.gender = values.gender === "unknown" ? null : values.gender;
+      }
+      if (values.dueDate) {
+        payload.date = values.dueDate;
+      }
+
+      if (Object.keys(payload).length > 0) {
+        await nextServer.patch("/users/me", payload);
+      }
+
       const updateUser = await getUser();
+      console.log("updateUser:", updateUser);
       setUser(updateUser);
       actions.resetForm();
       router.push("/");
     } catch {
-      toast.error("Щось пішло не так. Спробуйте ще раз.");
+      toast.error("Помилка при оновленні профілю. Спробуйте ще раз.");
     }
   };
   return (
@@ -108,6 +116,11 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
           <GenderSelect />
           <ErrorMessage name="gender" component="p" />
           <CalendarDatePicker minDate={today} maxDate={maxDate} />
+          {/* <CalendarDatePicker
+            minDate={today}
+            maxDate={maxDate}
+            existingDate={user.dueDate ?? null}
+          /> */}
           <ErrorMessage name="dueDate" component="p" />
           <Button type="button" onClick={() => resetForm()}>
             Відмінити зміни

@@ -1,10 +1,3 @@
-// export interface User {
-//   email: string;
-//   name: string;
-//   avatar: string;
-//   date: Date;
-//   gender: "boy" | "girl" | null;
-// }
 export type childGender = "boy" | "girl" | "unknown";
 
 export interface User {

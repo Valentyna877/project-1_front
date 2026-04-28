@@ -1,6 +1,6 @@
-import { User } from '@/types/user';
-import { nextServer } from './api';
-import { Task } from '@/types/task';
+import { User } from "@/types/user";
+import { nextServer } from "./api";
+import { Task } from "@/types/task";
 import { WeekInfo } from "@/types/weeks";
 import { GetAllTasks, TaskDone } from "@/types/task";
 
@@ -10,34 +10,30 @@ export interface UserRegCreds {
   password: string;
 }
 
-
-
-
-
-export type UserLogCreds = Omit<UserRegCreds, 'name'>;
+export type UserLogCreds = Omit<UserRegCreds, "name">;
 
 export const getUser = async (): Promise<User> => {
-  const { data } = await nextServer.get<User>('/users/me');
+  const { data } = await nextServer.get<User>("/users/me");
   return data;
 };
 
 export const checkSession = async () => {
-  const { data } = await nextServer.get('/auth/refresh');
+  const { data } = await nextServer.get("/auth/refresh");
   return data.success;
 };
 
 export const registerUser = async (user: UserRegCreds): Promise<User> => {
-  const { data } = await nextServer.post<User>('/auth/register', user);
+  const { data } = await nextServer.post<User>("/auth/register", user);
   return data;
 };
 
 export const loginUser = async (user: UserLogCreds): Promise<User> => {
-  const { data } = await nextServer.post<User>('/auth/login', user);
+  const { data } = await nextServer.post<User>("/auth/login", user);
   return data;
 };
 
 export const logoutUser = async (): Promise<void> => {
-  await nextServer.post('/auth/logout');
+  await nextServer.post("/auth/logout");
 };
 
 export interface NewTask {
@@ -47,21 +43,21 @@ export interface NewTask {
 }
 
 export const createTask = async (newTask: NewTask) => {
-  const response = await nextServer.post<Task>('/tasks', newTask);
+  const response = await nextServer.post<Task>("/tasks", newTask);
   return response.data;
 };
 
 export const weekInfo = async () => {
-  const { data } = await nextServer.get<WeekInfo>('/weeks');
+  const { data } = await nextServer.get<WeekInfo>("/weeks");
 
   return data;
-}
+};
 
 export const weekInfoPublic = async () => {
-  const { data } = await nextServer.get<WeekInfo>('/weeks/demo');
+  const { data } = await nextServer.get<WeekInfo>("/weeks/demo");
 
   return data;
-}
+};
 
 export const updateAvatar = async (file: File): Promise<{ url: string }> => {
   const formData = new FormData();
@@ -74,14 +70,13 @@ export const updateAvatar = async (file: File): Promise<{ url: string }> => {
 };
 
 export const getAllTask = async () => {
-  const { data } = await nextServer.get<GetAllTasks[]>('/tasks');
-  
+  const { data } = await nextServer.get<GetAllTasks[]>("/tasks");
+
   return data;
-}
+};
 
 export const checkedTask = async (isDone: boolean) => {
-  const { data } = await nextServer.patch<TaskDone>('/tasks/taskId', isDone )
-  
-  return data
-}
+  const { data } = await nextServer.patch<TaskDone>("/tasks/taskId", isDone);
 
+  return data;
+};
