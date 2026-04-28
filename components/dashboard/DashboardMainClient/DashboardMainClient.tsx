@@ -5,6 +5,7 @@ import GreetingBlock from "@/components/common/GreetingBlock/GreetingBlock";
 import FeelingCheckCard from "@/components/dashboard/FeelingCheckCard/FeelingCheckCard";
 import TasksReminderCard from "@/components/dashboard/TasksReminderCard/TasksReminderCard";
 import DashboardCardClient from "../DashboardCardClient/DashboardCardClient";
+import "@/app/globals.css";
 
 export const DashboardMainClient = () => {
   return (

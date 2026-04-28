@@ -7,7 +7,7 @@ type Props = {
 export default function MomTipCard({ momDailyTips }: Props) {
   return (
     <div className={css.momTipBox}>
-      <h2>Поррада для мами</h2>
+      <h2>Порада для мами</h2>
       <p className={css.momTipText}>{momDailyTips}</p>
     </div>
   );
