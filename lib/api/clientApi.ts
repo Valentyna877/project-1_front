@@ -74,7 +74,7 @@ export const updateAvatar = async (file: File): Promise<{ url: string }> => {
 };
 
 export const getAllTask = async () => {
-  const { data } = await nextServer.get<GetAllTasks>('/tasks');
+  const { data } = await nextServer.get<GetAllTasks[]>('/tasks');
   
   return data;
 }
