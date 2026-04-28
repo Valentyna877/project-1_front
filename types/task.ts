@@ -1,7 +1,7 @@
 export interface Task {
     _id: string;
     name: string;
-    data: string;
+    date: string;
     isDone: boolean;
 }
 
