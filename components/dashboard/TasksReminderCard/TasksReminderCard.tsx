@@ -5,10 +5,11 @@ import { checkedTask, getAllTask } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
 import { redirect } from "next/navigation";
 import AddTaskModal from "@/components/tasks/AddTaskModal/AddTaskModal";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 export default function TasksReminderCard() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [inputChecked, setInputChecked] = useState(false);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const { data, isLoading, isError } = useQuery({
     queryKey: ["task"],
@@ -30,10 +31,9 @@ export default function TasksReminderCard() {
     },
   });
 
-  const isDone = true;
-
-  const handleCheckTask = (isDone: boolean) => {
-    taskMutation.mutate(isDone);
+  const HandleCheckTask = (isDone: boolean, taskId: string) => {
+    taskMutation.mutate({ isDone, taskId });
+    setInputChecked(isDone);
   };
 
   const handleOpenModal = () => {
@@ -85,12 +85,12 @@ export default function TasksReminderCard() {
               <p className={css.taskItemTime}>{task.date}</p>
               <div className={css.taskCustomCheckbox}>
                 <input
-                  onChange={() => handleCheckTask(isDone)}
+                  onChange={() => HandleCheckTask(!task.isDone, task._id)}
                   className={css.defaultCheckbox}
                   type="checkbox"
                   name="taskCheckbox"
                   id={task._id}
-                  // checked={task.isDone}
+                  defaultChecked={inputChecked}
                 />
                 <label className={css.labelCheckbox} htmlFor={task._id}>
                   <span className={css.customCheckbox}>

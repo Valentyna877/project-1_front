@@ -4,7 +4,7 @@
     padding: 24px;
     width: 335px;
     background-color: var(--color-scheme-foreground);
-    margin: 0 20px 32px;
+    margin: 0 20px 32px 0;
 }
 
 .feelingSubtitle { 
@@ -37,7 +37,7 @@
 @media only screen and (min-width: 768px) {
     .feelingCheckCardBox {
         width: 704px;
-        margin: 0 32px 32px;
+        margin: 0 32px 32px 0;
     }
 }
 

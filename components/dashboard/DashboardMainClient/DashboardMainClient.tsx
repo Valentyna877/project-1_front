@@ -10,7 +10,7 @@ import "@/app/globals.css";
 export const DashboardMainClient = () => {
   return (
     <>
-      <div>
+      <div className="container">
         <GreetingBlock />
         <div className={css.dashboardBox}>
           <div>
