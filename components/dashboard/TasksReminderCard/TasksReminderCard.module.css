@@ -1,0 +1,156 @@
+.visuallyHidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    white-space: nowrap;
+    clip-path: inset(100%);
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+}
+
+.taskCardBox {
+    border: 0px solid var(--color-scheme-border);
+    border-radius: 32px;
+    padding: 24px;
+    width: 335px;
+    background-color: var(--color-scheme-foreground);
+    margin: 0 20px 32px;
+}
+
+.taskTitleBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.addTaskBtn {
+    border-radius: 100px;
+    padding: 8px;
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+}
+
+.taskItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.taskCheckbox {
+    display: flex;
+}
+
+.labelCheckbox {
+    display: flex;
+    gap: 16px;
+}
+
+.taskItemTime {
+    font-size: 10px;
+    padding-left: 34px;
+}
+
+.taskItemText {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 160%;
+    color: var(--color-scheme-text);
+}
+
+.defaultCheckbox {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    white-space: nowrap;
+    clip-path: inset(100%);
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+}
+
+.customCheckbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--opacity-transparent);
+    border-radius: 4px;
+    width: 18px;
+    height: 18px;
+    background-color: var(--opacity-neutral-darkest-5);
+    flex-shrink: 0;
+    fill: transparent;
+}
+
+.defaultCheckbox:checked+.labelCheckbox>.customCheckbox {
+    width: 19px;
+    height: 19px;
+    background-color: var(--color-scheme-text);
+    fill: var(--color-scheme-background);
+}
+
+.defaultCheckbox:checked+.labelCheckbox>.taskItemText {
+    text-decoration: line-through;
+    font-size: 14px;
+    line-height: 150%;
+}
+
+
+
+.emptyTaskSubTitle {
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 160%;
+    color: var(--color-scheme-text);
+    margin-bottom: 4px;
+} 
+
+.emptyTaskText {
+    font-weight: 400;
+    line-height: 150%;
+    margin-bottom: 16px;
+}
+
+.emptyTaskBtn {
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 160%;
+    color: var(--color-scheme-text);
+}
+
+
+
+@media only screen and (min-width: 768px) {
+    .taskCardBox {
+        width: 704px;
+        margin: 0 32px 32px;
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    .taskCardBox {
+        overflow: auto;
+        width: 390px;
+        height: 498px;
+        margin: 16px 32px 32px 0;
+    }
+
+        .taskItemTime {
+            font-size: 12px;
+        }
+    
+        .taskItemText {
+            font-size: 14px;;
+        }
+}
+

@@ -1,75 +1,35 @@
 "use client";
 
-import { registerUser, UserCreds } from "@/lib/api/clientApi";
-import css from "./Register.module.css";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useAuthStore } from "@/lib/store/authStore";
+import "@/app/globals.css";
+import css from "./page.module.css";
+import RegistrationForm from "@/components/auth/RegistrationForm/RegistrationForm";
+import Image from "next/image";
+import { IMG_VARS } from "@/app/imgVars";
+import clsx from "clsx";
+import Link from "next/link";
 
 const Register = () => {
-  const router = useRouter();
-  const [error, setError] = useState<Error | null>(null);
-  const setUser = useAuthStore((state) => state.setUser);
-
-  const handleSubmit = async (formdata: FormData) => {
-    try {
-      setError(null);
-      const formValues = Object.fromEntries(formdata) as unknown as UserCreds;
-      console.log(formValues);
-
-      const user = await registerUser(formValues);
-      if (user) setUser(user);
-      //   router.push("/profile");
-    } catch (error) {
-      const apiError = error as Error;
-      setError(apiError);
-    }
-  };
-
   return (
-    <main className={css.mainContent}>
-      <h1 className={css.formTitle}>Sign up</h1>
-      <form action={handleSubmit} className={css.form}>
-        <div className={css.formGroup}>
-          <label htmlFor="name">Name</label>
-          <input
-            id="name"
-            type="text"
-            name="name"
-            className={css.input}
-            required
-          />
+    <main className={clsx("container", css.section)}>
+      <div className={css.content}>
+        <div className={css.header}>
+          <svg className={css["header-logo"]}>
+            <use href="/sprite.svg#icon-logo"></use>
+          </svg>
         </div>
-        <div className={css.formGroup}>
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            name="email"
-            className={css.input}
-            required
-          />
-        </div>
-
-        <div className={css.formGroup}>
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            name="password"
-            className={css.input}
-            required
-          />
-        </div>
-
-        <div className={css.actions}>
-          <button type="submit" className={css.submitButton}>
-            Register
-          </button>
-        </div>
-
-        {error && <p className={css.error}>{`Error: ${error}`}</p>}
-      </form>
+        <h1 className={css.title}>Реєстрація</h1>
+        <RegistrationForm />
+        <Link href={"/auth/login"} className={css.redirection}>
+          Вже маєте аккаунт? <span>Увійти</span>
+        </Link>
+      </div>
+      <Image
+        className={css.img}
+        src={IMG_VARS.STORK1X}
+        alt="stork"
+        width={720}
+        height={900}
+      ></Image>
     </main>
   );
 };
