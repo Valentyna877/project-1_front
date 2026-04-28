@@ -1,15 +1,24 @@
-export interface BabyState {
-  _id: string;
-  weekNumber: number;
-  analogy: string;
+export interface Baby {
+  babyActivity: string;
+  momDailyTips: Array<string>;
   babySize: number;
   babyWeight: number;
   image: string;
-  imageAlt: string;
-  babyActivity: string;
+  analogy: string;
   babyDevelopment: string;
+  imageAlt: string;
+}
+
+export interface WeekInfo {
+  days: number;
+  weeks: number;
+  baby?: Baby;
+}
+
+export interface BabyState extends Baby {
+  _id: string;
+  weekNumber: number;
   interestingFact: string[];
-  momDailyTips: string[];
   isPublished: boolean;
 }
 
@@ -27,11 +36,4 @@ export interface MomState {
   };
   comfortTips: ComfortTip[];
   isPublished: boolean;
-}
-
-export interface WeekSummary {
-  days: number;
-  weeks: number;
-  babyActivity: string;
-  momDailyTips: string[];
 }

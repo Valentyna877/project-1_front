@@ -1,6 +1,8 @@
 import { User } from "@/types/user";
-import { BabyState, MomState, WeekSummary } from "@/types/weeks";
 import { nextServer } from "./api";
+import { Task } from "@/types/task";
+import { BabyState, MomState, WeekInfo } from "@/types/weeks";
+import { GetAllTasks, TaskDone } from "@/types/task";
 
 export interface UserRegCreds {
   name: string;
@@ -17,7 +19,6 @@ export const getUser = async (): Promise<User> => {
 
 export const checkSession = async () => {
   const { data } = await nextServer.get("/auth/refresh");
-
   return data.success;
 };
 
@@ -35,6 +36,27 @@ export const logoutUser = async (): Promise<void> => {
   await nextServer.post("/auth/logout");
 };
 
+export interface NewTask {
+  name: string;
+  date: string;
+  isDone: boolean;
+}
+
+export const createTask = async (newTask: NewTask) => {
+  const response = await nextServer.post<Task>("/tasks", newTask);
+  return response.data;
+};
+
+export const weekInfo = async () => {
+  const { data } = await nextServer.get<WeekInfo>("/weeks");
+  return data;
+};
+
+export const weekInfoPublic = async () => {
+  const { data } = await nextServer.get<WeekInfo>("/weeks/demo");
+  return data;
+};
+
 export const updateAvatar = async (file: File): Promise<{ url: string }> => {
   const formData = new FormData();
   formData.append("avatar", file);
@@ -45,32 +67,22 @@ export const updateAvatar = async (file: File): Promise<{ url: string }> => {
   return data;
 };
 
-export const getWeekSummary = async (): Promise<WeekSummary> => {
-  const { data } = await nextServer.get<WeekSummary>("/weeks");
+export const getAllTask = async () => {
+  const { data } = await nextServer.get<GetAllTasks[]>("/tasks");
   return data;
 };
 
-const isMissingWeekResponse = (data: unknown): boolean =>
-  typeof data === "object" &&
-  data !== null &&
-  "error" in data &&
-  !("_id" in data);
-
-export class WeekDataMissingError extends Error {
-  constructor(weekNumber: number) {
-    super(`No week data for week ${weekNumber}`);
-    this.name = "WeekDataMissingError";
-  }
-}
+export const checkedTask = async (isDone: boolean) => {
+  const { data } = await nextServer.patch<TaskDone>("/tasks/taskId", isDone);
+  return data;
+};
 
 export const getBabyWeek = async (weekNumber: number): Promise<BabyState> => {
   const { data } = await nextServer.get<BabyState>(`/weeks/baby/${weekNumber}`);
-  if (isMissingWeekResponse(data)) throw new WeekDataMissingError(weekNumber);
   return data;
 };
 
 export const getMomWeek = async (weekNumber: number): Promise<MomState> => {
   const { data } = await nextServer.get<MomState>(`/weeks/mom/${weekNumber}`);
-  if (isMissingWeekResponse(data)) throw new WeekDataMissingError(weekNumber);
   return data;
 };

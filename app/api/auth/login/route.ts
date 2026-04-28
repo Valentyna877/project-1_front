@@ -10,6 +10,8 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const apiRes = await api.post("auth/login", body);
 
+    if (apiRes === undefined) throw new Error("server is dead");
+
     const cookieStore = await cookies();
     const setCookie = apiRes.headers["set-cookie"];
 
@@ -37,9 +39,10 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     if (isAxiosError(error)) {
       logErrorResponse(error.response?.data);
+      const statusCode = error.status || 500;
       return NextResponse.json(
         { error: error.message, response: error.response?.data },
-        { status: error.status },
+        { status: statusCode },
       );
     }
     logErrorResponse({ message: (error as Error).message });

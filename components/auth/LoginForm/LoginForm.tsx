@@ -1,10 +1,12 @@
-import { loginUser, registerUser, UserLogCreds } from "@/lib/api/clientApi";
+import { loginUser, UserLogCreds } from "@/lib/api/clientApi";
 import css from "./LoginForm.module.css";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, FieldProps } from "formik";
 import { useId } from "react";
 import * as Yup from "yup";
 import { useMutation } from "@tanstack/react-query";
 import { useAuthStore } from "@/lib/store/authStore";
+import Button from "@/components/common/Button/Button";
+import { useRouter } from "next/navigation";
 
 const initialValues: UserLogCreds = {
   email: "",
@@ -24,14 +26,14 @@ const formSchema = Yup.object().shape({
 
 const LoginForm = () => {
   const fieldId = useId();
+  const router = useRouter();
   const setUser = useAuthStore((state) => state.setUser);
 
   const loginMutation = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
       setUser(data);
-
-      console.log("має бути переадресація на анбордінг");
+      router.push("/");
     },
     onError: () => {
       console.log("має бути пуш повідомлення з помилкою");
@@ -48,28 +50,48 @@ const LoginForm = () => {
       onSubmit={handleSubmit}
       validationSchema={formSchema}
     >
-      <Form>
-        <div>
+      <Form className={css.form}>
+        <div className={css["field-set"]}>
           <label htmlFor={`${fieldId}-email`}></label>
-          <Field
-            type="email"
-            name="email"
-            id={`${fieldId}-email`}
-            placeholder={"Пошта"}
-          />
-          <ErrorMessage name="email" component="span" />
+          <Field name="email">
+            {({ field, meta }: FieldProps) => {
+              const hasError = meta.touched && meta.error;
+              return (
+                <>
+                  <input
+                    {...field}
+                    type="email"
+                    id={`${fieldId}-email`}
+                    placeholder={"Пошта"}
+                    className={`${css.input} ${hasError ? css["input-error"] : ""}`}
+                  />
+                  {hasError && <span className={css.span}>{meta.error}</span>}
+                </>
+              );
+            }}
+          </Field>
         </div>
-        <div>
+        <div className={css["field-set"]}>
           <label htmlFor={`${fieldId}-password`}></label>
-          <Field
-            type="password"
-            name="password"
-            id={`${fieldId}-password`}
-            placeholder={"Пароль"}
-          />
-          <ErrorMessage name="password" component="span" />
+          <Field name="password">
+            {({ field, meta }: FieldProps) => {
+              const hasError = meta.touched && meta.error;
+              return (
+                <>
+                  <input
+                    {...field}
+                    type="password"
+                    id={`${fieldId}-password`}
+                    placeholder={"Пароль"}
+                    className={`${css.input} ${hasError ? css["input-error"] : ""}`}
+                  />
+                  {hasError && <span className={css.span}>{meta.error}</span>}
+                </>
+              );
+            }}
+          </Field>
         </div>
-        <button type="submit">Увійти</button>
+        <Button type="submit">Увійти</Button>
       </Form>
     </Formik>
   );
