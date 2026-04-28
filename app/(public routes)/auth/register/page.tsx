@@ -22,9 +22,9 @@ const Register = () => {
         width={500}
         height={500}
       ></Image>
-      <p className={css.redirection}>
-        Вже маєте аккаунт? <Link href={"/app/auth/login"}>Увійти</Link>
-      </p>
+      <Link href={"/app/auth/login"} className={css.redirection}>
+        Вже маєте аккаунт? <span>Увійти</span>
+      </Link>
     </main>
   );
 };

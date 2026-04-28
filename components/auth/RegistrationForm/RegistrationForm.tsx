@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { useMutation } from "@tanstack/react-query";
 import { useAuthStore } from "@/lib/store/authStore";
 import Button from "@/components/common/Button/Button";
-import clsx from "clsx";
+import { useRouter } from "next/navigation";
 
 const initialValues: UserRegCreds = {
   name: "",
@@ -30,14 +30,14 @@ const formSchema = Yup.object().shape({
 
 const RegistrationForm = () => {
   const fieldId = useId();
+  const router = useRouter();
   const setUser = useAuthStore((state) => state.setUser);
 
   const registerMutation = useMutation({
     mutationFn: registerUser,
     onSuccess: (data) => {
       setUser(data);
-
-      console.log("має бути переадресація на анбордінг");
+      router.push("/app/profile/edit");
     },
     onError: () => {
       console.log("має бути пуш повідомлення з помилкою");
@@ -59,7 +59,7 @@ const RegistrationForm = () => {
           <label htmlFor={`${fieldId}-title`}>Імʼя*</label>
           <Field name="name">
             {({ field, meta }: FieldProps) => {
-              const hasError = meta.error;
+              const hasError = meta.touched && meta.error;
               return (
                 <>
                   <input
@@ -68,8 +68,7 @@ const RegistrationForm = () => {
                     id={`${fieldId}-title`}
                     placeholder={"Ваше імʼя"}
                     className={`${css.input} ${hasError ? css["input-error"] : ""}`}
-                  ></input>
-
+                  />
                   {hasError && <span className={css.span}>{meta.error}</span>}
                 </>
               );
@@ -78,25 +77,43 @@ const RegistrationForm = () => {
         </div>
         <div className={css["field-set"]}>
           <label htmlFor={`${fieldId}-email`}>Пошта*</label>
-          <Field
-            type="email"
-            name="email"
-            id={`${fieldId}-email`}
-            placeholder={"hello@leleka.com"}
-            className={css.input}
-          />
-          <ErrorMessage name="email" component="span" />
+          <Field name="email">
+            {({ field, meta }: FieldProps) => {
+              const hasError = meta.touched && meta.error;
+              return (
+                <>
+                  <input
+                    {...field}
+                    type="email"
+                    id={`${fieldId}-email`}
+                    placeholder={"hello@leleka.com"}
+                    className={`${css.input} ${hasError ? css["input-error"] : ""}`}
+                  />
+                  {hasError && <span className={css.span}>{meta.error}</span>}
+                </>
+              );
+            }}
+          </Field>
         </div>
         <div className={css["field-set"]}>
           <label htmlFor={`${fieldId}-password`}>Пароль*</label>
-          <Field
-            type="password"
-            name="password"
-            id={`${fieldId}-password`}
-            placeholder={"********"}
-            className={css.input}
-          />
-          <ErrorMessage name="password" component="span" />
+          <Field name="password">
+            {({ field, meta }: FieldProps) => {
+              const hasError = meta.touched && meta.error;
+              return (
+                <>
+                  <input
+                    {...field}
+                    type="password"
+                    id={`${fieldId}-password`}
+                    placeholder={"********"}
+                    className={`${css.input} ${hasError ? css["input-error"] : ""}`}
+                  />
+                  {hasError && <span className={css.span}>{meta.error}</span>}
+                </>
+              );
+            }}
+          </Field>
         </div>
         <Button type="submit">Зареєструватись</Button>
       </Form>
