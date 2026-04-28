@@ -1,3 +1,5 @@
+"use client";
+
 import Button from "@/components/common/Button/Button";
 import css from "./TasksReminderCard.module.css";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
@@ -12,9 +14,10 @@ export default function TasksReminderCard() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["task"],
+    queryKey: ["tasks"],
     queryFn: getAllTask,
     refetchOnMount: false,
+    enabled: isAuthenticated,
   });
 
   const queryClient = useQueryClient();
@@ -23,11 +26,6 @@ export default function TasksReminderCard() {
     mutationFn: checkedTask,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tasks"] });
-      console.log("task checked");
-    },
-
-    onError: () => {
-      console.log("task checked error");
     },
   });
 

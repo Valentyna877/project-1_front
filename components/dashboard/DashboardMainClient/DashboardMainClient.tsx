@@ -1,5 +1,3 @@
-"use client";
-
 import css from "./DashboardMainClient.module.css";
 import GreetingBlock from "@/components/common/GreetingBlock/GreetingBlock";
 import FeelingCheckCard from "@/components/dashboard/FeelingCheckCard/FeelingCheckCard";

@@ -13,7 +13,9 @@ export default function TaskItem({ data, HandleCheckTask }: Props) {
     <>
       {data.map((task) => (
         <li key={task._id} className={css.taskItem}>
-          <p className={css.taskItemTime}>{task.date}</p>
+          <p className={css.taskItemTime}>
+            {String(task.date).slice(5).split("-").reverse().join(".")}
+          </p>
           <div className={css.taskCustomCheckbox}>
             <input
               onChange={() => HandleCheckTask(!task.isDone, task._id)}
