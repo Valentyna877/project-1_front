@@ -1,3 +1,5 @@
+"use client";
+
 import { useSidebarStore } from "@/lib/store/sidebarStore";
 import css from "./AuthBar.module.css";
 import Link from "next/link";

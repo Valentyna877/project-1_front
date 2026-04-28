@@ -5,7 +5,12 @@
 
 .user_bar_info {
   display: flex;
+  align-items: center;
   gap: 8px;
+}
+
+.avatar {
+  height: 40px;
 }
 
 .userbar_logout_btn {

@@ -46,11 +46,7 @@ export default function Sidebar() {
       </nav>
 
       <div className={css.sidebar_auth_container}>
-        {/* Це основа */}
         {isAuthenticated ? <UserBar /> : <AuthBar />}
-
-        {/* Це щоб перевіряти userBars тимчасово */}
-        {/* <UserBar /> */}
       </div>
     </aside>
   );
