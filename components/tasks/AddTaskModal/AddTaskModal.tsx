@@ -1,6 +1,6 @@
-import css from './AddTaskModal.module.css';
-import Modal from '@/components/common/Modal/Modal';
-import AddTaskForm from '../AddTaskForm/AddTaskForm';
+import css from "./AddTaskModal.module.css";
+import Modal from "@/components/common/Modal/Modal";
+import AddTaskForm from "../AddTaskForm/AddTaskForm";
 
 interface AddTaskModalProps {
   isOpen: boolean;

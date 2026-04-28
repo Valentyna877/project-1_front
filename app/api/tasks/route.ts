@@ -1,23 +1,20 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { api } from '../api';
-import { cookies } from 'next/headers';
-import { isAxiosError } from 'axios';
-import { logErrorResponse } from '../_utils/utils';
+export const dynamic = "force-dynamic";
 
-export async function GET(request: NextRequest) {
+import { NextRequest, NextResponse } from "next/server";
+import { api } from "../api";
+import { cookies } from "next/headers";
+import { logErrorResponse } from "../_utils/utils";
+import { isAxiosError } from "axios";
+
+export async function GET() {
   try {
     const cookieStore = await cookies();
-    const search = request.nextUrl.searchParams.get('search') ?? '';
 
-    const res = await api('/tasks', {
-      params: {
-        ...(search !== '' && { search }),
-      },
+    const res = await api.get("/tasks", {
       headers: {
         Cookie: cookieStore.toString(),
       },
     });
-
     return NextResponse.json(res.data, { status: res.status });
   } catch (error) {
     if (isAxiosError(error)) {
@@ -29,11 +26,12 @@ export async function GET(request: NextRequest) {
     }
     logErrorResponse({ message: (error as Error).message });
     return NextResponse.json(
-      { error: 'Internal Server Error' },
+      { error: "Internal Server Error" },
       { status: 500 },
     );
   }
 }
+
 
 export async function POST(request: NextRequest) {
   try {

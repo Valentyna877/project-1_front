@@ -1,12 +1,18 @@
 import { User } from '@/types/user';
 import { nextServer } from './api';
 import { Task } from '@/types/task';
+import { WeekInfo } from "@/types/weeks";
+import { GetAllTasks, TaskDone } from "@/types/task";
 
 export interface UserRegCreds {
   name: string;
   email: string;
   password: string;
 }
+
+
+
+
 
 export type UserLogCreds = Omit<UserRegCreds, 'name'>;
 
@@ -45,6 +51,18 @@ export const createTask = async (newTask: NewTask) => {
   return response.data;
 };
 
+export const weekInfo = async () => {
+  const { data } = await nextServer.get<WeekInfo>('/weeks');
+
+  return data;
+}
+
+export const weekInfoPublic = async () => {
+  const { data } = await nextServer.get<WeekInfo>('/weeks/demo');
+
+  return data;
+}
+
 export const updateAvatar = async (file: File): Promise<{ url: string }> => {
   const formData = new FormData();
   formData.append("avatar", file);
@@ -54,3 +72,16 @@ export const updateAvatar = async (file: File): Promise<{ url: string }> => {
   );
   return data;
 };
+
+export const getAllTask = async () => {
+  const { data } = await nextServer.get<GetAllTasks>('/tasks');
+  
+  return data;
+}
+
+export const checkedTask = async (isDone: boolean) => {
+  const { data } = await nextServer.patch<TaskDone>('/tasks/taskId', isDone )
+  
+  return data
+}
+
