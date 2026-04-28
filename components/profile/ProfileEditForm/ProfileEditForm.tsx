@@ -49,7 +49,7 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
       const payload: Record<string, unknown> = {};
 
       if (values.gender !== undefined) {
-        payload.gender = values.gender === "unknown" ? null : values.gender;
+        payload.gender = values.gender;
       }
       if (values.dueDate) {
         payload.date = values.dueDate;
