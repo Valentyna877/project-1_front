@@ -1,0 +1,60 @@
+.feelingCheckCardBox {
+    border: 0px solid var(--color-scheme-border);
+    border-radius: 32px;
+    padding: 24px;
+    width: 335px;
+    background-color: var(--color-scheme-foreground);
+    margin: 0 20px 32px;
+}
+
+.feelingSubtitle { 
+    font-family: var(--font-family);
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 160%;
+    color: var(--color-scheme-text);
+    margin-top: 8px;
+}
+
+.feelingText {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 150%;
+    color: var(--color-scheme-text);
+    margin-bottom: 24px;
+}
+
+.feelingBtn {
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 160%;
+    color: var(--color-scheme-text);
+}
+
+
+@media only screen and (min-width: 768px) {
+    .feelingCheckCardBox {
+        width: 704px;
+        margin: 0 32px 32px;
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    .feelingCheckCardBox {
+        width: 390px;
+        height: 210px;
+        margin: 0 32px 32px 0;
+        overflow: auto;
+    }
+
+    .feelingSubtitle {
+        font-size: 16px;
+    }
+
+    .feelingText {
+        font-size: 16px;
+    }
+}
+
