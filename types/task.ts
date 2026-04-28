@@ -1,4 +1,4 @@
-export interface Task {
+export interface GetTask {
     _id: string;
     name: string;
     date: string;
@@ -6,12 +6,14 @@ export interface Task {
 }
 
 export interface GetAllTasks {
-    result: Array<Task>;
+    result: Array<GetTask>;
 } 
 
 export interface TaskDone {
     isDone: boolean;
-}export interface Task {
+}
+
+export interface Task {
   name: string;
   date: string;
   isDone: boolean;
