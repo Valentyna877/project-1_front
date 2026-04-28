@@ -32,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="uk">
-      <body className={`${comfortaa.variable} ${lato.variable}`}>
+      <body className={`${comfortaa.variable} ${lato.variable} `}>
         <TanStackProvider>
           <AuthProvider>
             {children}

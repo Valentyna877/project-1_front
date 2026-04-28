@@ -32,8 +32,6 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
           } else {
             throw new Error("Користувач не знайдений");
           }
-        } else {
-          throw new Error("Треба залогінитись");
         }
       } catch {
         await logoutUser();
