@@ -75,7 +75,7 @@ export default function TasksReminderCard() {
         <ul>
           {data.result.map((task) => (
             <li key={task._id} className={css.taskItem}>
-              <p className={css.taskItemTime}>{task.data}</p>
+              <p className={css.taskItemTime}>{task.date}</p>
               <div className={css.taskCustomCheckbox}>
                 <input
                   onChange={() => handleCheckTask(isDone)}
