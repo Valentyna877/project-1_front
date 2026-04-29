@@ -1,12 +1,7 @@
-import { User } from "@/types/user";
-import { nextServer } from "./api";
-import { Task } from "@/types/task";
 import { BabyState, MomState, WeekInfo } from "@/types/weeks";
-import { GetAllTasks, TaskDone } from "@/types/task";
 import { UpdateUserPayload, User } from '@/types/user';
 import { nextServer } from './api';
 import { Task } from '@/types/task';
-import { WeekInfo } from '@/types/weeks';
 import { GetAllTasks, TaskDone } from '@/types/task';
 
 export interface UserRegCreds {
