@@ -1,3 +1,8 @@
+import { User } from "@/types/user";
+import { nextServer } from "./api";
+import { Task } from "@/types/task";
+import { BabyState, MomState, WeekInfo } from "@/types/weeks";
+import { GetAllTasks, TaskDone } from "@/types/task";
 import { UpdateUserPayload, User } from '@/types/user';
 import { nextServer } from './api';
 import { Task } from '@/types/task';
@@ -10,7 +15,7 @@ export interface UserRegCreds {
   password: string;
 }
 
-export type UserLogCreds = Omit<UserRegCreds, 'name'>;
+export type UserLogCreds = Omit<UserRegCreds, "name">;
 
 export const getUser = async (): Promise<User> => {
   const { data } = await nextServer.get<User>('/users/me');
@@ -48,14 +53,12 @@ export const createTask = async (newTask: NewTask) => {
 };
 
 export const weekInfo = async () => {
-  const { data } = await nextServer.get<WeekInfo>('/weeks');
-
+  const { data } = await nextServer.get<WeekInfo>("/weeks");
   return data;
 };
 
 export const weekInfoPublic = async () => {
-  const { data } = await nextServer.get<WeekInfo>('/weeks/demo');
-
+  const { data } = await nextServer.get<WeekInfo>("/weeks/demo");
   return data;
 };
 export const updateUser = async (payload: UpdateUserPayload): Promise<User> => {
@@ -74,13 +77,21 @@ export const updateAvatar = async (file: File): Promise<{ url: string }> => {
 };
 
 export const getAllTask = async () => {
-  const { data } = await nextServer.get<GetAllTasks[]>('/tasks');
-
+  const { data } = await nextServer.get<GetAllTasks[]>("/tasks");
   return data;
 };
 
 export const checkedTask = async (status: TaskDone) => {
-  const { data } = await nextServer.patch<TaskDone>('/tasks/status', status);
+  const { data } = await nextServer.patch<TaskDone>("/tasks/status", status);
+  return data;
+};
 
+export const getBabyWeek = async (weekNumber: number): Promise<BabyState> => {
+  const { data } = await nextServer.get<BabyState>(`/weeks/baby/${weekNumber}`);
+  return data;
+};
+
+export const getMomWeek = async (weekNumber: number): Promise<MomState> => {
+  const { data } = await nextServer.get<MomState>(`/weeks/mom/${weekNumber}`);
   return data;
 };
