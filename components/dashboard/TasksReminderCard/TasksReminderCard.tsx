@@ -1,19 +1,25 @@
-import Button from "@/components/common/Button/Button";
-import css from "./TasksReminderCard.module.css";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { checkedTask, getAllTask } from "@/lib/api/clientApi";
-import { useAuthStore } from "@/lib/store/authStore";
-import { redirect } from "next/navigation";
-import AddTaskModal from "@/components/tasks/AddTaskModal/AddTaskModal";
-import { useState } from "react";
+import Button from '@/components/common/Button/Button';
+import css from './TasksReminderCard.module.css';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { checkedTask, getAllTask } from '@/lib/api/clientApi';
+import { useAuthStore } from '@/lib/store/authStore';
+import { redirect } from 'next/navigation';
+import AddTaskModal from '@/components/tasks/AddTaskModal/AddTaskModal';
+import { useState } from 'react';
 
 export default function TasksReminderCard() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["task"],
+    queryKey: ['task'],
     queryFn: getAllTask,
     refetchOnMount: false,
+    select: (data) => {
+      if (!data) return [];
+      return [...data].sort(
+        (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+      );
+    },
   });
 
   const queryClient = useQueryClient();
@@ -21,12 +27,12 @@ export default function TasksReminderCard() {
   const taskMutation = useMutation({
     mutationFn: checkedTask,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tasks"] });
-      console.log("task checked");
+      queryClient.invalidateQueries({ queryKey: ['tasks'] });
+      console.log('task checked');
     },
 
     onError: () => {
-      console.log("task checked error");
+      console.log('task checked error');
     },
   });
 
@@ -40,7 +46,7 @@ export default function TasksReminderCard() {
     if (isAuthenticated) {
       setIsOpen(true);
     } else {
-      redirect("/auth/login");
+      redirect('/auth/login');
     }
   };
 

@@ -29,7 +29,7 @@ const AddTaskFormSchema = Yup.object().shape({
     .min(1, 'Назва має містити хоча б 1 символ')
     .max(96, 'Назва занадто довга')
     .required("Обов'язкове поле"),
-  date: Yup.string().datetime('YYYY-MM-DD'),
+  date: Yup.string(),
 });
 
 export default function AddTaskForm({ onClose }: TaskFormProps) {
@@ -39,7 +39,7 @@ export default function AddTaskForm({ onClose }: TaskFormProps) {
   const mutation = useMutation({
     mutationFn: createTask,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['tasks'] });
+      queryClient.invalidateQueries({ queryKey: ['task'] });
       toast.success('Завдання успішно створено!');
       onClose?.();
     },
@@ -53,7 +53,8 @@ export default function AddTaskForm({ onClose }: TaskFormProps) {
     actions: FormikHelpers<AddTaskFormValues>,
   ) => {
     const taskToSend: NewTask = {
-      ...values,
+      name: values.name,
+      date: values.date,
       isDone: false,
     };
     mutation.mutate(taskToSend);
@@ -66,9 +67,9 @@ export default function AddTaskForm({ onClose }: TaskFormProps) {
       onSubmit={handleSubmit}
       validationSchema={AddTaskFormSchema}
     >
-      <Form className={css.form}>
+      <Form className={css.addTaskForm}>
         <fieldset>
-          <div className={css.formGroup}>
+          <div className={css.addTaskformGroup}>
             <label htmlFor={`${fieldId}-name`}>Назва завдання</label>
             <Field
               id={`${fieldId}-name`}
@@ -80,27 +81,20 @@ export default function AddTaskForm({ onClose }: TaskFormProps) {
             <ErrorMessage name="name" component="span" className={css.error} />
           </div>
 
-          <div className={css.formGroup}>
-            <label htmlFor={`${fieldId}-date`}>Дата</label>
+          <div className={css.addTaskformGroup}>
+            <label htmlFor={`${fieldId}-date`}></label>
             <Field
               name="date"
               component={CalendarDatePicker}
               id={`${fieldId}-date`}
-              //   type="date"
-              className={css.input}
+              textLabel="Дата"
               placeholderText="Оберіть дату"
+              className={css.input}
             />
             <ErrorMessage name="date" component="span" className={css.error} />
           </div>
 
           <div className={css.actions}>
-            {/* <button
-            type="submit"
-            className={css.submitButton}
-            disabled={mutation.isPending}
-        >
-            {mutation.isPending ? 'Зберігається...' : 'Зберегти'}
-        </button> */}
             <Button
               variant="normal"
               size="lg"

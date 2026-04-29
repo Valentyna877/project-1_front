@@ -72,3 +72,10 @@ svg {
     max-width: 100%;
     height: auto;
 }
+
+fieldset {
+    border: none;
+    margin: 0;
+    padding: 0;
+    min-inline-size: auto;
+}
