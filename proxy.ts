@@ -1,34 +1,27 @@
-import { cookies } from "next/headers";
-import { NextRequest, NextResponse } from "next/server";
-import { checkSession } from "./lib/api/serverApi";
-import { parse } from "cookie";
+import { cookies } from 'next/headers';
+import { NextRequest, NextResponse } from 'next/server';
+import { checkSession } from './lib/api/serverApi';
+import { parse } from 'cookie';
 
-const privateRoutes = ["/profile/edit", "/navigation"];
-const authRoutes = [
-  "/callback",
-  "/forgot-password",
-  "/login",
-  "/register",
-  "/reset-password",
-  "/profile/change-password",
-];
+const privateRoutes = ['/profile', '/journey', '/diary'];
+const authRoutes = ['/auth'];
 
 export const proxy = async (req: NextRequest) => {
   const cookieStore = await cookies();
-  const accessToken = cookieStore.get("accessToken")?.value;
-  const refreshToken = cookieStore.get("refreshToken")?.value;
+  const accessToken = cookieStore.get('accessToken')?.value;
+  const refreshToken = cookieStore.get('refreshToken')?.value;
 
   const { pathname } = req.nextUrl;
 
   const isPrivateRoute = privateRoutes.some((route) =>
-    pathname.startsWith(route),
+    pathname.startsWith(route)
   );
   const isAuthRoute = authRoutes.some((route) => pathname.startsWith(route));
 
   if (!accessToken) {
     if (refreshToken) {
       const { headers } = await checkSession();
-      const setCookie = headers["set-cookie"];
+      const setCookie = headers['set-cookie'];
       if (setCookie) {
         const cookieArray = Array.isArray(setCookie) ? setCookie : [setCookie];
         for (const cookieStr of cookieArray) {
@@ -36,16 +29,18 @@ export const proxy = async (req: NextRequest) => {
           const options = {
             expires: parsed.Expires ? new Date(parsed.Expires) : undefined,
             path: parsed.Path,
-            maxAge: Number(parsed["Max-age"]),
+            maxAge: Number(parsed['Max-age']),
           };
           if (parsed.accessToken)
-            cookieStore.set("accessToken", parsed.accessToken, options);
+            cookieStore.set('accessToken', parsed.accessToken, options);
           if (parsed.refreshToken)
-            cookieStore.set("refreshToken", parsed.refreshToken, options);
+            cookieStore.set('refreshToken', parsed.refreshToken, options);
+          if (parsed.sessionId)
+            cookieStore.set('sessionId', parsed.sessionId, options);
         }
 
         if (isAuthRoute) {
-          return NextResponse.redirect(new URL("/profile", req.url), {
+          return NextResponse.redirect(new URL('/', req.url), {
             headers: { Cookie: cookieStore.toString() },
           });
         }
@@ -61,12 +56,12 @@ export const proxy = async (req: NextRequest) => {
     }
 
     if (isPrivateRoute) {
-      return NextResponse.redirect(new URL("/register", req.url));
+      return NextResponse.redirect(new URL('/auth/login', req.url));
     }
   }
 
   if (isAuthRoute) {
-    return NextResponse.redirect(new URL("/profile", req.url));
+    return NextResponse.redirect(new URL('/', req.url));
   }
   if (isPrivateRoute) {
     return NextResponse.next();
@@ -75,14 +70,9 @@ export const proxy = async (req: NextRequest) => {
 
 export const config = {
   matcher: [
-    "/callback",
-    "/forgot-password",
-    "/login",
-    "/register",
-    "/reset-password",
-    "/profile/edit",
-    "/diary/:path*",
-    "/journey/:path*",
-    "/profile/change-password",
+    '/auth/:path*',
+    '/profile/:path*',
+    '/journey/:path*',
+    '/diary/:path*',
   ],
 };
