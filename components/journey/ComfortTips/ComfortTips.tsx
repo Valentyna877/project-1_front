@@ -1,14 +1,16 @@
 import { ComfortTip } from "@/types/weeks";
 import styles from "./ComfortTips.module.css";
 
-const ICON_ID: Record<string, string> = {
-  харчування: "icon-fork_spoon",
-  активність: "icon-fitness_center",
-  відпочинок: "icon-chair",
-};
+const ICON_ID: { match: string; id: string }[] = [
+  { match: "харчування", id: "icon-fork_spoon" },
+  { match: "активність", id: "icon-fitness_center" },
+  { match: "відпочинок", id: "icon-chair" },
+];
 
-const getIconId = (category: string) =>
-  ICON_ID[category.trim().toLowerCase()];
+const getIconId = (category: string) => {
+  const normalized = category.trim().toLowerCase();
+  return ICON_ID.find((entry) => normalized.includes(entry.match))?.id;
+};
 
 interface ComfortTipsProps {
   tips: ComfortTip[];
