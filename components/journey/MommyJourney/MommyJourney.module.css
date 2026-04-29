@@ -1,5 +1,23 @@
 .wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .wrapper {
+    grid-template-columns: minmax(0, 1fr) 390px;
+  }
+}
+
+.main {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  min-width: 0;
+}
+
+.aside {
+  min-width: 0;
 }

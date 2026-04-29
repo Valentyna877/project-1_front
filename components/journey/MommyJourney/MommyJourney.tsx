@@ -1,3 +1,4 @@
+import TasksReminderCard from "@/components/tasks/TasksReminderCard/TasksReminderCard";
 import { MomState } from "@/types/weeks";
 import Feelings from "../Feelings/Feelings";
 import ComfortTips from "../ComfortTips/ComfortTips";
@@ -10,8 +11,13 @@ interface MommyJourneyProps {
 const MommyJourney = ({ data }: MommyJourneyProps) => {
   return (
     <div className={styles.wrapper}>
-      <Feelings feelings={data.feelings} />
-      <ComfortTips tips={data.comfortTips} />
+      <div className={styles.main}>
+        <Feelings feelings={data.feelings} />
+        <ComfortTips tips={data.comfortTips} />
+      </div>
+      <aside className={styles.aside}>
+        <TasksReminderCard />
+      </aside>
     </div>
   );
 };
