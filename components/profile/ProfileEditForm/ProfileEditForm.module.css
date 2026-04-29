@@ -1,0 +1,25 @@
+.form {
+  max-width: 580px;
+}
+.label {
+  margin-bottom: 8px;
+  display: block;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #000;
+}
+.input {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0);
+  border-radius: 12px;
+  padding: 8px 12px;
+  width: 580px;
+  height: 40px;
+  margin-bottom: 24px;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.05);
+}
