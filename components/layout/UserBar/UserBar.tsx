@@ -3,48 +3,84 @@
 import css from './UserBar.module.css';
 import Image from 'next/image';
 import { useAuthStore } from '@/lib/store/authStore';
-import { useEffect } from 'react';
+import { useSidebarStore } from '@/lib/store/sidebarStore';
+import { useRouter } from 'next/navigation';
+import { logoutUser } from '@/lib/api/clientApi';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import ConfirmationModal from '@/components/common/ConfirmationModal/ConfirmationModal';
+import Loader from '@/components/common/Loader/Loader';
+import { createPortal } from 'react-dom';
 
 export default function UserBar() {
-  const { user, setUser } = useAuthStore();
+  const { user, clearIsAuthenticated } = useAuthStore();
+  const { isLogoutModalOpen, openLogoutModal, closeLogoutModal } =
+    useSidebarStore();
+  const loaderTheme: 'boy' | 'girl' | 'default' =
+    user?.gender === 'boy' || user?.gender === 'girl' ? user.gender : 'default';
 
-  /* Розкоментувати, щоб тимчасово провірити юзера і побачити userBar в SideBar */
-  // useEffect(() => {
-  //   setUser({
-  //     name: "Ганна",
-  //     email: "hanna@gmail.com",
-  //     avatar: "",
-  //     date: new Date(),
-  //     gender: "boy",
-  //   });
-  // }, [setUser]);
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  const { mutate, isPending } = useMutation({
+    mutationFn: logoutUser,
+    onSuccess: () => {
+      queryClient.clear();
+      clearIsAuthenticated();
+      router.push('/');
+    },
+    onError: (err) => {
+      console.error('Logout error', err);
+    },
+  });
+
+  const handleConfirm = () => {
+    closeLogoutModal();
+    close();
+    mutate();
+  };
 
   if (!user) return null;
 
   return (
-    <div className={css.user_bar_container}>
-      <div className={css.user_bar_info}>
-        {/* <Image
-          "/avatar.jpg" це тимчасо щоб бачити хоч якусь аватарку
-          src={user.avatar || "/avatar.jpg"}
-          alt="avatar"
-          width={40}
-          height={40}
-          className={css.avatar}
-        /> */}
+    <>
+      {isPending &&
+        createPortal(
+          <Loader theme={loaderTheme} variant="global" />,
+          document.body
+        )}
 
-        <div>
-          <div className={css.userbar_username}>{user.name}</div>
-          <div className={css.userbar_useremail}>{user.email}</div>
+      <div className={css.user_bar_container}>
+        <div className={css.user_bar_info}>
+          <Image
+            src={user.avatar}
+            alt="avatar"
+            width={40}
+            height={40}
+            className={css.avatar}
+          />
+
+          <div>
+            <div className={css.userbar_username}>{user.name}</div>
+            <div className={css.userbar_useremail}>{user.email}</div>
+          </div>
         </div>
+
+        {/* LOGOUT */}
+        <button className={css.userbar_logout_btn} onClick={openLogoutModal}>
+          <svg className={css.userbar_logout_icon} width={24} height={24}>
+            <use href="/sprite.svg#icon-logout"></use>
+          </svg>
+        </button>
       </div>
 
-      {/* LOGOUT! Пізніше додати модалу для підтвердження виходу */}
-      <button className={css.userbar_logout_btn}>
-        <svg className={css.userbar_logout_icon} width={24} height={24}>
-          <use href="/sprite.svg#icon-logout"></use>
-        </svg>
-      </button>
-    </div>
+      <ConfirmationModal
+        isOpen={isLogoutModalOpen}
+        title={'Ви точно хочете вийти?'}
+        confirmButtonText={'Так'}
+        cancelButtonText={'Ні'}
+        onConfirm={handleConfirm}
+        onCancel={closeLogoutModal}
+        confirmButtonVariant={'logout'}
+      />
+    </>
   );
 }

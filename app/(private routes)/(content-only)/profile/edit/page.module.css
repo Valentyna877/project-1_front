@@ -1,21 +1,27 @@
 .page {
   display: flex;
-  height: 100vh;
+}
+
+.logo {
+  width: 105px;
+  height: 45px;
+}
+
+.logoLink {
+  align-self: flex-start;
+  margin-bottom: 72px;
+  margin-left: 32px;
 }
 
 .formSide {
   width: 50%;
-  padding: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
-.imageSide {
-  width: 50%;
-}
-
-.header {
+.title {
   font-size: 48px;
   line-height: 1.2;
   letter-spacing: 0.01em;

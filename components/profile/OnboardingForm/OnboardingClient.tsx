@@ -64,7 +64,7 @@ export default function OnboardingClient() {
                 <ErrorMessage name='gender' component='p'/>
                 <CalendarDatePicker minDate={today} maxDate={maxDate} />
                 <ErrorMessage name='dueDate' component='p' />
-                <Button type='submit'>Зберегти</Button>
+                <Button className={css.submitBtn} type='submit' variant='normal' size='lg'>Зберегти</Button>
             </Form>
         </Formik>
     );

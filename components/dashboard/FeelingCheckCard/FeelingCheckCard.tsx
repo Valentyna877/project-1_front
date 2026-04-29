@@ -1,16 +1,18 @@
-import Button from "@/components/common/Button/Button";
-import css from "./FeelingCheckCard.module.css";
-import { redirect } from "next/navigation";
-import { useAuthStore } from "@/lib/store/authStore";
+'use client';
+
+import Button from '@/components/common/Button/Button';
+import css from './FeelingCheckCard.module.css';
+import { redirect } from 'next/navigation';
+import { useAuthStore } from '@/lib/store/authStore';
 
 export default function FeelingCheckCard() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   const handleDairyRedirect = () => {
     if (isAuthenticated) {
-      redirect("/dairy");
+      redirect('/dairy');
     } else {
-      redirect("/auth/login");
+      redirect('/auth/login');
     }
   };
 
