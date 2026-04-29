@@ -25,7 +25,7 @@ export default function DiaryEntryDetails({
   if (!entry) {
     return (
       <div className={styles.wrapper}>
-        <p className={styles.placeholder}>No diary entries yet</p>
+        <p className={styles.placeholder}>Ще немає записів</p>
       </div>
     );
   }

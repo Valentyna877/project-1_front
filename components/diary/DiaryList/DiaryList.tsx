@@ -20,9 +20,9 @@ export default function DiaryList({
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
-        <h2 className={styles.title}>Your entries</h2>
+        <h2 className={styles.title}>Ваші записи</h2>
         <button type="button" className={styles.addButton} onClick={onAddClick}>
-          New entry
+          Новий запис
           <svg
             width="20"
             height="20"
@@ -43,7 +43,7 @@ export default function DiaryList({
 
       <ul className={styles.list}>
         {entries.length === 0 ? (
-          <li className={styles.empty}>No diary entries yet</li>
+          <li className={styles.empty}>Ще немає записів у щоденнику</li>
         ) : (
           entries.map((entry) => (
             <li key={entry.id}>

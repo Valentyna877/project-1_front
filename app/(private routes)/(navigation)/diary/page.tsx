@@ -13,6 +13,7 @@ import {
 } from "@/lib/api/diaryApi";
 import DiaryList from "@/components/diary/DiaryList/DiaryList";
 import DiaryEntryDetails from "@/components/diary/DiaryEntryDetails/DiaryEntryDetails";
+import CreateDiaryModal from "@/components/diary/CreateDairyModal/CreateDiaryModal";
 
 export default function DiaryPage() {
   const [entries, setEntries] = useState<DiaryEntry[]>([]);
@@ -134,70 +135,21 @@ export default function DiaryPage() {
 
       {isModalOpen && (
         <div className={styles.backdrop} onClick={closeModal}>
-          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-            <h2 className={styles.modalTitle}>
-              {editingEntry ? "Edit entry" : "New entry"}
-            </h2>
-
-            <div className={styles.field}>
-              <label className={styles.label}>Title</label>
-              <input
-                className={styles.input}
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="Enter a title"
-              />
-            </div>
-
-            <div className={styles.field}>
-              <label className={styles.label}>Description</label>
-              <textarea
-                className={styles.textarea}
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="What happened today?"
-                rows={5}
-              />
-            </div>
-
-            <div className={styles.field}>
-              <label className={styles.label}>Date</label>
-              <input
-                className={styles.input}
-                type="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-              />
-            </div>
-
-            <div className={styles.field}>
-              <label className={styles.label}>Emotions (comma separated)</label>
-              <input
-                className={styles.input}
-                value={emotions}
-                onChange={(e) => setEmotions(e.target.value)}
-                placeholder="joy, inspiration, calm"
-              />
-            </div>
-
-            <div className={styles.modalActions}>
-              <button
-                className={styles.cancelBtn}
-                onClick={closeModal}
-                type="button"
-              >
-                Cancel
-              </button>
-              <button
-                className={styles.submitBtn}
-                onClick={handleSubmit}
-                disabled={isSaving}
-                type="button"
-              >
-                {isSaving ? "Saving..." : "Save"}
-              </button>
-            </div>
-          </div>
+          <CreateDiaryModal
+            isOpen={isModalOpen}
+            onClose={closeModal}
+            onSubmit={handleSubmit}
+            isSaving={isSaving}
+            editingEntry={editingEntry}
+            title={title}
+            setTitle={setTitle}
+            description={description}
+            setDescription={setDescription}
+            date={date}
+            setDate={setDate}
+            emotions={emotions}
+            setEmotions={setEmotions}
+          />
         </div>
       )}
     </div>
