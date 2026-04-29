@@ -17,7 +17,7 @@ export default function NavigationLayout({ children }: NavigationLayoutProps) {
 
       {/* desktop */}
       <div className={css.layout}>
-        {/* <Sidebar /> */}
+        <Sidebar />
 
         <main className={css.main}>
           <Breadcrumbs />

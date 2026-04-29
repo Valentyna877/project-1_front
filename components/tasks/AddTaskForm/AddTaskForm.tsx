@@ -9,10 +9,14 @@ import { createTask, NewTask } from '@/lib/api/clientApi';
 import Button from '@/components/common/Button/Button';
 import CalendarDatePicker from '@/components/common/CalendarDatePicker/CalendarDatePicker';
 import { toast } from 'sonner';
+import { format } from 'path';
 
 interface TaskFormProps {
   onClose?: () => void;
 }
+
+// const currentDate = new Date();
+// const currentDateString = format(currentDate, dd - MM - yyyy)
 
 interface AddTaskFormValues {
   name: string;
@@ -21,7 +25,8 @@ interface AddTaskFormValues {
 
 const initialValues: AddTaskFormValues = {
   name: '',
-  date: new Date().toISOString().split('T')[0],
+  // date: new Date().toISOString().split('T')[0],
+  date: '',
 };
 
 const AddTaskFormSchema = Yup.object().shape({
@@ -29,7 +34,14 @@ const AddTaskFormSchema = Yup.object().shape({
     .min(1, 'Назва має містити хоча б 1 символ')
     .max(96, 'Назва занадто довга')
     .required("Обов'язкове поле"),
-  date: Yup.string(),
+  date: Yup.string()
+    .trim()
+    .test('is-valid-date', 'Невірний формат дати', (value) => {
+      if (!value) return false;
+      const date = new Date(value);
+      return !isNaN(date.getTime());
+    })
+    .matches(/^\d{4}-\d{2}-\d{2}$/, 'Неправильний формат дати'),
 });
 
 export default function AddTaskForm({ onClose }: TaskFormProps) {
@@ -39,7 +51,7 @@ export default function AddTaskForm({ onClose }: TaskFormProps) {
   const mutation = useMutation({
     mutationFn: createTask,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['task'] });
+      queryClient.invalidateQueries({ queryKey: ['tasks'] });
       toast.success('Завдання успішно створено!');
       onClose?.();
     },
@@ -50,7 +62,7 @@ export default function AddTaskForm({ onClose }: TaskFormProps) {
 
   const handleSubmit = (
     values: AddTaskFormValues,
-    actions: FormikHelpers<AddTaskFormValues>,
+    actions: FormikHelpers<AddTaskFormValues>
   ) => {
     const taskToSend: NewTask = {
       name: values.name,
@@ -82,13 +94,11 @@ export default function AddTaskForm({ onClose }: TaskFormProps) {
           </div>
 
           <div className={css.addTaskformGroup}>
-            <label htmlFor={`${fieldId}-date`}></label>
+            <label htmlFor={`${fieldId}-date`}>Дата</label>
             <Field
               name="date"
               component={CalendarDatePicker}
               id={`${fieldId}-date`}
-              textLabel="Дата"
-              placeholderText="Оберіть дату"
               className={css.input}
             />
             <ErrorMessage name="date" component="span" className={css.error} />
