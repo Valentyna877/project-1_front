@@ -13,7 +13,6 @@ export default function DashboardCardClient() {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["weeks", isAuthenticated],
     queryFn: isAuthenticated ? weekInfo : weekInfoPublic,
-    refetchOnMount: false,
   });
 
   const todayIndex = (new Date().getDay() + 6) % 7;
