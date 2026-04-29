@@ -1,0 +1,26 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.loader,
+.empty,
+.error {
+  margin: 0;
+  padding: 40px 24px;
+  text-align: center;
+  border-radius: 32px;
+  background: var(--color-scheme-foreground);
+  color: var(--color-neutral-dark);
+  font-family: var(--font-family);
+  font-size: 16px;
+}
+
+.error {
+  color: var(--color-red);
+}

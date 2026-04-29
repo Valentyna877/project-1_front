@@ -1,7 +1,7 @@
 .statusBlockBox {
     display: flex;
     gap: 16px;
-    padding: 16px 20px 0px;
+    padding: 16px 20px 0px 0;
     width: 375px;
 }
 
@@ -34,7 +34,7 @@
 @media only screen and (min-width: 768px) {
 .statusBlockBox {
     gap: 32px;
-    padding: 16px 32px 0px;
+    padding: 16px 32px 0px 0;
     }
 
     .statusBox {

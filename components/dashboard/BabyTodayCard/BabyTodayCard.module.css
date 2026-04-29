@@ -3,7 +3,7 @@
     border-radius: 32px;
     padding: 24px;
     width: 335px;
-    margin: 16px 20px 24px;
+    margin: 16px 20px 24px 0;
     background: var(--color-scheme-foreground);
 }
 
@@ -40,10 +40,10 @@
 
 .babyCardText {
     font-family: var(--font-family);
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 150%;
-        color: var(--color-scheme-text);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 150%;
+    color: var(--color-scheme-text);
 }
 
 @media only screen and (min-width: 768px) {
@@ -52,20 +52,20 @@
         border-radius: 32px;
         padding: 24px;
         width: 704px;
-        margin: 32px 32px 24px;
+        margin: 32px 32px 24px 0;
     }
 
-        .babyInfoBox {
-            display: flex;
-            gap: 16px;
-            align-items: center;
-        }
+    .babyInfoBox {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+    }
 
-        .babyImg {
-            width: 257px;
-            height: 194px;
-            margin-bottom: 0;
-        }
+    .babyImg {
+        width: 257px;
+        height: 194px;
+        margin-bottom: 0;
+    }
 }
 
 @media only screen and (min-width: 1440px) {
@@ -75,7 +75,7 @@
         padding: 24px;
         width: 642px;
         height: 421px;
-        margin: 32px 32px 24px;
+        margin: 32px 32px 24px 0;
         overflow: auto;
     }
 

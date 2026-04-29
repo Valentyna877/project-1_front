@@ -6,19 +6,23 @@ import MomTipCard from "../MomTipCard/MomTipCard";
 import StatusBlock from "../StatusBlock/StatusBlock";
 import { weekInfo, weekInfoPublic } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
+import Loader from "@/components/common/Loader/Loader";
 
 export default function DashboardCardClient() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const { data, isLoading, isError } = useQuery({
     queryKey: ["weeks", isAuthenticated],
     queryFn: isAuthenticated ? weekInfo : weekInfoPublic,
-    refetchOnMount: false,
   });
 
   const todayIndex = (new Date().getDay() + 6) % 7;
 
-  if (!data?.baby || !data.baby.momDailyTips) {
-    return "Error";
+  if (!data) {
+    return <Loader />;
+  }
+
+  if (!data.baby) {
+    return "Error...";
   }
 
   const momDailyTips = data?.baby?.momDailyTips;
