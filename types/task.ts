@@ -10,6 +10,7 @@ export interface GetAllTasks {
 
 export interface TaskDone {
     isDone: boolean;
+    taskId: string;
 }
 
 export interface Task {
