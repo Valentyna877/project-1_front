@@ -77,7 +77,10 @@ export const getAllTask = async () => {
 };
 
 export const checkedTask = async (status: TaskDone) => {
-  const { data } = await nextServer.patch<TaskDone>("/tasks/status", status);
+  const isDone = status.isDone;
+  const payload = { isDone };
+
+  const { data } = await nextServer.patch<TaskDone>(`/tasks/${status.taskId}`, payload);
   return data;
 };
 
