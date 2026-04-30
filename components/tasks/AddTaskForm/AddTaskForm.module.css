@@ -1,19 +1,27 @@
-.form {
+.addTaskForm {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    width: 100%;
 }
 
-.formGroup {
+/* .addTaskForm.react-datepicker__input-container {
+    border: green 3px solid;
+} */
+
+
+.addTaskformGroup {
     display: flex;
+    position: relative;
     flex-direction: column;
-    font-size: var(--fz-14);
-    font-weight: var(--fw-medium);
-    color: var(--color-neutral-darkest);
+}
+
+.addTaskformGroup label {
+    margin-bottom: 8px;
+    line-height: 1.5;
 }
 
 .input {
-    margin-top: 4px;
+    margin-bottom: 24px;
     padding: 8px 12px;
     width: 100%;
     max-width: 295px;
@@ -23,6 +31,7 @@
     border-radius: 12px;
     background-color: var(--opacity-neutral-darkest-5);
     resize: none;
+    transition: border-color 250ms ease-in-out;
 }
 
 .input::placeholder {
@@ -50,4 +59,9 @@
 .actions {
     display: flex;
     justify-content: center;
+}
+
+.addTaskFormButton {
+    max-width: 295px;
+    height: 42px;
 }
