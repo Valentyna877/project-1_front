@@ -35,8 +35,12 @@ export default function DiaryPage() {
   useEffect(() => {
     getDiaries()
       .then((data) => {
-        setEntries(data);
-        setSelectedEntry(data[0] ?? null);
+        const mappedData = data.map((entry: DiaryEntry) => ({
+          ...entry,
+          id: entry._id || entry.id,
+        }));
+        setEntries(mappedData);
+        setSelectedEntry(mappedData[0] ?? null);
       })
       .catch(console.error)
       .finally(() => setIsLoading(false));
@@ -82,14 +86,16 @@ export default function DiaryPage() {
     try {
       if (editingEntry) {
         const updated = await updateDiary(editingEntry.id, payload);
+        const mappedUpdated = { ...updated, id: updated._id || updated.id };
         setEntries((prev) =>
-          prev.map((e) => (e.id === updated.id ? updated : e))
+          prev.map((e) => (e.id === mappedUpdated.id ? mappedUpdated : e))
         );
-        setSelectedEntry(updated);
+        setSelectedEntry(mappedUpdated);
       } else {
         const created = await createDiary(payload);
-        setEntries((prev) => [created, ...prev]);
-        setSelectedEntry(created);
+        const mappedCreated = { ...created, id: created._id || created.id };
+        setEntries((prev) => [mappedCreated, ...prev]);
+        setSelectedEntry(mappedCreated);
       }
       closeModal();
     } catch (error) {
@@ -100,12 +106,17 @@ export default function DiaryPage() {
   };
 
   const handleDelete = async (entryId: string) => {
-    try {
-      await deleteDiary(entryId);
-      console.log(entryId);
+    const idToDelete = entryId || selectedEntry?.id;
 
-      const updated = entries.filter((e) => e.id !== entryId);
-      console.log(updated);
+    if (!idToDelete) {
+      toast.error('Не вдалося видалити: ID не знайдено');
+      return;
+    }
+
+    try {
+      await deleteDiary(idToDelete);
+
+      const updated = entries.filter((e) => e.id !== idToDelete);
 
       setEntries(updated);
 
@@ -114,16 +125,6 @@ export default function DiaryPage() {
       console.error('Failed to delete entry:', error);
     }
   };
-
-  // const handleDelete = async (id: string) => {
-  //   try {
-  //     await deleteDiary(id);
-  //     // router.push('/diary');
-  //     toast.success('Запис видалено');
-  //   } catch {
-  //     toast.error('Не вдалося видалити. Спробуйте пізніше');
-  //   }
-  // };
 
   return (
     <div className={styles.page}>

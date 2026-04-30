@@ -2,6 +2,8 @@
 
 import { DiaryEntry } from '@/types/diary';
 import styles from './DiaryEntryDetails.module.css';
+import ConfirmationModal from '@/components/common/ConfirmationModal/ConfirmationModal';
+import { useState } from 'react';
 
 interface DiaryEntryDetailsProps {
   entry?: DiaryEntry | null;
@@ -22,6 +24,13 @@ export default function DiaryEntryDetails({
   onDelete,
   onEdit,
 }: DiaryEntryDetailsProps) {
+  const [isOpen, setOpenModal] = useState(false);
+
+  const handleModalClick = (entry: string) => {
+    onDelete?.(entry);
+    setOpenModal(false);
+  };
+
   if (!entry) {
     return (
       <div className={styles.wrapper}>
@@ -54,7 +63,7 @@ export default function DiaryEntryDetails({
             <button
               className={styles.iconBtn}
               aria-label="Видалити запис"
-              onClick={() => onDelete?.(entry.id)}
+              onClick={() => setOpenModal(true)}
             >
               <svg width={24} height={24}>
                 <use href="/sprite.svg#icon-delete_forever" />
@@ -83,6 +92,16 @@ export default function DiaryEntryDetails({
           </div>
         )}
       </div>
+      <ConfirmationModal
+        isOpen={isOpen}
+        title={'Видалити'}
+        confirmButtonText={'Видалити'}
+        cancelButtonText={'Відмінити'}
+        onConfirm={() => handleModalClick(entry.id)}
+        onCancel={() => {
+          setOpenModal(false);
+        }}
+      />
     </div>
   );
 }
