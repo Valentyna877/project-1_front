@@ -15,18 +15,27 @@ export default async function JourneyWeekPage({
   const { weekNumber } = await params;
   const week = Number(weekNumber);
 
+  if (!Number.isInteger(week) || week < 1) {
+    redirect("/journey");
+  }
+
+  let currentWeek: number;
   try {
     const cookieStore = await cookies();
     const res = await api.get<WeekInfo>("/weeks", {
       headers: { Cookie: cookieStore.toString() },
     });
-    const currentWeek = res.data.weeks;
-
-    return <JourneyPageClient weekNumber={week} currentWeek={currentWeek} />;
+    currentWeek = res.data.weeks;
   } catch (error) {
     if (isAxiosError(error) && error.response?.status === 401) {
       redirect("/auth/login");
     }
     throw error;
   }
+
+  if (week > currentWeek) {
+    redirect(`/journey/${currentWeek}`);
+  }
+
+  return <JourneyPageClient weekNumber={week} currentWeek={currentWeek} />;
 }

@@ -14,17 +14,17 @@ interface WeekSelectorProps {
 const WeekSelector = ({ currentWeek, activeWeek }: WeekSelectorProps) => {
   const router = useRouter();
   const activeRef = useRef<HTMLButtonElement>(null);
-  const hasCenteredRef = useRef(false);
+  const hasMountedRef = useRef(false);
 
   useEffect(() => {
-    if (hasCenteredRef.current) return;
-    activeRef.current?.scrollIntoView({
-      behavior: "instant",
+    if (!activeRef.current) return;
+    activeRef.current.scrollIntoView({
+      behavior: hasMountedRef.current ? "smooth" : "instant",
       block: "nearest",
       inline: "center",
     });
-    hasCenteredRef.current = true;
-  }, []);
+    hasMountedRef.current = true;
+  }, [activeWeek]);
 
   const handleWeekClick = (week: number) => {
     if (week > currentWeek) return;
