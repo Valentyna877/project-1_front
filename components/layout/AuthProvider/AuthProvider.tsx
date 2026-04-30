@@ -1,9 +1,10 @@
-"use client";
+'use client';
 
-import { checkSession, getUser, logoutUser } from "@/lib/api/clientApi";
-import { useAuthStore } from "@/lib/store/authStore";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { deleteCookies } from '@/lib/actions/deleteCookies';
+import { checkSession, getUser } from '@/lib/api/clientApi';
+import { useAuthStore } from '@/lib/store/authStore';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -12,7 +13,7 @@ interface AuthProviderProps {
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const setUser = useAuthStore((state) => state.setUser);
   const clearIsAuthenticated = useAuthStore(
-    (state) => state.clearIsAuthenticated,
+    (state) => state.clearIsAuthenticated
   );
 
   const [isChecking, setIsChecking] = useState<boolean>(false);
@@ -30,11 +31,11 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
           if (user) {
             setUser(user);
           } else {
-            throw new Error("Користувач не знайдений");
+            throw new Error('Користувач не знайдений');
           }
         }
       } catch {
-        await logoutUser();
+        await deleteCookies();
         clearIsAuthenticated();
       } finally {
         setIsChecking(false);

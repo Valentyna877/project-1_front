@@ -2,16 +2,10 @@ import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { checkSession } from './lib/api/serverApi';
 import { parse } from 'cookie';
-import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
+import { deleteCookies } from './lib/actions/deleteCookies';
 
 const privateRoutes = ['/profile', '/journey', '/diary'];
 const authRoutes = ['/auth'];
-
-const deleteCookies = (cookieStore: ReadonlyRequestCookies) => {
-  cookieStore.set('accessToken', '', { maxAge: 0 });
-  cookieStore.set('refreshToken', '', { maxAge: 0 });
-  cookieStore.set('sessionId', '', { maxAge: 0 });
-};
 
 export const proxy = async (req: NextRequest) => {
   const cookieStore = await cookies();
@@ -59,12 +53,12 @@ export const proxy = async (req: NextRequest) => {
       }
     }
     if (isAuthRoute) {
-      deleteCookies(cookieStore);
+      await deleteCookies();
       return NextResponse.next();
     }
 
     if (isPrivateRoute) {
-      deleteCookies(cookieStore);
+      await deleteCookies();
       return NextResponse.redirect(new URL('/auth/login', req.url));
     }
   }
