@@ -1,25 +1,27 @@
-"use client";
+'use client';
 
-import "@/app/globals.css";
-import css from "./page.module.css";
-import RegistrationForm from "@/components/auth/RegistrationForm/RegistrationForm";
-import Image from "next/image";
-import { IMG_VARS } from "@/app/imgVars";
-import clsx from "clsx";
-import Link from "next/link";
+import '@/app/globals.css';
+import css from './page.module.css';
+import RegistrationForm from '@/components/auth/RegistrationForm/RegistrationForm';
+import Image from 'next/image';
+import { IMG_VARS } from '@/app/imgVars';
+import clsx from 'clsx';
+import Link from 'next/link';
 
 const Register = () => {
   return (
-    <main className={clsx("container", css.section)}>
+    <main className={clsx('container', css.section)}>
       <div className={css.content}>
         <div className={css.header}>
-          <svg className={css["header-logo"]}>
-            <use href="/sprite.svg#icon-logo"></use>
-          </svg>
+          <Link href="/">
+            <svg className={css['header-logo']}>
+              <use href="/sprite.svg#icon-logo"></use>
+            </svg>
+          </Link>
         </div>
         <h1 className={css.title}>Реєстрація</h1>
         <RegistrationForm />
-        <Link href={"/auth/login"} className={css.redirection}>
+        <Link href={'/auth/login'} className={css.redirection}>
           Вже маєте аккаунт? <span>Увійти</span>
         </Link>
       </div>

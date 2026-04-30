@@ -19,6 +19,13 @@ export default function TasksReminderCard() {
     queryFn: getAllTask,
     refetchOnMount: false,
     enabled: isAuthenticated,
+
+    // select: (data) => {
+    //   if (!data) return [];
+    //   return [...data].sort(
+    //     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    //   );
+    // },
   });
 
   const queryClient = useQueryClient();
