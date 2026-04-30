@@ -1,18 +1,17 @@
-"use client";
+'use client';
 
-import { User } from "@/types/user";
-import styles from "./ProfileEditForm.module.css";
-import { useAuthStore } from "@/lib/store/authStore";
-import { useId, useMemo } from "react";
-import { ErrorMessage, Field, Form, Formik, FormikHelpers } from "formik";
-import Button from "@/components/common/Button/Button";
-import CalendarDatePicker from "@/components/common/CalendarDatePicker/CalendarDatePicker";
-import GenderSelect from "@/components/common/GenderSelect/GenderSelect";
-import { FORTY_WEEKS, profileSchema } from "./ProfileValidationSchema";
-import { useRouter } from "next/navigation";
-import { nextServer } from "@/lib/api/api";
-import { getUser } from "@/lib/api/clientApi";
-import { toast } from "sonner";
+import { User } from '@/types/user';
+import styles from './ProfileEditForm.module.css';
+import { useAuthStore } from '@/lib/store/authStore';
+import { useId, useMemo, useState } from 'react';
+import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
+import Button from '@/components/common/Button/Button';
+import CalendarDatePicker from '@/components/common/CalendarDatePicker/CalendarDatePicker';
+import GenderSelect from '@/components/common/GenderSelect/GenderSelect';
+import { FORTY_WEEKS, profileSchema } from './ProfileValidationSchema';
+import { nextServer } from '@/lib/api/api';
+import { getUser } from '@/lib/api/clientApi';
+import { toast } from 'sonner';
 
 interface ProfileEditFormProps {
   user: User;
@@ -33,17 +32,16 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
     name: user.name,
     email: user.email,
     gender: user.gender,
-    dueDate: user.dueDate ?? "",
+    dueDate: user.dueDate ?? '',
   };
-  const router = useRouter();
   const today = useMemo(() => new Date(), []);
   const maxDate = useMemo(
     () => new Date(today.getTime() + FORTY_WEEKS),
-    [today],
+    [today]
   );
   const handleSubmit = async (
     values: ProfileEditFormValues,
-    actions: FormikHelpers<ProfileEditFormValues>,
+    actions: FormikHelpers<ProfileEditFormValues>
   ) => {
     try {
       const payload: Record<string, unknown> = {};
@@ -56,16 +54,15 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
       }
 
       if (Object.keys(payload).length > 0) {
-        await nextServer.patch("/users/me", payload);
+        await nextServer.patch('/users/me', payload);
       }
 
       const updateUser = await getUser();
-      console.log("updateUser:", updateUser);
+      // console.log('updateUser:', updateUser);
       setUser(updateUser);
       actions.resetForm();
-      router.push("/");
     } catch {
-      toast.error("Помилка при оновленні профілю. Спробуйте ще раз.");
+      toast.error('Помилка при оновленні профілю. Спробуйте ще раз.');
     }
   };
   return (
@@ -122,10 +119,17 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
             existingDate={user.dueDate ?? null}
           /> */}
           <ErrorMessage name="dueDate" component="p" />
-          <Button type="button" onClick={() => resetForm()}>
+          <Button
+            className="btnClose "
+            type="reset"
+            variant="cancel"
+            onClick={() => resetForm()}
+          >
             Відмінити зміни
           </Button>
-          <Button type="submit">Зберегти зміни</Button>
+          <Button type="submit" variant="normal" size="lg">
+            Зберегти зміни
+          </Button>
         </Form>
       )}
     </Formik>

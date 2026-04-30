@@ -45,7 +45,7 @@ export async function PATCH(request: Request, { params }: Props) {
     const { taskId } = await params;
     const body = await request.json();
 
-    const res = await api.patch(`/tasks/${taskId}`, body, {
+    const res = await api.patch(`/tasks/${taskId}/status`, body, {
       headers: {
         Cookie: cookieStore.toString(),
       },
