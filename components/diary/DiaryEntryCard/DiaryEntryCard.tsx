@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import styles from "./DiaryEntryCard.module.css";
-import { DiaryEntry } from "@/lib/api/diaryApi";
+import Link from 'next/link';
+import styles from './DiaryEntryCard.module.css';
+import { DiaryEntry } from '@/types/diary';
 
 interface DiaryEntryCardProps {
   entry: DiaryEntry;
@@ -11,10 +11,10 @@ interface DiaryEntryCardProps {
 }
 
 function formatDate(dateStr: string): string {
-  return new Date(dateStr).toLocaleDateString("en-US", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
+  return new Date(dateStr).toLocaleDateString('uk-UA', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
   });
 }
 
@@ -57,7 +57,7 @@ export default function DiaryEntryCard({
       <button
         type="button"
         onClick={onSelect}
-        className={`${styles.card} ${styles.desktop} ${isSelected ? styles.selected : ""}`}
+        className={`${styles.card} ${styles.desktop} ${isSelected ? styles.selected : ''}`}
       >
         <CardContent entry={entry} />
       </button>

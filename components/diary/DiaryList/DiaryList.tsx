@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { DiaryEntry } from "@/lib/api/diaryApi";
-import styles from "./DiaryList.module.css";
-import DiaryEntryCard from "../DiaryEntryCard/DiaryEntryCard";
+import styles from './DiaryList.module.css';
+import DiaryEntryCard from '../DiaryEntryCard/DiaryEntryCard';
+import { DiaryEntry } from '@/types/diary';
 
 interface DiaryListProps {
   entries: DiaryEntry[];
@@ -23,20 +23,8 @@ export default function DiaryList({
         <h2 className={styles.title}>Ваші записи</h2>
         <button type="button" className={styles.addButton} onClick={onAddClick}>
           Новий запис
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            aria-hidden="true"
-          >
-            <circle cx="10" cy="10" r="9" stroke="#2d2d2d" strokeWidth="1.5" />
-            <path
-              d="M10 6v8M6 10h8"
-              stroke="#2d2d2d"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
+          <svg width={24} height={24}>
+            <use href="/sprite.svg#icon-add_circle" />
           </svg>
         </button>
       </div>

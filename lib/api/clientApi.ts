@@ -3,6 +3,7 @@ import { nextServer } from "./api";
 import { Task } from "@/types/task";
 import { WeekInfo } from "@/types/weeks";
 import { GetAllTasks, TaskDone } from "@/types/task";
+import { CreateDiaryDto, DiaryEntry } from "@/types/diary";
 
 export interface UserRegCreds {
   name: string;
@@ -79,4 +80,30 @@ export const checkedTask = async (status: TaskDone) => {
   const { data } = await nextServer.patch<TaskDone>('/tasks/status', status )
   
   return data
+}
+
+export async function getDiaries(): Promise<DiaryEntry[]> {
+  const { data } = await nextServer.get<DiaryEntry[]>("/diaries");
+  return data;
+}
+
+export async function getDiary(entryId: string): Promise<DiaryEntry> {
+  const { data } = await nextServer.get<DiaryEntry>(`/diaries/${entryId}`);
+  return data;
+}
+
+export async function createDiary(payload: CreateDiaryDto): Promise<DiaryEntry> {
+  const { data } = await nextServer.post<DiaryEntry>("/diaries", payload);
+  return data;
+}
+
+export async function updateDiary(entryId: string, payload: CreateDiaryDto): Promise<DiaryEntry> {
+  const { data } = await nextServer.patch<DiaryEntry>(`/diaries/${entryId}`, payload);
+  return data;
+}
+
+export async function deleteDiary(entryId: string): Promise<void> {
+  const { data } = await nextServer.delete(`/diaries/${entryId}`);
+  return data
+  
 }

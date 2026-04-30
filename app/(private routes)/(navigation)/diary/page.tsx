@@ -1,19 +1,20 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import styles from "./page.module.css";
+import styles from './page.module.css';
+
+import DiaryList from '@/components/diary/DiaryList/DiaryList';
+import DiaryEntryDetails from '@/components/diary/DiaryEntryDetails/DiaryEntryDetails';
+import GreetingBlock from '@/components/common/GreetingBlock/GreetingBlock';
+import { CreateDiaryDto, DiaryEntry } from '@/types/diary';
 import {
   createDiary,
-  CreateDiaryDto,
   deleteDiary,
-  DiaryEntry,
   getDiaries,
   updateDiary,
-} from "@/lib/api/diaryApi";
-import DiaryList from "@/components/diary/DiaryList/DiaryList";
-import DiaryEntryDetails from "@/components/diary/DiaryEntryDetails/DiaryEntryDetails";
-import CreateDiaryModal from "@/components/diary/CreateDairyModal/CreateDiaryModal";
+} from '@/lib/api/clientApi';
+import { toast } from 'sonner';
 
 export default function DiaryPage() {
   const [entries, setEntries] = useState<DiaryEntry[]>([]);
@@ -26,10 +27,10 @@ export default function DiaryPage() {
   const [isSaving, setIsSaving] = useState(false);
 
   // Form state
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [date, setDate] = useState("");
-  const [emotions, setEmotions] = useState("");
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [date, setDate] = useState('');
+  const [emotions, setEmotions] = useState('');
 
   useEffect(() => {
     getDiaries()
@@ -43,10 +44,10 @@ export default function DiaryPage() {
 
   const openCreateModal = () => {
     setEditingEntry(null);
-    setTitle("");
-    setDescription("");
-    setDate(new Date().toISOString().split("T")[0]);
-    setEmotions("");
+    setTitle('');
+    setDescription('');
+    setDate(new Date().toISOString().split('T')[0]);
+    setEmotions('');
     setIsModalOpen(true);
   };
 
@@ -55,7 +56,7 @@ export default function DiaryPage() {
     setTitle(entry.title);
     setDescription(entry.description);
     setDate(entry.date);
-    setEmotions(entry.emotions.join(", "));
+    setEmotions(entry.emotions.join(', '));
     setIsModalOpen(true);
   };
 
@@ -72,7 +73,7 @@ export default function DiaryPage() {
       description: description.trim(),
       date,
       emotions: emotions
-        .split(",")
+        .split(',')
         .map((e) => e.trim())
         .filter(Boolean),
     };
@@ -82,7 +83,7 @@ export default function DiaryPage() {
       if (editingEntry) {
         const updated = await updateDiary(editingEntry.id, payload);
         setEntries((prev) =>
-          prev.map((e) => (e.id === updated.id ? updated : e)),
+          prev.map((e) => (e.id === updated.id ? updated : e))
         );
         setSelectedEntry(updated);
       } else {
@@ -92,29 +93,44 @@ export default function DiaryPage() {
       }
       closeModal();
     } catch (error) {
-      console.error("Failed to save entry:", error);
+      console.error('Failed to save entry:', error);
     } finally {
       setIsSaving(false);
     }
   };
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (entryId: string) => {
     try {
-      await deleteDiary(id);
-      const updated = entries.filter((e) => e.id !== id);
+      await deleteDiary(entryId);
+      console.log(entryId);
+
+      const updated = entries.filter((e) => e.id !== entryId);
+      console.log(updated);
+
       setEntries(updated);
+
       setSelectedEntry(updated[0] ?? null);
     } catch (error) {
-      console.error("Failed to delete entry:", error);
+      console.error('Failed to delete entry:', error);
     }
   };
 
+  // const handleDelete = async (id: string) => {
+  //   try {
+  //     await deleteDiary(id);
+  //     // router.push('/diary');
+  //     toast.success('Запис видалено');
+  //   } catch {
+  //     toast.error('Не вдалося видалити. Спробуйте пізніше');
+  //   }
+  // };
+
   return (
     <div className={styles.page}>
-      <h1 className={styles.greeting}>Good morning, Anna!</h1>
+      <GreetingBlock />
 
       {isLoading ? (
-        <p className={styles.loading}>Loading...</p>
+        <p className={styles.loading}>Завантаження...</p>
       ) : (
         <div className={styles.content}>
           <DiaryList
@@ -134,23 +150,7 @@ export default function DiaryPage() {
       )}
 
       {isModalOpen && (
-        <div className={styles.backdrop} onClick={closeModal}>
-          <CreateDiaryModal
-            isOpen={isModalOpen}
-            onClose={closeModal}
-            onSubmit={handleSubmit}
-            isSaving={isSaving}
-            editingEntry={editingEntry}
-            title={title}
-            setTitle={setTitle}
-            description={description}
-            setDescription={setDescription}
-            date={date}
-            setDate={setDate}
-            emotions={emotions}
-            setEmotions={setEmotions}
-          />
-        </div>
+        <div className={styles.backdrop} onClick={closeModal}></div>
       )}
     </div>
   );
