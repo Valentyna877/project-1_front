@@ -34,14 +34,14 @@ const AddTaskFormSchema = Yup.object().shape({
     .min(1, 'Назва має містити хоча б 1 символ')
     .max(96, 'Назва занадто довга')
     .required("Обов'язкове поле"),
-  date: Yup.string()
-    .trim()
-    .test('is-valid-date', 'Невірний формат дати', (value) => {
-      if (!value) return false;
-      const date = new Date(value);
-      return !isNaN(date.getTime());
-    })
-    .matches(/^\d{4}-\d{2}-\d{2}$/, 'Неправильний формат дати'),
+  // date: Yup.string()
+  //   .trim()
+  //   .test('is-valid-date', 'Невірний формат дати', (value) => {
+  //     if (!value) return false;
+  //     const date = new Date(value);
+  //     return !isNaN(date.getTime());
+  //   })
+  //   .matches(/^\d{4}-\d{2}-\d{2}$/, 'Неправильний формат дати'),
 });
 
 export default function AddTaskForm({ onClose }: TaskFormProps) {
@@ -53,7 +53,9 @@ export default function AddTaskForm({ onClose }: TaskFormProps) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] });
       toast.success('Завдання успішно створено!');
-      onClose?.();
+      if (onClose) {
+        onClose();
+      }
     },
     onError: () => {
       toast.error('Помилка при створенні завдання. Спробуйте ще раз.');
@@ -111,7 +113,7 @@ export default function AddTaskForm({ onClose }: TaskFormProps) {
               type="submit"
               disabled={mutation.isPending}
               loadingText="Зберігається..."
-              className={css.fullWidth}
+              className={css.addTaskFormButton}
             >
               Зберегти
             </Button>

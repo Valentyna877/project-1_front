@@ -1,9 +1,7 @@
 .addTaskForm {
     display: flex;
     flex-direction: column;
-    gap: 24px;
     width: 100%;
-    margin-bottom: 24px;
 }
 
 /* .addTaskForm.react-datepicker__input-container {
@@ -23,28 +21,17 @@
 }
 
 .input {
-    /* margin-top: 4px; */
+    margin-bottom: 24px;
     padding: 8px 12px;
     width: 100%;
-    /* max-width: 295px; */
-    /* height: 37px; */
-    /* font-size: var(--fz-14); */
+    max-width: 295px;
+    height: 37px;
+    font-size: var(--fz-14);
     border: 2px solid var(--opacity-transparent);
     border-radius: 12px;
     background-color: var(--opacity-neutral-darkest-5);
     resize: none;
     transition: border-color 250ms ease-in-out;
-    color: red;
-}
-
-.myInput {
-    width: 900px;
-    border: 2px solid var(--opacity-transparent);
-    border-radius: 12px;
-    background-color: var(--opacity-neutral-darkest-5);
-    resize: none;
-    transition: border-color 250ms ease-in-out;
-    color: red;
 }
 
 .input::placeholder {
@@ -72,4 +59,9 @@
 .actions {
     display: flex;
     justify-content: center;
+}
+
+.addTaskFormButton {
+    max-width: 295px;
+    height: 42px;
 }
