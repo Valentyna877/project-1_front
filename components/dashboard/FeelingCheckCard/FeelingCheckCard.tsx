@@ -8,9 +8,9 @@ import { useAuthStore } from '@/lib/store/authStore';
 export default function FeelingCheckCard() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
-  const handleDairyRedirect = () => {
+  const handleDiaryRedirect = () => {
     if (isAuthenticated) {
-      redirect('/dairy');
+      redirect('/diary');
     } else {
       redirect('/auth/login');
     }
@@ -21,7 +21,7 @@ export default function FeelingCheckCard() {
       <h2>Як ви себе почуваєте?</h2>
       <p className={css.feelingSubtitle}>Рекомендація на сьогодні:</p>
       <p className={css.feelingText}>Занотуйте незвичні відчуття у тілі.</p>
-      <Button className={css.feelingBtn} onClick={handleDairyRedirect}>
+      <Button className={css.feelingBtn} onClick={handleDiaryRedirect}>
         Зробити запис у щоденник
       </Button>
     </div>
