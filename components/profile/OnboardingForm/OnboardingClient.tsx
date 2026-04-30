@@ -66,7 +66,7 @@ export default function OnboardingClient() {
         <AvatarPicker profilePhotoUrl={user?.avatar} />
         <GenderSelect />
         <ErrorMessage name="gender" component="p" />
-        {/* <CalendarDatePicker minDate={today} maxDate={maxDate} /> */}
+        <CalendarDatePicker minDate={today} maxDate={maxDate} />
         <ErrorMessage name="dueDate" component="p" />
         <Button
           className={css.submitBtn}

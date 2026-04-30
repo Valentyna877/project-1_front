@@ -9,6 +9,7 @@ import { redirect } from 'next/navigation';
 import AddTaskModal from '@/components/tasks/AddTaskModal/AddTaskModal';
 import { useState } from 'react';
 import TaskItem from '../TaskItem/TaskItem';
+import { toast } from 'sonner';
 
 export default function TasksReminderCard() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -33,6 +34,9 @@ export default function TasksReminderCard() {
     mutationFn: checkedTask,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] });
+    },
+    onError: () => {
+      toast.error('Щось пішло не так. Спробуйте ще раз.');
     },
   });
 
