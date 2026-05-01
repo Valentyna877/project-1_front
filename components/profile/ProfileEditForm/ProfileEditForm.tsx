@@ -12,6 +12,8 @@ import { FORTY_WEEKS, profileSchema } from './ProfileValidationSchema';
 import { nextServer } from '@/lib/api/api';
 import { getUser } from '@/lib/api/clientApi';
 import { toast } from 'sonner';
+import { IMask, IMaskInput } from 'react-imask';
+
 
 interface ProfileEditFormProps {
   user: User;
@@ -112,7 +114,28 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
 
           <GenderSelect />
           <ErrorMessage name="gender" component="p" />
-          <CalendarDatePicker minDate={today} maxDate={maxDate} />
+          <Field
+                    name='dueDate'
+                    component={CalendarDatePicker}
+                    placeholderText='Оберіть дату'
+                    className={styles.datePicker}
+                    minDate={today}
+                    maxDate={maxDate}
+                    dateFormat="dd-MM-yyyy"
+                    label="Планова дата пологів"
+                    labelClassName={styles.label}
+                    customInput={
+                        <IMaskInput
+                            mask="DD-MM-YYYY"
+                            blocks={{
+                                DD: { mask: IMask.MaskedRange, from: 1, to: 31 },
+                                MM: { mask: IMask.MaskedRange, from: 1, to: 12 },
+                                YYYY: { mask: IMask.MaskedRange, from: new Date().getFullYear(), to: new Date().getFullYear() + 1 },
+                            }}
+                        />
+                    }
+                />
+          {/* <CalendarDatePicker minDate={today} maxDate={maxDate} /> */}
           {/* <CalendarDatePicker
             minDate={today}
             maxDate={maxDate}
