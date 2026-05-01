@@ -28,6 +28,7 @@
     background-color: var(--opacity-neutral-darkest-5);
     flex-shrink: 0;
     fill: transparent;
+    transition: background-color 250ms ease-in-out, fill 250ms ease-in-out;
 }
 
 .defaultCheckbox:checked+.labelCheckbox>.customCheckbox {

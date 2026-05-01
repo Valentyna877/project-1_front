@@ -21,7 +21,15 @@
     width: 40px;
     height: 40px;
     background-color: transparent;
+    transition: background-color 250ms ease-in-out;
 }
+
+.addTaskBtn:hover {
+background-color: var(--color-scheme-accent);
+}
+
+
+
 
 .emptyTaskSubTitle {
     font-family: var(--font-family);

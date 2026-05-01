@@ -9,7 +9,7 @@ import { redirect } from 'next/navigation';
 import AddTaskModal from '@/components/tasks/AddTaskModal/AddTaskModal';
 import { useState } from 'react';
 import TaskItem from '../TaskItem/TaskItem';
-import { toast } from 'sonner';
+import { ToastProvider } from '@/components/common/Toast/ToastProvider';
 import Loader from '@/components/common/Loader/Loader';
 
 export default function TasksReminderCard() {
@@ -20,13 +20,6 @@ export default function TasksReminderCard() {
     queryFn: getAllTask,
     refetchOnMount: false,
     enabled: isAuthenticated,
-
-    // select: (data) => {
-    //   if (!data) return [];
-    //   return [...data].sort(
-    //     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-    //   );
-    // },
   });
 
   const queryClient = useQueryClient();
@@ -37,7 +30,7 @@ export default function TasksReminderCard() {
       queryClient.invalidateQueries({ queryKey: ['tasks'] });
     },
     onError: () => {
-      toast.error('Щось пішло не так. Спробуйте ще раз.');
+      ToastProvider.error('Помилка при створенні завдання.');
     },
   });
 
@@ -52,6 +45,14 @@ export default function TasksReminderCard() {
       redirect('/auth/login');
     }
   };
+
+  if (isLoading) {
+    <Loader />;
+  }
+
+  if (isError) {
+    ToastProvider.error('Помилка при створенні завдання.');
+  }
 
   const handleCloseModal = () => {
     setIsOpen(false);

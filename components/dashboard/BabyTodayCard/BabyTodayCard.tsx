@@ -35,19 +35,21 @@ export default function BabyTodayCard({
         <div className={css.babyTextWrapper}>
           <p className={css.babyInfo}>
             <span className={css.strong}>Розмір: </span>
-            {`Приблизно ${babySize} см`}
+            {babySize ? `Приблизно ${babySize} см` : 'Помилка'}
           </p>
           <p className={css.babyInfo}>
             <span className={css.strong}>Вага: </span>
-            {`Близько ${babyWeight} грамів`}
+            {babyWeight ? `Близько ${babyWeight} грамів` : 'Помилка'}
           </p>
           <p className={css.babyInfo}>
             <span className={css.strong}>Активність: </span>
-            {babyActivity}
+            {babyActivity ? `${babyActivity}` : 'Помилка'}
           </p>
         </div>
       </div>
-      <p className={css.babyCardText}>{babyDevelopment}</p>
+      <p className={css.babyCardText}>
+        {babyDevelopment ? `${babyDevelopment}` : 'Помилка'}
+      </p>
     </div>
   );
 }

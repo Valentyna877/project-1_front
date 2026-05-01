@@ -6,7 +6,10 @@ import MomTipCard from '../MomTipCard/MomTipCard';
 import StatusBlock from '../StatusBlock/StatusBlock';
 import { weekInfo, weekInfoPublic } from '@/lib/api/clientApi';
 import { useAuthStore } from '@/lib/store/authStore';
+import { ToastProvider } from '@/components/common/Toast/ToastProvider';
 import Loader from '@/components/common/Loader/Loader';
+import ErrorState from '@/components/common/ErrorState/ErrorState';
+import { useRouter } from 'next/router';
 
 export default function DashboardCardClient() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
@@ -15,16 +18,12 @@ export default function DashboardCardClient() {
     queryFn: isAuthenticated ? weekInfo : weekInfoPublic,
   });
 
-  if (!data) {
+  if (isLoading) {
     return <Loader />;
   }
 
-  if (isLoading) {
-    return 'Loading...';
-  }
-
   if (isError) {
-    return 'Error';
+    ToastProvider.error('Помилка при створенні завдання.');
   }
 
   const todayIndex = (new Date().getDay() + 6) % 7;
