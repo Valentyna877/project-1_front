@@ -1,13 +1,10 @@
 import css from './MomTipCard.module.css';
 
 type Props = {
-  momDailyTips: string[] | undefined;
+  momDailyTip: string | undefined;
 };
 
-export default function MomTipCard({ momDailyTips }: Props) {
-  const todayIndex = (new Date().getDay() + 6) % 7;
-
-  const momDailyTip = momDailyTips[todayIndex];
+export default function MomTipCard({ momDailyTip }: Props) {
   return (
     <div className={css.momTipBox}>
       <h2>Порада для мами</h2>

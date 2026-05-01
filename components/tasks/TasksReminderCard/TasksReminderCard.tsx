@@ -41,7 +41,7 @@ export default function TasksReminderCard() {
     },
   });
 
-  const HandleCheckTask = (isDone: boolean, taskId: string) => {
+  const handleCheckTask = (isDone: boolean, taskId: string) => {
     taskMutation.mutate({ isDone, taskId });
   };
 
@@ -89,7 +89,7 @@ export default function TasksReminderCard() {
       </div>
       {data.length > 0 ? (
         <ul>
-          <TaskItem data={data} HandleCheckTask={HandleCheckTask} />
+          <TaskItem data={data} handleCheckTask={handleCheckTask} />
         </ul>
       ) : (
         <div>

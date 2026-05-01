@@ -27,9 +27,8 @@ export default function DashboardCardClient() {
     return 'Error';
   }
 
-  // if (!data.baby) {
-  //   return 'Error...';
-  // }
+  const todayIndex = (new Date().getDay() + 6) % 7;
+  const momDailyTip = data?.baby?.momDailyTips[todayIndex];
 
   return (
     <>
@@ -43,7 +42,7 @@ export default function DashboardCardClient() {
         babyActivity={data?.baby?.babyActivity}
         babyDevelopment={data?.baby?.babyDevelopment}
       />
-      <MomTipCard momDailyTips={data?.baby?.momDailyTips} />
+      <MomTipCard momDailyTip={momDailyTip} />
     </>
   );
 }

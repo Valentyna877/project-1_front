@@ -4,7 +4,6 @@ import Button from '@/components/common/Button/Button';
 import css from './FeelingCheckCard.module.css';
 import { redirect } from 'next/navigation';
 import { useAuthStore } from '@/lib/store/authStore';
-import Loader from '@/components/common/Loader/Loader';
 
 export default function FeelingCheckCard() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);

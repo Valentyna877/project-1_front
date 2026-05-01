@@ -27,7 +27,7 @@ export default function BabyTodayCard({
       <div className={css.babyInfoBox}>
         <Image
           className={css.babyImg}
-          src={image || 'no image'}
+          src={image || '/no image'}
           alt={analogy || imageAlt || 'no connection'}
           width={257}
           height={194}
