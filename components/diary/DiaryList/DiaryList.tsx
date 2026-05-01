@@ -1,16 +1,25 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import AddDiaryEntryModal from '@/components/diary/AddDiaryEntryModal/AddDiaryEntryModal';
+import css from './DiaryList.module.css';
 
-import Modal from "@/components/common/Modal/Modal";
-import AddDiaryEntryForm from "../AddDiaryEntryForm/AddDiaryEntryForm";
+// import Modal from '@/components/common/Modal/Modal';
+// import AddDiaryEntryForm from '@/components/diary/AddDiaryEntryForm/AddDiaryEntryForm';
+////тимчасово
+const options = [
+  { value: 'Апатія', label: 'Апатія' },
+  { value: 'Апетит', label: 'Апетит' },
+  { value: 'Бадьорість', label: 'Бадьорість' },
+];
+////тимчасово
 
 const fetchDiary = async () => {
-  const res = await fetch("/api/diary");
+  const res = await fetch('/api/diary');
 
   if (!res.ok) {
-    throw new Error("Помилка отримання записів");
+    throw new Error('Помилка отримання записів');
   }
 
   return res.json();
@@ -20,21 +29,26 @@ export default function DiaryList() {
   const [isOpen, setIsOpen] = useState(false);
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["diary"],
+    queryKey: ['diary'],
     queryFn: fetchDiary,
   });
-
+  const handleCloseModal = () => {
+    setIsOpen(false);
+  };
   return (
     <div>
-      <button onClick={() => setIsOpen(true)}>Новий запис</button>
+      <button className={css.addBtn} onClick={() => setIsOpen(true)}>
+        Новий запис
+      </button>
 
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <AddDiaryEntryForm onClose={() => setIsOpen(false)} />
-      </Modal>
+      <AddDiaryEntryModal
+        isOpen={isOpen}
+        onClose={handleCloseModal}
+        options={options}
+      />
 
       {isLoading && <p>Завантаження...</p>}
       {isError && <p>Помилка завантаження</p>}
-
       <div>
         {data?.length === 0 && <p>Немає записів</p>}
 

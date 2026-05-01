@@ -1,121 +1,119 @@
-"use client";
+'use client';
 
-import { useState, useRef, useEffect } from "react";
-import clsx from "clsx";
-import css from "./MultiSelect.module.css";
-// отримувати через пропс ?
-const categoriesData = [
-  { id: "6895bd86a5c677999ed2ae14", title: "Апатія" },
-  { id: "6895bd86a5c677999ed2ae15", title: "Апетит" },
-  { id: "6895bd86a5c677999ed2ae16", title: "Бадьорість" },
-  { id: "6895bd86a5c677999ed2ae23", title: "Вдячність" },
-  { id: "6895bd86a5c677999ed2aeb9", title: "Тривога" },
-  { id: "6895bd86a5c677999ed2aec5", title: "Щастя" },
-  // ...
-];
+import { useState, useRef, useEffect } from 'react';
+import clsx from 'clsx';
+import css from './MultiSelect.module.css';
 
-interface MultiSelectProps {
-  name: string;
-  value: string[]; // Масив обраних title або ID
+type Option = {
+  value: string;
+  label: string;
+};
+
+type MultiSelectProps = {
+  value: string[];
   onChange: (value: string[]) => void;
-}
+  options: Option[];
+};
 
-const MultiSelect = ({ value, onChange }: MultiSelectProps) => {
+export default function MultiSelect({
+  value,
+  onChange,
+  options,
+}: MultiSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (e: MouseEvent) => {
       if (
         containerRef.current &&
-        !containerRef.current.contains(event.target as Node)
+        !containerRef.current.contains(e.target as Node)
       ) {
         setIsOpen(false);
       }
     };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const toggleOption = (title: string) => {
-    const newValue = value.includes(title)
-      ? value.filter((item) => item !== title)
-      : [...value, title];
-    onChange(newValue);
+  const filteredOptions = options.filter((option) =>
+    option.label.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const handleSelect = (val: string) => {
+    if (value.includes(val)) {
+      onChange(value.filter((v) => v !== val));
+    } else {
+      onChange([...value, val]);
+    }
   };
 
-  const filteredOptions = categoriesData.filter((option) =>
-    option.title.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
+  const handleRemove = (val: string) => {
+    onChange(value.filter((v) => v !== val));
+  };
 
   return (
     <div className={css.container} ref={containerRef}>
       <div
         className={clsx(css.selectTrigger, isOpen && css.active)}
-        onClick={() => setIsOpen(!isOpen)}>
+        onClick={() => setIsOpen((prev) => !prev)}
+      >
         <div className={css.tagsContainer}>
           {value.length > 0 ? (
-            value.map((val) => (
-              <span key={val} className={css.tag}>
-                {val}
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggleOption(val);
-                  }}
-                  className={css.removeTag}>
-                  ×
-                </button>
-              </span>
-            ))
+            value.map((val) => {
+              const option = options.find((o) => o.value === val);
+              return (
+                <span key={val} className={css.tag}>
+                  {option?.label}
+
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleRemove(val);
+                    }}
+                  >
+                    ×
+                  </button>
+                </span>
+              );
+            })
           ) : (
-            <span className={css.placeholder}>Оберіть категорію</span>
+            <span className={css.placeholder}>Оберіть категорії</span>
           )}
         </div>
-        <svg
-          className={clsx(css.arrow, isOpen && css.rotate)}
-          width="20"
-          height="20">
-          <use href="/sprite.svg#icon-chevron-down" />
-        </svg>
       </div>
 
       {isOpen && (
         <div className={css.dropdown}>
           <input
             type="text"
-            className={css.searchInput}
             placeholder="Пошук..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            autoFocus
+            className={css.search}
           />
+
           <ul className={css.optionsList}>
-            {filteredOptions.length > 0 ? (
-              filteredOptions.map((option) => (
-                <li
-                  key={option.id}
-                  className={css.optionItem}
-                  onClick={() => toggleOption(option.title)}>
-                  <input
-                    type="checkbox"
-                    checked={value.includes(option.title)}
-                    readOnly
-                    className={css.checkbox}
-                  />
-                  <span className={css.optionTitle}>{option.title}</span>
-                </li>
-              ))
-            ) : (
-              <li className={css.noOptions}>Нічого не знайдено</li>
-            )}
+            {filteredOptions.map((option) => (
+              <li
+                key={option.value}
+                className={css.option}
+                onClick={() => handleSelect(option.value)}
+              >
+                <input
+                  type="checkbox"
+                  checked={value.includes(option.value)}
+                  readOnly
+                />
+                {option.label}
+              </li>
+            ))}
           </ul>
         </div>
       )}
     </div>
   );
-};
-
-export default MultiSelect;
+}
