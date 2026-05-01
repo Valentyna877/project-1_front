@@ -491,3 +491,100 @@ isDisabled && 'btn-disabled'
     })}></div>
 
 \*
+
+- - Toast Provider
+
+* Приклади повідомлень
+
+ToastProvider.success('Завдання успішно створено!');
+ToastProvider.error('Помилка при створенні завдання.');
+ToastProvider.info('Це інформаційне повідомлення.');
+ToastProvider.warning('Будьте уважні!');
+
+- Приклади у файлах
+
+import { ToastProvider } from '@/components/common/ToastProvider';
+
+function AddTaskForm() {
+const handleSuccess = () => {
+ToastProvider.success('Завдання успішно створено!');
+};
+
+const handleError = () => {
+ToastProvider.error('Помилка при створенні завдання.');
+};
+
+const handleInfo = () => {
+ToastProvider.info('Це інформаційне повідомлення.');
+};
+
+const handleWarning = () => {
+ToastProvider.warning('Будьте уважні!');
+};
+
+return (
+
+<div>
+<button onClick={handleSuccess}>Успіх</button>
+<button onClick={handleError}>Помилка</button>
+<button onClick={handleInfo}>Інфо</button>
+<button onClick={handleWarning}>Попередження</button>
+</div>
+);
+}
+
+\*
+
+- - приклад юзання Select
+
+import { Formik, Form, Field } from 'formik';
+import GenderSelect from '@/components/common/GenderSelect';
+
+interface FormValues {
+name: string;
+email: string;
+gender: 'boy' | 'girl' | 'unknown' | null;
+}
+
+export default function ProfileForm() {
+const initialValues: FormValues = {
+name: '',
+email: '',
+gender: null,
+};
+
+return (
+<Formik
+initialValues={initialValues}
+onSubmit={(values) => {
+console.log('Form submitted:', values);
+}} >
+{({ values, setFieldValue }) => (
+<Form>
+<div>
+<label>Ім’я</label>
+<Field name="name" />
+</div>
+
+          <div>
+            <label>Email</label>
+            <Field name="email" type="email" />
+          </div>
+
+          <div>
+            <label>Стать дитини</label>
+            <GenderSelect
+              value={values.gender}
+              onChange={(val) => setFieldValue('gender', val)}
+            />
+          </div>
+
+          <button type="submit">Зберегти</button>
+        </Form>
+      )}
+    </Formik>
+
+);
+}
+
+\*
