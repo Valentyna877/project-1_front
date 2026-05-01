@@ -17,6 +17,7 @@
     "formik": "^2.4.9",
     "imask": "^7.6.1",
     "lottie-react": "^2.4.1",
+    "lucide-react": "^1.14.0",
     "modern-normalize": "^3.0.1",
     "next": "16.2.4",
     "react": "19.2.4",
