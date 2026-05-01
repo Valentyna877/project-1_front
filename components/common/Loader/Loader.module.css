@@ -5,7 +5,7 @@
 }
 
 .fullScreen {
-  
+  position: absolute;
   inset: 0;
   z-index: 9999;
   padding: 24px;

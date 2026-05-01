@@ -3,13 +3,13 @@ import css from './BabyTodayCard.module.css';
 import Loader from '@/components/common/Loader/Loader';
 
 type Props = {
-  image: string;
-  analogy: string;
-  babySize: number;
-  babyWeight: number;
-  babyActivity: string;
-  babyDevelopment: string;
-  imageAlt: string;
+  image: string | undefined;
+  analogy: string | undefined;
+  babySize: number | undefined;
+  babyWeight: number | undefined;
+  babyActivity: string | undefined;
+  babyDevelopment: string | undefined;
+  imageAlt: string | undefined;
 };
 
 export default function BabyTodayCard({
@@ -23,13 +23,12 @@ export default function BabyTodayCard({
 }: Props) {
   return (
     <div className={css.babyCardBox}>
-      <Loader theme="default" />
       <h2>Малюк сьогодні</h2>
       <div className={css.babyInfoBox}>
         <Image
           className={css.babyImg}
-          src={image}
-          alt={analogy || imageAlt}
+          src={image || 'no image'}
+          alt={analogy || imageAlt || 'no connection'}
           width={257}
           height={194}
         />

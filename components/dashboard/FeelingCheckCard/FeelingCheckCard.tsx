@@ -19,7 +19,6 @@ export default function FeelingCheckCard() {
 
   return (
     <div className={css.feelingCheckCardBox}>
-      <Loader theme="boy" />
       <h2>Як ви себе почуваєте?</h2>
       <p className={css.feelingSubtitle}>Рекомендація на сьогодні:</p>
       <p className={css.feelingText}>Занотуйте незвичні відчуття у тілі.</p>

@@ -5,7 +5,7 @@ import clsx from 'clsx';
 
 import boyAnimation from '@/public/animations/baby-boy.json';
 import girlAnimation from '@/public/animations/baby-girl.json';
-import defaultAnimation from '@/public/animations/loader-test.json';
+import defaultAnimation from '@/public/animations/baby-default.json';
 import smallAnimation from '@/public/animations/loader-small.json';
 
 import css from './Loader.module.css';
@@ -21,7 +21,7 @@ type LoaderProps = {
 
 const globalAnimations = {
   boy: boyAnimation,
-  girl: smallAnimation,
+  girl: girlAnimation,
   default: defaultAnimation,
 };
 

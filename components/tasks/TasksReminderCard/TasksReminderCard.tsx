@@ -79,7 +79,6 @@ export default function TasksReminderCard() {
 
   return (
     <div className={css.taskCardBox}>
-      <Loader theme="girl" />
       <div className={css.taskTitleBox}>
         <h2>Важливі завдання</h2>
         <button className={css.addTaskBtn} onClick={handleOpenModal}>
