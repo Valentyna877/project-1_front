@@ -75,7 +75,9 @@ export default function MultiSelect({
                       handleRemove(val);
                     }}
                   >
-                    ×
+                    <svg width={12} height={12}>
+                      <use href="/sprite.svg#icon-close" />
+                    </svg>
                   </button>
                 </span>
               );
@@ -84,6 +86,10 @@ export default function MultiSelect({
             <span className={css.placeholder}>Оберіть категорії</span>
           )}
         </div>
+
+        <svg className={css.arrow} width={24} height={24}>
+          <use href="/sprite.svg#icon-arrow_down" />
+        </svg>
       </div>
 
       {isOpen && (
