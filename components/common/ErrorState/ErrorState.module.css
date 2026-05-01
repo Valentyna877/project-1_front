@@ -1,0 +1,25 @@
+.card {
+    max-width: 500px;
+
+    padding: 16px 16px;
+    border-radius: 14px;
+
+    background: var(--color-scheme-foreground,
+            var(--color-pastel-pink-lighter, #fff4f6));
+}
+
+.title {
+    font-size: 18px;
+}
+
+.desc {
+    margin: 6px 0 0;
+    color: var(--color-neutral-dark, #4c4c4c);
+}
+
+.actions {
+    margin-top: 12px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
