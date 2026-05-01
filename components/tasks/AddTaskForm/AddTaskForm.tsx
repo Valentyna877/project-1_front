@@ -9,10 +9,14 @@ import { createTask, NewTask } from '@/lib/api/clientApi';
 import Button from '@/components/common/Button/Button';
 import CalendarDatePicker from '@/components/common/CalendarDatePicker/CalendarDatePicker';
 import { toast } from 'sonner';
+import { format } from 'path';
 
 interface TaskFormProps {
   onClose?: () => void;
 }
+
+// const currentDate = new Date();
+// const currentDateString = format(currentDate, dd - MM - yyyy)
 
 interface AddTaskFormValues {
   name: string;
@@ -21,7 +25,8 @@ interface AddTaskFormValues {
 
 const initialValues: AddTaskFormValues = {
   name: '',
-  date: new Date().toISOString().split('T')[0],
+  // date: new Date().toISOString().split('T')[0],
+  date: '',
 };
 
 const AddTaskFormSchema = Yup.object().shape({
@@ -29,7 +34,14 @@ const AddTaskFormSchema = Yup.object().shape({
     .min(1, 'Назва має містити хоча б 1 символ')
     .max(96, 'Назва занадто довга')
     .required("Обов'язкове поле"),
-  date: Yup.string().datetime('YYYY-MM-DD'),
+  // date: Yup.string()
+  //   .trim()
+  //   .test('is-valid-date', 'Невірний формат дати', (value) => {
+  //     if (!value) return false;
+  //     const date = new Date(value);
+  //     return !isNaN(date.getTime());
+  //   })
+  //   .matches(/^\d{4}-\d{2}-\d{2}$/, 'Неправильний формат дати'),
 });
 
 export default function AddTaskForm({ onClose }: TaskFormProps) {
@@ -41,7 +53,9 @@ export default function AddTaskForm({ onClose }: TaskFormProps) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] });
       toast.success('Завдання успішно створено!');
-      onClose?.();
+      if (onClose) {
+        onClose();
+      }
     },
     onError: () => {
       toast.error('Помилка при створенні завдання. Спробуйте ще раз.');
@@ -50,10 +64,11 @@ export default function AddTaskForm({ onClose }: TaskFormProps) {
 
   const handleSubmit = (
     values: AddTaskFormValues,
-    actions: FormikHelpers<AddTaskFormValues>,
+    actions: FormikHelpers<AddTaskFormValues>
   ) => {
     const taskToSend: NewTask = {
-      ...values,
+      name: values.name,
+      date: values.date,
       isDone: false,
     };
     mutation.mutate(taskToSend);
@@ -66,9 +81,9 @@ export default function AddTaskForm({ onClose }: TaskFormProps) {
       onSubmit={handleSubmit}
       validationSchema={AddTaskFormSchema}
     >
-      <Form className={css.form}>
+      <Form className={css.addTaskForm}>
         <fieldset>
-          <div className={css.formGroup}>
+          <div className={css.addTaskformGroup}>
             <label htmlFor={`${fieldId}-name`}>Назва завдання</label>
             <Field
               id={`${fieldId}-name`}
@@ -80,34 +95,25 @@ export default function AddTaskForm({ onClose }: TaskFormProps) {
             <ErrorMessage name="name" component="span" className={css.error} />
           </div>
 
-          <div className={css.formGroup}>
+          <div className={css.addTaskformGroup}>
             <label htmlFor={`${fieldId}-date`}>Дата</label>
             <Field
               name="date"
               component={CalendarDatePicker}
               id={`${fieldId}-date`}
-              //   type="date"
               className={css.input}
-              placeholderText="Оберіть дату"
             />
             <ErrorMessage name="date" component="span" className={css.error} />
           </div>
 
           <div className={css.actions}>
-            {/* <button
-            type="submit"
-            className={css.submitButton}
-            disabled={mutation.isPending}
-        >
-            {mutation.isPending ? 'Зберігається...' : 'Зберегти'}
-        </button> */}
             <Button
               variant="normal"
               size="lg"
               type="submit"
               disabled={mutation.isPending}
               loadingText="Зберігається..."
-              className={css.fullWidth}
+              className={css.addTaskFormButton}
             >
               Зберегти
             </Button>
