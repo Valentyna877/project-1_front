@@ -1,5 +1,6 @@
-import Image from "next/image";
-import css from "./BabyTodayCard.module.css";
+import Image from 'next/image';
+import css from './BabyTodayCard.module.css';
+import Loader from '@/components/common/Loader/Loader';
 
 type Props = {
   image: string;
@@ -22,6 +23,7 @@ export default function BabyTodayCard({
 }: Props) {
   return (
     <div className={css.babyCardBox}>
+      <Loader theme="default" />
       <h2>Малюк сьогодні</h2>
       <div className={css.babyInfoBox}>
         <Image

@@ -10,6 +10,7 @@ import AddTaskModal from '@/components/tasks/AddTaskModal/AddTaskModal';
 import { useState } from 'react';
 import TaskItem from '../TaskItem/TaskItem';
 import { toast } from 'sonner';
+import Loader from '@/components/common/Loader/Loader';
 
 export default function TasksReminderCard() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -78,6 +79,7 @@ export default function TasksReminderCard() {
 
   return (
     <div className={css.taskCardBox}>
+      <Loader theme="girl" />
       <div className={css.taskTitleBox}>
         <h2>Важливі завдання</h2>
         <button className={css.addTaskBtn} onClick={handleOpenModal}>
