@@ -1,15 +1,16 @@
-import MultiSelect from '@/components/diary/AddDiaryEntryForm/MultiSelect';
 import css from './MomTipCard.module.css';
 
 type Props = {
-  momDailyTips: string;
+  momDailyTip: string | undefined;
 };
 
-export default function MomTipCard({ momDailyTips }: Props) {
+export default function MomTipCard({ momDailyTip }: Props) {
   return (
     <div className={css.momTipBox}>
       <h2>Порада для мами</h2>
-      <p className={css.momTipText}>{momDailyTips}</p>
+      <p className={css.momTipText}>
+        {momDailyTip ? `${momDailyTip}` : 'Помилка'}
+      </p>
     </div>
   );
 }

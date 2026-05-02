@@ -47,6 +47,7 @@ export interface NewTask {
   name: string;
   date: string;
   isDone: boolean;
+  _id?: string;
 }
 
 export const createTask = async (newTask: NewTask) => {

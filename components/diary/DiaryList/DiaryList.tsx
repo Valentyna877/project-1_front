@@ -1,9 +1,8 @@
-'use client';
-
 import styles from './DiaryList.module.css';
 import DiaryEntryCard from '../DiaryEntryCard/DiaryEntryCard';
 import AddDiaryEntryModal from '@/components/diary/AddDiaryEntryModal/AddDiaryEntryModal';
 import { DiaryEntry } from '@/types/diary';
+import { useSearchParams } from 'next/navigation';
 
 interface DiaryListProps {
   entries: DiaryEntry[];
@@ -22,6 +21,8 @@ export default function DiaryList({
   onModalOpen,
   onModalClose,
 }: DiaryListProps) {
+  const params = useSearchParams();
+  const isOpenParams = params.get('modal') === 'isOpen';
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
@@ -54,7 +55,10 @@ export default function DiaryList({
         )}
       </ul>
 
-      <AddDiaryEntryModal isOpen={isModalOpen} onClose={onModalClose} />
+      <AddDiaryEntryModal
+        isOpen={isOpenParams || isModalOpen}
+        onClose={onModalClose}
+      />
     </div>
   );
 }

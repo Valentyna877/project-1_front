@@ -12,9 +12,11 @@ import { DiaryEntry } from '@/types/diary';
 import { deleteDiary, getDiaries } from '@/lib/api/clientApi';
 import { useDiaryStore } from '@/lib/store/diaryStore';
 import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 export default function DiaryPage() {
   const queryClient = useQueryClient();
+  const router = useRouter();
   const { setEditingEntry, clearDraft } = useDiaryStore();
 
   const { data: entries = [], isLoading } = useQuery<DiaryEntry[]>({
@@ -43,6 +45,7 @@ export default function DiaryPage() {
 
   const handleModalClose = (updatedEntry?: DiaryEntry) => {
     setIsModalOpen(false);
+    router.replace('/diary');
     clearDraft();
     if (updatedEntry) {
       setSelectedEntry(updatedEntry);

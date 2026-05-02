@@ -9,7 +9,8 @@ import { redirect } from 'next/navigation';
 import AddTaskModal from '@/components/tasks/AddTaskModal/AddTaskModal';
 import { useState } from 'react';
 import TaskItem from '../TaskItem/TaskItem';
-import { toast } from 'sonner';
+import { ToastProvider } from '@/components/common/Toast/ToastProvider';
+import Loader from '@/components/common/Loader/Loader';
 
 export default function TasksReminderCard() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -29,11 +30,11 @@ export default function TasksReminderCard() {
       queryClient.invalidateQueries({ queryKey: ['tasks'] });
     },
     onError: () => {
-      toast.error('Щось пішло не так. Спробуйте ще раз.');
+      ToastProvider.error('Помилка при створенні завдання.');
     },
   });
 
-  const HandleCheckTask = (isDone: boolean, taskId: string) => {
+  const handleCheckTask = (isDone: boolean, taskId: string) => {
     taskMutation.mutate({ isDone, taskId });
   };
 
@@ -44,6 +45,14 @@ export default function TasksReminderCard() {
       redirect('/auth/login');
     }
   };
+
+  if (isLoading) {
+    <Loader />;
+  }
+
+  if (isError) {
+    ToastProvider.error('Помилка при створенні завдання.');
+  }
 
   const handleCloseModal = () => {
     setIsOpen(false);
@@ -81,7 +90,7 @@ export default function TasksReminderCard() {
       </div>
       {data.length > 0 ? (
         <ul>
-          <TaskItem data={data} HandleCheckTask={HandleCheckTask} />
+          <TaskItem data={data} handleCheckTask={handleCheckTask} />
         </ul>
       ) : (
         <div>
