@@ -1,4 +1,5 @@
-import css from "./MomTipCard.module.css";
+import MultiSelect from '@/components/diary/AddDiaryEntryForm/MultiSelect';
+import css from './MomTipCard.module.css';
 
 type Props = {
   momDailyTips: string;

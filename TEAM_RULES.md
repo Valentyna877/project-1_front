@@ -560,6 +560,7 @@ onSubmit={(values) => {
 console.log('Form submitted:', values);
 }} >
 {({ values, setFieldValue }) => (
+
 <Form>
 <div>
 <label>Ім’я</label>
@@ -588,3 +589,42 @@ console.log('Form submitted:', values);
 }
 
 \*
+
+## Loader
+
+Компонент для відображення стану завантаження.
+
+Імпорт:
+import Loader from '@/components/common/Loader/Loader';
+
+Глобальний loader:
+Використовується, коли завантажується вся сторінка або застосунок.
+<Loader variant="global" theme="default" />
+Доступні теми:
+<Loader variant="global" theme="boy" />
+<Loader variant="global" theme="girl" />
+<Loader variant="global" theme="default" />
+
+Логіка вибору теми залежить від даних користувача:
+const loaderTheme =
+user?.gender === 'boy'
+? 'boy'
+: user?.gender === 'girl'
+? 'girl'
+: 'default';
+<Loader variant="global" theme={loaderTheme} />
+
+Локальний loader:
+Використовується, коли завантажується тільки окремий блок, картка, список або секція.
+<Loader variant="inline" />
+
+Приклад:
+{isLoading ? <Loader variant="inline" /> : <Content />}
+
+Коли що використовувати:
+global — коли без даних не можна показати сторінку.
+inline — коли сторінка вже відображається, але вантажиться окремий блок.
+
+Анімації:
+Lottie JSON-файли зберігаються в
+public/animations/
