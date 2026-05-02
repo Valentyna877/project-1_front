@@ -1,5 +1,8 @@
-import Image from "next/image";
-import css from "./BabyTodayCard.module.css";
+import Image from 'next/image';
+import css from './BabyTodayCard.module.css';
+import MultiSelect from '@/components/diary/AddDiaryEntryForm/MultiSelect';
+import { useQuery } from '@tanstack/react-query';
+import { getAllEmotions } from '@/lib/api/clientApi';
 
 type Props = {
   image: string;
@@ -20,6 +23,13 @@ export default function BabyTodayCard({
   babyDevelopment,
   imageAlt,
 }: Props) {
+  const { data } = useQuery({
+    queryKey: ['emotions'],
+    queryFn: getAllEmotions,
+  });
+  if (!data) {
+    return;
+  }
   return (
     <div className={css.babyCardBox}>
       <h2>Малюк сьогодні</h2>

@@ -1,125 +1,152 @@
-'use client';
+import Select, {
+  components,
+  MultiValue,
+  OptionProps,
+  StylesConfig,
+} from 'react-select';
+import css from './AddDiaryEntryForm.module.css';
+import { Emotions } from '@/lib/api/clientApi';
+import { useState } from 'react';
 
-import { useState, useRef, useEffect } from 'react';
-import clsx from 'clsx';
-import css from './MultiSelect.module.css';
-
-type Option = {
+type OptionType = {
   value: string;
   label: string;
 };
 
-type MultiSelectProps = {
-  value: string[];
-  onChange: (value: string[]) => void;
-  options: Option[];
+const selectStyles: StylesConfig<OptionType> = {
+  control: (styles, { isFocused }) => ({
+    ...styles,
+    outlineColor: 'transparent',
+    outlineOffset: 0,
+    outline: 'transparent',
+    outlineStyle: 'none',
+    outlineWidth: 0,
+    backgroundColor: '#f2f2f2',
+    border: '1px solid var(--color-scheme-border)',
+    borderRadius: isFocused ? '12px 12px 0 0' : '12px',
+    // borderRadius: '12px',
+  }),
+  menu: (base) => ({
+    ...base,
+    marginTop: 0,
+    backgroundColor: '#f2f2f2',
+    border: '1px solid var(--color-scheme-border)',
+    borderRadius: '0 0 12px 12px',
+    padding: '8px 0px',
+  }),
+  multiValue: (styles) => {
+    return {
+      ...styles,
+      borderRadius: '100px',
+      paddingRight: '4px',
+      fontWeight: 600,
+      fontSize: '14px',
+      lineHeight: '160%',
+    };
+  },
+  multiValueRemove: (base) => ({
+    ...base,
+    display: 'none',
+  }),
+  option: (styles, { isDisabled, isFocused, isSelected }) => {
+    const color = '#e6e6e6';
+    return {
+      ...styles,
+      backgroundColor: isDisabled
+        ? undefined
+        : isSelected
+          ? color
+          : isFocused
+            ? color
+            : undefined,
+      color: isDisabled
+        ? '#ccc'
+        : isSelected
+          ? color
+            ? 'black'
+            : 'black'
+          : 'black',
+      cursor: isDisabled ? 'not-allowed' : 'default',
+
+      ':active': {
+        ...styles[':active'],
+        backgroundColor: !isDisabled ? (isSelected ? color : color) : undefined,
+      },
+    };
+  },
 };
 
-export default function MultiSelect({
-  value,
-  onChange,
-  options,
-}: MultiSelectProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
-  const containerRef = useRef<HTMLDivElement>(null);
+type Props = {
+  value: Emotions[];
+};
 
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(e.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
-  const filteredOptions = options.filter((option) =>
-    option.label.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const handleSelect = (val: string) => {
-    if (value.includes(val)) {
-      onChange(value.filter((v) => v !== val));
-    } else {
-      onChange([...value, val]);
-    }
-  };
-
-  const handleRemove = (val: string) => {
-    onChange(value.filter((v) => v !== val));
-  };
+const Option = (props: OptionProps<OptionType>) => {
+  const { isFocused, isSelected, label, innerProps } = props;
 
   return (
-    <div className={css.container} ref={containerRef}>
+    <components.Option {...props}>
       <div
-        className={clsx(css.selectTrigger, isOpen && css.active)}
-        onClick={() => setIsOpen((prev) => !prev)}
+        {...innerProps}
+        style={{ display: 'flex', alignItems: 'center', gap: 8 }}
       >
-        <div className={css.tagsContainer}>
-          {value.length > 0 ? (
-            value.map((val) => {
-              const option = options.find((o) => o.value === val);
-              return (
-                <span key={val} className={css.tag}>
-                  {option?.label}
-
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleRemove(val);
-                    }}
-                  >
-                    <svg width={12} height={12}>
-                      <use href="/sprite.svg#icon-close" />
-                    </svg>
-                  </button>
-                </span>
-              );
-            })
-          ) : (
-            <span className={css.placeholder}>Оберіть категорії</span>
+        <div
+          onMouseDown={(e) => e.preventDefault()}
+          style={{
+            width: isSelected ? 18 : 16,
+            height: isSelected ? 18 : 16,
+            border: isFocused ? '1px solid black' : 'none',
+            borderRadius: 4,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: isSelected ? 'black' : '#e6e6e6',
+          }}
+        >
+          {isSelected && (
+            <svg className={css.checkboxMark} width={14} height={11}>
+              <use href="/sprite.svg#icon-mark" />
+            </svg>
           )}
         </div>
 
-        <svg className={css.arrow} width={24} height={24}>
-          <use href="/sprite.svg#icon-arrow_down" />
-        </svg>
+        <span>{label}</span>
       </div>
+    </components.Option>
+  );
+};
 
-      {isOpen && (
-        <div className={css.dropdown}>
-          <input
-            type="text"
-            placeholder="Пошук..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className={css.search}
-          />
+export default function MultiSelect({ value }: Props) {
+  const MAX = 12;
 
-          <ul className={css.optionsList}>
-            {filteredOptions.map((option) => (
-              <li
-                key={option.value}
-                className={css.option}
-                onClick={() => handleSelect(option.value)}
-              >
-                <input
-                  type="checkbox"
-                  checked={value.includes(option.value)}
-                  readOnly
-                />
-                {option.label}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </div>
+  const [selected, setSelected] = useState<OptionType[]>([]);
+
+  const options =
+    value?.map((option) => ({
+      value: option.title,
+      label: option.title,
+    })) || [];
+
+  return (
+    <Select
+      placeholder="Оберіть категорію"
+      options={options}
+      value={selected}
+      onChange={(newValue) =>
+        setSelected(Array.isArray(newValue) ? newValue : [])
+      }
+      isMulti
+      name="emotions"
+      className={css.EmotionMultiselect}
+      closeMenuOnSelect={false}
+      hideSelectedOptions={false}
+      blurInputOnSelect={false}
+      components={{ Option }}
+      styles={selectStyles}
+      isClearable={false}
+      isOptionDisabled={(option) =>
+        selected.length >= MAX &&
+        !selected.some((item) => item.value === option.value)
+      }
+    />
   );
 }
