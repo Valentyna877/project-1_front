@@ -3,17 +3,17 @@
 import { User } from '@/types/user';
 import styles from './ProfileEditForm.module.css';
 import { useAuthStore } from '@/lib/store/authStore';
-import { useId, useMemo, useState } from 'react';
+import { useId, useMemo } from 'react';
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
 import Button from '@/components/common/Button/Button';
 import CalendarDatePicker from '@/components/common/CalendarDatePicker/CalendarDatePicker';
-import GenderSelect from '@/components/common/GenderSelect/GenderSelect';
 import { FORTY_WEEKS, profileSchema } from './ProfileValidationSchema';
 import { nextServer } from '@/lib/api/api';
 import { getUser } from '@/lib/api/clientApi';
-import { toast } from 'sonner';
-import { IMask, IMaskInput } from 'react-imask';
-
+import { GenderValue } from '@/components/common/GenderSelect/gender-select.types';
+import FormikGenderSelect from '@/components/common/GenderSelect/FormikGenderSelect';
+import { genderSelectStyles } from '@/components/common/GenderSelect/gender-select.styles';
+import { ToastProvider } from '@/components/common/Toast/ToastProvider';
 
 interface ProfileEditFormProps {
   user: User;
@@ -22,7 +22,7 @@ interface ProfileEditFormProps {
 interface ProfileEditFormValues {
   email: string;
   name: string;
-  gender?: string | null;
+  gender?: GenderValue | null;
   dueDate?: string;
 }
 
@@ -41,6 +41,7 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
     () => new Date(today.getTime() + FORTY_WEEKS),
     [today]
   );
+
   const handleSubmit = async (
     values: ProfileEditFormValues,
     actions: FormikHelpers<ProfileEditFormValues>
@@ -64,7 +65,7 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
       setUser(updateUser);
       actions.resetForm();
     } catch {
-      toast.error('Помилка при оновленні профілю. Спробуйте ще раз.');
+      ToastProvider.error('Помилка при оновленні профілю. Спробуйте ще раз.');
     }
   };
   return (
@@ -111,30 +112,37 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
               className={styles.error}
             />
           </div>
+          <div>
+            <label className={styles.label}>Стать дитини</label>
+            <FormikGenderSelect styles={genderSelectStyles} />
+          </div>
 
-          <GenderSelect />
-          <ErrorMessage name="gender" component="p" />
+          {/* <ErrorMessage name="gender" component="p" /> */}
           <Field
-                    name='dueDate'
-                    component={CalendarDatePicker}
-                    placeholderText='Оберіть дату'
-                    className={styles.datePicker}
-                    minDate={today}
-                    maxDate={maxDate}
-                    dateFormat="dd-MM-yyyy"
-                    label="Планова дата пологів"
-                    labelClassName={styles.label}
-                    customInput={
-                        <IMaskInput
-                            mask="DD-MM-YYYY"
-                            blocks={{
-                                DD: { mask: IMask.MaskedRange, from: 1, to: 31 },
-                                MM: { mask: IMask.MaskedRange, from: 1, to: 12 },
-                                YYYY: { mask: IMask.MaskedRange, from: new Date().getFullYear(), to: new Date().getFullYear() + 1 },
-                            }}
-                        />
-                    }
-                />
+            name="dueDate"
+            component={CalendarDatePicker}
+            placeholderText={user.dueDate}
+            className={styles.datePicker}
+            minDate={today}
+            maxDate={maxDate}
+            dateFormat="dd-MM-yyyy"
+            label="Планова дата пологів"
+            labelClassName={styles.label}
+            // customInput={
+            // <IMaskInput
+            //   mask="DD-MM-YYYY"
+            //   blocks={{
+            //     DD: { mask: IMask.MaskedRange, from: 1, to: 31 },
+            //     MM: { mask: IMask.MaskedRange, from: 1, to: 12 },
+            //     YYYY: {
+            //       mask: IMask.MaskedRange,
+            //       from: new Date().getFullYear(),
+            //       to: new Date().getFullYear() + 1,
+            //     },
+            //   }}
+            // />
+            // }
+          />
           {/* <CalendarDatePicker minDate={today} maxDate={maxDate} /> */}
           {/* <CalendarDatePicker
             minDate={today}
