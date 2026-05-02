@@ -5,8 +5,9 @@ import Select, {
   StylesConfig,
 } from 'react-select';
 import css from './AddDiaryEntryForm.module.css';
-import { Emotions } from '@/lib/api/clientApi';
+import { Emotions, getAllEmotions } from '@/lib/api/clientApi';
 import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 type OptionType = {
   value: string;
@@ -77,7 +78,7 @@ const selectStyles: StylesConfig<OptionType> = {
 };
 
 type Props = {
-  value: Emotions[];
+  value?: Emotions[];
 };
 
 const Option = (props: OptionProps<OptionType>) => {
@@ -119,7 +120,10 @@ export default function MultiSelect({ value }: Props) {
   const MAX = 12;
 
   const [selected, setSelected] = useState<OptionType[]>([]);
-
+  const { data } = useQuery({
+    queryKey: ['emotions'],
+    queryFn: getAllEmotions,
+  });
   const options =
     value?.map((option) => ({
       value: option.title,
