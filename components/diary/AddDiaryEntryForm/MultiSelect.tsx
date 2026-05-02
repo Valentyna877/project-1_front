@@ -1,17 +1,12 @@
-import Select, {
-  components,
-  MultiValue,
-  OptionProps,
-  StylesConfig,
-} from 'react-select';
+import Select, { components, OptionProps, StylesConfig } from 'react-select';
 import css from './AddDiaryEntryForm.module.css';
-import { Emotions, getAllEmotions } from '@/lib/api/clientApi';
-import { useState } from 'react';
+import { getAllEmotions } from '@/lib/api/clientApi';
 import { useQuery } from '@tanstack/react-query';
+import { useDiaryStore } from '@/lib/store/diaryStore';
 
 type OptionType = {
-  value: string;
-  label: string;
+  value: string; // _id
+  label: string; // title
 };
 
 const selectStyles: StylesConfig<OptionType> = {
@@ -77,10 +72,6 @@ const selectStyles: StylesConfig<OptionType> = {
   },
 };
 
-type Props = {
-  value?: Emotions[];
-};
-
 const Option = (props: OptionProps<OptionType>) => {
   const { isFocused, isSelected, label, innerProps } = props;
 
@@ -116,28 +107,35 @@ const Option = (props: OptionProps<OptionType>) => {
   );
 };
 
-export default function MultiSelect({ value }: Props) {
+export default function MultiSelect() {
   const MAX = 12;
+  const emotions = useDiaryStore((s) => s.draft.emotions);
+  const setEmotions = useDiaryStore((s) => s.setEmotions);
 
-  const [selected, setSelected] = useState<OptionType[]>([]);
   const { data } = useQuery({
     queryKey: ['emotions'],
     queryFn: getAllEmotions,
   });
-  const options =
-    value?.map((option) => ({
-      value: option.title,
+
+  const options: OptionType[] =
+    data?.map((option) => ({
+      value: option._id, // id як value
       label: option.title,
-    })) || [];
+    })) ?? [];
+
+  const selected = options.filter((opt) => emotions.includes(opt.value));
 
   return (
     <Select
       placeholder="Оберіть категорію"
       options={options}
       value={selected}
-      onChange={(newValue) =>
-        setSelected(Array.isArray(newValue) ? newValue : [])
-      }
+      onChange={(newValue) => {
+        const ids = (Array.isArray(newValue) ? newValue : []).map(
+          (o) => o.value
+        );
+        setEmotions(ids);
+      }}
       isMulti
       name="emotions"
       className={css.EmotionMultiselect}
@@ -148,8 +146,7 @@ export default function MultiSelect({ value }: Props) {
       styles={selectStyles}
       isClearable={false}
       isOptionDisabled={(option) =>
-        selected.length >= MAX &&
-        !selected.some((item) => item.value === option.value)
+        emotions.length >= MAX && !emotions.includes(option.value)
       }
     />
   );

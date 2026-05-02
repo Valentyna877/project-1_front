@@ -28,8 +28,8 @@ function CardContent({ entry }: { entry: DiaryEntry }) {
       {entry.emotions.length > 0 && (
         <div className={styles.emotions}>
           {entry.emotions.map((e) => (
-            <span key={e} className={styles.emotion}>
-              {e}
+            <span key={e._id} className={styles.emotion}>
+              {e.title}
             </span>
           ))}
         </div>
@@ -47,7 +47,7 @@ export default function DiaryEntryCard({
     <>
       {/* Mobile / tablet */}
       <Link
-        href={`/diary/${entry.id}`}
+        href={`/diary/${entry._id}`}
         className={`${styles.card} ${styles.mobile}`}
       >
         <CardContent entry={entry} />

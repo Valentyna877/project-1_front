@@ -1,128 +1,71 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import styles from './page.module.css';
 
 import DiaryList from '@/components/diary/DiaryList/DiaryList';
 import DiaryEntryDetails from '@/components/diary/DiaryEntryDetails/DiaryEntryDetails';
 import GreetingBlock from '@/components/common/GreetingBlock/GreetingBlock';
-import { CreateDiaryDto, DiaryEntry } from '@/types/diary';
-import {
-  createDiary,
-  deleteDiary,
-  getDiaries,
-  updateDiary,
-} from '@/lib/api/clientApi';
+import { DiaryEntry } from '@/types/diary';
+import { deleteDiary, getDiaries } from '@/lib/api/clientApi';
+import { useDiaryStore } from '@/lib/store/diaryStore';
 import { toast } from 'sonner';
 
 export default function DiaryPage() {
-  const [entries, setEntries] = useState<DiaryEntry[]>([]);
+  const queryClient = useQueryClient();
+  const { setEditingEntry, clearDraft } = useDiaryStore();
+
+  const { data: entries = [], isLoading } = useQuery<DiaryEntry[]>({
+    queryKey: ['diary'],
+    queryFn: getDiaries,
+  });
+
   const [selectedEntry, setSelectedEntry] = useState<DiaryEntry | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  // Modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingEntry, setEditingEntry] = useState<DiaryEntry | null>(null);
-  const [isSaving, setIsSaving] = useState(false);
-
-  // Form state
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [date, setDate] = useState('');
-  const [emotions, setEmotions] = useState('');
 
   useEffect(() => {
-    getDiaries()
-      .then((data) => {
-        const mappedData = data.map((entry: DiaryEntry) => ({
-          ...entry,
-          id: entry._id || entry.id,
-        }));
-        setEntries(mappedData);
-        setSelectedEntry(mappedData[0] ?? null);
-      })
-      .catch(console.error)
-      .finally(() => setIsLoading(false));
-  }, []);
+    if (entries.length > 0) {
+      setSelectedEntry((prev) => prev ?? entries[0]);
+    }
+  }, [entries]);
 
-  const openCreateModal = () => {
-    setEditingEntry(null);
-    setTitle('');
-    setDescription('');
-    setDate(new Date().toISOString().split('T')[0]);
-    setEmotions('');
+  const handleOpenCreate = () => {
+    clearDraft();
     setIsModalOpen(true);
   };
 
-  const openEditModal = (entry: DiaryEntry) => {
+  const handleOpenEdit = (entry: DiaryEntry) => {
     setEditingEntry(entry);
-    setTitle(entry.title);
-    setDescription(entry.description);
-    setDate(entry.date);
-    setEmotions(entry.emotions.join(', '));
     setIsModalOpen(true);
   };
 
-  const closeModal = () => {
+  const handleModalClose = (updatedEntry?: DiaryEntry) => {
     setIsModalOpen(false);
-    setEditingEntry(null);
-  };
-
-  const handleSubmit = async () => {
-    if (!title.trim() || !description.trim()) return;
-
-    const payload: CreateDiaryDto = {
-      title: title.trim(),
-      description: description.trim(),
-      date,
-      emotions: emotions
-        .split(',')
-        .map((e) => e.trim())
-        .filter(Boolean),
-    };
-
-    setIsSaving(true);
-    try {
-      if (editingEntry) {
-        const updated = await updateDiary(editingEntry.id, payload);
-        const mappedUpdated = { ...updated, id: updated._id || updated.id };
-        setEntries((prev) =>
-          prev.map((e) => (e.id === mappedUpdated.id ? mappedUpdated : e))
-        );
-        setSelectedEntry(mappedUpdated);
-      } else {
-        const created = await createDiary(payload);
-        const mappedCreated = { ...created, id: created._id || created.id };
-        setEntries((prev) => [mappedCreated, ...prev]);
-        setSelectedEntry(mappedCreated);
-      }
-      closeModal();
-    } catch (error) {
-      console.error('Failed to save entry:', error);
-    } finally {
-      setIsSaving(false);
+    clearDraft();
+    if (updatedEntry) {
+      setSelectedEntry(updatedEntry);
     }
   };
 
   const handleDelete = async (entryId: string) => {
-    const idToDelete = entryId || selectedEntry?.id;
-
-    if (!idToDelete) {
+    if (!entryId) {
       toast.error('Не вдалося видалити: ID не знайдено');
       return;
     }
 
     try {
-      await deleteDiary(idToDelete);
+      await deleteDiary(entryId);
+      queryClient.invalidateQueries({ queryKey: ['diary'] });
 
-      const updated = entries.filter((e) => e.id !== idToDelete);
-
-      setEntries(updated);
-
-      setSelectedEntry(updated[0] ?? null);
+      if (selectedEntry?._id === entryId) {
+        const updated = entries.filter((e) => e._id !== entryId);
+        setSelectedEntry(updated[0] ?? null);
+      }
     } catch (error) {
       console.error('Failed to delete entry:', error);
+      toast.error('Помилка при видаленні');
     }
   };
 
@@ -136,22 +79,20 @@ export default function DiaryPage() {
         <div className={styles.content}>
           <DiaryList
             entries={entries}
-            selectedId={selectedEntry?.id ?? null}
+            selectedId={selectedEntry?._id ?? null}
             onSelect={setSelectedEntry}
-            onAddClick={openCreateModal}
+            isModalOpen={isModalOpen}
+            onModalOpen={handleOpenCreate}
+            onModalClose={handleModalClose}
           />
           <div className={styles.detailsWrapper}>
             <DiaryEntryDetails
               entry={selectedEntry}
               onDelete={handleDelete}
-              onEdit={openEditModal}
+              onEdit={handleOpenEdit}
             />
           </div>
         </div>
-      )}
-
-      {isModalOpen && (
-        <div className={styles.backdrop} onClick={closeModal}></div>
       )}
     </div>
   );
