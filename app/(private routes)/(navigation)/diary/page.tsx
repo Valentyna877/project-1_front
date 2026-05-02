@@ -15,6 +15,7 @@ import {
   updateDiary,
 } from '@/lib/api/clientApi';
 import { toast } from 'sonner';
+import CreateDiaryModal from '@/components/diary/CreateDiaryModal/CreateDiaryModal';
 
 export default function DiaryPage() {
   const [entries, setEntries] = useState<DiaryEntry[]>([]);
@@ -151,7 +152,17 @@ export default function DiaryPage() {
       )}
 
       {isModalOpen && (
-        <div className={styles.backdrop} onClick={closeModal}></div>
+        <div className={styles.backdrop} onClick={closeModal}>
+          <CreateDiaryModal
+            isOpen={isModalOpen}
+            onClose={closeModal}
+            onSuccess={(entry) => {
+              const mapped = { ...entry, id: entry._id || entry.id };
+              setEntries((prev) => [mapped, ...prev]);
+              setSelectedEntry(mapped);
+            }}
+          />
+        </div>
       )}
     </div>
   );

@@ -95,6 +95,7 @@ export async function getDiary(entryId: string): Promise<DiaryEntry> {
 }
 
 export async function createDiary(payload: CreateDiaryDto): Promise<DiaryEntry> {
+  console.log('clientApi payload:', JSON.stringify(payload))
   const { data } = await nextServer.post<DiaryEntry>("/diaries", payload);
   return data;
 }

@@ -31,3 +31,6 @@ export async function DELETE(request: Request, { params }: Props) {
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
+
+
+

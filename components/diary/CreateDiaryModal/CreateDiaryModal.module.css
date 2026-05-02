@@ -1,0 +1,125 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  width: 600px;
+  max-width: 90%;
+  background: #f3f3f3;
+  border-radius: 24px;
+  padding: 32px;
+  position: relative;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* 🔹 Заголовок */
+.modalTitle {
+  font-size: 32px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+/* 🔹 Закрити (хрестик) */
+.closeBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 20px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
+
+/* 🔹 Поля */
+.field {
+  margin-bottom: 18px;
+}
+
+.label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #444;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: none;
+  background: #e7e7e7;
+  font-size: 14px;
+  outline: none;
+}
+
+.textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: none;
+  background: #e7e7e7;
+  font-size: 14px;
+  resize: none;
+  outline: none;
+  min-height: 140px;
+}
+
+/* 🔹 Категорії (chips) */
+.emotionsWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  background: #e7e7e7;
+  padding: 10px;
+  border-radius: 14px;
+}
+
+.emotion {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #dcdcdc;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.emotionActive {
+  background: #c4c4c4;
+}
+
+/* 🔹 Кнопки */
+.modalActions {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.submitBtn {
+  background: #e7b8bd;
+  border: none;
+  padding: 12px 40px;
+  border-radius: 999px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.submitBtn:hover {
+  background: #dfa3a9;
+}
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.cancelBtn {
+  display: none; /* у твоєму дизайні її нема */
+}
