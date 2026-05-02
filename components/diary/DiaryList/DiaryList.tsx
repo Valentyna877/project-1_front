@@ -1,5 +1,5 @@
 'use client';
-// import { useState } from 'react';
+
 import styles from './DiaryList.module.css';
 import DiaryEntryCard from '../DiaryEntryCard/DiaryEntryCard';
 import AddDiaryEntryModal from '@/components/diary/AddDiaryEntryModal/AddDiaryEntryModal';
@@ -11,14 +11,18 @@ interface DiaryListProps {
   entries: DiaryEntry[];
   selectedId: string | null;
   onSelect: (entry: DiaryEntry) => void;
-  onAddClick: () => void;
+  isModalOpen: boolean;
+  onModalOpen: () => void;
+  onModalClose: (entry?: DiaryEntry) => void;
 }
 
 export default function DiaryList({
   entries,
   selectedId,
   onSelect,
-  onAddClick,
+  isModalOpen,
+  onModalOpen,
+  onModalClose,
 }: DiaryListProps) {
   const params = useSearchParams();
   const router = useRouter();
@@ -56,10 +60,10 @@ export default function DiaryList({
           <li className={styles.empty}>Ще немає записів у щоденнику</li>
         ) : (
           entries.map((entry) => (
-            <li key={entry.id}>
+            <li key={entry._id}>
               <DiaryEntryCard
                 entry={entry}
-                isSelected={entry.id === selectedId}
+                isSelected={entry._id === selectedId}
                 onSelect={() => onSelect(entry)}
               />
             </li>

@@ -19,8 +19,8 @@
 
 .avatarWrapper {
   position: relative;
-  width: 164px;
-  height: 164px;
+  width: 132px;
+  height: 132px;
   border-radius: 50%;
   overflow: hidden;
 }
@@ -36,9 +36,9 @@
 }
 
 .changeButton {
-  font-family: "Lato", sans-serif;
-  width: 179px;
-  height: 42px;
+  font-family: 'Lato', sans-serif;
+  width: 335px;
+  height: 38px;
   border-bottom: 4px solid var(--opacity-neutral-darkest-15);
   border-radius: 100px;
   padding: 8px 20px;
@@ -60,7 +60,7 @@
   .picker {
     flex-direction: row;
     align-items: center;
-    gap: 24px;
+    gap: 12px;
   }
 
   .content {
@@ -69,12 +69,14 @@
 
   .changeButton {
     width: 218px;
+    height: 38px;
   }
 }
 
 @media (min-width: 1024px) {
   .changeButton {
     width: 218px;
+    height: 42px;
   }
 }
 .defaultInput {
@@ -83,8 +85,8 @@
 
 .avatar {
   background-color: var(--opacity-neutral-darkest-15);
-  width: 164px;
-  height: 164px;
+  width: 132px;
+  height: 132px;
   border-radius: 100%;
   margin-bottom: 24px;
 }
