@@ -1,205 +1,208 @@
 .dropdownControl {
-    width: 100%;
-    box-sizing: border-box;
-    border-radius: 12px;
-    border: 1px solid transparent;
-    background: var(--color-neutral-lightest);
-    outline: none;
-    font-size: 14px;
-    transition: all 0.2s ease;
-    color: var(--color-neutral-darkest);
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: var(--color-neutral-lightest);
+  outline: none;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  color: var(--color-neutral-darkest);
 }
 
 .dropdownControl:hover {
-    border-color: var(--opacity-neutral-darkest-10);
+  border-color: var(--opacity-neutral-darkest-10);
 }
 .dropdownControl[aria-expanded='true'] {
-    border-color: var(--color-scheme-accent);
-    background: var(--color-white);
+  border-color: var(--color-scheme-accent);
+  background: var(--color-white);
 }
 
-
 .dropdownWrap {
-    position: relative;
-    width: 100%;
+  position: relative;
+  width: 100%;
 }
 
 .dropdownControl {
-    min-height: 36px;
-    padding: 8px 12px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
+  min-height: 36px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
 }
 
 .dropdownControl:disabled {
-    cursor: not-allowed;
-    opacity: 0.6;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .dropdownControlOpen {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    border-bottom-color: transparent;
-    border: 1px solid var(--color-scheme-border);
-    border-bottom: none;
-    background: var(--color-white);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-color: transparent;
+  border: 1px solid var(--color-scheme-border);
+  border-bottom: none;
+  background: var(--color-white);
 }
 
 .dropdownValue {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    min-width: 0;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-width: 0;
 }
 
 .dropdownControl:disabled {
-    cursor: not-allowed;
-    opacity: 0.6;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .dropdownControlOpen {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    border-bottom-color: transparent;
-    border: 1px solid var(--color-scheme-border);
-    border-bottom: none;
-    background: var(--color-white);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-color: transparent;
+  border: 1px solid var(--color-scheme-border);
+  border-bottom: none;
+  background: var(--color-white);
 }
 
 .dropdownValue {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    min-width: 0;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-width: 0;
 }
 
 .chips {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .chip {
-    padding: 4px 10px;
-    border-radius: 100px;
-    background: var(--opacity-neutral-darkest-5);
-    color: var(--color-scheme-text);
-    white-space: nowrap;
+  padding: 4px 10px;
+  border-radius: 100px;
+  background: var(--opacity-neutral-darkest-5);
+  color: var(--color-scheme-text);
+  white-space: nowrap;
 }
 
 .chevron {
-    width: 18px;
-    height: 18px;
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .chevron::before {
-    margin: 4px auto 0;
-    content: '';
-    display: block;
-    width: 8px;
-    height: 8px;
-    border-right: 2px solid var(--opacity-neutral-darkest-60);
-    border-bottom: 2px solid var(--opacity-neutral-darkest-60);
-    transform: rotate(45deg);
-    transform-origin: center;
-    transition: transform 0.2s ease;
+  margin: 4px auto 0;
+  content: '';
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--opacity-neutral-darkest-60);
+  border-bottom: 2px solid var(--opacity-neutral-darkest-60);
+  transform: rotate(45deg);
+  transform-origin: center;
+  transition: transform 0.2s ease;
 }
 
 .chevronOpen::before {
-    transform: rotate(225deg);
-    margin-top: 8px;
+  transform: rotate(225deg);
+  margin-top: 8px;
 }
 
 .dropdownMenu {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 100%;
-    margin-top: 0;
-    background: var(--color-neutral-lightest);
-    border: 1px solid var(--color-scheme-border);
-    border-radius: 0 0 12px 12px;
-    z-index: 20;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  margin-top: 0;
+  background: var(--color-neutral-lightest);
+  border: 1px solid var(--color-scheme-border);
+  border-radius: 0 0 12px 12px;
+  z-index: 20;
 }
 
 .menuScroll {
-    max-height: 220px;
-    overflow: auto;
-    margin: 8px 12px 8px 0;
+  max-height: 220px;
+  overflow: auto;
+  margin: 8px 12px 8px 0;
 }
 
 .menuScroll::-webkit-scrollbar {
-    width: 10px;
+  width: 10px;
 }
 
 .menuScroll::-webkit-scrollbar-track {
-    background: var(--opacity-neutral-darkest-20);
-    border-radius: 4px;
-    border: 2px solid var(--color-neutral-lightest);
+  background: var(--opacity-neutral-darkest-20);
+  border-radius: 4px;
+  border: 2px solid var(--color-neutral-lightest);
 }
 
 .menuScroll::-webkit-scrollbar-thumb {
-    background: var(--color-scheme-accent);
-    border-radius: 4px;
-    height: 56px;
+  background: var(--color-scheme-accent);
+  border-radius: 4px;
+  height: 56px;
 }
 
 .menuItem {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 0px 8px 12px;
-    margin-bottom: 8px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    text-align: left;
-    background: transparent;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0px 8px 12px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  background: transparent;
 }
 
 .menuItem:focus-visible {
-    outline: 2px solid var(--color-scheme-accent);
-    outline-offset: 2px;
+  outline: 2px solid var(--color-scheme-accent);
+  outline-offset: 2px;
 }
 
 .menuItemActive {
-    background: var(--opacity-neutral-darkest-5);
+  background: var(--opacity-neutral-darkest-5);
 }
 
 .checkbox {
-    border: 1px solid var(--opacity-transparent);
-    border-radius: 4px;
-    width: 18px;
-    height: 18px;
-    background: var(--opacity-neutral-darkest-5);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  border: 1px solid var(--opacity-transparent);
+  border-radius: 4px;
+  width: 18px;
+  height: 18px;
+  background: var(--opacity-neutral-darkest-5);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .checkboxChecked {
-    background: var(--color-neutral-darkest);
-    border: 1px solid var(--color-neutral-darkest);
+  background: var(--color-neutral-darkest);
+  border: 1px solid var(--color-neutral-darkest);
 }
 
 .checkMark {
-    width: 8px;
-    height: 4px;
-    border-left: 2px solid var(--color-white);
-    border-bottom: 2px solid var(--color-white);
-    transform: rotate(-45deg);
-    margin-top: -1px;
+  width: 8px;
+  height: 4px;
+  border-left: 2px solid var(--color-white);
+  border-bottom: 2px solid var(--color-white);
+  transform: rotate(-45deg);
+  margin-top: -1px;
 }
 
 @media (min-width: 1440px) {
   .dropdownControl {
     font-size: 16px;
   }
+}
+
+.checkboxMark {
+  fill: white;
 }
