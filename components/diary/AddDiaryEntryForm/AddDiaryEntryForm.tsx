@@ -3,9 +3,10 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import toast from 'react-hot-toast';
+import { ToastProvider } from '@/components/common/Toast/ToastProvider';
 import MultiSelect from './MultiSelect';
 import css from './AddDiaryEntryForm.module.css';
+import { Emotions } from '@/lib/api/clientApi';
 
 type Option = {
   value: string;
@@ -21,7 +22,7 @@ interface FormValues {
 interface Props {
   onSuccess: () => void;
   initialValues?: FormValues;
-  options: Option[];
+  options?: Emotions[];
 }
 
 const validationSchema = Yup.object().shape({
@@ -56,13 +57,13 @@ export default function AddDiaryEntryForm({
     },
 
     onSuccess: () => {
-      toast.success('Запис збережено');
+      ToastProvider.success('Запис збережено');
       queryClient.invalidateQueries({ queryKey: ['diary'] });
       onSuccess();
     },
 
     onError: () => {
-      toast.error('Помилка при збереженні');
+      ToastProvider.error('Помилка при збереженні');
     },
   });
 
@@ -95,11 +96,7 @@ export default function AddDiaryEntryForm({
           <div className={css.fieldWrapper}>
             <label className={css.label}>Категорії</label>
 
-            <MultiSelect
-              value={values.categories}
-              onChange={(selected) => setFieldValue('categories', selected)}
-              options={options}
-            />
+            <MultiSelect />
 
             <ErrorMessage
               name="categories"
