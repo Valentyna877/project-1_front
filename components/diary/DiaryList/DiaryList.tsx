@@ -5,7 +5,7 @@ import DiaryEntryCard from '../DiaryEntryCard/DiaryEntryCard';
 import AddDiaryEntryModal from '@/components/diary/AddDiaryEntryModal/AddDiaryEntryModal';
 import { DiaryEntry } from '@/types/diary';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 interface DiaryListProps {
   entries: DiaryEntry[];
@@ -22,20 +22,28 @@ export default function DiaryList({
 }: DiaryListProps) {
   const params = useSearchParams();
   const router = useRouter();
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
-  const isOpenParams = params.has('modal');
+  const isOpenParams = params.get('modal') === 'isOpen';
 
-  useEffect(() => {
+  const handleClick = () => {
+    setIsOpenModal(true);
+  };
+
+  const handleCloseClick = () => {
+    setIsOpenModal(false);
     router.replace('/diary');
-  }, [router]);
-
-  console.log(isOpenParams);
+  };
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
         <h2 className={styles.title}>Ваші записи</h2>
-        <button type="button" className={styles.addButton} onClick={handleClik}>
+        <button
+          type="button"
+          className={styles.addButton}
+          onClick={handleClick}
+        >
           Новий запис
           <svg width={24} height={24}>
             <use href="/sprite.svg#icon-add_circle" />
@@ -59,9 +67,9 @@ export default function DiaryList({
         )}
       </ul>
       <AddDiaryEntryModal
-        isOpen={isOpenModal}
-        onClose={() => setIsOpenModal(false)}
-        isEditing={true}
+        isOpen={isOpenParams || isOpenModal}
+        onClose={handleCloseClick}
+        isEditing={false}
         // options={data}
       />
     </div>

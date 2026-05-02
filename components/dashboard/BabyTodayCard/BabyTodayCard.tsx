@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import css from './BabyTodayCard.module.css';
-import Loader from '@/components/common/Loader/Loader';
 
 type Props = {
   image: string | undefined;
@@ -21,13 +20,6 @@ export default function BabyTodayCard({
   babyDevelopment,
   imageAlt,
 }: Props) {
-  const { data } = useQuery({
-    queryKey: ['emotions'],
-    queryFn: getAllEmotions,
-  });
-  if (!data) {
-    return;
-  }
   return (
     <div className={css.babyCardBox}>
       <h2>Малюк сьогодні</h2>

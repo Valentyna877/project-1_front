@@ -3,6 +3,7 @@ import '@/styles/base.css';
 import css from './TaskItem.module.css';
 import { GetAllTasks } from '@/types/task';
 import CustomCheckbox from '@/components/common/CustomCheckbox/CustomCheckbox';
+import { useTaskStore } from '@/lib/store/taskStore';
 
 type Props = {
   data: GetAllTasks[];
@@ -10,19 +11,23 @@ type Props = {
 };
 
 export default function TaskItem({ data, handleCheckTask }: Props) {
+  const tasks = useTaskStore((state) => state.tasks);
+  const changeStatus = useTaskStore((state) => state.toggleTask);
+
   return (
     <>
-      {data.map((task) => (
+      {tasks.map((task) => (
         <li key={task._id} className={css.taskItem}>
           <p className={css.taskItemTime}>
             {String(task.date).slice(5).split('-').reverse().join('.')}
           </p>
           <CustomCheckbox
-            id={task._id}
+            id={task?._id}
             checked={task.isDone}
             text={task.name}
             handleCheck={() => {
-              handleCheckTask(!task.isDone, task._id);
+              changeStatus(task._id ?? '');
+              // handleCheckTask(!task.isDone, task._id ?? '');
             }}
           />
         </li>

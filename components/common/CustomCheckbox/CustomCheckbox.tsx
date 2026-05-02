@@ -1,7 +1,7 @@
 import css from './CustomCheckbox.module.css';
 
 type Props = {
-  id: string;
+  id?: string;
   checked?: boolean;
   handleCheck?: () => void;
   text?: string;

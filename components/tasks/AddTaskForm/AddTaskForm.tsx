@@ -9,6 +9,7 @@ import { createTask, NewTask } from '@/lib/api/clientApi';
 import Button from '@/components/common/Button/Button';
 import CalendarDatePicker from '@/components/common/CalendarDatePicker/CalendarDatePicker';
 import { toast } from 'sonner';
+import { useTaskStore } from '@/lib/store/taskStore';
 
 interface TaskFormProps {
   onClose?: () => void;
@@ -44,11 +45,14 @@ const AddTaskFormSchema = Yup.object().shape({
 export default function AddTaskForm({ onClose }: TaskFormProps) {
   const fieldId = useId();
   const queryClient = useQueryClient();
+  const setTask = useTaskStore((state) => state.addTask);
+  const task = useTaskStore((state) => state.tasks);
 
   const mutation = useMutation({
     mutationFn: createTask,
-    onSuccess: () => {
+    onSuccess: (task) => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] });
+      setTask(task);
       toast.success('Завдання успішно створено!');
       if (onClose) {
         onClose();

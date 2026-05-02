@@ -2,28 +2,53 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { NewTask } from '../api/clientApi';
 
-interface TaskDraftStore {
-  draft: NewTask;
-  setDraft: (task: NewTask) => void;
-  clearDraft: () => void;
+// export interface NewTaskInStore {
+//   name: string;
+//   date: string;
+//   isDone: boolean;
+//   _id: string;
+// }
+
+interface TaskStore {
+  tasks: NewTask[];
+  addTask: (task: NewTask) => void;
+  removeTask: (index: number) => void;
+  toggleTask: (id: string) => void;
+  clearTasks: () => void;
 }
 
-const initialDraft: NewTask = {
-  name: '',
-  date: '',
-  isDone: false,
-};
+const initialTasks: NewTask[] = [];
 
-export const useTaskDraftStore = create<TaskDraftStore>()(
+
+export const useTaskStore = create<TaskStore>()(
   persist(
     (set) => ({
-      draft: initialDraft,
-      setDraft: (task) => set(() => ({ draft: task })),
-      clearDraft: () => set(() => ({ draft: initialDraft })),
+      tasks: initialTasks,
+
+      addTask: (task) =>
+        set((state) => ({
+          tasks: [...state.tasks, task],
+        })),
+
+      removeTask: (index) =>
+        set((state) => ({
+          tasks: state.tasks.filter((_, i) => i !== index),
+        })),
+
+      toggleTask: (id) =>
+        set((state) => ({
+        tasks: state.tasks.map(({...task}) =>
+            id === task._id ? { ...task, isDone: !task.isDone } : task
+          ),
+        })),
+
+      clearTasks: () => set({ tasks: [] }),
     }),
     {
-      name: 'task-draft',
-      partialize: (state) => ({ draft: state.draft }),
-    },
-  ),
+      name: 'tasks-storage',
+      partialize: (state) => ({
+  tasks: state.tasks,
+})
+    }
+  )
 );
