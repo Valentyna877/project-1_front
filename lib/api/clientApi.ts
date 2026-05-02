@@ -12,6 +12,12 @@ export interface UserRegCreds {
   password: string;
 }
 
+export interface Emotions {
+  title: string;
+  id: string;
+  isActive: boolean;
+}
+
 export type UserLogCreds = Omit<UserRegCreds, "name">;
 
 export const getUser = async (): Promise<User> => {
@@ -121,3 +127,9 @@ export const getMomWeek = async (weekNumber: number): Promise<MomState> => {
   const { data } = await nextServer.get<MomState>(`/weeks/mom/${weekNumber}`);
   return data;
 };
+
+export const getAllEmotions = async () => {
+  const { data } = await nextServer.get<Emotions[]>('/emotions');
+  
+  return data;
+}
