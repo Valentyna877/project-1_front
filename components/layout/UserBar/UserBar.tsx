@@ -10,13 +10,13 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import ConfirmationModal from '@/components/common/ConfirmationModal/ConfirmationModal';
 import Loader from '@/components/common/Loader/Loader';
 import { createPortal } from 'react-dom';
+import { useTheme } from '@/hooks/useTheme';
 
 export default function UserBar() {
   const { user, clearIsAuthenticated } = useAuthStore();
   const { isLogoutModalOpen, openLogoutModal, closeLogoutModal } =
     useSidebarStore();
-  const loaderTheme: 'boy' | 'girl' | 'default' =
-    user?.gender === 'boy' || user?.gender === 'girl' ? user.gender : 'default';
+  const { theme } = useTheme();
 
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -34,7 +34,6 @@ export default function UserBar() {
 
   const handleConfirm = () => {
     closeLogoutModal();
-    close();
     mutate();
   };
 
@@ -43,10 +42,7 @@ export default function UserBar() {
   return (
     <>
       {isPending &&
-        createPortal(
-          <Loader theme={loaderTheme} variant="global" />,
-          document.body
-        )}
+        createPortal(<Loader theme={theme} variant="global" />, document.body)}
 
       <div className={css.user_bar_container}>
         <div className={css.user_bar_info}>
