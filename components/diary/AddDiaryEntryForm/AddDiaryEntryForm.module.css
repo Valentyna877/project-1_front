@@ -19,6 +19,7 @@
 }
 
 
+
 .dropdownWrap {
     position: relative;
     width: 100%;
@@ -203,3 +204,5 @@
     font-size: 16px;
   }
 }
+
+.checkboxMark{fill:white}
