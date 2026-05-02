@@ -33,7 +33,6 @@ export default function BabyTodayCard({
   return (
     <div className={css.babyCardBox}>
       <h2>Малюк сьогодні</h2>
-      <MultiSelect value={data} />
       <div className={css.babyInfoBox}>
         <Image
           className={css.babyImg}
