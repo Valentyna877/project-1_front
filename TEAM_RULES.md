@@ -628,3 +628,42 @@ inline — коли сторінка вже відображається, але
 Анімації:
 Lottie JSON-файли зберігаються в
 public/animations/
+
+## хук useTheme
+
+Поки що використовуйте для усього крім button
+
+Для "Лоадера" імпортуємо: const { theme } = useTheme();
+Для стилізації елементів: const { themeClass } = useTheme();
+
+Приклад:
+
+1. У компоненті є і "Лоадер" і потрібна стилізація елементу, тоді імпорт: const { theme, themeClass } = useTheme();
+2. Для "Loader" пропс theme={theme};
+3. Для відповідного елементу додаємо className=${css[themeClass]};
+4. У module.css компонента додаємо:
+   .назваКласуВашогоЕлемента.theme-boy {
+   background-color: var(--color-french-pass-lighter);
+   }
+   .назваКласуВашогоЕлемента.theme-girl {
+   background-color: var(--color-pastel-pink-lighter);
+   }
+   .назваКласуВашогоЕлемента.theme-default {
+   background-color: var(--color-oasis-lighter);
+   }
+
+   Приклад: .statusBox.theme-boy {background-color: var(--color-french-pass-lighter)}
+
+   або ж створюємо через css змінні:
+   На елементів: background-color: var(--active-bg)
+
+   і нижче:
+   .theme-boy {
+   --active-bg: var(--color-french-pass-lighter);
+   }
+   .theme-girl {
+   --active-bg: var(--color-pastel-pink-lighter);
+   }
+   .theme-default {
+   --active-bg: var(--color-oasis-lighter);
+   }
