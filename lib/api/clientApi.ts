@@ -13,7 +13,7 @@ export interface UserRegCreds {
 
 export interface Emotions {
   title: string;
-  id?: string;
+  _id: string;
   isActive?: boolean;
 }
 

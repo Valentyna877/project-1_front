@@ -85,8 +85,8 @@ export default function DiaryEntryDetails({
         {entry.emotions.length > 0 && (
           <div className={styles.emotions}>
             {entry.emotions.map((e) => (
-              <span key={e} className={styles.emotion}>
-                {e}
+              <span key={e._id} className={styles.emotion}>
+                {e.title}
               </span>
             ))}
           </div>
@@ -97,7 +97,7 @@ export default function DiaryEntryDetails({
         title={'Видалити'}
         confirmButtonText={'Видалити'}
         cancelButtonText={'Відмінити'}
-        onConfirm={() => handleModalClick(entry.id)}
+        onConfirm={() => handleModalClick(entry._id)}
         onCancel={() => {
           setOpenModal(false);
         }}

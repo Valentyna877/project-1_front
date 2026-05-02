@@ -2,128 +2,90 @@
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { ToastProvider } from '@/components/common/Toast/ToastProvider';
 import MultiSelect from './MultiSelect';
 import css from './AddDiaryEntryForm.module.css';
-import { Emotions } from '@/lib/api/clientApi';
-
-type Option = {
-  value: string;
-  label: string;
-};
+import { useDiaryStore } from '@/lib/store/diaryStore';
+import { DiaryEntry } from '@/types/diary';
 
 interface FormValues {
   title: string;
-  categories: string[];
   text: string;
 }
 
 interface Props {
-  onSuccess: () => void;
-  initialValues?: FormValues;
-  options?: Emotions[];
+  onSuccess: (entry?: DiaryEntry) => void;
 }
 
 const validationSchema = Yup.object().shape({
   title: Yup.string()
     .min(3, 'Занадто короткий заголовок')
     .required("Заголовок обов'язковий"),
-
-  categories: Yup.array()
-    .min(1, 'Оберіть хоча б одну категорію')
-    .required("Категорії обов'язкові"),
-
   text: Yup.string()
     .min(10, 'Запис має бути інформативнішим')
     .required('Поле запису не може бути порожнім'),
 });
 
-export default function AddDiaryEntryForm({
-  onSuccess,
-  initialValues,
-  options,
-}: Props) {
+export default function AddDiaryEntryForm({ onSuccess }: Props) {
   const queryClient = useQueryClient();
+  const { submitDraft, setDraft, isSaving, draft, editingId } = useDiaryStore();
 
-  const mutation = useMutation({
-    mutationFn: async (newData: FormValues) => {
-      console.log('Відправка:', newData);
+  const defaultValues: FormValues = {
+    title: draft.title,
+    text: draft.description,
+  };
 
-      // запит на бек
-      // await fetch('/api/diary', {...})
+  const handleSubmit = async (values: FormValues) => {
+    setDraft({ title: values.title, description: values.text });
 
-      return new Promise((resolve) => setTimeout(resolve, 1000));
-    },
-
-    onSuccess: () => {
-      ToastProvider.success('Запис збережено');
+    await submitDraft((entry) => {
+      ToastProvider.success(editingId ? 'Запис оновлено' : 'Запис збережено');
       queryClient.invalidateQueries({ queryKey: ['diary'] });
-      onSuccess();
-    },
-
-    onError: () => {
-      ToastProvider.error('Помилка при збереженні');
-    },
-  });
-
-  const defaultValues: FormValues = initialValues || {
-    title: '',
-    categories: [],
-    text: '',
+      onSuccess(entry);
+    });
   };
 
   return (
     <Formik
+      key={editingId ?? 'new'}
       initialValues={defaultValues}
       validationSchema={validationSchema}
-      onSubmit={(values) => mutation.mutate(values)}
+      onSubmit={handleSubmit}
     >
-      {({ setFieldValue, values }) => (
+      {() => (
         <Form className={css.form}>
           <div className={css.fieldWrapper}>
             <label className={css.label}>Заголовок</label>
-
             <Field
               name="title"
               placeholder="Введіть заголовок запису"
               className={css.input}
             />
-
             <ErrorMessage name="title" component="span" className={css.error} />
           </div>
 
           <div className={css.fieldWrapper}>
             <label className={css.label}>Категорії</label>
-
             <MultiSelect />
-
-            <ErrorMessage
-              name="categories"
-              component="span"
-              className={css.error}
-            />
+            {draft.emotions.length === 0 && (
+              <span className={css.error}>Оберіть хоча б одну категорію</span>
+            )}
           </div>
 
           <div className={css.fieldWrapper}>
             <label className={css.label}>Запис</label>
-
             <Field
               as="textarea"
               name="text"
               placeholder="Запишіть, як ви себе відчуваєте"
               className={css.textarea}
             />
-
             <ErrorMessage name="text" component="span" className={css.error} />
           </div>
 
-          <button
-            type="submit"
-            className={css.submitBtn}
-            disabled={mutation.isPending}
-          >
-            {mutation.isPending ? 'Збереження...' : 'Зберегти'}
+          <button type="submit" className={css.submitBtn} disabled={isSaving}>
+            {isSaving ? 'Збереження...' : 'Зберегти'}
           </button>
         </Form>
       )}

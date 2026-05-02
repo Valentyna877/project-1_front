@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { createDiary } from '@/lib/api/clientApi'
+import { createDiary, updateDiary } from '@/lib/api/clientApi'
 import { DiaryEntry } from '@/types/diary'
 
 const toLocalDate = () => new Date().toISOString().slice(0, 10)
@@ -14,11 +14,13 @@ const initialDraft = {
 
 type DiaryStore = {
   draft: typeof initialDraft
+  editingId: string | null
   isSaving: boolean
   error: string | null
 
   setDraft: (data: Partial<typeof initialDraft>) => void
-  toggleEmotion: (id: string) => void
+  setEmotions: (ids: string[]) => void
+  setEditingEntry: (entry: DiaryEntry) => void
   clearDraft: () => void
   submitDraft: (onSuccess?: (entry: DiaryEntry) => void) => Promise<void>
 }
@@ -27,6 +29,7 @@ export const useDiaryStore = create<DiaryStore>()(
   persist(
     (set, get) => ({
       draft: initialDraft,
+      editingId: null,
       isSaving: false,
       error: null,
 
@@ -35,34 +38,39 @@ export const useDiaryStore = create<DiaryStore>()(
           draft: { ...state.draft, ...data },
         })),
 
-      toggleEmotion: (id) =>
-        set((state) => {
-          const { emotions } = state.draft
-          const already = emotions.includes(id)
-          if (!already && emotions.length >= 12) return state
-          return {
-            draft: {
-              ...state.draft,
-              emotions: already
-                ? emotions.filter((e) => e !== id)
-                : [...emotions, id],
-            },
-          }
+      setEmotions: (ids) =>
+        set((state) => ({
+          draft: { ...state.draft, emotions: ids.slice(0, 12) },
+        })),
+
+      setEditingEntry: (entry) =>
+        set({
+          editingId: entry._id,
+          draft: {
+            title: entry.title,
+            description: entry.description,
+            date: entry.date,
+            emotions: entry.emotions.map((e) => e._id),
+          },
         }),
 
       clearDraft: () =>
-        set({ draft: { ...initialDraft, date: toLocalDate() }, error: null }),
+        set({
+          draft: { ...initialDraft, date: toLocalDate() },
+          editingId: null,
+          error: null,
+        }),
 
       submitDraft: async (onSuccess) => {
-        const { draft } = get()
-        console.log('draft before submit:', draft)
-        console.log('emotions length:', draft.emotions.length)
+        const { draft, editingId } = get()
         if (!draft.title.trim() || !draft.description.trim()) return
 
         set({ isSaving: true, error: null })
         try {
-          console.log('sending payload:', JSON.stringify(draft)) 
-          const entry = await createDiary(draft)
+          const entry = editingId
+            ? await updateDiary(editingId, draft)
+            : await createDiary(draft)
+
           set({ isSaving: false })
           get().clearDraft()
           onSuccess?.(entry)
@@ -76,7 +84,7 @@ export const useDiaryStore = create<DiaryStore>()(
     }),
     {
       name: 'diary-draft',
-      partialize: (state) => ({ draft: state.draft }),
+      partialize: (state) => ({ draft: state.draft, editingId: state.editingId }),
     }
   )
 )
