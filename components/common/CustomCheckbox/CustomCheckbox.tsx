@@ -4,7 +4,7 @@ type Props = {
   id: string;
   checked?: boolean;
   handleCheck?: () => void;
-  text: string;
+  text?: string;
 };
 
 export default function CustomCheckbox({

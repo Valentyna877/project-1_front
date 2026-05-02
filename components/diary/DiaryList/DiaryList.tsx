@@ -1,7 +1,8 @@
 'use client';
-
+// import { useState } from 'react';
 import styles from './DiaryList.module.css';
 import DiaryEntryCard from '../DiaryEntryCard/DiaryEntryCard';
+import AddDiaryEntryModal from '@/components/diary/AddDiaryEntryModal/AddDiaryEntryModal';
 import { DiaryEntry } from '@/types/diary';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -34,7 +35,7 @@ export default function DiaryList({
     <div className={styles.wrapper}>
       <div className={styles.header}>
         <h2 className={styles.title}>Ваші записи</h2>
-        <button type="button" className={styles.addButton} onClick={onAddClick}>
+        <button type="button" className={styles.addButton} onClick={handleClik}>
           Новий запис
           <svg width={24} height={24}>
             <use href="/sprite.svg#icon-add_circle" />
@@ -57,6 +58,12 @@ export default function DiaryList({
           ))
         )}
       </ul>
+      <AddDiaryEntryModal
+        isOpen={isOpenModal}
+        onClose={() => setIsOpenModal(false)}
+        isEditing={true}
+        // options={data}
+      />
     </div>
   );
 }

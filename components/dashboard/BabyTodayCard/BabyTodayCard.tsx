@@ -21,6 +21,13 @@ export default function BabyTodayCard({
   babyDevelopment,
   imageAlt,
 }: Props) {
+  const { data } = useQuery({
+    queryKey: ['emotions'],
+    queryFn: getAllEmotions,
+  });
+  if (!data) {
+    return;
+  }
   return (
     <div className={css.babyCardBox}>
       <h2>Малюк сьогодні</h2>

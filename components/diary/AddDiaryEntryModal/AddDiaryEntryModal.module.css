@@ -1,0 +1,13 @@
+.container {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 40px;
+  font-family: var(--second-family);
+}
