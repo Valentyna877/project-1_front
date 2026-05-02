@@ -4,7 +4,6 @@ import { Formik, Form, FormikHelpers, ErrorMessage, Field } from 'formik';
 import AvatarPicker from '@/components/common/AvatarPicker/AvatarPicker';
 import CalendarDatePicker from '@/components/common/CalendarDatePicker/CalendarDatePicker';
 import { FORTY_WEEKS, validationSchema } from './OnboardingValidation';
-import GenderSelect from '@/components/common/GenderSelect/GenderSelect';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import css from './OnboardingClient.module.css';
@@ -12,15 +11,24 @@ import { nextServer } from '@/lib/api/api';
 import { useAuthStore } from '@/lib/store/authStore';
 import { getUser } from '@/lib/api/clientApi';
 import Button from '@/components/common/Button/Button';
-import { IMask, IMaskInput } from 'react-imask';
+import FormikGenderSelect from '@/components/common/GenderSelect/FormikGenderSelect';
+import { GenderValue } from '@/components/common/GenderSelect/gender-select.types'
+import { onboardingGenderStyles } from '@/components/common/GenderSelect/gender-select.styles';
+
+// interface OnboardingFormValues {
+//     gender: string;
+//     dueDate: string;
+// }
+
+// type GenderValue = 'boy' | 'girl' | 'unknown';
 
 interface OnboardingFormValues {
-    gender: string;
+    gender: GenderValue | null;
     dueDate: string;
 }
 
 const initialValues: OnboardingFormValues = {
-    gender: '',
+    gender: null,
     dueDate: '',
 };
 
@@ -30,14 +38,24 @@ export default function OnboardingClient() {
     const router = useRouter();
     const today = new Date();
     const maxDate = new Date(Date.now() + FORTY_WEEKS);
+
+    function formatLocalDate(d: Date): string {
+        const y = d.getFullYear();
+        const m = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${y}-${m}-${day}`;
+    };
+
     const handleSubmit = async (
         values: OnboardingFormValues,
         actions: FormikHelpers<OnboardingFormValues>
     ) => {
         try {
             await nextServer.patch('/users/me', {
-                gender: values.gender === 'unknown' || values.gender === '' ? null : values.gender,
-                date: values.dueDate || new Date(Date.now()+FORTY_WEEKS).toISOString().split('T')[0],
+                gender: values.gender === 'unknown' ? null : values.gender,
+                // date: values.dueDate || new Date(Date.now()+FORTY_WEEKS).toISOString().split('T')[0],
+                date: values.dueDate || formatLocalDate(new Date(Date.now() + FORTY_WEEKS)),
+
             });
             const updateUser = await getUser();
             setUser(updateUser);
@@ -55,8 +73,11 @@ export default function OnboardingClient() {
         >
             <Form className={css.form}>
                 <AvatarPicker profilePhotoUrl={user?.avatar} />
-                <GenderSelect />
-                <ErrorMessage name="gender" component="p" />
+                <div className={css.genderWrapper}>
+                    <label className={css.label}>Стать дитини</label>
+                    <FormikGenderSelect styles={onboardingGenderStyles} />
+                </div>
+                {/* <ErrorMessage name="gender" component="p" /> */}
                 <Field
                     name='dueDate'
                     component={CalendarDatePicker}
@@ -67,16 +88,6 @@ export default function OnboardingClient() {
                     dateFormat="dd-MM-yyyy"
                     label="Планова дата пологів"
                     labelClassName={css.label}
-                    customInput={
-                        <IMaskInput
-                            mask="DD-MM-YYYY"
-                            blocks={{
-                                DD: { mask: IMask.MaskedRange, from: 1, to: 31 },
-                                MM: { mask: IMask.MaskedRange, from: 1, to: 12 },
-                                YYYY: { mask: IMask.MaskedRange, from: new Date().getFullYear(), to: new Date().getFullYear() + 1 },
-                            }}
-                        />
-                    }
                 />
                 <ErrorMessage name="dueDate" component="p" />
                 <Button
