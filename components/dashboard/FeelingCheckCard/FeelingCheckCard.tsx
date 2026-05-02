@@ -2,17 +2,18 @@
 
 import Button from '@/components/common/Button/Button';
 import css from './FeelingCheckCard.module.css';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/store/authStore';
 
 export default function FeelingCheckCard() {
+  const router = useRouter();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   const handleDiaryRedirect = () => {
     if (isAuthenticated) {
-      redirect('/diary');
+      router.push('/diary?modal=isOpen');
     } else {
-      redirect('/auth/login');
+      router.replace('/auth/login');
     }
   };
 

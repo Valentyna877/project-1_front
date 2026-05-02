@@ -22,10 +22,12 @@
     height: 40px;
     background-color: transparent;
     transition: background-color 250ms ease-in-out;
+    
 }
 
 .addTaskBtn:hover {
 background-color: var(--color-scheme-accent);
+animation: addBtnAnimation .5s ease-in-out;
 }
 
 
@@ -72,3 +74,20 @@ background-color: var(--color-scheme-accent);
     }
 }
 
+
+@keyframes addBtnAnimation {
+    0% {
+        transform: translateY(0);
+        transform: rotateY(200deg);
+    }
+
+    50% {
+        transform: translateY(-20px);
+
+    }
+
+    100% {
+        transform: translateY(0);
+        transform: rotateY(-200deg);
+    }
+}

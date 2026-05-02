@@ -3,6 +3,8 @@
 import styles from './DiaryList.module.css';
 import DiaryEntryCard from '../DiaryEntryCard/DiaryEntryCard';
 import { DiaryEntry } from '@/types/diary';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 interface DiaryListProps {
   entries: DiaryEntry[];
@@ -17,6 +19,17 @@ export default function DiaryList({
   onSelect,
   onAddClick,
 }: DiaryListProps) {
+  const params = useSearchParams();
+  const router = useRouter();
+
+  const isOpenParams = params.has('modal');
+
+  useEffect(() => {
+    router.replace('/diary');
+  }, [router]);
+
+  console.log(isOpenParams);
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>

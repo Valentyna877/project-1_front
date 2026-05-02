@@ -38,7 +38,7 @@
     fill: var(--color-scheme-background);
 }
 
-.defaultCheckbox:checked+.labelCheckbox>.taskItemText {
+.defaultCheckbox:checked+.labelCheckbox>.itemText {
     text-decoration: line-through;
     font-size: 14px;
     line-height: 150%;
