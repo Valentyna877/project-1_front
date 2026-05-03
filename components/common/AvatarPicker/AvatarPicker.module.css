@@ -3,18 +3,6 @@
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  margin-bottom: 32px;
-}
-
-.picker.horizontal {
-  flex-direction: row;
-  align-items: center;
-  gap: 24px;
-}
-
-.picker.vertical {
-  flex-direction: column;
-  align-items: center;
 }
 
 .avatarWrapper {
@@ -37,14 +25,11 @@
 
 .changeButton {
   font-family: 'Lato', sans-serif;
-  width: 335px;
-  height: 38px;
-  border-bottom: 4px solid var(--opacity-neutral-darkest-15);
   border-radius: 100px;
   padding: 8px 20px;
-  background: var(--opacity-neutral-darkest-5);
   text-align: center;
   cursor: pointer;
+  transition: background 150ms ease;
 }
 
 .changeButton:hover {
@@ -56,47 +41,71 @@
   font-size: 12px;
 }
 
+/* PROFILE */
+
+.profile {
+  margin-bottom: 32px;
+}
+
+.profileButton {
+  width: 335px;
+  height: 38px;
+  background: var(--opacity-neutral-darkest-5);
+  border-bottom: 4px solid var(--opacity-neutral-darkest-15);
+}
+
 @media (min-width: 768px) {
-  .picker {
+  .profile {
     flex-direction: row;
-    align-items: center;
     gap: 12px;
   }
 
-  .content {
+  .profile .content {
     align-items: flex-start;
   }
 
-  .changeButton {
+  .profileButton {
     width: 218px;
-    height: 38px;
   }
 }
 
 @media (min-width: 1024px) {
-  .changeButton {
-    width: 218px;
+  .profileButton {
     height: 42px;
   }
 }
-.defaultInput {
-  display: none;
+
+/* ONBOARDING */
+
+.avatarWrapper {
+  width: 164px;
+  height: 164px;
 }
 
-.avatar {
-  background-color: var(--opacity-neutral-darkest-15);
-  width: 132px;
-  height: 132px;
-  border-radius: 100%;
-  margin-bottom: 24px;
+.onboarding {
+  flex-direction: column;
+  gap: 24px;
 }
 
-.loadPhotoBtn {
-  border-bottom: 4px solid var(--opacity-neutral-darkest-5);
-  border-radius: 100px;
-  padding: 8px 20px;
-  width: 179px;
-  height: 42px;
-  font-size: 16px;
-  line-height: 1.6;
+.onboarding {
+  margin-bottom: 32px;
+}
+
+.onboardingButton {
+  min-width: 162px;
+  height: 38px;
+  background: var(--opacity-neutral-darkest-5);
+  border-bottom: 4px solid var(--opacity-neutral-darkest-15);
+}
+
+@media (min-width: 768px) {
+  .onboardingButton {
+    width: 218px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .onboardingButton {
+    height: 42px;
+  }
 }
