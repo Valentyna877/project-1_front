@@ -10,7 +10,6 @@
 .logoLink {
   align-self: flex-start;
   margin-bottom: 72px;
-  margin-left: 32px;
 }
 
 .formSide {
@@ -19,13 +18,42 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 0 20px;
 }
 
 .title {
-  font-size: 48px;
+  font-size: 36px;
   line-height: 1.2;
   letter-spacing: 0.01em;
   text-align: center;
   margin-bottom: 32px;
-  width: 480px;
+}
+
+.padding {
+  padding: 0;
+}
+
+.imageSide {
+  display: none;
+}
+
+@media only screen and (min-width: 768px) {
+  .formSide {
+    padding: 0 32px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .formSide {
+    padding: 0 64px;
+  }
+
+  .title {
+    font-size: 48px;
+    width: 480px;
+  }
+
+  .imageSide {
+    display: block;
+  }
 }

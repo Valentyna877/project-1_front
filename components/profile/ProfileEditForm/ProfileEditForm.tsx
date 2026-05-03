@@ -3,7 +3,7 @@
 import { User } from '@/types/user';
 import styles from './ProfileEditForm.module.css';
 import { useAuthStore } from '@/lib/store/authStore';
-import { useId, useMemo } from 'react';
+import { useId, useState } from 'react';
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
 import Button from '@/components/common/Button/Button';
 import CalendarDatePicker from '@/components/common/CalendarDatePicker/CalendarDatePicker';
@@ -34,13 +34,16 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
     name: user.name,
     email: user.email,
     gender: user.gender,
-    dueDate: user.dueDate ?? '',
+    dueDate: user.date ?? '',
   };
-  const today = useMemo(() => new Date(), []);
-  const maxDate = useMemo(
-    () => new Date(today.getTime() + FORTY_WEEKS),
-    [today]
-  );
+  // const today = useMemo(() => new Date(), []);
+  // const maxDate = useMemo(
+  //   () => new Date(today.getTime() + FORTY_WEEKS),
+  //   [today]
+  // );
+
+    const [today] = useState(() => new Date());
+    const [maxDate] = useState(() => new Date(Date.now() + FORTY_WEEKS));
 
   const handleSubmit = async (
     values: ProfileEditFormValues,
@@ -61,7 +64,7 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
       }
 
       const updateUser = await getUser();
-      // console.log('updateUser:', updateUser);
+      console.log('updateUser:', updateUser);
       setUser(updateUser);
       actions.resetForm();
     } catch {
@@ -121,7 +124,7 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
           <Field
             name="dueDate"
             component={CalendarDatePicker}
-            placeholderText={user.dueDate}
+            placeholderText={user.date}
             className={styles.datePicker}
             minDate={today}
             maxDate={maxDate}
