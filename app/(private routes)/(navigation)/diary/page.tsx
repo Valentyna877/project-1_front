@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import '@/app/globals.css';
 
 import styles from './page.module.css';
 
@@ -73,30 +74,34 @@ export default function DiaryPage() {
   };
 
   return (
-    <div className={styles.page}>
-      <GreetingBlock />
+    <div className="container">
+      <div className={styles.page}>
+        <div className={styles.inner}>
+          <GreetingBlock />
 
-      {isLoading ? (
-        <p className={styles.loading}>Завантаження...</p>
-      ) : (
-        <div className={styles.content}>
-          <DiaryList
-            entries={entries}
-            selectedId={selectedEntry?._id ?? null}
-            onSelect={setSelectedEntry}
-            isModalOpen={isModalOpen}
-            onModalOpen={handleOpenCreate}
-            onModalClose={handleModalClose}
-          />
-          <div className={styles.detailsWrapper}>
-            <DiaryEntryDetails
-              entry={selectedEntry}
-              onDelete={handleDelete}
-              onEdit={handleOpenEdit}
-            />
-          </div>
+          {isLoading ? (
+            <p className={styles.loading}>Завантаження...</p>
+          ) : (
+            <div className={styles.content}>
+              <DiaryList
+                entries={entries}
+                selectedId={selectedEntry?._id ?? null}
+                onSelect={setSelectedEntry}
+                isModalOpen={isModalOpen}
+                onModalOpen={handleOpenCreate}
+                onModalClose={handleModalClose}
+              />
+              <div className={styles.detailsWrapper}>
+                <DiaryEntryDetails
+                  entry={selectedEntry}
+                  onDelete={handleDelete}
+                  onEdit={handleOpenEdit}
+                />
+              </div>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 }

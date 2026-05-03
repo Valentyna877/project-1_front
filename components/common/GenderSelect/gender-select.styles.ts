@@ -104,10 +104,13 @@ export const onboardingGenderStyles: StylesConfig<GenderOption, false> = {
   placeholder: (base, state) => ({
     ...base,
     fontFamily: '"Lato", sans-serif',
-    fontSize: 16,
+    fontSize: 14,
     color: state.selectProps.menuIsOpen
       ? 'var(--color-neutral-darkest)'
       : 'var(--color-neutral)',
+    '@media (min-width: 1440px)': {
+      fontSize: 16,
+  },
   }),
 
   indicatorSeparator: () => ({
@@ -119,6 +122,8 @@ export const onboardingGenderStyles: StylesConfig<GenderOption, false> = {
     color: 'var(--color-neutral)',
     transition: 'transform 0.2s',
     transform: state.selectProps.menuIsOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+    transformOrigin: '40% 50%',
+    paddingRight: 20,
     '&:hover': {
       color: 'var(--color-neutral)',
       backgroundColor: 'transparent',
