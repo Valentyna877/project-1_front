@@ -1,12 +1,11 @@
-.genderWrapper {
+/* .genderWrapper {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 24px;
 }
 
 .label {
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 16px;
 }
 
@@ -29,7 +28,7 @@
 }
 
 .placeholder {
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 16px;
   color: var(--color-neutral);
 }
@@ -55,7 +54,7 @@
 }
 
 .menuList {
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 16px;
 }
 
@@ -72,7 +71,7 @@
 }
 
 .singleValue {
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 16px;
 }
 
@@ -82,7 +81,7 @@
 }
 
 .placeholderOpen {
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 16px;
   color: var(--color-neutral-darkest);
-}
+} */
