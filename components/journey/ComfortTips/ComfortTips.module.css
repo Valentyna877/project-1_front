@@ -2,9 +2,15 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 24px;
+  padding: 16px;
   border-radius: 32px;
   background: var(--color-scheme-foreground);
+}
+
+@media (min-width: 768px) {
+  .card {
+    padding: 24px;
+  }
 }
 
 .title {

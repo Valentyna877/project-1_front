@@ -3,12 +3,18 @@
   gap: 16px;
   overflow-x: auto;
   padding: 4px;
-  scroll-padding-inline: 32px;
+  scroll-padding-inline: 16px;
   scrollbar-width: none;
 }
 
 .wrapper::-webkit-scrollbar {
   display: none;
+}
+
+@media (min-width: 768px) {
+  .wrapper {
+    scroll-padding-inline: 32px;
+  }
 }
 
 .week {

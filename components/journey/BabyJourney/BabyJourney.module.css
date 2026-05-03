@@ -1,13 +1,19 @@
 .card {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px;
-  padding: 24px;
+  gap: 16px;
+  padding: 16px;
   border-radius: 32px;
   background: var(--color-scheme-foreground);
 }
 
-@media (min-width: 900px) {
+@media (min-width: 768px) {
+  .card {
+    padding: 24px;
+  }
+}
+
+@media (min-width: 1440px) {
   .card {
     grid-template-columns: minmax(280px, 461px) 1fr;
     gap: 32px;
