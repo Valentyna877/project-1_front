@@ -46,7 +46,7 @@ export default function OnboardingClient() {
     ) => {
         try {
             await nextServer.patch('/users/me', {
-                gender: values.gender === 'unknown' ? null : values.gender,
+                gender: values.gender,
                 date: values.dueDate || formatLocalDate(new Date(Date.now() + FORTY_WEEKS)),
 
             });
