@@ -14,13 +14,7 @@ import Button from '@/components/common/Button/Button';
 import FormikGenderSelect from '@/components/common/GenderSelect/FormikGenderSelect';
 import { GenderValue } from '@/components/common/GenderSelect/gender-select.types'
 import { onboardingGenderStyles } from '@/components/common/GenderSelect/gender-select.styles';
-
-// interface OnboardingFormValues {
-//     gender: string;
-//     dueDate: string;
-// }
-
-// type GenderValue = 'boy' | 'girl' | 'unknown';
+import { useState } from 'react';
 
 interface OnboardingFormValues {
     gender: GenderValue | null;
@@ -36,8 +30,8 @@ export default function OnboardingClient() {
     const setUser = useAuthStore((state) => state.setUser);
     const user = useAuthStore((state) => state.user);
     const router = useRouter();
-    const today = new Date();
-    const maxDate = new Date(Date.now() + FORTY_WEEKS);
+    const [today] = useState(() => new Date());
+    const [maxDate] = useState(() => new Date(Date.now() + FORTY_WEEKS));
 
     function formatLocalDate(d: Date): string {
         const y = d.getFullYear();
@@ -53,7 +47,6 @@ export default function OnboardingClient() {
         try {
             await nextServer.patch('/users/me', {
                 gender: values.gender === 'unknown' ? null : values.gender,
-                // date: values.dueDate || new Date(Date.now()+FORTY_WEEKS).toISOString().split('T')[0],
                 date: values.dueDate || formatLocalDate(new Date(Date.now() + FORTY_WEEKS)),
 
             });
@@ -77,7 +70,6 @@ export default function OnboardingClient() {
                     <label className={css.label}>Стать дитини</label>
                     <FormikGenderSelect styles={onboardingGenderStyles} />
                 </div>
-                {/* <ErrorMessage name="gender" component="p" /> */}
                 <Field
                     name='dueDate'
                     component={CalendarDatePicker}
