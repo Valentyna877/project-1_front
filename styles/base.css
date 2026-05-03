@@ -1,4 +1,6 @@
 /* Base styles for the entire document */
+@import 'modern-normalize/modern-normalize.css';
+
 :root {
   --font-family: 'Lato', sans-serif;
   --second-family: 'Comfortaa', sans-serif;
