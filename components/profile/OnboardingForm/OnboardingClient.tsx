@@ -15,6 +15,7 @@ import FormikGenderSelect from '@/components/common/GenderSelect/FormikGenderSel
 import { GenderValue } from '@/components/common/GenderSelect/gender-select.types'
 import { onboardingGenderStyles } from '@/components/common/GenderSelect/gender-select.styles';
 import { useState } from 'react';
+import { CalendarIcon } from 'lucide-react';
 
 interface OnboardingFormValues {
     gender: GenderValue | null;
@@ -70,23 +71,26 @@ export default function OnboardingClient() {
                     <label className={css.label}>Стать дитини</label>
                     <FormikGenderSelect styles={onboardingGenderStyles} />
                 </div>
-                <Field
-                    name='dueDate'
-                    component={CalendarDatePicker}
-                    placeholderText='Оберіть дату'
-                    className={css.datePicker}
-                    minDate={today}
-                    maxDate={maxDate}
-                    dateFormat="dd-MM-yyyy"
-                    label="Планова дата пологів"
-                    labelClassName={css.label}
-                />
+                <div className={css.dateWrapper}>
+                    <Field
+                        name='dueDate'
+                        component={CalendarDatePicker}
+                        placeholderText='Оберіть дату'
+                        className={css.datePicker}
+                        minDate={today}
+                        maxDate={maxDate}
+                        dateFormat="dd-MM-yyyy"
+                        label="Планова дата пологів"
+                        labelClassName={css.label}
+                        showIcon={CalendarIcon}
+                    />
+                </div>
                 <ErrorMessage name="dueDate" component="p" />
                 <Button
                     className={css.submitBtn}
                     type="submit"
                     variant="normal"
-                    size="lg"
+                    size="md"
                 >
                     Зберегти
                 </Button>
