@@ -4,7 +4,19 @@
     padding: 24px;
     width: 335px;
     margin: 0 20px 16px 0;
-    background: var(--color-scheme-foreground);
+    /* background: var(--color-scheme-foreground); */
+}
+
+.momTipBox.theme-boy {
+    background-color: var(--color-french-pass-lighter);
+}
+
+.momTipBox.theme-girl {
+    background-color: var(--color-pastel-pink-lighter);
+}
+
+.momTipBox.theme-default {
+    background-color: var(--color-oasis-lighter);
 }
 
 .momTipText {
