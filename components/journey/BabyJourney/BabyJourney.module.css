@@ -37,9 +37,10 @@
 .caption {
   margin: 0;
   font-family: var(--font-family);
+  font-weight: 400;
   font-size: 16px;
   line-height: 1.5;
-  color: var(--color-scheme-text);
+  color: #000;
 }
 
 .content {
@@ -47,9 +48,10 @@
   flex-direction: column;
   gap: 16px;
   font-family: var(--font-family);
+  font-weight: 400;
   font-size: 16px;
   line-height: 1.5;
-  color: var(--color-scheme-text);
+  color: #000;
 }
 
 .content p {
@@ -72,10 +74,10 @@
   gap: 8px;
   margin: 0;
   font-family: var(--font-family);
+  font-weight: 700;
   font-size: 16px;
-  font-weight: var(--fw-bold);
   line-height: 1.5;
-  color: var(--color-scheme-text);
+  color: #000;
 }
 
 .factIcon {
@@ -87,8 +89,11 @@
 
 .factText {
   margin: 0;
+  font-family: var(--font-family);
+  font-weight: 400;
   font-size: 16px;
   line-height: 1.5;
+  color: #000;
 }
 
 .factList {

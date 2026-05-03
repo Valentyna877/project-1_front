@@ -31,7 +31,12 @@ const BabyJourney = ({ data }: BabyJourneyProps) => {
         <p>{data.babyActivity}</p>
 
         <div className={styles.fact}>
-          <h3 className={styles.factTitle}>Цікавий факт тижня</h3>
+          <h3 className={styles.factTitle}>
+            <svg className={styles.factIcon} aria-hidden width={24} height={24}>
+              <use href="/sprite.svg#icon-star_shine" />
+            </svg>
+            Цікавий факт тижня
+          </h3>
           <p className={styles.factText}>{primaryFact}</p>
           {restFacts.length > 0 && (
             <ul className={styles.factList}>

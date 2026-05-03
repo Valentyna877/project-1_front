@@ -10,11 +10,11 @@
 .title {
   margin: 0;
   font-family: var(--second-family);
+  font-weight: 700;
   font-size: 20px;
-  font-weight: var(--fw-bold);
   line-height: 1.4;
   letter-spacing: 0.2px;
-  color: var(--color-scheme-text);
+  color: #000;
 }
 
 .tags {
@@ -31,17 +31,17 @@
   border-radius: 100px;
   background: var(--opacity-neutral-darkest-5);
   font-family: var(--font-family);
+  font-weight: 600;
   font-size: 14px;
-  font-weight: var(--fw-semibold);
   line-height: 1.6;
-  color: var(--color-scheme-text);
+  color: #000;
 }
 
 .description {
   margin: 0;
   font-family: var(--font-family);
+  font-weight: 400;
   font-size: 16px;
-  font-weight: var(--fw-regular);
   line-height: 1.5;
-  color: var(--color-scheme-text);
+  color: #000;
 }
