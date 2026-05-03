@@ -41,6 +41,10 @@
   .formSide {
     padding: 0 32px;
   }
+
+  .title {
+    width: 480px;
+  }
 }
 
 @media only screen and (min-width: 1440px) {
@@ -51,10 +55,10 @@
 
   .title {
     font-size: 48px;
-    width: 480px;
   }
 
   .imageSide {
+    width: 50%;
     display: block;
   }
 }
