@@ -4,8 +4,21 @@
     border-radius: 32px;
     padding: 24px;
     width: 335px;
-    background-color: var(--color-scheme-foreground);
+    /* background-color: var(--color-scheme-foreground); */
     margin: 0 20px 32px 0;
+    
+}
+
+.taskCardBox.theme-boy {
+    background-color: var(--color-french-pass-lighter);
+}
+
+.taskCardBox.theme-girl {
+    background-color: var(--color-pastel-pink-lighter);
+}
+
+.taskCardBox.theme-default {
+    background-color: var(--color-oasis-lighter);
 }
 
 .taskTitleBox {
@@ -13,6 +26,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 16px;
+
 }
 
 .addTaskBtn {
@@ -22,16 +36,7 @@
     height: 40px;
     background-color: transparent;
     transition: background-color 250ms ease-in-out;
-    
 }
-
-.addTaskBtn:hover {
-background-color: var(--color-scheme-accent);
-animation: addBtnAnimation .5s ease-in-out;
-}
-
-
-
 
 .emptyTaskSubTitle {
     font-family: var(--font-family);
@@ -56,7 +61,9 @@ animation: addBtnAnimation .5s ease-in-out;
     color: var(--color-scheme-text);
 }
 
-
+.addTaskBtn:hover {
+    background-color: var(--color-scheme-accent);
+}
 
 @media only screen and (min-width: 768px) {
     .taskCardBox {
@@ -71,6 +78,11 @@ animation: addBtnAnimation .5s ease-in-out;
         width: 390px;
         height: 498px;
         margin: 16px 32px 32px 0;
+    }
+
+    .addTaskBtn:hover {
+        background-color: var(--color-scheme-accent);
+        animation: addBtnAnimation .5s ease-in-out;
     }
 }
 

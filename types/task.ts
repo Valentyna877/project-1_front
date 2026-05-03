@@ -4,9 +4,18 @@ export interface GetAllTasks {
     name: string;
     date: string;
     isDone: boolean;
+}
+
+export interface UpdateTask {
+    name: string;
+    date: string;
+    isDone: boolean;
+}
+
+export interface UpdatedTask {
+    payload: UpdateTask;
+    taskId: string;
 } 
-
-
 
 export interface TaskDone {
     isDone: boolean;

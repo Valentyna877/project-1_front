@@ -1,15 +1,16 @@
 import Image from 'next/image';
 import css from './BabyTodayCard.module.css';
 import { Baby } from '@/types/weeks';
-import Loader from '@/components/common/Loader/Loader';
+import { useTheme } from '@/hooks/useTheme';
 
 type Props = {
   babyInfo: Baby;
 };
 
 export default function BabyTodayCard({ babyInfo }: Props) {
+  const { theme, themeClass } = useTheme();
   return (
-    <div className={css.babyCardBox}>
+    <div className={`${css.babyCardBox} ${css[themeClass]}`}>
       <h2>Малюк сьогодні</h2>
       <div className={css.babyInfoBox}>
         <Image
@@ -24,11 +25,11 @@ export default function BabyTodayCard({ babyInfo }: Props) {
         <div className={css.babyTextWrapper}>
           <p className={css.babyInfo}>
             <span className={css.strong}>Розмір: </span>
-            {babyInfo?.babySize}
+            Приблизно {babyInfo?.babySize} см
           </p>
           <p className={css.babyInfo}>
             <span className={css.strong}>Вага: </span>
-            {babyInfo?.babyWeight}
+            Близько {babyInfo?.babyWeight} грамів.
           </p>
           <p className={css.babyInfo}>
             <span className={css.strong}>Активність: </span>

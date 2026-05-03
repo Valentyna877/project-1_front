@@ -2,17 +2,10 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { NewTask } from '../api/clientApi';
 
-// export interface NewTaskInStore {
-//   name: string;
-//   date: string;
-//   isDone: boolean;
-//   _id: string;
-// }
-
 interface TaskStore {
   tasks: NewTask[];
   addTask: (task: NewTask) => void;
-  removeTask: (index: number) => void;
+  removeTask: (id: string) => void;
   toggleTask: (id: string) => void;
   clearTasks: () => void;
 }
@@ -30,9 +23,9 @@ export const useTaskStore = create<TaskStore>()(
           tasks: [...state.tasks, task],
         })),
 
-      removeTask: (index) =>
+      removeTask: (id) =>
         set((state) => ({
-          tasks: state.tasks.filter((_, i) => i !== index),
+          tasks: state.tasks.filter((task) => task._id !== id),
         })),
 
       toggleTask: (id) =>
