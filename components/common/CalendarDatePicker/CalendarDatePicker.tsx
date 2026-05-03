@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import { format } from 'date-fns';
 import 'react-datepicker/dist/react-datepicker.css';
 import { IMask, IMaskInput } from 'react-imask';
-import css from './CalendarDatePicker.module.css'
+import css from './CalendarDatePicker.module.css';
 
 interface CalendarDatePickerProps extends FieldProps {
   onDateSelect?: (dateStr: string) => void;
@@ -41,7 +41,11 @@ const CalendarDatePicker: React.FC<CalendarDatePickerProps> = ({
 
   return (
     <>
-      {label && <label htmlFor={field.name} className={labelClassName}>{label}</label>}
+      {label && (
+        <label htmlFor={field.name} className={labelClassName}>
+          {label}
+        </label>
+      )}
       <div className={css.datePickerWrapper}>
         <DatePicker
           id={field.name}
@@ -51,7 +55,7 @@ const CalendarDatePicker: React.FC<CalendarDatePickerProps> = ({
           minDate={minDate}
           maxDate={maxDate}
           onCalendarClose={() => form.setFieldTouched(field.name, true)}
-          showIcon={!dateValue}
+          showIcon={true}
           icon={
             <svg width="20" height="20" aria-hidden="true">
               <use href="/sprite.svg#icon-today" />
@@ -59,24 +63,28 @@ const CalendarDatePicker: React.FC<CalendarDatePickerProps> = ({
           }
           customInput={
             <IMaskInput
-                mask="DD-MM-YYYY"
-                blocks={{
-                    DD: { mask: IMask.MaskedRange, from: 1, to: 31 },
-                    MM: { mask: IMask.MaskedRange, from: 1, to: 12 },
-                    YYYY: { mask: IMask.MaskedRange, from: new Date().getFullYear(), to: new Date().getFullYear() + 1 },
-                }}
-                onAccept={(value: string) => {
-                    if (value.length === 10) {
-                        const [dd, mm, yyyy] = value.split('-');
-                        const dateString = `${yyyy}-${mm}-${dd}`;
-                        form.setFieldValue(field.name, dateString);
-                    }
-                }}
-                onBlur={() => form.setFieldTouched(field.name, true)}
+              mask="DD-MM-YYYY"
+              blocks={{
+                DD: { mask: IMask.MaskedRange, from: 1, to: 31 },
+                MM: { mask: IMask.MaskedRange, from: 1, to: 12 },
+                YYYY: {
+                  mask: IMask.MaskedRange,
+                  from: new Date().getFullYear(),
+                  to: new Date().getFullYear() + 1,
+                },
+              }}
+              onAccept={(value: string) => {
+                if (value.length === 10) {
+                  const [dd, mm, yyyy] = value.split('-');
+                  const dateString = `${yyyy}-${mm}-${dd}`;
+                  form.setFieldValue(field.name, dateString);
+                }
+              }}
+              onBlur={() => form.setFieldTouched(field.name, true)}
             />
-      }
+          }
         />
-        </div>
+      </div>
     </>
   );
 };
