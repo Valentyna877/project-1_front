@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { isAxiosError } from "axios";
+import { ToastProvider } from "@/components/common/Toast/ToastProvider";
 import { getBabyWeek, getMomWeek } from "@/lib/api/clientApi";
 import {
   JourneyTab,
@@ -45,6 +46,12 @@ const JourneyDetails = ({ weekNumber }: JourneyDetailsProps) => {
         const isMissing =
           isAxiosError(err) && err.response?.status === 404;
         setStatus(isMissing ? "missing" : "error");
+
+        if (isMissing) {
+          ToastProvider.info(`Дані для тижня ${weekNumber} ще готуються`);
+        } else {
+          ToastProvider.error("Не вдалося завантажити дані. Перевірте з'єднання.");
+        }
       } finally {
         setIsLoading(false);
       }
