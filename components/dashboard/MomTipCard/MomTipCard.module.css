@@ -4,7 +4,6 @@
     padding: 24px;
     width: 335px;
     margin: 0 20px 16px 0;
-    /* background: var(--color-scheme-foreground); */
 }
 
 .momTipBox.theme-boy {
@@ -20,7 +19,6 @@
 }
 
 .momTipText {
-    font-family: var(--font-family);
     font-weight: 400;
     font-size: 14px;
     line-height: 160%;
