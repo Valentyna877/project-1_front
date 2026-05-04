@@ -1,7 +1,6 @@
 .taskItem {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     
 }
 
@@ -14,8 +13,48 @@
     display: flex;
 }
 
+.btnBlock {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.deleteBtn {
+    background-color: transparent;
+    padding: 12px;
+
+}
+
 @media only screen and (min-width: 1440px) {
     .taskItemTime {
         font-size: 12px;
+    }
+
+    .taskItem:hover .deleteBtn {
+        opacity: 1;
+    }
+
+    .deleteBtn {
+        opacity: 0;
+        transition: opacity 250ms ease-in-out;
+    }
+
+    .deleteBtn:hover {
+        animation: deleteBtnAnim .5s ease-in-out
+    }
+}
+
+@keyframes deleteBtnAnim {
+    25% {
+        transform: translateY(-10px) rotateZ(-5deg);
+    }
+
+    50% {
+        transform: translateY(-5px) rotateZ(-15deg);
+    }
+
+    75% {
+        transform: rotateZ(15deg);
     }
 }

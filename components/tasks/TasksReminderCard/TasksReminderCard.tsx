@@ -3,7 +3,7 @@
 import Button from '@/components/common/Button/Button';
 import css from './TasksReminderCard.module.css';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { checkedTask, getAllTask } from '@/lib/api/clientApi';
+import { checkedTask, deleteTask, getAllTask } from '@/lib/api/clientApi';
 import { useAuthStore } from '@/lib/store/authStore';
 import { redirect } from 'next/navigation';
 import AddTaskModal from '@/components/tasks/AddTaskModal/AddTaskModal';
@@ -11,10 +11,15 @@ import { useState } from 'react';
 import TaskItem from '../TaskItem/TaskItem';
 import { ToastProvider } from '@/components/common/Toast/ToastProvider';
 import Loader from '@/components/common/Loader/Loader';
+import { useTheme } from '@/hooks/useTheme';
 
 export default function TasksReminderCard() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const { theme, themeClass } = useTheme();
+
+  const queryClient = useQueryClient();
+
   const { data, isLoading, isError } = useQuery({
     queryKey: ['tasks'],
     queryFn: getAllTask,
@@ -22,20 +27,36 @@ export default function TasksReminderCard() {
     enabled: isAuthenticated,
   });
 
-  const queryClient = useQueryClient();
-
-  const taskMutation = useMutation({
+  const taskCheckMutation = useMutation({
+    mutationKey: ['taskCheck'],
     mutationFn: checkedTask,
+
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] });
     },
     onError: () => {
-      ToastProvider.error('Помилка при створенні завдання.');
+      ToastProvider.error('Помилка при зміні статусу завдання.');
     },
   });
 
+  const taskDeleteMutation = useMutation({
+    mutationKey: ['taskDelete'],
+    mutationFn: deleteTask,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['tasks'] });
+      ToastProvider.success('Завдання успішно видалено.');
+    },
+    onError: () => {
+      ToastProvider.error('Помилка при видаленні завдання.');
+    },
+  });
+
+  const handleDeleteTask = (taskId: string) => {
+    taskDeleteMutation.mutate(taskId);
+  };
+
   const handleCheckTask = (isDone: boolean, taskId: string) => {
-    taskMutation.mutate({ isDone, taskId });
+    taskCheckMutation.mutate({ isDone, taskId });
   };
 
   const handleOpenModal = () => {
@@ -51,7 +72,7 @@ export default function TasksReminderCard() {
   }
 
   if (isError) {
-    ToastProvider.error('Помилка при створенні завдання.');
+    ToastProvider.error('Помилка при завантаженні завдань.');
   }
 
   const handleCloseModal = () => {
@@ -60,7 +81,7 @@ export default function TasksReminderCard() {
 
   if (!data) {
     return (
-      <div className={css.taskCardBox}>
+      <div className={`${css.taskCardBox} ${css[themeClass]}`}>
         <div className={css.taskTitleBox}>
           <h2>Важливі завдання</h2>
           <button className={css.addTaskBtn} onClick={handleOpenModal}>
@@ -79,7 +100,7 @@ export default function TasksReminderCard() {
   }
 
   return (
-    <div className={css.taskCardBox}>
+    <div className={`${css.taskCardBox} ${css[themeClass]}`}>
       <div className={css.taskTitleBox}>
         <h2>Важливі завдання</h2>
         <button className={css.addTaskBtn} onClick={handleOpenModal}>
@@ -88,10 +109,17 @@ export default function TasksReminderCard() {
           </svg>
         </button>
       </div>
+
       {data.length > 0 ? (
-        <ul>
-          <TaskItem data={data} handleCheckTask={handleCheckTask} />
-        </ul>
+        <>
+          <ul>
+            <TaskItem
+              data={data}
+              handleCheckTask={handleCheckTask}
+              handleDeleteTask={handleDeleteTask}
+            />
+          </ul>
+        </>
       ) : (
         <div>
           <p className={css.emptyTaskSubTitle}>Наразі немає жодних завдань</p>
