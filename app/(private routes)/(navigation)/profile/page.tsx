@@ -12,7 +12,7 @@ export default function ProfilePage() {
 
   return (
     <div className="container">
-      <div className={styles.card}>
+      <div className={`${styles.card}`}>
         <ProfileAvatar user={user} />
         <ProfileEditForm user={user} />
       </div>
