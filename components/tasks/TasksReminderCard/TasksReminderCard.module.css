@@ -4,9 +4,8 @@
     border-radius: 32px;
     padding: 24px;
     width: 335px;
-    /* background-color: var(--color-scheme-foreground); */
-    margin: 0 20px 32px 0;
-    
+    margin: 0 0 32px 0;
+    overflow: auto;
 }
 
 .taskCardBox.theme-boy {
@@ -25,7 +24,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 16px;
 
 }
 
@@ -39,7 +37,6 @@
 }
 
 .emptyTaskSubTitle {
-    font-family: var(--font-family);
     font-weight: 700;
     font-size: 14px;
     line-height: 160%;
@@ -54,21 +51,24 @@
 }
 
 .emptyTaskBtn {
-    font-family: var(--font-family);
     font-weight: 500;
     font-size: 14px;
     line-height: 160%;
     color: var(--color-scheme-text);
 }
 
-.addTaskBtn:hover {
-    background-color: var(--color-scheme-accent);
+.taskSection {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 160%;
+    margin-top: 16px;
+    margin-bottom: 4px;
 }
 
 @media only screen and (min-width: 768px) {
     .taskCardBox {
         width: 704px;
-        margin: 0 32px 32px 0;
+        margin: 0 0 32px 0;
     }
 }
 
@@ -77,12 +77,15 @@
         overflow: auto;
         width: 390px;
         height: 498px;
-        margin: 16px 32px 32px 0;
+        margin: 16px 0 32px 0;
     }
 
     .addTaskBtn:hover {
-        background-color: var(--color-scheme-accent);
         animation: addBtnAnimation .5s ease-in-out;
+    }
+
+    .taskSection {  
+        font-size: 16px;
     }
 }
 
@@ -94,7 +97,7 @@
     }
 
     50% {
-        transform: translateY(-20px);
+        transform: translateY(-10px);
 
     }
 
