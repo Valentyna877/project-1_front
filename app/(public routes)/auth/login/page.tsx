@@ -6,8 +6,23 @@ import { IMG_VARS } from '@/app/imgVars';
 import LoginForm from '@/components/auth/LoginForm/LoginForm';
 import clsx from 'clsx';
 import Link from 'next/link';
+import { useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { ToastProvider } from '@/components/common/Toast/ToastProvider';
 
-const Register = () => {
+const Login = () => {
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    if (searchParams.has('error')) {
+      console.log(1);
+
+      ToastProvider.error(
+        'Упс, щось пішло не так! Будь ласка, увійдіть ще раз.'
+      );
+      window.history.replaceState(null, '', '/auth/login');
+    }
+  }, [searchParams]);
+
   return (
     <main className={clsx('container', css.section)}>
       <div className={css.content}>
@@ -35,4 +50,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;

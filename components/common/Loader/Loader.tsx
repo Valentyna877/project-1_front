@@ -6,7 +6,10 @@ import clsx from 'clsx';
 import boyAnimation from '@/public/animations/baby-boy.json';
 import girlAnimation from '@/public/animations/baby-girl.json';
 import defaultAnimation from '@/public/animations/baby-default.json';
-import smallAnimation from '@/public/animations/loader-small.json';
+
+import smallBoyAnimation from '@/public/animations/loader-small-boy.json';
+import smallGirlAnimation from '@/public/animations/loader-small-girl.json';
+import smallDefaultAnimation from '@/public/animations/loader-small-default.json';
 
 import css from './Loader.module.css';
 
@@ -25,13 +28,19 @@ const globalAnimations = {
   default: defaultAnimation,
 };
 
+const inlineAnimations = {
+  boy: smallBoyAnimation,
+  girl: smallGirlAnimation,
+  default: smallDefaultAnimation,
+};
+
 export default function Loader({
   theme = 'default',
   variant = 'global',
   text = 'Завантаження...',
 }: LoaderProps) {
   const animationData =
-    variant === 'inline' ? smallAnimation : globalAnimations[theme];
+    variant === 'inline' ? inlineAnimations[theme] : globalAnimations[theme];
 
   return (
     <div
