@@ -1,31 +1,42 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  padding: 48px 20px;
-  box-sizing: border-box;
+.addDiaryModal {
+  --modal-max-w: 334px;
+  --modal-padding-y: 48px;
+  --modal-padding-x: 20px;
+  --modal-overflow: visible;
 }
 
-.title {
-  align-self: stretch;
-  font-weight: 700;
-  font-size: 28px;
-  line-height: 1.2;
-  letter-spacing: 0.28px;
+.addDiaryModalTitle {
+  margin-bottom: 48px;
   text-align: center;
-  color: #000;
+  font-weight: var(--fw-medium, 700);
+  font-size: 36px;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: var(--color-scheme-text);
+}
+
+.addDiaryModalForm {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
 }
 
 @media (min-width: 768px) {
-  .container {
-    padding: 48px;
-    gap: 24px;
+  .addDiaryModal {
+    --modal-max-w: 704px;
+    --modal-padding-y: 64px;
+    --modal-padding-x: 32px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .addDiaryModal {
+    --modal-max-w: 768px;
+    --modal-padding-y: 64px;
+    --modal-padding-x: 32px;
   }
 
-  .title {
-    font-size: 36px;
-    line-height: 43px;
-    letter-spacing: 0.36px;
+  .addDiaryModalTitle {
+    font-size: 48px;
   }
 }

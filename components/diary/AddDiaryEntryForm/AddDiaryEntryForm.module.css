@@ -1,3 +1,74 @@
+.AddDiaryEntryForm {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+}
+
+.addDiaryGroup {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+}
+.input label {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.input,
+.textarea {
+  margin-bottom: 24px;
+  padding: 8px 12px;
+  width: 100%;
+  max-width: 295px;
+  height: 37px;
+  font-size: var(--fz-14);
+  border: 2px solid var(--opacity-transparent);
+  border-radius: 12px;
+  background-color: var(--opacity-neutral-darkest-5);
+  resize: none;
+  transition: border-color 250ms ease-in-out;
+}
+.textarea {
+  /* min-height: 250px; */
+}
+.input::placeholde,
+.textarea::placeholder {
+  font-size: var(--fz-14);
+  font-weight: var(--fw-medium);
+  color: var(--opacity-neutral-darkest-60);
+}
+
+.input:active::placeholder,
+.textarea:active::placeholder {
+  color: var(--color-neutral-darkest);
+}
+
+.input:focus,
+.textarea:focus {
+  border: 2px solid var(--color-pastel-pink);
+}
+
+.input:invalid,
+.textarea:invalid {
+  border: 1px solid var(--color-red);
+}
+
+.input:invalid::placeholder,
+.textarea:invalid::placeholder {
+  color: var(--color-red);
+}
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.submitBtn {
+  max-width: 295px;
+  height: 42px;
+}
+
 .dropdownControl {
   width: 100%;
   box-sizing: border-box;
@@ -195,6 +266,35 @@
   border-bottom: 2px solid var(--color-white);
   transform: rotate(-45deg);
   margin-top: -1px;
+}
+
+@media (min-width: 768px) {
+  .AddDiaryEntryForm {
+    min-width: 640px;
+    width: auto;
+  }
+
+  .input,
+  .textarea {
+    min-width: 640px;
+    max-width: 100%;
+    font-size: var(--fz-16);
+  }
+
+  .input::placeholder,
+  .textarea::placeholder {
+    font-size: var(--fz-16);
+  }
+
+  .textarea {
+    height: 250px;
+  }
+
+  .submitBtn {
+    width: 268px;
+    /* width: auto; */
+    /* width: 100%; */
+  }
 }
 
 @media (min-width: 1440px) {
