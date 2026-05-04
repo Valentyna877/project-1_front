@@ -3,8 +3,7 @@
     border-radius: 32px;
     padding: 24px;
     width: 335px;
-    /* background-color: var(--color-scheme-foreground); */
-    margin: 0 20px 32px 0;
+    margin: 0 0 32px 0;
 }
 
 .feelingCheckCardBox.theme-boy {
@@ -20,7 +19,6 @@
 }
 
 .feelingSubtitle { 
-    font-family: var(--font-family);
     font-weight: 600;
     font-size: 14px;
     line-height: 160%;
@@ -29,7 +27,6 @@
 }
 
 .feelingText {
-    font-family: var(--font-family);
     font-weight: 400;
     font-size: 14px;
     line-height: 150%;
@@ -38,7 +35,6 @@
 }
 
 .feelingBtn {
-    font-family: var(--font-family);
     font-weight: 500;
     font-size: 14px;
     line-height: 160%;
@@ -49,7 +45,7 @@
 @media only screen and (min-width: 768px) {
     .feelingCheckCardBox {
         width: 704px;
-        margin: 0 32px 32px 0;
+        margin: 0 0 32px 0;
     }
 }
 
@@ -57,7 +53,7 @@
     .feelingCheckCardBox {
         width: 390px;
         height: 210px;
-        margin: 0 32px 32px 0;
+        margin: 0 0 32px 0;
         overflow: auto;
     }
 

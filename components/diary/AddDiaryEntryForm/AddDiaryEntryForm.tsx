@@ -53,7 +53,6 @@ export default function AddDiaryEntryForm({ onSuccess }: Props) {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      {() => (
         <Form className={css.form}>
           <div className={css.fieldWrapper}>
             <label className={css.label}>Заголовок</label>
@@ -88,7 +87,6 @@ export default function AddDiaryEntryForm({ onSuccess }: Props) {
             {isSaving ? 'Збереження...' : 'Зберегти'}
           </button>
         </Form>
-      )}
     </Formik>
   );
 }
