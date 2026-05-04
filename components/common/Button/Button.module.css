@@ -66,6 +66,29 @@
     var(--btn-disabled-border);
 }
 
+.button.theme-boy {
+  background-color: var(--color-french-pass-light);
+  --btn-border: var(--color-french-pass);
+}
+
+.button.theme-boy:hover {
+  background-color: var(--color-french-pass-lighter);
+}
+
+.button.theme-girl {
+  background-color: var(--color-pastel-pink-light);
+  --btn-border: var(--color-pastel-pink);
+}
+
+.button.theme-default {
+  background-color: var(--color-oasis-light);
+  --btn-border: var(--color-oasis);
+}
+
+.button.theme-default:hover {
+  background-color: var(--color-oasis-lighter);
+}
+
 .loading {
   cursor: progress;
 }

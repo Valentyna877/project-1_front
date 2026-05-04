@@ -14,6 +14,7 @@ import { GenderValue } from '@/components/common/GenderSelect/gender-select.type
 import FormikGenderSelect from '@/components/common/GenderSelect/FormikGenderSelect';
 import { genderSelectStyles } from '@/components/common/GenderSelect/gender-select.styles';
 import { ToastProvider } from '@/components/common/Toast/ToastProvider';
+import { CalendarIcon } from 'lucide-react';
 
 interface ProfileEditFormProps {
   user: User;
@@ -42,8 +43,8 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
   //   [today]
   // );
 
-    const [today] = useState(() => new Date());
-    const [maxDate] = useState(() => new Date(Date.now() + FORTY_WEEKS));
+  const [today] = useState(() => new Date());
+  const [maxDate] = useState(() => new Date(Date.now() + FORTY_WEEKS));
 
   const handleSubmit = async (
     values: ProfileEditFormValues,
@@ -67,6 +68,7 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
       console.log('updateUser:', updateUser);
       setUser(updateUser);
       actions.resetForm();
+      ToastProvider.success('Профіль оновлено');
     } catch {
       ToastProvider.error('Помилка при оновленні профілю. Спробуйте ще раз.');
     }
@@ -115,55 +117,47 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
               className={styles.error}
             />
           </div>
-          <div>
+          <div className={styles.genderField}>
             <label className={styles.label}>Стать дитини</label>
             <FormikGenderSelect styles={genderSelectStyles} />
           </div>
 
           {/* <ErrorMessage name="gender" component="p" /> */}
-          <Field
-            name="dueDate"
-            component={CalendarDatePicker}
-            placeholderText={user.date}
-            className={styles.datePicker}
-            minDate={today}
-            maxDate={maxDate}
-            dateFormat="dd-MM-yyyy"
-            label="Планова дата пологів"
-            labelClassName={styles.label}
-            // customInput={
-            // <IMaskInput
-            //   mask="DD-MM-YYYY"
-            //   blocks={{
-            //     DD: { mask: IMask.MaskedRange, from: 1, to: 31 },
-            //     MM: { mask: IMask.MaskedRange, from: 1, to: 12 },
-            //     YYYY: {
-            //       mask: IMask.MaskedRange,
-            //       from: new Date().getFullYear(),
-            //       to: new Date().getFullYear() + 1,
-            //     },
-            //   }}
-            // />
-            // }
-          />
-          {/* <CalendarDatePicker minDate={today} maxDate={maxDate} /> */}
-          {/* <CalendarDatePicker
-            minDate={today}
-            maxDate={maxDate}
-            existingDate={user.dueDate ?? null}
-          /> */}
+          <div className={styles.dateField}>
+            <Field
+              name="dueDate"
+              component={CalendarDatePicker}
+              placeholderText={user.date}
+              className={styles.datePicker}
+              minDate={today}
+              maxDate={maxDate}
+              dateFormat="dd-MM-yyyy"
+              label="Планова дата пологів"
+              labelClassName={styles.label}
+              showIcon={CalendarIcon}
+            />
+          </div>
+
           <ErrorMessage name="dueDate" component="p" />
-          <Button
-            className="btnClose "
-            type="reset"
-            variant="cancel"
-            onClick={() => resetForm()}
-          >
-            Відмінити зміни
-          </Button>
-          <Button type="submit" variant="normal" size="lg">
-            Зберегти зміни
-          </Button>
+          <div className={styles.buttons}>
+            <Button
+              className={styles.btnClose}
+              type="reset"
+              size="sm"
+              variant="cancel"
+              onClick={() => resetForm()}
+            >
+              Відмінити зміни
+            </Button>
+            <Button
+              className={styles.btnSubmit}
+              type="submit"
+              variant="normal"
+              size="sm"
+            >
+              Зберегти зміни
+            </Button>
+          </div>
         </Form>
       )}
     </Formik>
