@@ -10,7 +10,6 @@
     border-radius: 32px;
     padding: 16px;
     width: 159px;
-    /* background-color: var(--color-scheme-foreground); */
     flex-shrink: 0;
 }
 
@@ -27,7 +26,6 @@
 }
 
 .statusTitle {
-    font-family: var(--font-family);
     font-weight: 400;
     font-size: 14px;
     line-height: 150%;

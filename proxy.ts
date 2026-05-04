@@ -53,13 +53,24 @@ export const proxy = async (req: NextRequest) => {
       }
     }
     if (isAuthRoute) {
-      await deleteCookies();
-      return NextResponse.next();
+      const response = NextResponse.next();
+      response.cookies.delete('accessToken');
+      response.cookies.delete('refreshToken');
+      response.cookies.delete('sessionId');
+
+      return response;
     }
 
     if (isPrivateRoute) {
-      await deleteCookies();
-      return NextResponse.redirect(new URL('/auth/login', req.url));
+      const url = new URL('/auth/login', req.url);
+      url.searchParams.set('error', 'session_expired');
+      const response = NextResponse.redirect(url);
+
+      response.cookies.delete('accessToken');
+      response.cookies.delete('refreshToken');
+      response.cookies.delete('sessionId');
+
+      return response;
     }
   }
 

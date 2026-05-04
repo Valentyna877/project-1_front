@@ -10,6 +10,7 @@ import CalendarDatePicker from '@/components/common/CalendarDatePicker/CalendarD
 import { FORTY_WEEKS, profileSchema } from './ProfileValidationSchema';
 import { nextServer } from '@/lib/api/api';
 import { getUser } from '@/lib/api/clientApi';
+import { useRouter } from 'next/navigation';
 import { GenderValue } from '@/components/common/GenderSelect/gender-select.types';
 import FormikGenderSelect from '@/components/common/GenderSelect/FormikGenderSelect';
 import { genderSelectStyles } from '@/components/common/GenderSelect/gender-select.styles';
@@ -27,21 +28,42 @@ interface ProfileEditFormValues {
   dueDate?: string;
 }
 
+const normalizeDate = (date?: string | null): string => {
+  if (!date) return '';
+  if (date.includes('T')) {
+    return date.split('T')[0];
+  }
+
+  if (/^\d{4}-\d{2}-\d{2}$/.test(date)) return date;
+  const match = date.match(/^(\d{2})-(\d{2})-(\d{4})$/);
+  if (match) return `${match[3]}-${match[2]}-${match[1]}`;
+  return '';
+};
+
+const formatDisplayDate = (date?: string | null): string => {
+  if (!date) return '';
+
+  if (date.includes('T')) {
+    const [yyyy, mm, dd] = date.split('T')[0].split('-');
+    return `${dd}-${mm}-${yyyy}`;
+  }
+  const match = date.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (match) return `${match[3]}-${match[2]}-${match[1]}`;
+  if (/^\d{2}-\d{2}-\d{4}$/.test(date)) return date;
+  return date;
+};
+
 export default function ProfileEditForm({ user }: ProfileEditFormProps) {
   const fieldId = useId();
   const setUser = useAuthStore((state) => state.setUser);
+  const router = useRouter();
 
   const initialValues: ProfileEditFormValues = {
     name: user.name,
     email: user.email,
     gender: user.gender,
-    dueDate: user.date ?? '',
+    dueDate: normalizeDate(user.date),
   };
-  // const today = useMemo(() => new Date(), []);
-  // const maxDate = useMemo(
-  //   () => new Date(today.getTime() + FORTY_WEEKS),
-  //   [today]
-  // );
 
   const [today] = useState(() => new Date());
   const [maxDate] = useState(() => new Date(Date.now() + FORTY_WEEKS));
@@ -69,10 +91,20 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
       setUser(updateUser);
       actions.resetForm();
       ToastProvider.success('Профіль оновлено');
-    } catch {
+    } catch (error) {
+      if (error instanceof Error) {
+        const status = (error as { status?: number }).status;
+
+        if (status === 401) {
+          ToastProvider.error('Час сесії вийшов. Будь ласка, увійдіть знову');
+          router.push('/auth/login');
+          return;
+        }
+      }
       ToastProvider.error('Помилка при оновленні профілю. Спробуйте ще раз.');
     }
   };
+
   return (
     <Formik
       initialValues={initialValues}
@@ -80,7 +112,7 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
       onSubmit={handleSubmit}
       enableReinitialize
     >
-      {({ resetForm }) => (
+      {({ resetForm, dirty, isSubmitting }) => (
         <Form className={styles.form}>
           <div className={styles.field}>
             <label htmlFor={`${fieldId}-name`} className={styles.label}>
@@ -92,6 +124,7 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
               id={`${fieldId}-name`}
               placeholder={user.name}
               className={styles.input}
+              readOnly
             />
             <ErrorMessage
               name="name"
@@ -117,17 +150,17 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
               className={styles.error}
             />
           </div>
+
           <div className={styles.genderField}>
             <label className={styles.label}>Стать дитини</label>
             <FormikGenderSelect styles={genderSelectStyles} />
           </div>
 
-          {/* <ErrorMessage name="gender" component="p" /> */}
           <div className={styles.dateField}>
             <Field
               name="dueDate"
               component={CalendarDatePicker}
-              placeholderText={user.date}
+              placeholderText={formatDisplayDate(user.date)}
               className={styles.datePicker}
               minDate={today}
               maxDate={maxDate}
@@ -139,6 +172,7 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
           </div>
 
           <ErrorMessage name="dueDate" component="p" />
+
           <div className={styles.buttons}>
             <Button
               className={styles.btnClose}
@@ -146,6 +180,7 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
               size="sm"
               variant="cancel"
               onClick={() => resetForm()}
+              disabled={!dirty}
             >
               Відмінити зміни
             </Button>
@@ -154,6 +189,9 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
               type="submit"
               variant="normal"
               size="sm"
+              disabled={!dirty}
+              isLoading={isSubmitting}
+              loadingText="Зберігаються...."
             >
               Зберегти зміни
             </Button>
