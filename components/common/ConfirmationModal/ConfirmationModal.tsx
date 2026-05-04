@@ -23,7 +23,7 @@ function ConfirmationModal({
   cancelButtonText,
   onConfirm,
   onCancel,
-  confirmButtonVariant = 'normal',
+  confirmButtonVariant = 'cancel',
 }: ConfirmationModalProps) {
   return (
     <Modal
@@ -38,7 +38,7 @@ function ConfirmationModal({
       <div className={css.confirmationModalActions}>
         <Button
           type="button"
-          variant="cancel"
+          variant="normal"
           onClick={onCancel}
           className={css.confirmationModalButton}
         >
