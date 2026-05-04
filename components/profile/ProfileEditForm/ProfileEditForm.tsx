@@ -68,6 +68,7 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
       console.log('updateUser:', updateUser);
       setUser(updateUser);
       actions.resetForm();
+      ToastProvider.success('Профіль оновлено');
     } catch {
       ToastProvider.error('Помилка при оновленні профілю. Спробуйте ще раз.');
     }
@@ -116,13 +117,13 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
               className={styles.error}
             />
           </div>
-          <div>
+          <div className={styles.genderField}>
             <label className={styles.label}>Стать дитини</label>
             <FormikGenderSelect styles={genderSelectStyles} />
           </div>
 
           {/* <ErrorMessage name="gender" component="p" /> */}
-          <div className="dateField">
+          <div className={styles.dateField}>
             <Field
               name="dueDate"
               component={CalendarDatePicker}
@@ -140,7 +141,7 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
           <ErrorMessage name="dueDate" component="p" />
           <div className={styles.buttons}>
             <Button
-              className="btnClose"
+              className={styles.btnClose}
               type="reset"
               size="sm"
               variant="cancel"
@@ -149,7 +150,7 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
               Відмінити зміни
             </Button>
             <Button
-              className="btnSubmit"
+              className={styles.btnSubmit}
               type="submit"
               variant="normal"
               size="sm"

@@ -2,6 +2,7 @@
   max-width: 335px;
 }
 .label {
+  font-family: var(--font-family);
   margin-bottom: 8px;
   display: block;
   font-weight: var(--fw-regular);
@@ -23,40 +24,32 @@
   width: 100%;
   background: rgba(0, 0, 0, 0.05);
 }
+.genderField {
+  margin-bottom: 24px;
+}
 .dateField {
-  display: flex;
-  flex-direction: column;
-  gap: 100px;
+  margin-bottom: 48px;
 }
 .datePicker {
   border: 1px solid var(--opacity-transparent);
   border-radius: 12px;
   width: 335px;
   height: 37px;
-  padding: 8px 12px;
   background-color: var(--color-neutral-lightest);
-  font-family: 'Lato', sans-serif;
-  font-size: 16px;
-  margin-bottom: 32px;
-}
-
-.label {
   font-family: var(--font-family);
   font-size: 16px;
-  margin-bottom: 8px;
-  align-self: flex-start;
 }
 .buttons {
   display: flex;
   justify-content: space-between;
 }
 
-:global(.btnClose) {
-  font-family: 'Lato', sans-serif;
+.btnClose {
+  font-family: var(--font-family);
   width: 160px;
 }
-:global(.btnSubmit) {
-  font-family: 'Lato', sans-serif;
+.btnSubmit {
+  font-family: var(--font-family);
   width: 160px;
 }
 
@@ -64,15 +57,18 @@
   .form {
     max-width: 704px;
   }
+  .datePicker {
+    width: 704px;
+  }
   .buttons {
     display: flex;
     justify-content: right;
     gap: 16px;
   }
-  :global(.btnClose) {
+  .btnClose {
     width: 150px;
   }
-  :global(.btnSubmit) {
+  .btnSubmit {
     width: 135px;
   }
 }
@@ -80,5 +76,17 @@
 @media (min-width: 1024px) {
   .form {
     max-width: 580px;
+  }
+  .datePicker {
+    width: 580px;
+    height: 48px;
+  }
+  .btnClose {
+    width: 165px;
+    height: 42px;
+  }
+  .btnSubmit {
+    width: 149px;
+    height: 42px;
   }
 }

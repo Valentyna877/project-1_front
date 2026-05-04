@@ -54,8 +54,9 @@ const CalendarDatePicker: React.FC<CalendarDatePickerProps> = ({
           onChange={handleChange}
           minDate={minDate}
           maxDate={maxDate}
+          fixedHeight
           onCalendarClose={() => form.setFieldTouched(field.name, true)}
-          showIcon={true}
+          showIcon
           icon={
             <svg width="20" height="20" aria-hidden="true">
               <use href="/sprite.svg#icon-today" />
