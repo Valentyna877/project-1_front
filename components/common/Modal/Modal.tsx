@@ -9,14 +9,11 @@ type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
-
   showCloseButton?: boolean;
   closeOnBackdrop?: boolean;
   closeOnEsc?: boolean;
-
   modalClassName?: string;
   backdropClassName?: string;
-
   closeButtonClassName?: string;
   closeIconClassName?: string;
 };
