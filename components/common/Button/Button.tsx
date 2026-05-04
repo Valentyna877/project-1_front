@@ -1,6 +1,7 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
 import clsx from 'clsx';
 import css from './Button.module.css';
+import { useTheme } from '@/hooks/useTheme';
 
 type ButtonVariant = 'normal' | 'cancel' | 'delete' | 'logout';
 type ButtonSize = 'sm' | 'md' | 'lg';
@@ -31,6 +32,7 @@ function Button({
   ...rest
 }: ButtonProps) {
   const isDisabled = Boolean(disabled) || isLoading;
+  const { themeClass } = useTheme();
 
   return (
     <button
@@ -40,6 +42,7 @@ function Button({
         css.button,
         css[variant],
         css[size],
+        css[themeClass],
         'anim-button',
         isLoading && css.loading,
         className

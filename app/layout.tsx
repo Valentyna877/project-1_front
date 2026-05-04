@@ -12,6 +12,7 @@ const comfortaa = Comfortaa({
   weight: ['700'],
   variable: '--second-family',
   display: 'swap',
+  fallback: [], 
 });
 
 const lato = Lato({
@@ -19,6 +20,7 @@ const lato = Lato({
   weight: ['400', '700'],
   variable: '--font-family',
   display: 'swap',
+  fallback: [], 
 });
 
 export const metadata: Metadata = {
