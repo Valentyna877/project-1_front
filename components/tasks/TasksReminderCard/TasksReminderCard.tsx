@@ -226,7 +226,7 @@ export default function TasksReminderCard() {
       ) : (
         <div>
           <p className={css.emptyTaskSubTitle}>Наразі немає жодних завдань</p>
-          <p className={css.emptyTaskText}>Створіть мершій нове завдання!</p>
+          <p className={css.emptyTaskText}>Створіть мерщій нове завдання!</p>
           <Button className={css.emptyTaskBtn} onClick={handleOpenModal}>
             Створити завдання
           </Button>
