@@ -99,6 +99,56 @@ export default function TasksReminderCard() {
     );
   }
 
+  const todayTasks = data.filter((task) => {
+    if (!task.isDone) {
+      return (
+        Number(new Date(task.date)) <
+          Number(new Date()) + 24 * 60 * 60 * 1000 &&
+        Number(new Date(task.date)) > Number(new Date())
+      );
+    }
+  });
+
+  const weekTasks = data.filter((task) => {
+    if (!task.isDone) {
+      return (
+        Number(new Date(task.date)) <
+          Number(new Date()) + 7 * 24 * 60 * 60 * 1000 &&
+        Number(new Date(task.date)) > Number(new Date()) + 24 * 60 * 60 * 1000
+      );
+    }
+  });
+
+  const doneWeekTasks = data.filter((task) => {
+    if (task.isDone) {
+      return (
+        Number(new Date(task.date)) <
+          Number(new Date()) + 7 * 24 * 60 * 60 * 1000 &&
+        Number(new Date(task.date)) > Number(new Date())
+      );
+    }
+  });
+
+  const tasks = data.filter((task) => {
+    if (!task.isDone) {
+      return (
+        Number(new Date(task.date)) < Number(new Date()) ||
+        Number(new Date(task.date)) >
+          Number(new Date()) + 7 * 24 * 60 * 60 * 1000
+      );
+    }
+  });
+
+  const isDoneTasks = data.filter((task) => {
+    if (task.isDone) {
+      return (
+        Number(new Date(task.date)) < Number(new Date()) ||
+        Number(new Date(task.date)) >
+          Number(new Date()) + 7 * 24 * 60 * 60 * 1000
+      );
+    }
+  });
+
   return (
     <div className={`${css.taskCardBox} ${css[themeClass]}`}>
       <div className={css.taskTitleBox}>
@@ -112,13 +162,66 @@ export default function TasksReminderCard() {
 
       {data.length > 0 ? (
         <>
-          <ul>
-            <TaskItem
-              data={data}
-              handleCheckTask={handleCheckTask}
-              handleDeleteTask={handleDeleteTask}
-            />
-          </ul>
+          <p className={css.taskSection}>Сьогодні:</p>
+          {todayTasks.length === 0 ? (
+            <p>Завдань на сьогодні немає</p>
+          ) : (
+            <ul>
+              <TaskItem
+                data={todayTasks}
+                handleCheckTask={handleCheckTask}
+                handleDeleteTask={handleDeleteTask}
+              />
+            </ul>
+          )}
+          <p className={css.taskSection}>Найближчий тиждень:</p>
+          {weekTasks.length === 0 ? (
+            <p>Завдань на тиждень немає</p>
+          ) : (
+            <ul>
+              <TaskItem
+                data={weekTasks}
+                handleCheckTask={handleCheckTask}
+                handleDeleteTask={handleDeleteTask}
+              />
+            </ul>
+          )}
+          <p className={css.taskSection}>Виконані завдання за тиждень:</p>
+          {doneWeekTasks.length === 0 ? (
+            <p>Всі завдання за тиждень виконані</p>
+          ) : (
+            <ul>
+              <TaskItem
+                data={doneWeekTasks}
+                handleCheckTask={handleCheckTask}
+                handleDeleteTask={handleDeleteTask}
+              />
+            </ul>
+          )}
+          <p className={css.taskSection}>Інші не виконані завдвння:</p>
+          {tasks.length === 0 ? (
+            <p>Завдання виконані</p>
+          ) : (
+            <ul>
+              <TaskItem
+                data={tasks}
+                handleCheckTask={handleCheckTask}
+                handleDeleteTask={handleDeleteTask}
+              />
+            </ul>
+          )}
+          <p className={css.taskSection}>Інші виконані завдвння:</p>
+          {isDoneTasks.length === 0 ? (
+            <p>Виконаних завдавнь немає</p>
+          ) : (
+            <ul>
+              <TaskItem
+                data={isDoneTasks}
+                handleCheckTask={handleCheckTask}
+                handleDeleteTask={handleDeleteTask}
+              />
+            </ul>
+          )}
         </>
       ) : (
         <div>

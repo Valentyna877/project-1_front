@@ -3,7 +3,7 @@
     border-radius: 32px;
     padding: 24px;
     width: 335px;
-    margin: 0 20px 32px 0;
+    margin: 0 0 32px 0;
 }
 
 .feelingCheckCardBox.theme-boy {
@@ -45,7 +45,7 @@
 @media only screen and (min-width: 768px) {
     .feelingCheckCardBox {
         width: 704px;
-        margin: 0 32px 32px 0;
+        margin: 0 0 32px 0;
     }
 }
 
@@ -53,7 +53,7 @@
     .feelingCheckCardBox {
         width: 390px;
         height: 210px;
-        margin: 0 32px 32px 0;
+        margin: 0 0 32px 0;
         overflow: auto;
     }
 

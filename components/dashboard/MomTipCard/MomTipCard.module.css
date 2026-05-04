@@ -3,7 +3,7 @@
     border-radius: 32px;
     padding: 24px;
     width: 335px;
-    margin: 0 20px 16px 0;
+    margin: 0 0 16px 0;
 }
 
 .momTipBox.theme-boy {
@@ -29,7 +29,7 @@
 @media only screen and (min-width: 768px) {
     .momTipBox {
         width: 704px;
-        margin: 0 32px 32px 0;
+        margin: 0 0px 32px 0;
     }
 }
 
@@ -37,7 +37,7 @@
     .momTipBox {
         width: 642px;
         height: 138px;
-        margin: 0 32px 32px 0;
+        margin: 0 0 32px 0;
         overflow: auto;
     }
 
