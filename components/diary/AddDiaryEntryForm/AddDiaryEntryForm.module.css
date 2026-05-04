@@ -269,7 +269,7 @@
 @media (min-width: 768px) {
   .AddDiaryEntryForm {
     min-width: 640px;
-    /* width: auto; */
+    width: auto;
   }
 
   .input,
@@ -289,8 +289,9 @@
   }
 
   .submitBtn {
-    min-width: 268px;
-    width: auto;
+    width: 268px;
+    /* width: auto; */
+    /* width: 100%; */
   }
 }
 
