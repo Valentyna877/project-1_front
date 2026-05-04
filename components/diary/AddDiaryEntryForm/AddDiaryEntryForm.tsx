@@ -7,6 +7,7 @@ import { ToastProvider } from '@/components/common/Toast/ToastProvider';
 import MultiSelect from './MultiSelect';
 import css from './AddDiaryEntryForm.module.css';
 import { useDiaryStore } from '@/lib/store/diaryStore';
+import Button from '@/components/common/Button/Button';
 import { DiaryEntry } from '@/types/diary';
 
 interface FormValues {
@@ -55,8 +56,9 @@ export default function AddDiaryEntryForm({ onSuccess }: Props) {
     >
         <Form className={css.form}>
           <div className={css.fieldWrapper}>
-            <label className={css.label}>Заголовок</label>
+            <label>Заголовок</label>
             <Field
+              type="text"
               name="title"
               placeholder="Введіть заголовок запису"
               className={css.input}
@@ -73,7 +75,7 @@ export default function AddDiaryEntryForm({ onSuccess }: Props) {
           </div>
 
           <div className={css.fieldWrapper}>
-            <label className={css.label}>Запис</label>
+            <label>Запис</label>
             <Field
               as="textarea"
               name="text"
@@ -83,9 +85,19 @@ export default function AddDiaryEntryForm({ onSuccess }: Props) {
             <ErrorMessage name="text" component="span" className={css.error} />
           </div>
 
-          <button type="submit" className={css.submitBtn} disabled={isSaving}>
-            {isSaving ? 'Збереження...' : 'Зберегти'}
-          </button>
+          <div className={css.actions}>
+            <Button
+              variant="normal"
+              size="lg"
+              type="submit"
+              disabled={isSaving}
+              loadingText="Збереження..."
+              className={css.submitBtn}
+            >
+              Зберегти
+            </Button>
+          </div>
+        </fieldset>
         </Form>
     </Formik>
   );
