@@ -5,7 +5,7 @@
   width: 100%;
   padding: 24px;
   border-radius: 32px;
-  background: var(--color-pastel-pink-lighter);
+  background: var(--color-scheme-foreground);
 }
 
 .placeholder {
@@ -71,7 +71,7 @@
 }
 
 .iconBtn:hover {
-  background: var(--color-pastel-pink-light);
+  background: var(--color-scheme-foreground-alt);
 }
 
 .content {
@@ -135,7 +135,7 @@
   }
 
   .wrapper::-webkit-scrollbar-thumb {
-    background: var(--color-pastel-pink-light);
+    background: var(--color-scheme-foreground-alt);
     border-radius: 2px;
   }
 }

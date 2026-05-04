@@ -5,18 +5,18 @@
   width: 100%;
   padding: 16px;
   border-radius: 16px;
-  background: var(--color-pastel-pink-light);
+  background: var(--color-scheme-foreground-alt);
   cursor: pointer;
   text-align: left;
   transition: background 0.2s;
 }
 
 .card:hover {
-  background: var(--color-pastel-pink);
+  background: var(--color-scheme-accent);
 }
 
 .selected {
-  background: var(--color-pastel-pink);
+  background: var(--color-scheme-accent);
 }
 
 .row {
@@ -54,7 +54,7 @@
 .emotion {
   padding: 2px 12px;
   border-radius: 100px;
-  background: var(--color-pastel-pink-lighter);
+  background: var(--color-scheme-foreground);
   font-weight: 400;
   font-size: 14px;
   line-height: 21px;

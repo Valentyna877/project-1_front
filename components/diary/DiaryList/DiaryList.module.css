@@ -5,7 +5,7 @@
   width: 100%;
   padding: 24px 16px;
   border-radius: 32px;
-  background: var(--color-pastel-pink-lighter);
+  background: var(--color-scheme-foreground);
 }
 
 .header {
@@ -83,7 +83,7 @@
   }
 
   .list::-webkit-scrollbar-thumb {
-    background: var(--color-pastel-pink-light);
+    background: var(--color-scheme-foreground-alt);
     border-radius: 2px;
   }
 }

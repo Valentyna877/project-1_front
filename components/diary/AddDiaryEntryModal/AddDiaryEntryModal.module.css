@@ -3,6 +3,7 @@
   --modal-padding-y: 48px;
   --modal-padding-x: 20px;
   --modal-overflow: visible;
+  min-height: 695px;
 }
 
 .addDiaryModalTitle {
@@ -26,14 +27,14 @@
     --modal-max-w: 704px;
     --modal-padding-y: 64px;
     --modal-padding-x: 32px;
+    min-height: 755px;
   }
 }
 
 @media (min-width: 1440px) {
   .addDiaryModal {
     --modal-max-w: 768px;
-    --modal-padding-y: 64px;
-    --modal-padding-x: 32px;
+    min-height: 786px;
   }
 
   .addDiaryModalTitle {
