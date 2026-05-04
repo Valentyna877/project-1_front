@@ -1,7 +1,7 @@
 import { loginUser, UserLogCreds } from '@/lib/api/clientApi';
 import css from './LoginForm.module.css';
 import { Formik, Form, Field, FieldProps } from 'formik';
-import { useId } from 'react';
+import { useId, useState } from 'react';
 import * as Yup from 'yup';
 import { useMutation } from '@tanstack/react-query';
 import { useAuthStore } from '@/lib/store/authStore';
@@ -9,15 +9,19 @@ import Button from '@/components/common/Button/Button';
 import { useRouter } from 'next/navigation';
 import Loader from '@/components/common/Loader/Loader';
 import { createPortal } from 'react-dom';
+import { AxiosError } from 'axios';
+import { ToastProvider } from '@/components/common/Toast/ToastProvider';
 
 const initialValues: UserLogCreds = {
   email: '',
   password: '',
 };
 
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
 const formSchema = Yup.object().shape({
   email: Yup.string()
-    .email('Некоректний формат електронної пошти')
+    .matches(emailRegex, 'Некоректний формат електронної пошти')
     .max(64, 'Пошта не може перевищувати 64 символи')
     .required("Обов'язково поле"),
   password: Yup.string()
@@ -29,18 +33,27 @@ const formSchema = Yup.object().shape({
 const LoginForm = () => {
   const fieldId = useId();
   const router = useRouter();
+  const [isRedirecting, setIsRedirecting] = useState(false);
   const setUser = useAuthStore((state) => state.setUser);
 
   const { mutate, isPending } = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
+      setIsRedirecting(true);
       setUser(data);
       router.push('/');
     },
-    onError: () => {
-      console.log('має бути пуш повідомлення з помилкою');
+    onError: (error) => {
+      const err = error as AxiosError;
+      ToastProvider.error(
+        err.status === 401
+          ? 'Неправильна пошта або пароль. Перевірте дані та спробуйте ще раз.'
+          : 'Щось пішло не так. Вже лагодимо!'
+      );
     },
   });
+
+  const isLoading = isPending || isRedirecting;
 
   const handleSubmit = (values: UserLogCreds): void => {
     mutate(values);
@@ -48,11 +61,7 @@ const LoginForm = () => {
 
   return (
     <>
-      {isPending &&
-        createPortal(
-          <Loader theme={'default'} variant="global" />,
-          document.body
-        )}
+      {isLoading && createPortal(<Loader />, document.body)}
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
@@ -101,7 +110,7 @@ const LoginForm = () => {
               }}
             </Field>
           </div>
-          <Button type="submit" disabled={isPending}>
+          <Button type="submit" disabled={isLoading}>
             Увійти
           </Button>
         </Form>

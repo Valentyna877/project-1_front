@@ -3,7 +3,7 @@
     border-radius: 32px;
     padding: 24px;
     width: 335px;
-    margin: 16px 20px 24px 0;
+    margin: 16px 0 24px 0;
 }
 
 .babyCardBox.theme-boy {
@@ -61,7 +61,7 @@
         border-radius: 32px;
         padding: 24px;
         width: 704px;
-        margin: 32px 32px 24px 0;
+        margin: 32px 0 24px 0;
     }
 
     .babyInfoBox {
@@ -84,7 +84,7 @@
         padding: 24px;
         width: 642px;
         height: 421px;
-        margin: 32px 32px 24px 0;
+        margin: 32px 0 24px 0;
         overflow: auto;
     }
 
