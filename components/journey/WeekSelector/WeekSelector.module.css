@@ -2,7 +2,6 @@
   display: flex;
   gap: 16px;
   overflow-x: auto;
-  padding: 4px;
   scroll-padding-inline: 16px;
   scrollbar-width: none;
 }
@@ -20,6 +19,7 @@
 .week {
   flex: 0 0 auto;
   width: 97px;
+  height: 87px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,6 +30,12 @@
   background: var(--color-scheme-foreground);
   cursor: pointer;
   transition: background 0.18s;
+}
+
+@media (min-width: 1440px) {
+  .week {
+    height: 101px;
+  }
 }
 
 .week:hover:not(:disabled):not(.active) {

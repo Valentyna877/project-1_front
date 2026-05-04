@@ -1,15 +1,14 @@
 .tabs {
   display: flex;
   width: 100%;
-  padding: 4px;
   border-radius: 100px;
   background: var(--color-scheme-foreground);
-  margin: 0 auto 16px;
 }
 
 @media (min-width: 1440px) {
   .tabs {
     width: 572px;
+    align-self: center;
   }
 }
 

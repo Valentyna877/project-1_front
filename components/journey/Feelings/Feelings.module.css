@@ -14,7 +14,6 @@
 }
 
 .title {
-  margin: 0;
   font-family: var(--second-family);
   font-weight: 700;
   font-size: 20px;
@@ -27,9 +26,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
 }
 
 .tag {
@@ -44,7 +40,6 @@
 }
 
 .description {
-  margin: 0;
   font-family: var(--font-family);
   font-weight: 400;
   font-size: 16px;

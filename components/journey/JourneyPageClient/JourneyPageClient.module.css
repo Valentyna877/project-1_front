@@ -8,6 +8,24 @@
   margin: 0 auto;
 }
 
+.theme-boy {
+  --color-scheme-foreground: var(--color-french-pass-lighter);
+  --color-scheme-foreground-alt: var(--color-french-pass-light);
+  --color-scheme-accent: var(--color-french-pass);
+}
+
+.theme-girl {
+  --color-scheme-foreground: var(--color-pastel-pink-lighter);
+  --color-scheme-foreground-alt: var(--color-pastel-pink-light);
+  --color-scheme-accent: var(--color-pastel-pink);
+}
+
+.theme-default {
+  --color-scheme-foreground: var(--color-oasis-lighter);
+  --color-scheme-foreground-alt: var(--color-oasis-light);
+  --color-scheme-accent: var(--color-oasis);
+}
+
 @media (min-width: 768px) {
   .wrapper {
     gap: 24px;
