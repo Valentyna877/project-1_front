@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./WeekSelector.module.css";
 
-const TOTAL_WEEKS = 40;
+const TOTAL_WEEKS = 42;
 
 interface WeekSelectorProps {
   currentWeek: number;
