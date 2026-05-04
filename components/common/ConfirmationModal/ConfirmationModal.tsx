@@ -7,56 +7,56 @@ import css from './ConfirmationModal.module.css';
 type ButtonVariant = 'normal' | 'cancel' | 'delete' | 'logout';
 
 type ConfirmationModalProps = {
-    isOpen: boolean;
-    title: string;
-    confirmButtonText: string;
-    cancelButtonText: string;
-    onConfirm: () => void;
-    onCancel: () => void;
-    confirmButtonVariant?: ButtonVariant;
+  isOpen: boolean;
+  title: string;
+  confirmButtonText: string;
+  cancelButtonText: string;
+  onConfirm: () => void;
+  onCancel: () => void;
+  confirmButtonVariant?: ButtonVariant;
 };
 
 function ConfirmationModal({
-    isOpen,
-    title,
-    confirmButtonText,
-    cancelButtonText,
-    onConfirm,
-    onCancel,
-    confirmButtonVariant = 'normal',
+  isOpen,
+  title,
+  confirmButtonText,
+  cancelButtonText,
+  onConfirm,
+  onCancel,
 }: ConfirmationModalProps) {
-return (
+  return (
     <Modal
-        isOpen={isOpen}
-        onClose={onCancel}
-        showCloseButton={false}
-        modalClassName={css.confirmationModal}
+      isOpen={isOpen}
+      onClose={onCancel}
+      modalClassName={css.confirmationModal}
+      closeButtonClassName={css.confirmationCloseButton}
+      closeIconClassName={css.confirmationCloseIcon}
     >
-        <p className={css.confirmationModalTitle}>{title}</p>
+      <p className={css.confirmationModalTitle}>{title}</p>
 
-        <div className={css.confirmationModalActions}>
+      <div className={css.confirmationModalActions}>
         <Button
-            type="button"
-            variant="cancel"
-            size="sm"
-            onClick={onCancel}
-            className={css.confirmationModalButton}
+          type="button"
+          variant="normal"
+          size="sm"
+          onClick={onCancel}
+          className={css.confirmationModalButton}
         >
-            {cancelButtonText}
+          {cancelButtonText}
         </Button>
 
         <Button
-            type="button"
-            variant={confirmButtonVariant}
-            size="sm"
-            onClick={onConfirm}
-            className={css.confirmationModalButton}
+          type="button"
+          variant="cancel"
+          size="sm"
+          onClick={onConfirm}
+          className={css.confirmationModalButton}
         >
-            {confirmButtonText}
+          {confirmButtonText}
         </Button>
-        </div>
+      </div>
     </Modal>
-);
+  );
 }
 
 export default ConfirmationModal;
