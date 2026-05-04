@@ -19,7 +19,6 @@
   border-radius: 100px;
   background: transparent;
   color: #000;
-  font-family: var(--font-family);
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;
@@ -35,7 +34,7 @@
 }
 
 .tab:hover:not(.active) {
-  background: var(--color-pastel-pink-lightest);
+  background: var(--color-scheme-hover);
 }
 
 .tab.active {

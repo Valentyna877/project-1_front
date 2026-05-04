@@ -32,7 +32,6 @@
   padding: 4px 10px;
   border-radius: 100px;
   background: var(--opacity-neutral-darkest-5);
-  font-family: var(--font-family);
   font-weight: 600;
   font-size: 14px;
   line-height: 1.6;
@@ -40,7 +39,6 @@
 }
 
 .description {
-  font-family: var(--font-family);
   font-weight: 400;
   font-size: 16px;
   line-height: 1.5;

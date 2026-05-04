@@ -12,18 +12,21 @@
   --color-scheme-foreground: var(--color-french-pass-lighter);
   --color-scheme-foreground-alt: var(--color-french-pass-light);
   --color-scheme-accent: var(--color-french-pass);
+  --color-scheme-hover: var(--color-french-pass-light);
 }
 
 .theme-girl {
   --color-scheme-foreground: var(--color-pastel-pink-lighter);
   --color-scheme-foreground-alt: var(--color-pastel-pink-light);
   --color-scheme-accent: var(--color-pastel-pink);
+  --color-scheme-hover: var(--color-pastel-pink-light);
 }
 
 .theme-default {
   --color-scheme-foreground: var(--color-oasis-lighter);
   --color-scheme-foreground-alt: var(--color-oasis-light);
   --color-scheme-accent: var(--color-oasis);
+  --color-scheme-hover: var(--color-oasis-light);
 }
 
 @media (min-width: 768px) {

@@ -37,6 +37,20 @@ const WeekSelector = ({ currentWeek, activeWeek }: WeekSelectorProps) => {
     hasMountedRef.current = true;
   }, [activeWeek]);
 
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      if (e.deltaY === 0) return;
+      e.preventDefault();
+      wrapper.scrollBy({ left: e.deltaY });
+    };
+
+    wrapper.addEventListener("wheel", handleWheel, { passive: false });
+    return () => wrapper.removeEventListener("wheel", handleWheel);
+  }, []);
+
   const handleWeekClick = (week: number) => {
     if (week > currentWeek) return;
     router.push(`/journey/${week}`);
