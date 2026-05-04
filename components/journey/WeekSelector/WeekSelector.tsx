@@ -13,15 +13,26 @@ interface WeekSelectorProps {
 
 const WeekSelector = ({ currentWeek, activeWeek }: WeekSelectorProps) => {
   const router = useRouter();
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const activeRef = useRef<HTMLButtonElement>(null);
   const hasMountedRef = useRef(false);
 
   useEffect(() => {
-    if (!activeRef.current) return;
-    activeRef.current.scrollIntoView({
-      behavior: hasMountedRef.current ? "smooth" : "instant",
-      block: "nearest",
-      inline: "center",
+    const wrapper = wrapperRef.current;
+    const active = activeRef.current;
+    if (!wrapper || !active) return;
+
+    const wrapperRect = wrapper.getBoundingClientRect();
+    const activeRect = active.getBoundingClientRect();
+    const target =
+      wrapper.scrollLeft +
+      (activeRect.left - wrapperRect.left) -
+      wrapper.clientWidth / 2 +
+      active.clientWidth / 2;
+
+    wrapper.scrollTo({
+      left: target,
+      behavior: hasMountedRef.current ? "smooth" : "auto",
     });
     hasMountedRef.current = true;
   }, [activeWeek]);
@@ -33,6 +44,7 @@ const WeekSelector = ({ currentWeek, activeWeek }: WeekSelectorProps) => {
 
   return (
     <div
+      ref={wrapperRef}
       className={styles.wrapper}
       role="tablist"
       aria-label="Тижні вагітності"

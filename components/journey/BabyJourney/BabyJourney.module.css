@@ -34,17 +34,34 @@
   overflow: hidden;
   border: 1px solid var(--color-scheme-border);
   background: var(--color-white);
+  animation: float 4s ease-in-out infinite;
 }
 
 .image {
   object-fit: cover;
 }
 
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .imageWrapper {
+    animation: none;
+  }
+}
+
 .caption {
   margin: 0;
   font-family: var(--font-family);
   font-weight: 400;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.5;
   color: #000;
 }
@@ -55,9 +72,16 @@
   gap: 16px;
   font-family: var(--font-family);
   font-weight: 400;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.5;
   color: #000;
+}
+
+@media (min-width: 1440px) {
+  .caption,
+  .content {
+    font-size: 16px;
+  }
 }
 
 .content p {
@@ -97,9 +121,15 @@
   margin: 0;
   font-family: var(--font-family);
   font-weight: 400;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.5;
   color: #000;
+}
+
+@media (min-width: 1440px) {
+  .factText {
+    font-size: 16px;
+  }
 }
 
 .factList {

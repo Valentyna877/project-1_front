@@ -4,12 +4,15 @@
   gap: 16px;
   padding: 16px;
   width: 100%;
+  max-width: 375px;
+  margin: 0 auto;
 }
 
 @media (min-width: 768px) {
   .wrapper {
     gap: 24px;
     padding: 24px 32px;
+    max-width: 768px;
   }
 }
 
@@ -17,6 +20,5 @@
   .wrapper {
     gap: 32px;
     max-width: 1128px;
-    margin: 0 auto;
   }
 }

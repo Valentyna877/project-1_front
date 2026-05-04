@@ -1,11 +1,16 @@
 .tabs {
   display: flex;
-  width: 572px;
-  max-width: 100%;
+  width: 100%;
   padding: 4px;
   border-radius: 100px;
   background: var(--color-scheme-foreground);
   margin: 0 auto 16px;
+}
+
+@media (min-width: 1440px) {
+  .tabs {
+    width: 572px;
+  }
 }
 
 .tab {
@@ -14,13 +19,20 @@
   border: none;
   border-radius: 100px;
   background: transparent;
-  color: var(--color-scheme-text);
+  color: #000;
   font-family: var(--font-family);
-  font-size: 16px;
+  font-weight: 400;
+  font-size: 14px;
   line-height: 1.5;
   cursor: pointer;
   white-space: nowrap;
   transition: background 0.2s;
+}
+
+@media (min-width: 1440px) {
+  .tab {
+    font-size: 16px;
+  }
 }
 
 .tab:hover:not(.active) {
@@ -31,7 +43,6 @@
   background: var(--color-scheme-foreground-alt);
   font-weight: 500;
   line-height: 1.6;
-  color: #000;
 }
 
 .tab:focus-visible {
