@@ -95,7 +95,7 @@ const JourneyDetails = ({ weekNumber }: JourneyDetailsProps) => {
       <div className={styles.content}>
         {(isLoading || status !== "ok") && (
           <div className={styles.loaderContainer}>
-            <Loader variant="inline" theme={theme} />
+            <Loader variant="global-inline" theme={theme} />
             
             <div className={styles.loaderText}>
               {status === "loading" && <p>Шукаємо інформацію...</p>}
