@@ -5,34 +5,46 @@ export const genderSelectStyles: StylesConfig<GenderOption, false> = {
   control: (base, state) => ({
     ...base,
     width: '100%',
-    height: 40,
+    minHeight: 40,
     backgroundColor: 'var(--color-neutral-lightest)',
-    borderRadius: 12,
-    border: state.isFocused ? '2px solid #FFCBD3' : '2px solid transparent',
+    border: state.menuIsOpen
+      ? '1px solid var(--opacity-neutral-darkest-15)'
+      : '1px solid var(--opacity-transparent)',
+    borderRadius: state.menuIsOpen ? '12px 12px 0 0' : 12,
     boxShadow: 'none',
-    paddingLeft: 16,
-    paddingRight: 40,
     cursor: 'pointer',
-
     '&:hover': {
-      border: '2px solid #FFCBD3',
+      border: state.menuIsOpen
+        ? '1px solid var(--opacity-neutral-darkest-15)'
+        : '1px solid var(--opacity-transparent)',
     },
   }),
 
   valueContainer: (base) => ({
     ...base,
-    padding: 0,
+    padding: '2px 12px',
   }),
 
   singleValue: (base) => ({
     ...base,
-    fontSize: 16,
+    fontFamily: '"Lato", sans-serif',
+    fontSize: 14,
+    color: 'var(--opacity-neutral-darkest-60)',
+    '@media (min-width: 1440px)': {
+      fontSize: 16,
+    },
   }),
 
-  placeholder: (base) => ({
+  placeholder: (base, state) => ({
     ...base,
+    fontFamily: '"Lato", sans-serif',
     fontSize: 16,
-    color: '#999',
+    '@media (min-width: 1440px)': {
+      fontSize: 16,
+    },
+    color: state.selectProps.menuIsOpen
+      ? 'var(--color-neutral-darkest)'
+      : 'var(--color-neutral)',
   }),
 
   indicatorSeparator: () => ({
@@ -41,33 +53,54 @@ export const genderSelectStyles: StylesConfig<GenderOption, false> = {
 
   dropdownIndicator: (base, state) => ({
     ...base,
-    color: 'black',
-    marginRight: -50,
-    transition: 'transform 250ms cubic-bezier(0.4, 0, 0.2, 1)',
+    color: 'var(--color-neutral)',
+    transition: 'transform 0.2s',
     transform: state.selectProps.menuIsOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+    transformOrigin: '40% 50%',
+    paddingRight: 20,
     '&:hover': {
-      color: 'black',
+      color: 'var(--color-neutral)',
       backgroundColor: 'transparent',
     },
-    borderRadius: 0,
   }),
 
   menu: (base) => ({
     ...base,
-    borderRadius: 12,
-    boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
+    width: '100%',
+    marginTop: 0,
+    border: '1px solid var(--opacity-neutral-darkest-15)',
+    borderTop: 'none',
+    borderRadius: '0 0 12px 12px',
+    backgroundColor: 'var(--color-neutral-lightest)',
+    boxShadow: 'none',
+    overflow: 'hidden',
+  }),
+
+  menuList: (base) => ({
+    ...base,
+    padding: '8px 0',
+    maxHeight: 226,
+    fontFamily: '"Lato", sans-serif',
+    fontSize: 14,
+    '@media (min-width: 1440px)': {
+      fontSize: 16,
+    },
   }),
 
   option: (base, state) => ({
     ...base,
-    transition: 'transform 250ms cubic-bezier(0.4, 0, 0.2, 1)',
-    padding: '12px 16px',
+    padding: '8px 12px',
     cursor: 'pointer',
     backgroundColor: state.isSelected
-      ? '#edcfcf'
+      ? 'var(--color-accent-light)'
       : state.isFocused
-        ? '#f7f7f7'
-        : '#fff',
+        ? 'var(--opacity-neutral-darkest-5)'
+        : 'transparent',
+    color: 'inherit',
+    borderRadius: state.isFocused ? 12 : 0,
+    ':active': {
+      backgroundColor: 'var(--opacity-neutral-darkest-15)',
+    },
   }),
 };
 
@@ -110,7 +143,7 @@ export const onboardingGenderStyles: StylesConfig<GenderOption, false> = {
       : 'var(--color-neutral)',
     '@media (min-width: 1440px)': {
       fontSize: 16,
-  },
+    },
   }),
 
   indicatorSeparator: () => ({
