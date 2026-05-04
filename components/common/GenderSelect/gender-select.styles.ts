@@ -28,19 +28,23 @@ export const genderSelectStyles: StylesConfig<GenderOption, false> = {
   singleValue: (base) => ({
     ...base,
     fontFamily: '"Lato", sans-serif',
-    fontSize: 16,
+    fontSize: 14,
+    color: 'var(--opacity-neutral-darkest-60)',
+    '@media (min-width: 1440px)': {
+      fontSize: 16,
+    },
   }),
 
   placeholder: (base, state) => ({
     ...base,
     fontFamily: '"Lato", sans-serif',
-    fontSize: 14,
-    color: state.selectProps.menuIsOpen
-      ? 'var(--color-neutral-darkest)'
-      : 'var(--color-neutral)',
+    fontSize: 16,
     '@media (min-width: 1440px)': {
       fontSize: 16,
     },
+    color: state.selectProps.menuIsOpen
+      ? 'var(--color-neutral-darkest)'
+      : 'var(--color-neutral)',
   }),
 
   indicatorSeparator: () => ({
@@ -77,7 +81,10 @@ export const genderSelectStyles: StylesConfig<GenderOption, false> = {
     padding: '8px 0',
     maxHeight: 226,
     fontFamily: '"Lato", sans-serif',
-    fontSize: 16,
+    fontSize: 14,
+    '@media (min-width: 1440px)': {
+      fontSize: 16,
+    },
   }),
 
   option: (base, state) => ({

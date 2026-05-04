@@ -10,6 +10,7 @@ import CalendarDatePicker from '@/components/common/CalendarDatePicker/CalendarD
 import { FORTY_WEEKS, profileSchema } from './ProfileValidationSchema';
 import { nextServer } from '@/lib/api/api';
 import { getUser } from '@/lib/api/clientApi';
+import { useRouter } from 'next/navigation';
 import { GenderValue } from '@/components/common/GenderSelect/gender-select.types';
 import FormikGenderSelect from '@/components/common/GenderSelect/FormikGenderSelect';
 import { genderSelectStyles } from '@/components/common/GenderSelect/gender-select.styles';
@@ -55,6 +56,7 @@ const formatDisplayDate = (date?: string | null): string => {
 export default function ProfileEditForm({ user }: ProfileEditFormProps) {
   const fieldId = useId();
   const setUser = useAuthStore((state) => state.setUser);
+  const router = useRouter();
 
   const initialValues: ProfileEditFormValues = {
     name: user.name,
@@ -89,7 +91,16 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
       setUser(updateUser);
       actions.resetForm();
       ToastProvider.success('Профіль оновлено');
-    } catch {
+    } catch (error) {
+      if (error instanceof Error) {
+        const status = (error as { status?: number }).status;
+
+        if (status === 401) {
+          ToastProvider.error('Час сесії вийшов. Будь ласка, увійдіть знову');
+          router.push('/auth/login');
+          return;
+        }
+      }
       ToastProvider.error('Помилка при оновленні профілю. Спробуйте ще раз.');
     }
   };
@@ -101,7 +112,7 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
       onSubmit={handleSubmit}
       enableReinitialize
     >
-      {({ resetForm, dirty }) => (
+      {({ resetForm, dirty, isSubmitting }) => (
         <Form className={styles.form}>
           <div className={styles.field}>
             <label htmlFor={`${fieldId}-name`} className={styles.label}>
@@ -113,6 +124,7 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
               id={`${fieldId}-name`}
               placeholder={user.name}
               className={styles.input}
+              readOnly
             />
             <ErrorMessage
               name="name"
@@ -168,6 +180,7 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
               size="sm"
               variant="cancel"
               onClick={() => resetForm()}
+              disabled={!dirty}
             >
               Відмінити зміни
             </Button>
@@ -177,6 +190,8 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
               variant="normal"
               size="sm"
               disabled={!dirty}
+              isLoading={isSubmitting}
+              loadingText="Зберігаються...."
             >
               Зберегти зміни
             </Button>
