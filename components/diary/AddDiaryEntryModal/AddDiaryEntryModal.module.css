@@ -29,7 +29,7 @@
 }
 
 @media (min-width: 768px) {
-  .add-diary-modal {
+  .addDiaryModal {
     --modal-max-w: 704px;
     --modal-padding-y: 64px;
     --modal-padding-x: 32px;
@@ -37,13 +37,13 @@
 }
 
 @media (min-width: 1440px) {
-  .add-diary-modal {
+  .addDiaryModal {
     --modal-max-w: 768px;
     --modal-padding-y: 64px;
     --modal-padding-x: 32px;
   }
 
-  .add-diary-modal__title {
+  .addDiaryModalTitle {
     font-size: 48px;
   }
 }

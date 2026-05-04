@@ -266,6 +266,34 @@
   margin-top: -1px;
 }
 
+@media (min-width: 768px) {
+  .AddDiaryEntryForm {
+    min-width: 640px;
+    /* width: auto; */
+  }
+
+  .input,
+  .textarea {
+    min-width: 640px;
+    max-width: 100%;
+    font-size: var(--fz-16);
+  }
+
+  .input::placeholder,
+  .textarea::placeholder {
+    font-size: var(--fz-16);
+  }
+
+  .textarea {
+    height: 250px;
+  }
+
+  .submitBtn {
+    min-width: 268px;
+    width: auto;
+  }
+}
+
 @media (min-width: 1440px) {
   .dropdownControl {
     font-size: 16px;
