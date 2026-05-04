@@ -1,13 +1,19 @@
 .card {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px;
-  padding: 24px;
+  gap: 16px;
+  padding: 16px;
   border-radius: 32px;
   background: var(--color-scheme-foreground);
 }
 
-@media (min-width: 900px) {
+@media (min-width: 768px) {
+  .card {
+    padding: 24px;
+  }
+}
+
+@media (min-width: 1440px) {
   .card {
     grid-template-columns: minmax(280px, 461px) 1fr;
     gap: 32px;
@@ -28,32 +34,62 @@
   overflow: hidden;
   border: 1px solid var(--color-scheme-border);
   background: var(--color-white);
+  animation: float 4s ease-in-out infinite;
 }
 
 .image {
   object-fit: cover;
 }
 
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes flip {
+  0%,
+  80% {
+    transform: rotateX(0deg);
+  }
+  100% {
+    transform: rotateX(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .imageWrapper,
+  .image {
+    animation: none;
+  }
+}
+
 .caption {
-  margin: 0;
-  font-family: var(--font-family);
-  font-size: 16px;
+  font-weight: 400;
+  font-size: 14px;
   line-height: 1.5;
-  color: var(--color-scheme-text);
+  color: #000;
 }
 
 .content {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  font-family: var(--font-family);
-  font-size: 16px;
+  font-weight: 400;
+  font-size: 14px;
   line-height: 1.5;
-  color: var(--color-scheme-text);
+  color: #000;
 }
 
-.content p {
-  margin: 0;
+@media (min-width: 1440px) {
+  .caption,
+  .content {
+    font-size: 16px;
+  }
 }
 
 .fact {
@@ -70,12 +106,10 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  margin: 0;
-  font-family: var(--font-family);
+  font-weight: 700;
   font-size: 16px;
-  font-weight: var(--fw-bold);
   line-height: 1.5;
-  color: var(--color-scheme-text);
+  color: #000;
 }
 
 .factIcon {
@@ -86,13 +120,20 @@
 }
 
 .factText {
-  margin: 0;
-  font-size: 16px;
+  font-weight: 400;
+  font-size: 14px;
   line-height: 1.5;
+  color: #000;
+}
+
+@media (min-width: 1440px) {
+  .factText {
+    font-size: 16px;
+  }
 }
 
 .factList {
-  margin: 4px 0 0;
+  margin-top: 4px;
   padding-left: 18px;
   display: flex;
   flex-direction: column;
