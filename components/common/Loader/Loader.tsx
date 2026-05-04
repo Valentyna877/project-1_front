@@ -14,7 +14,7 @@ import smallDefaultAnimation from '@/public/animations/loader-small-default.json
 import css from './Loader.module.css';
 
 type LoaderTheme = 'boy' | 'girl' | 'default';
-type LoaderVariant = 'global' | 'inline';
+type LoaderVariant = 'global' | 'inline' | 'global-inline';
 
 type LoaderProps = {
   theme?: LoaderTheme;
@@ -47,7 +47,8 @@ export default function Loader({
       className={clsx(
         css.loader,
         variant === 'global' && css.fullScreen,
-        variant === 'inline' && css.inline
+        variant === 'inline' && css.inline,
+        variant === 'global-inline' && css.inline
       )}
     >
       <div className={css.content}>
