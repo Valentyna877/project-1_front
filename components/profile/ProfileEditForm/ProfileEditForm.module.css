@@ -11,6 +11,7 @@
   color: #000;
 }
 .input {
+  font-family: var(--font-family);
   font-weight: var(--fw-regular);
   font-size: 16px;
   line-height: 1.5;
@@ -79,7 +80,6 @@
   }
   .datePicker {
     width: 580px;
-    height: 48px;
   }
   .btnClose {
     width: 165px;
