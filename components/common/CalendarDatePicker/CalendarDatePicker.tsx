@@ -64,7 +64,7 @@ const CalendarDatePicker: React.FC<CalendarDatePickerProps> = ({
           }
           customInput={
             <IMaskInput
-              mask="DD-MM-YYYY"
+              mask="DD.MM.YYYY"
               blocks={{
                 DD: { mask: IMask.MaskedRange, from: 1, to: 31 },
                 MM: { mask: IMask.MaskedRange, from: 1, to: 12 },
@@ -76,7 +76,7 @@ const CalendarDatePicker: React.FC<CalendarDatePickerProps> = ({
               }}
               onAccept={(value: string) => {
                 if (value.length === 10) {
-                  const [dd, mm, yyyy] = value.split('-');
+                  const [dd, mm, yyyy] = value.split('.');
                   const dateString = `${yyyy}-${mm}-${dd}`;
                   form.setFieldValue(field.name, dateString);
                 }
