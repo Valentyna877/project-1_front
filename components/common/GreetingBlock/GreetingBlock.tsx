@@ -11,7 +11,20 @@ export default function GreetingBlock({ prefix = 'Вітаю' }: GreetingBlockPr
   const user = useAuthStore((state) => state.user);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
-  const name = isAuthenticated && user?.name;
+function getGreeting(date = new Date()): string {
+  const hour = date.getHours();
 
   return <h1 className={css.greetingTitle}>{prefix}, {!user ? 'Мамо' : name}!</h1>;
 }
+
+function PageTitle() {
+  const user = useAuthStore((state) => state.user) as UserForTitle | null;
+
+  const userName = user?.name || 'Мамо';
+
+  const greeting = `${getGreeting()}, ${userName}!`;
+
+  return <h1 className={css.title}>{greeting}</h1>;
+}
+
+export default PageTitle;

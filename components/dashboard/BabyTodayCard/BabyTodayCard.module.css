@@ -7,6 +7,18 @@
     background: var(--color-scheme-foreground);
 }
 
+.babyCardBox.theme-boy {
+    background-color: var(--color-french-pass-lighter);
+}
+
+.babyCardBox.theme-girl {
+    background-color: var(--color-pastel-pink-lighter);
+}
+
+.babyCardBox.theme-default {
+    background-color: var(--color-oasis-lighter);
+}
+
 .babyInfoBox {
     margin-top: 16px;
     margin-bottom: 24px;

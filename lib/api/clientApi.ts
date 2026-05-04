@@ -1,5 +1,5 @@
 import { nextServer } from './api';
-import { Task } from '@/types/task';
+import { Task, UpdatedTask, UpdateTask } from '@/types/task';
 import { GetAllTasks, TaskDone } from '@/types/task';
 import { CreateDiaryDto, DiaryEntry } from '@/types/diary';
 import { BabyState, MomState, WeekInfo } from '@/types/weeks';
@@ -81,8 +81,36 @@ export const updateAvatar = async (file: File): Promise<{ url: string }> => {
 
 export const getAllTask = async () => {
   const { data } = await nextServer.get<GetAllTasks[]>('/tasks');
+
   return data;
 };
+
+export const updateTask = async (updated: UpdatedTask) => {
+  const update = updated.payload;
+  const payload = { update };
+
+  const { data } = await nextServer.patch<UpdateTask>(`/task/${updated.taskId}`, payload);
+
+  return data
+}
+
+export const checkedTask = async (status: TaskDone) => {
+  const isDone = status.isDone;
+  const payload = { isDone };
+
+  const { data } = await nextServer.patch<TaskDone>(
+    `/tasks/${status.taskId}/status`,
+    payload
+  );
+  return data;
+};
+
+
+export const deleteTask = async (taskId: string) => {
+  const { data } = await nextServer.delete(`/tasks/${taskId}`);
+
+  return data;
+}
 
 export async function getDiaries(): Promise<DiaryEntry[]> {
   const { data } = await nextServer.get<DiaryEntry[]>('/diaries');
@@ -116,17 +144,6 @@ export async function deleteDiary(entryId: string): Promise<void> {
   const { data } = await nextServer.delete(`/diaries/${entryId}`);
   return data;
 }
-
-export const checkedTask = async (status: TaskDone) => {
-  const isDone = status.isDone;
-  const payload = { isDone };
-
-  const { data } = await nextServer.patch<TaskDone>(
-    `/tasks/${status.taskId}`,
-    payload
-  );
-  return data;
-};
 
 export const getBabyWeek = async (weekNumber: number): Promise<BabyState> => {
   const { data } = await nextServer.get<BabyState>(`/weeks/baby/${weekNumber}`);

@@ -3,8 +3,20 @@
     border-radius: 32px;
     padding: 24px;
     width: 335px;
-    background-color: var(--color-scheme-foreground);
+    /* background-color: var(--color-scheme-foreground); */
     margin: 0 20px 32px 0;
+}
+
+.feelingCheckCardBox.theme-boy {
+    background-color: var(--color-french-pass-lighter);
+}
+
+.feelingCheckCardBox.theme-girl {
+    background-color: var(--color-pastel-pink-lighter);
+}
+
+.feelingCheckCardBox.theme-default {
+    background-color: var(--color-oasis-lighter);
 }
 
 .feelingSubtitle { 
