@@ -12,14 +12,19 @@ interface Props {
 }
 
 export default function AddDiaryEntryModal({ isOpen, onClose }: Props) {
+  const { editingId } = useDiaryStore(); //  повернув як було раніше //
+
   return (
     <Modal
       isOpen={isOpen}
-      onClose={() => onClose()}
+      onClose={() => onClose()} 
       showCloseButton={true}
       modalClassName={css.addDiaryModal}
     >
-      <h2 className={css.addDiaryModalTitle}>Новий запис</h2>
+      <h2 className={css.addDiaryModalTitle}>
+        {editingId ? 'Редагувати запис' : 'Новий запис'}  
+      </h2>
+
       <div className={css.addDiaryModalForm}>
         <AddDiaryEntryForm onSuccess={onClose} />
       </div>
