@@ -3,15 +3,29 @@
 import css from './GreetingBlock.module.css';
 import { useAuthStore } from '@/lib/store/authStore';
 
-interface GreetingBlockProps {
-  prefix?: string;
+type UserForTitle = {
+  name?: string | null;
+  email?: string | null;
+};
+
+function getGreeting(date = new Date()): string {
+  const hour = date.getHours();
+
+  if (hour >= 6 && hour < 12) return 'Доброго ранку';
+  if (hour >= 12 && hour < 18) return 'Доброго дня';
+  if (hour >= 18 && hour < 24) return 'Доброго вечора';
+
+  return 'Доброї ночі';
 }
 
-export default function GreetingBlock({ prefix = 'Вітаю' }: GreetingBlockProps) {
-  const user = useAuthStore((state) => state.user);
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+function PageTitle() {
+  const user = useAuthStore((state) => state.user) as UserForTitle | null;
 
-  const name = isAuthenticated && user?.name;
+  const userName = user?.name || 'Мамо';
 
-  return <h1 className={css.greetingTitle}>{prefix}, {!user ? 'Мамо' : name}!</h1>;
+  const greeting = `${getGreeting()}, ${userName}!`;
+
+  return <h1 className={css.title}>{greeting}</h1>;
 }
+
+export default PageTitle;

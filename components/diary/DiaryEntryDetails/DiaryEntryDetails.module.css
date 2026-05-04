@@ -1,46 +1,51 @@
 .wrapper {
-  display: flex;
-  flex-direction: column;
-  background-color: #fff4f6;
-  border-radius: 32px;
-  padding: 32px;
-  min-height: 100%;
+  background: #fff4f6;
+  border-radius: 16px;
+  padding: 16px;
   box-sizing: border-box;
+  overflow-y: auto;
+  width: 100%;
 }
 
 .placeholder {
   font-size: 14px;
-  color: #888;
+  color: rgba(0, 0, 0, 0.4);
   text-align: center;
-  padding: 32px 0;
-  margin: 0;
+  margin-top: 40px;
 }
 
 .header {
   display: flex;
+  align-items: flex-start;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
+  gap: 12px;
+  margin-bottom: 16px;
 }
 
-.titleGroup,
-.metaGroup {
+.titleGroup {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
 .title {
+  font-size: 18px;
   font-weight: 700;
-  font-size: 24px;
+  color: #000;
   margin: 0;
-  color: #1a1a1a;
+}
+
+.metaGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 .date {
-  font-size: 14px;
-  color: #4a4a4a;
-  font-weight: 500;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
 }
 
 .iconBtn {
@@ -48,9 +53,11 @@
   border: none;
   cursor: pointer;
   padding: 4px;
-  color: #1a1a1a;
+  color: #000;
   display: flex;
   align-items: center;
+  justify-content: center;
+  border-radius: 6px;
   transition: opacity 0.2s;
 }
 
@@ -61,43 +68,61 @@
 .content {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 16px;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .text {
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.6;
-  color: #1a1a1a;
-  margin-bottom: 16px;
+  color: #000;
+  margin: 0;
 }
 
 .emotions {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 6px;
+  margin-top: 4px;
 }
 
 .emotion {
-  background-color: #f2e1e5;
-  padding: 6px 16px;
-  border-radius: 100px;
-  font-size: 13px;
-  color: #1a1a1a;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 12px;
+  color: #000;
 }
 
 @media (min-width: 1024px) {
-  .content {
-    overflow-y: auto;
-    max-height: calc(100vh - 200px);
-    padding-right: 12px;
+  .wrapper {
+    padding: 24px;
+    height: 727px;
   }
 
-  .content::-webkit-scrollbar {
+  .title {
+    font-size: 20px;
+  }
+
+  .date {
+    font-size: 13px;
+  }
+
+  .wrapper::-webkit-scrollbar {
     width: 4px;
   }
 
-  .content::-webkit-scrollbar-thumb {
-    background: #f4a7b9;
-    border-radius: 10px;
+  .wrapper::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .wrapper::-webkit-scrollbar-thumb {
+    background: #ffdae0;
+    border-radius: 2px;
   }
 }

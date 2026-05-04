@@ -2,7 +2,7 @@
 
 import WeekSelector from "../WeekSelector/WeekSelector";
 import JourneyDetails from "../JourneyDetails/JourneyDetails";
-import GreetingBlock from "@/components/common/GreetingBlock/GreetingBlock";
+import PageTitle from "@/components/common/GreetingBlock/GreetingBlock";
 import styles from "./JourneyPageClient.module.css";
 
 interface JourneyPageClientProps {
@@ -16,7 +16,7 @@ const JourneyPageClient = ({
 }: JourneyPageClientProps) => {
   return (
     <div className={styles.wrapper}>
-      <GreetingBlock prefix="Доброго ранку" />
+      <PageTitle />
       <WeekSelector currentWeek={currentWeek} activeWeek={weekNumber} />
       <JourneyDetails weekNumber={weekNumber} />
     </div>
