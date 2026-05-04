@@ -3,11 +3,29 @@
 import css from './GreetingBlock.module.css';
 import { useAuthStore } from '@/lib/store/authStore';
 
-export default function GreetingBlock() {
-  const user = useAuthStore((state) => state.user);
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+type UserForTitle = {
+  name?: string | null;
+  email?: string | null;
+};
 
-  const name = isAuthenticated && user?.name;
+function getGreeting(date = new Date()): string {
+  const hour = date.getHours();
 
-  return <h1 className={css.greetingTitle}>Вітаю, {!user ? 'Мамо' : name}!</h1>;
+  if (hour >= 6 && hour < 12) return 'Доброго ранку';
+  if (hour >= 12 && hour < 18) return 'Доброго дня';
+  if (hour >= 18 && hour < 24) return 'Доброго вечора';
+
+  return 'Доброї ночі';
 }
+
+function PageTitle() {
+  const user = useAuthStore((state) => state.user) as UserForTitle | null;
+
+  const userName = user?.name || 'Мамо';
+
+  const greeting = `${getGreeting()}, ${userName}!`;
+
+  return <h1 className={css.title}>{greeting}</h1>;
+}
+
+export default PageTitle;

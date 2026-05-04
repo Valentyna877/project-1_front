@@ -10,8 +10,20 @@
     border-radius: 32px;
     padding: 16px;
     width: 159px;
-    background-color: var(--color-scheme-foreground);
+    /* background-color: var(--color-scheme-foreground); */
     flex-shrink: 0;
+}
+
+.statusBox.theme-boy {
+    background-color: var(--color-french-pass-lighter);
+}
+
+.statusBox.theme-girl {
+    background-color: var(--color-pastel-pink-lighter);
+}
+
+.statusBox.theme-default {
+    background-color: var(--color-oasis-lighter);
 }
 
 .statusTitle {
