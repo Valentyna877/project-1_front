@@ -91,6 +91,8 @@
   font-size: 14px;
   line-height: 21px;
   color: #000;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .emotions {

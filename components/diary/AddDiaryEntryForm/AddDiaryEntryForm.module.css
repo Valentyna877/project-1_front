@@ -52,6 +52,11 @@
   color: var(--color-red);
 }
 
+.fieldWrapper .error {
+  margin-top: 4px;
+  margin-bottom: 0;
+}
+
 .actions {
   display: flex;
   justify-content: center;
