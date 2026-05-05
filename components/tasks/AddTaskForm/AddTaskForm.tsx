@@ -112,6 +112,7 @@ export default function AddTaskForm({ onClose }: TaskFormProps) {
               type="submit"
               disabled={mutation.isPending}
               loadingText="Зберігається..."
+              isLoading={mutation.isPending}
               className={css.addTaskFormButton}
             >
               Зберегти

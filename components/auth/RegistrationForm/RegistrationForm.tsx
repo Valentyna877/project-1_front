@@ -71,74 +71,82 @@ const RegistrationForm = () => {
         onSubmit={handleSubmit}
         validationSchema={formSchema}
       >
-        <Form className={css.form}>
-          <div className={css['field-set']}>
-            <label htmlFor={`${fieldId}-title`}>Імʼя*</label>
-            <Field name="name">
-              {({ field, meta }: FieldProps) => {
-                const hasError = meta.touched && meta.error;
-                return (
-                  <>
-                    <input
-                      {...field}
-                      type="text"
-                      id={`${fieldId}-title`}
-                      placeholder={'Ваше імʼя'}
-                      autoComplete={'username'}
-                      className={`${css.input} ${hasError ? css['input-error'] : ''}`}
-                    />
-                    {hasError && <span className={css.span}>{meta.error}</span>}
-                  </>
-                );
-              }}
-            </Field>
-          </div>
-          <div className={css['field-set']}>
-            <label htmlFor={`${fieldId}-email`}>Пошта*</label>
-            <Field name="email">
-              {({ field, meta }: FieldProps) => {
-                const hasError = meta.touched && meta.error;
-                return (
-                  <>
-                    <input
-                      {...field}
-                      type="email"
-                      id={`${fieldId}-email`}
-                      placeholder={'hello@leleka.com'}
-                      autoComplete={'email'}
-                      className={`${css.input} ${hasError ? css['input-error'] : ''}`}
-                    />
-                    {hasError && <span className={css.span}>{meta.error}</span>}
-                  </>
-                );
-              }}
-            </Field>
-          </div>
-          <div className={css['field-set']}>
-            <label htmlFor={`${fieldId}-password`}>Пароль*</label>
-            <Field name="password">
-              {({ field, meta }: FieldProps) => {
-                const hasError = meta.touched && meta.error;
-                return (
-                  <>
-                    <input
-                      {...field}
-                      type="password"
-                      id={`${fieldId}-password`}
-                      placeholder={'********'}
-                      autoComplete={'new-password'}
-                      className={`${css.input} ${hasError ? css['input-error'] : ''}`}
-                    />
-                    {hasError && <span className={css.span}>{meta.error}</span>}
-                  </>
-                );
-              }}
-            </Field>
-          </div>
-          <Button type="submit" disabled={isLoading}>
-            Зареєструватись
-          </Button>
-        </Form>
+        {({ isSubmitting }) => (
+          <Form className={css.form}>
+            <div className={css['field-set']}>
+              <label htmlFor={`${fieldId}-title`}>Імʼя*</label>
+              <Field name="name">
+                {({ field, meta }: FieldProps) => {
+                  const hasError = meta.touched && meta.error;
+                  return (
+                    <>
+                      <input
+                        {...field}
+                        type="text"
+                        id={`${fieldId}-title`}
+                        placeholder={'Ваше імʼя'}
+                        autoComplete={'username'}
+                        className={`${css.input} ${hasError ? css['input-error'] : ''}`}
+                      />
+                      {hasError && (
+                        <span className={css.span}>{meta.error}</span>
+                      )}
+                    </>
+                  );
+                }}
+              </Field>
+            </div>
+            <div className={css['field-set']}>
+              <label htmlFor={`${fieldId}-email`}>Пошта*</label>
+              <Field name="email">
+                {({ field, meta }: FieldProps) => {
+                  const hasError = meta.touched && meta.error;
+                  return (
+                    <>
+                      <input
+                        {...field}
+                        type="email"
+                        id={`${fieldId}-email`}
+                        placeholder={'hello@leleka.com'}
+                        autoComplete={'email'}
+                        className={`${css.input} ${hasError ? css['input-error'] : ''}`}
+                      />
+                      {hasError && (
+                        <span className={css.span}>{meta.error}</span>
+                      )}
+                    </>
+                  );
+                }}
+              </Field>
+            </div>
+            <div className={css['field-set']}>
+              <label htmlFor={`${fieldId}-password`}>Пароль*</label>
+              <Field name="password">
+                {({ field, meta }: FieldProps) => {
+                  const hasError = meta.touched && meta.error;
+                  return (
+                    <>
+                      <input
+                        {...field}
+                        type="password"
+                        id={`${fieldId}-password`}
+                        placeholder={'********'}
+                        autoComplete={'new-password'}
+                        className={`${css.input} ${hasError ? css['input-error'] : ''}`}
+                      />
+                      {hasError && (
+                        <span className={css.span}>{meta.error}</span>
+                      )}
+                    </>
+                  );
+                }}
+              </Field>
+            </div>
+            <Button type="submit" disabled={isLoading} isLoading={isSubmitting}>
+              Зареєструватись
+            </Button>
+          </Form>
+        )}
       </Formik>
     </>
   );
