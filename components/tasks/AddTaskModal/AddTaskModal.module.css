@@ -3,6 +3,19 @@
     --modal-padding-y: 64px;
     --modal-padding-x: 20px;
     --modal-overflow: visible;
+    animation: fadeDown 0.9s ease forwards;
+}
+
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-1000px) scale(0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 .addTaskModalTitle {

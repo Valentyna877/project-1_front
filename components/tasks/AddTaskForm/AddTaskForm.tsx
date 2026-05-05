@@ -86,7 +86,7 @@ export default function AddTaskForm({ onClose }: TaskFormProps) {
               type="text"
               name="name"
               placeholder="Введіть назву завдання"
-              className={css.input}
+              className={css.addTaskFormInput}
             />
             <ErrorMessage name="name" component="span" className={css.error} />
           </div>
@@ -98,7 +98,7 @@ export default function AddTaskForm({ onClose }: TaskFormProps) {
               component={CalendarDatePicker}
               id={`${fieldId}-date`}
               placeholderText={today}
-              className={css.input}
+              className={css.addTaskFormInput}
               minDate={today}
               dateFormat="dd-MM-yyyy"
             />
