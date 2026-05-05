@@ -32,14 +32,6 @@ function NotFound() {
           <p className={css.subtitle}>А нема такої.</p>
 
           <p className={css.text}>Спробуйте повернутися на головну сторінку.</p>
-{/* 
-                   <Button
-                    variant="cancel"
-                    size="md"
-                    onClick={() => router.push("/")}
-                  >
-                    На головну
-                  </Button> */}
 
           <ButtonLink href="/" size="md">
             На головну
