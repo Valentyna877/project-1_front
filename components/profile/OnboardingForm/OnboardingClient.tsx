@@ -14,7 +14,6 @@ import FormikGenderSelect from '@/components/common/GenderSelect/FormikGenderSel
 import { GenderValue } from '@/components/common/GenderSelect/gender-select.types'
 import { onboardingGenderStyles } from '@/components/common/GenderSelect/gender-select.styles';
 import { useState } from 'react';
-import { CalendarIcon } from 'lucide-react';
 import { ToastProvider } from '@/components/common/Toast/ToastProvider';
 import axios from 'axios';
 import { genderToTheme } from '@/components/common/GenderSelect/gender-select.types';
@@ -94,14 +93,13 @@ export default function OnboardingClient() {
                                 className={css.datePicker}
                                 minDate={today}
                                 maxDate={maxDate}
-                                dateFormat="dd-MM-yyyy"
+                                dateFormat="dd.MM.yyyy"
                                 label="Планова дата пологів"
                                 labelClassName={css.label}
-                                showIcon={CalendarIcon}
                                 themeOverride={draftTheme}
                             />
                         </div>
-                        <ErrorMessage name="dueDate" component="p" />
+                        {/* <ErrorMessage name="dueDate" component="p" /> */}
                         <Button
                             className={css.submitBtn}
                             type="submit"
