@@ -7,8 +7,12 @@
     margin: 0 0 32px 0;
     /* overflow: auto; */
     /* overflow: visible; */
+    height: 390px;
     overflow-y: auto;
     overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f0f0f0;
+    
 }
 
 .taskCardBox.theme-boy {
