@@ -5,7 +5,10 @@
     padding: 24px;
     width: 335px;
     margin: 0 0 32px 0;
-    overflow: auto;
+    /* overflow: auto; */
+    /* overflow: visible; */
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .taskCardBox.theme-boy {
