@@ -2,7 +2,14 @@
 
 import css from './AddTaskForm.module.css';
 import { useId } from 'react';
-import { Formik, Form, Field, type FormikHelpers, ErrorMessage } from 'formik';
+import {
+  Formik,
+  Form,
+  Field,
+  type FormikHelpers,
+  ErrorMessage,
+  FieldProps,
+} from 'formik';
 import * as Yup from 'yup';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createTask, NewTask } from '@/lib/api/clientApi';
@@ -81,14 +88,23 @@ export default function AddTaskForm({ onClose }: TaskFormProps) {
         <fieldset>
           <div className={css.addTaskformGroup}>
             <label htmlFor={`${fieldId}-name`}>Назва завдання</label>
-            <Field
-              id={`${fieldId}-name`}
-              type="text"
-              name="name"
-              placeholder="Введіть назву завдання"
-              className={css.addTaskFormInput}
-            />
-            <ErrorMessage name="name" component="span" className={css.error} />
+            <Field name="name">
+              {({ field, meta }: FieldProps) => {
+                const hasError = meta.touched && !!meta.error;
+                return (
+                  <>
+                    <input
+                      {...field}
+                      type="text"
+                      id={`${fieldId}-name`}
+                      placeholder="Введіть назву завдання"
+                      className={`${css.addTaskFormInput} ${hasError ? css['input-error'] : ''}`}
+                    />
+                    {hasError && <span className={css.span}>{meta.error}</span>}
+                  </>
+                );
+              }}
+            </Field>
           </div>
 
           <div className={css.addTaskformGroup}>

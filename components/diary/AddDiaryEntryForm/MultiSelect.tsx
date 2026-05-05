@@ -21,10 +21,11 @@ const selectStyles: StylesConfig<OptionType> = {
   menu: (base) => ({
     ...base,
     marginTop: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+    backgroundColor: '#f2f2f2',
     border: 'none',
     borderRadius: '0 0 12px 12px',
     padding: '8px 0px',
+    zIndex: 30,
   }),
   multiValue: (styles) => {
     return {
