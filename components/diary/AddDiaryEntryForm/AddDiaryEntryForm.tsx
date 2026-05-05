@@ -1,6 +1,6 @@
 'use client';
 
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage, FieldProps } from 'formik';
 import * as Yup from 'yup';
 import { useQueryClient } from '@tanstack/react-query';
 import { ToastProvider } from '@/components/common/Toast/ToastProvider';
@@ -76,12 +76,21 @@ export default function AddDiaryEntryForm({ onSuccess }: Props) {
 
         <div className={css.fieldWrapper}>
           <label>Запис</label>
-          <Field
-            as="textarea"
-            name="text"
-            placeholder="Запишіть, як ви себе відчуваєте"
-            className={css.textarea}
-          />
+          <Field name="text">
+            {({ field }: FieldProps<string>) => (
+              <>
+                <textarea
+                  {...field}
+                  maxLength={1000}
+                  placeholder="Запишіть, як ви себе відчуваєте"
+                  className={css.textarea}
+                />
+                <span className={css.counter}>
+                  {field.value?.length || 0}/1000
+                </span>
+              </>
+            )}
+          </Field>
           <ErrorMessage name="text" component="span" className={css.error} />
         </div>
 
