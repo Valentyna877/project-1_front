@@ -12,12 +12,12 @@
 
 .counter {
   display: block;
-  position: absolute;
   right: 20px;
   font-size: 10px;
   color: var(--color-neutral-darkest);
   margin-top: 0;
   text-align: right;
+  margin-bottom: 16px;
 }
 
 .fieldWrapper label,
@@ -45,6 +45,7 @@
 
 .textarea {
   height: 250px;
+  margin-bottom: 8px;
 }
 
 .input::placeholder,
