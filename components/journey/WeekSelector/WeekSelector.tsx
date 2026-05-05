@@ -47,8 +47,56 @@ const WeekSelector = ({ currentWeek, activeWeek }: WeekSelectorProps) => {
       wrapper.scrollBy({ left: e.deltaY });
     };
 
+    let isDown = false;
+    let startX = 0;
+    let startScroll = 0;
+    let moved = false;
+
+    const handleMouseDown = (e: MouseEvent) => {
+      isDown = true;
+      moved = false;
+      startX = e.pageX - wrapper.offsetLeft;
+      startScroll = wrapper.scrollLeft;
+      wrapper.classList.add(styles.grabbing);
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - wrapper.offsetLeft;
+      const walk = x - startX;
+      if (Math.abs(walk) > 4) moved = true;
+      wrapper.scrollLeft = startScroll - walk;
+    };
+
+    const stopDrag = () => {
+      isDown = false;
+      wrapper.classList.remove(styles.grabbing);
+    };
+
+    const handleClickCapture = (e: MouseEvent) => {
+      if (moved) {
+        e.preventDefault();
+        e.stopPropagation();
+        moved = false;
+      }
+    };
+
     wrapper.addEventListener("wheel", handleWheel, { passive: false });
-    return () => wrapper.removeEventListener("wheel", handleWheel);
+    wrapper.addEventListener("mousedown", handleMouseDown);
+    wrapper.addEventListener("mousemove", handleMouseMove);
+    wrapper.addEventListener("mouseleave", stopDrag);
+    window.addEventListener("mouseup", stopDrag);
+    wrapper.addEventListener("click", handleClickCapture, true);
+
+    return () => {
+      wrapper.removeEventListener("wheel", handleWheel);
+      wrapper.removeEventListener("mousedown", handleMouseDown);
+      wrapper.removeEventListener("mousemove", handleMouseMove);
+      wrapper.removeEventListener("mouseleave", stopDrag);
+      window.removeEventListener("mouseup", stopDrag);
+      wrapper.removeEventListener("click", handleClickCapture, true);
+    };
   }, []);
 
   const handleWeekClick = (week: number) => {
