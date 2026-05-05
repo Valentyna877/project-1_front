@@ -47,7 +47,7 @@ function ConfirmationModal({
 
         <Button
           type="button"
-          variant={confirmButtonVariant}
+          variant="cancel"
           onClick={onConfirm}
           className={css.confirmationModalButton}
         >
