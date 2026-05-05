@@ -107,7 +107,7 @@ export default function AddTaskForm({ onClose }: TaskFormProps) {
               component={CalendarDatePicker}
               id={`${fieldId}-date`}
               placeholderText={today}
-              className={css.input}
+              className={css.addTaskFormInput}
               minDate={today}
               dateFormat="dd-MM-yyyy"
             />
@@ -121,6 +121,7 @@ export default function AddTaskForm({ onClose }: TaskFormProps) {
               type="submit"
               disabled={mutation.isPending}
               loadingText="Зберігається..."
+              isLoading={mutation.isPending}
               className={css.addTaskFormButton}
             >
               Зберегти

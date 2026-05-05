@@ -1,0 +1,74 @@
+.logoRow {
+    display: flex;
+    align-items: center;
+}
+
+.formWrap {
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    padding-top: 80px;
+}
+
+.error404 {
+    margin: 0 0 20px 0;
+    font-family: var(--second-family);
+    font-weight: var(--fw-bold);
+    font-size: 90px;
+    line-height: 1;
+    color: var(--color-pastel-pink);
+}
+
+.title {
+    margin: 0 0 10px 0;
+    font-size: 34px;
+    font-weight: var(--fw-bold);
+    text-align: center;
+}
+
+.subtitle {
+    margin: 0 0 20px 0;
+    font-size: 20px;
+    font-weight: var(--fw-semibold);
+}
+
+.text {
+    margin: 0 0 30px 0;
+    font-size: 16px;
+    color: var(--color-neutral);
+}
+
+@media only screen and (min-width: 768px) {
+    .code {
+        font-size: 120px;
+    }
+
+    .title {
+        font-size: 40px;
+    }
+
+    .subtitle {
+        font-size: 25px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .page {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+    }
+
+    .left {
+        padding-right: 32px;
+        padding-left: 32px;
+    }
+
+    .formWrap {
+        padding: 0;
+    }
+
+    .title {
+        font-size: 48px;
+    }
+}

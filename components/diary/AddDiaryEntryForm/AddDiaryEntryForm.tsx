@@ -1,6 +1,6 @@
 'use client';
 
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage, FieldProps } from 'formik';
 import * as Yup from 'yup';
 import { useQueryClient } from '@tanstack/react-query';
 import { ToastProvider } from '@/components/common/Toast/ToastProvider';
@@ -54,50 +54,62 @@ export default function AddDiaryEntryForm({ onSuccess }: Props) {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      <Form className={css.form}>
-        <div className={css.fieldWrapper}>
-          <label>Заголовок</label>
-          <Field
-            type="text"
-            name="title"
-            placeholder="Введіть заголовок запису"
-            className={css.input}
-          />
-          <ErrorMessage name="title" component="span" className={css.error} />
-        </div>
+      {({ isSubmitting }) => (
+        <Form className={css.form}>
+          <div className={css.fieldWrapper}>
+            <label>Заголовок</label>
+            <Field
+              type="text"
+              name="title"
+              placeholder="Введіть заголовок запису"
+              className={css.input}
+            />
+            <ErrorMessage name="title" component="span" className={css.error} />
+          </div>
 
-        <div className={css.fieldWrapper}>
-          <label className={css.label}>Категорії</label>
-          <MultiSelect />
-          {draft.emotions.length === 0 && (
-            <span className={css.error}>Оберіть хоча б одну категорію</span>
-          )}
-        </div>
+          <div className={css.fieldWrapper}>
+            <label className={css.label}>Категорії</label>
+            <MultiSelect />
+            {draft.emotions.length === 0 && (
+              <span className={css.error}>Оберіть хоча б одну категорію</span>
+            )}
+          </div>
 
-        <div className={css.fieldWrapper}>
-          <label>Запис</label>
-          <Field
-            as="textarea"
-            name="text"
-            placeholder="Запишіть, як ви себе відчуваєте"
-            className={css.textarea}
-          />
-          <ErrorMessage name="text" component="span" className={css.error} />
-        </div>
+          <div className={css.fieldWrapper}>
+            <label>Запис</label>
+            <Field name="text">
+              {({ field }: FieldProps<string>) => (
+                <>
+                  <textarea
+                    {...field}
+                    maxLength={1000}
+                    placeholder="Запишіть, як ви себе відчуваєте"
+                    className={css.textarea}
+                  />
+                  <span className={css.counter}>
+                    {field.value?.length || 0}/1000
+                  </span>
+                </>
+              )}
+            </Field>
+            <ErrorMessage name="text" component="span" className={css.error} />
+          </div>
 
-        <div className={css.actions}>
-          <Button
-            variant="normal"
-            size="lg"
-            type="submit"
-            disabled={isSaving}
-            loadingText="Збереження..."
-            className={css.submitBtn}
-          >
-            Зберегти
-          </Button>
-        </div>
-      </Form>
+          <div className={css.actions}>
+            <Button
+              variant="normal"
+              size="lg"
+              type="submit"
+              disabled={isSaving}
+              isLoading={isSubmitting}
+              loadingText="Збереження..."
+              className={css.submitBtn}
+            >
+              Зберегти
+            </Button>
+          </div>
+        </Form>
+      )}
     </Formik>
   );
 }

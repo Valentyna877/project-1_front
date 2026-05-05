@@ -11,12 +11,21 @@
   margin-bottom: 24px;
 }
 
-.input label {
+.addTaskformGroup :global(.react-datepicker__input-container) {
+  position: inherit;
+}
+
+.addTaskformGroup :global(.react-datepicker__view-calendar-icon input) {
+  width: 295px;
+}
+
+.addTaskFormInput label {
   margin-bottom: 8px;
   line-height: 1.5;
 }
 
-.input {
+.addTaskFormInput {
+  margin-bottom: 24px;
   padding: 8px 12px;
   width: 100%;
   max-width: 295px;
@@ -29,25 +38,25 @@
   transition: border-color 250ms ease-in-out;
 }
 
-.input::placeholder {
+.addTaskFormInput::placeholder {
   font-size: var(--fz-14);
   font-weight: var(--fw-medium);
   color: var(--opacity-neutral-darkest-60);
 }
 
-.input:active::placeholder {
+.addTaskFormInput:active::placeholder {
   color: var(--color-neutral-darkest);
 }
 
-.input:focus {
+.addTaskFormInput:focus {
   border: 2px solid var(--color-pastel-pink);
 }
 
-.input:invalid {
+.addTaskFormInput:invalid {
   border: 1px solid var(--color-red);
 }
 
-.input:invalid::placeholder {
+.addTaskFormInput:invalid::placeholder {
   color: var(--color-red);
 }
 
@@ -81,7 +90,7 @@
     min-width: 640px;
   }
 
-  .input {
+  .addTaskFormInput {
     min-width: 640px;
   }
 
@@ -91,7 +100,7 @@
 }
 
 @media (min-width: 1440px) {
-  .input {
+  .addTaskFormInput {
     font-size: var(--fz-16);
   }
 }

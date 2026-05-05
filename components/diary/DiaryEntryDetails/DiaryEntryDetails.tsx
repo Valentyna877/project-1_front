@@ -4,6 +4,7 @@ import { DiaryEntry } from '@/types/diary';
 import styles from './DiaryEntryDetails.module.css';
 import ConfirmationModal from '@/components/common/ConfirmationModal/ConfirmationModal';
 import { useState } from 'react';
+import { ToastProvider } from '@/components/common/Toast/ToastProvider';
 
 interface DiaryEntryDetailsProps {
   entry?: DiaryEntry | null;
@@ -28,6 +29,7 @@ export default function DiaryEntryDetails({
 
   const handleModalClick = (entry: string) => {
     onDelete?.(entry);
+    ToastProvider.success('Запис видалено');
     setOpenModal(false);
   };
 
