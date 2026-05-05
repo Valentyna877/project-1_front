@@ -5,6 +5,8 @@ import Link from 'next/link';
 import Button from '@/components/common/Button/Button';
 import css from './error.module.css';
 import './globals.css';
+import Loader from '@/components/common/Loader/Loader';
+import { useTheme } from '@/hooks/useTheme';
 
 type Props = {
   error: Error;
@@ -13,18 +15,18 @@ type Props = {
 
 function GlobalError({ error, reset }: Props) {
   const router = useRouter();
-
+  const { theme } = useTheme();
   return (
     <section className="container">
       <div className={css.left}>
         <div className={css.logoRow}>
           <Link href="/">
             <svg className={css.logo}>
-                <use href="/sprite.svg#icon-logo"></use>
+              <use href="/sprite.svg#icon-logo"></use>
             </svg>
           </Link>
         </div>
-
+        <Loader variant="global-inline" theme={theme} />
         <div className={css.formWrap}>
           <div className={css.inner}>
             <div className={css.content}>
@@ -58,10 +60,6 @@ function GlobalError({ error, reset }: Props) {
           </div>
         </div>
       </div>
-
-      {/* <div className={css.right} aria-hidden="true">
-            <Loader variant="global" />
-      </div> */}
     </section>
   );
 }
