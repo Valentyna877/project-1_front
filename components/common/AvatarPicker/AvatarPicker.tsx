@@ -6,22 +6,28 @@ import css from './AvatarPicker.module.css';
 import { getUser, updateAvatar } from '@/lib/api/clientApi';
 import { useAuthStore } from '@/lib/store/authStore';
 import { ToastProvider } from '@/components/common/Toast/ToastProvider';
+import clsx from 'clsx';
+import { useTheme, Theme } from '@/hooks/useTheme';
 
 type Props = {
     profilePhotoUrl?: string | null;
     children?: React.ReactNode;
     variant?: 'onboarding' | 'profile';
+    themeOverride?: Theme;
 };
 
 function AvatarPicker({
     profilePhotoUrl,
     children,
     variant = 'onboarding',
+    themeOverride,
 }: Props) {
     const [previewUrl, setPreviewUrl] = useState(profilePhotoUrl ?? '');
     const [loading, setLoading] = useState(false);
 
     const setUser = useAuthStore((state) => state.setUser);
+    const { themeClass: globalThemeClass } = useTheme();
+    const themeClass = themeOverride ? `theme-${themeOverride}` : globalThemeClass;
 
     useEffect(() => {
         setPreviewUrl(profilePhotoUrl ?? '');
@@ -76,11 +82,12 @@ function AvatarPicker({
                     />
                 </div>
             )}
-
             <div className={css.content}>
                 {children}
-
-                <label className={`${css.changeButton} ${css[`${variant}Button`]}`}>
+                <label className={clsx(css.changeButton, css[`${variant}Button`],
+                    css[themeClass],
+                    loading && css.disabled)}
+                >
                     {loading ? 'Завантаження...' : 'Завантажити нове фото'}
                     <input
                         type="file"
