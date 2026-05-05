@@ -3,23 +3,20 @@
   flex-direction: column;
   gap: 8px;
   width: 100%;
-  background: #fff4f6;
-  border-radius: 12px;
-  padding: 12px 16px;
-  border: none;
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--color-scheme-foreground-alt);
   cursor: pointer;
   text-align: left;
-  text-decoration: none;
   transition: background 0.2s;
-  box-sizing: border-box;
 }
 
 .card:hover {
-  background: #ffdae0;
+  background: var(--color-scheme-accent);
 }
 
 .selected {
-  background: #ffdae0;
+  background: var(--color-scheme-accent);
 }
 
 .row {
@@ -30,8 +27,9 @@
 }
 
 .title {
-  font-size: 14px;
   font-weight: 600;
+  font-size: 16px;
+  line-height: 26px;
   color: #000;
   white-space: nowrap;
   overflow: hidden;
@@ -39,8 +37,10 @@
 }
 
 .date {
+  font-weight: 400;
   font-size: 12px;
-  color: rgba(0, 0, 0, 0.5);
+  line-height: 19px;
+  color: #000;
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -48,19 +48,19 @@
 .emotions {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 8px;
 }
 
 .emotion {
-  background: #fff4f6;
-  border-radius: 20px;
-  padding: 2px 10px;
-  font-size: 12px;
+  padding: 2px 12px;
+  border-radius: 100px;
+  background: var(--color-scheme-foreground);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
   color: #000;
-  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-/* Mobile: link visible, button hidden */
 .mobile {
   display: flex;
 }
@@ -69,7 +69,17 @@
   display: none;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1440px) {
+  .title {
+    font-size: 18px;
+    line-height: 29px;
+  }
+
+  .emotion {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
   .mobile {
     display: none;
   }

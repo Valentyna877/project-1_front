@@ -12,6 +12,7 @@ import GreetingBlock from '@/components/common/GreetingBlock/GreetingBlock';
 import { DiaryEntry } from '@/types/diary';
 import { deleteDiary, getDiaries } from '@/lib/api/clientApi';
 import { useDiaryStore } from '@/lib/store/diaryStore';
+import { useTheme } from '@/hooks/useTheme';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 
@@ -19,6 +20,7 @@ export default function DiaryPage() {
   const queryClient = useQueryClient();
   const router = useRouter();
   const { setEditingEntry, clearDraft } = useDiaryStore();
+  const { themeClass } = useTheme();
 
   const { data: entries = [], isLoading } = useQuery<DiaryEntry[]>({
     queryKey: ['diary'],
@@ -75,7 +77,7 @@ export default function DiaryPage() {
 
   return (
     <div className="container">
-      <div className={styles.page}>
+      <div className={`${styles.page} ${styles[themeClass]}`}>
         <div className={styles.inner}>
           <GreetingBlock />
 
