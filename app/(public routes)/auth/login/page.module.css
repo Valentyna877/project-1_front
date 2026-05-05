@@ -1,11 +1,8 @@
 .section {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   padding: 192px 0;
 }
 
-.content {
+.form-content {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -20,9 +17,12 @@
   margin-bottom: 32px;
 }
 
-.google-button {
+.form-content .google-button {
   margin-bottom: 24px;
   width: 100%;
+  font-family: var(--font-family), sans-serif;
+
+  height: 42px;
 }
 
 .google-button span {
@@ -78,26 +78,31 @@
 
 @media only screen and (min-width: 768px) {
   .section {
-    padding-bottom: 246px;
+    padding: 246px 0;
   }
 
-  .google-button {
+  .form-content .google-button {
     width: 480px;
   }
 }
 
 @media only screen and (min-width: 1440px) {
-  .header {
-    margin-bottom: 177px;
+  .content {
+    display: flex;
+    justify-content: center;
+  }
+
+  .left-wrapper {
+    width: 720px;
+    padding: 0 32px;
   }
 
   .section {
-    flex-direction: row;
     padding: 0;
   }
 
-  .content {
-    padding: 0 64px;
+  .form-content {
+    padding: 234px 56px;
   }
 
   .title {

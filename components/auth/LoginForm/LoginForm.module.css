@@ -50,8 +50,8 @@
 }
 
 .form .button {
-  height: 41px;
-  --btn-height: 41px;
+  height: 42px;
+  font-family: var(--font-family), sans-serif;
 }
 
 @media only screen and (min-width: 768px) {

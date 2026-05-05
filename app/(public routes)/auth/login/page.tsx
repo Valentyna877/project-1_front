@@ -25,24 +25,30 @@ const Login = () => {
 
   return (
     <>
-      <AuthHeader />
-      <main className={css.section}>
-        <div className={clsx('container', css.content)}>
-          <h1 className={css.title}>Вхід</h1>
-          <LoginForm />
-          <Button
-            className={css['google-button']}
-            type="button"
-            variant={'cancel'}
-          >
-            <svg className={css['header-logo']}>
-              <use href="/sprite.svg#icon-Google"></use>
-            </svg>
-            <p>Увійти через Google</p>
-          </Button>
-          <Link href={'/auth/register'} className={css.redirection}>
-            Немає аккаунту? <span>Зареєструватися</span>
-          </Link>
+      <div className={css.content}>
+        <div className={css['left-wrapper']}>
+          <AuthHeader />
+          <main className={css.section}>
+            <div className="container">
+              <div className={css['form-content']}>
+                <h1 className={css.title}>Вхід</h1>
+                <LoginForm />
+                <Button
+                  className={css['google-button']}
+                  type="button"
+                  variant={'cancel'}
+                >
+                  <svg>
+                    <use href="/sprite.svg#icon-Google"></use>
+                  </svg>
+                  <p>Увійти через Google</p>
+                </Button>
+                <Link href={'/auth/register'} className={css.redirection}>
+                  Немає аккаунту? <span>Зареєструватися</span>
+                </Link>
+              </div>
+            </div>
+          </main>
         </div>
         <Image
           className={css.img}
@@ -51,7 +57,7 @@ const Login = () => {
           width={720}
           height={900}
         ></Image>
-      </main>
+      </div>
     </>
   );
 };
