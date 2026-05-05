@@ -68,6 +68,12 @@
     cursor: pointer;
     stroke-width: 1px;
     stroke: var(--color-scheme-text);
+    transition: background-color 500ms ease-in-out, transform 500ms ease-in-out;
+}
+
+.closeButton:hover,
+.closeButton:focus {
+    transform: scale(1.5) rotate(180deg);
 }
 
 .closeIcon {
