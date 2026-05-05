@@ -3,6 +3,7 @@
     --modal-padding-y: 64px;
     --modal-padding-x: 20px;
     --modal-overflow: visible;
+    min-height: 484px;
 }
 
 
@@ -29,6 +30,7 @@
         --modal-max-w: 704px;
         --modal-padding-y: 64px;
         --modal-padding-x: 32px;
+        min-height: 440px;
     }
 }
 
@@ -37,6 +39,7 @@
         --modal-max-w: 704px;
         --modal-padding-y: 64px;
         --modal-padding-x: 32px;
+        min-height: 472px;
     }
 
     .addTaskModalTitle {
