@@ -17,6 +17,7 @@ import { useState } from 'react';
 import { CalendarIcon } from 'lucide-react';
 import { ToastProvider } from '@/components/common/Toast/ToastProvider';
 import axios from 'axios';
+import { genderToTheme } from '@/components/common/GenderSelect/gender-select.types';
 
 interface OnboardingFormValues {
     gender: GenderValue | null;
@@ -76,37 +77,43 @@ export default function OnboardingClient() {
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
         >
-            <Form className={css.form}>
-                {/* <AvatarPicker profilePhotoUrl={user?.avatar} /> */}
-                <AvatarPicker profilePhotoUrl={user?.avatar} variant="onboarding" />
-                <div className={css.genderWrapper}>
-                    <label className={css.label}>Стать дитини</label>
-                    <FormikGenderSelect styles={onboardingGenderStyles} />
-                </div>
-                <div className={css.dateWrapper}>
-                    <Field
-                        name='dueDate'
-                        component={CalendarDatePicker}
-                        placeholderText='Оберіть дату'
-                        className={css.datePicker}
-                        minDate={today}
-                        maxDate={maxDate}
-                        dateFormat="dd-MM-yyyy"
-                        label="Планова дата пологів"
-                        labelClassName={css.label}
-                        showIcon={CalendarIcon}
-                    />
-                </div>
-                <ErrorMessage name="dueDate" component="p" />
-                <Button
-                    className={css.submitBtn}
-                    type="submit"
-                    variant="normal"
-                    size="md"
-                >
-                    Зберегти
-                </Button>
-            </Form>
+            {({ values }) => {
+                const draftTheme = genderToTheme(values.gender);
+                return (
+                    <Form className={css.form}>
+                        <AvatarPicker profilePhotoUrl={user?.avatar} variant="onboarding" themeOverride={draftTheme} />
+                        <div className={css.genderWrapper}>
+                            <label className={css.label}>Стать дитини</label>
+                            <FormikGenderSelect styles={onboardingGenderStyles} />
+                        </div>
+                        <div className={css.dateWrapper}>
+                            <Field
+                                name='dueDate'
+                                component={CalendarDatePicker}
+                                placeholderText='Оберіть дату'
+                                className={css.datePicker}
+                                minDate={today}
+                                maxDate={maxDate}
+                                dateFormat="dd-MM-yyyy"
+                                label="Планова дата пологів"
+                                labelClassName={css.label}
+                                showIcon={CalendarIcon}
+                                themeOverride={draftTheme}
+                            />
+                        </div>
+                        <ErrorMessage name="dueDate" component="p" />
+                        <Button
+                            className={css.submitBtn}
+                            type="submit"
+                            variant="normal"
+                            size="md"
+                            themeOverride={draftTheme}
+                        >
+                            Зберегти
+                        </Button>
+                    </Form>
+                );
+            }}
         </Formik>
-    )
+    );
 }

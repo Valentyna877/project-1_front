@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 import 'react-datepicker/dist/react-datepicker.css';
 import { IMask, IMaskInput } from 'react-imask';
 import css from './CalendarDatePicker.module.css';
-import { useTheme } from '@/hooks/useTheme';
+import { useTheme, Theme } from '@/hooks/useTheme';
 
 interface CalendarDatePickerProps extends FieldProps {
   onDateSelect?: (dateStr: string) => void;
@@ -16,6 +16,7 @@ interface CalendarDatePickerProps extends FieldProps {
   maxDate?: Date;
   label?: string;
   labelClassName?: string;
+  themeOverride?: Theme;
 }
 
 const CalendarDatePicker: React.FC<CalendarDatePickerProps> = ({
@@ -26,9 +27,11 @@ const CalendarDatePicker: React.FC<CalendarDatePickerProps> = ({
   onDateSelect,
   label,
   labelClassName,
+  themeOverride,
   ...props
 }) => {
-  const { themeClass } = useTheme();
+  const { themeClass: globalThemeClass } = useTheme();
+  const themeClass = themeOverride ? `theme-${themeOverride}` : globalThemeClass;
   const dateValue = field.value ? new Date(field.value) : null;
 
   const handleChange = (date: Date | null) => {
