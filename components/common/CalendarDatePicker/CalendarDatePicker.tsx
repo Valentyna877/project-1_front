@@ -1,11 +1,14 @@
 'use client';
-import { FieldProps } from 'formik';
+import { FieldProps, useField } from 'formik';
 import DatePicker from 'react-datepicker';
 import { format } from 'date-fns';
+import { useEffect, useRef } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
-import { IMask, IMaskInput } from 'react-imask';
 import css from './CalendarDatePicker.module.css';
-import { useTheme } from '@/hooks/useTheme';
+import { useTheme, Theme } from '@/hooks/useTheme';
+import MaskedDateInput from './MaskedDateInput';
+import { ToastProvider } from '@/components/common/Toast/ToastProvider';
+import clsx from 'clsx';
 
 interface CalendarDatePickerProps extends FieldProps {
   onDateSelect?: (dateStr: string) => void;
@@ -16,6 +19,7 @@ interface CalendarDatePickerProps extends FieldProps {
   maxDate?: Date;
   label?: string;
   labelClassName?: string;
+  themeOverride?: Theme;
 }
 
 const CalendarDatePicker: React.FC<CalendarDatePickerProps> = ({
@@ -26,10 +30,28 @@ const CalendarDatePicker: React.FC<CalendarDatePickerProps> = ({
   onDateSelect,
   label,
   labelClassName,
+  themeOverride,
+  className,
   ...props
 }) => {
-  const { themeClass } = useTheme();
+  const { themeClass: globalThemeClass } = useTheme();
+  const themeClass = themeOverride ? `theme-${themeOverride}` : globalThemeClass;
   const dateValue = field.value ? new Date(field.value) : null;
+
+  const [, meta] = useField(field.name);
+  const hasError = Boolean(meta.touched && meta.error);
+
+  const lastShownErrorRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (hasError && meta.error && meta.error !== lastShownErrorRef.current) {
+      ToastProvider.error(meta.error);
+      lastShownErrorRef.current = meta.error;
+    }
+    if (!hasError) {
+      lastShownErrorRef.current = null;
+    }
+  }, [hasError, meta.error]);
 
   const handleChange = (date: Date | null) => {
     if (date) {
@@ -52,13 +74,14 @@ const CalendarDatePicker: React.FC<CalendarDatePickerProps> = ({
         <DatePicker
           id={field.name}
           {...props}
+          className={clsx(className, css.input, css[themeClass], hasError && css.inputError)}
           selected={dateValue}
           onChange={handleChange}
           minDate={minDate}
           maxDate={maxDate}
           fixedHeight
           calendarClassName={themeClass}
-          popperClassName={themeClass} 
+          popperClassName={themeClass}
           onCalendarClose={() => form.setFieldTouched(field.name, true)}
           showIcon
           icon={
@@ -67,28 +90,22 @@ const CalendarDatePicker: React.FC<CalendarDatePickerProps> = ({
             </svg>
           }
           customInput={
-            <IMaskInput
-              mask="DD.MM.YYYY"
-              blocks={{
-                DD: { mask: IMask.MaskedRange, from: 1, to: 31 },
-                MM: { mask: IMask.MaskedRange, from: 1, to: 12 },
-                YYYY: {
-                  mask: IMask.MaskedRange,
-                  from: new Date().getFullYear(),
-                  to: new Date().getFullYear() + 1,
-                },
-              }}
-              onAccept={(value: string) => {
+            <MaskedDateInput
+              placeholder="дд.мм.рррр"
+              onAcceptValue={(value) => {
                 if (value.length === 10) {
                   const [dd, mm, yyyy] = value.split('.');
                   const dateString = `${yyyy}-${mm}-${dd}`;
-                  form.setFieldValue(field.name, dateString);
+                  queueMicrotask(() => {
+                    form.setFieldValue(field.name, dateString);
+                    form.setFieldTouched(field.name, true, false);
+                  });
                 }
               }}
-              onBlur={() => form.setFieldTouched(field.name, true)}
             />
           }
         />
+        {hasError && <span className={css.errorSpan}>{meta.error}</span>}
       </div>
     </>
   );
