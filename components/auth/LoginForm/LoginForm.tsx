@@ -110,7 +110,7 @@ const LoginForm = () => {
               }}
             </Field>
           </div>
-          <Button type="submit" disabled={isLoading}>
+          <Button className={css.button} type="submit" disabled={isLoading}>
             Увійти
           </Button>
         </Form>

@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-bottom: 139px;
+  padding: 192px 0;
 }
 
 .content {
@@ -12,26 +12,27 @@
   align-items: center;
 }
 
-.header {
-  display: flex;
-  width: 100%;
-  height: 72px;
-  align-items: center;
-
-  margin-bottom: 139px;
-}
-
-.header-logo {
-  width: 105px;
-  height: 45px;
-}
-
 .title {
   font-size: 36px;
   line-height: 1.2;
   letter-spacing: 0.01em;
   text-align: center;
   margin-bottom: 32px;
+}
+
+.google-button {
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.google-button span {
+  display: flex;
+  gap: 12px;
+}
+
+.google-button svg {
+  width: 24px;
+  height: 24px;
 }
 
 .img {
@@ -76,12 +77,12 @@
 }
 
 @media only screen and (min-width: 768px) {
-  .header {
-    margin-bottom: 198px;
+  .section {
+    padding-bottom: 246px;
   }
 
-  .section {
-    padding-bottom: 198px;
+  .google-button {
+    width: 480px;
   }
 }
 

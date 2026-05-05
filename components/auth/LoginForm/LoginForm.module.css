@@ -1,9 +1,9 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
   width: 100%;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .field-set {
@@ -12,11 +12,6 @@
   flex-direction: column;
 
   position: relative;
-}
-
-.field-set label {
-  margin-bottom: 8px;
-  line-height: 1.5;
 }
 
 .input {
@@ -50,8 +45,13 @@
 
 .span {
   position: absolute;
-  top: calc(100% + 3px);
+  top: calc(92%);
   color: var(--color-red);
+}
+
+.form .button {
+  height: 41px;
+  --btn-height: 41px;
 }
 
 @media only screen and (min-width: 768px) {
