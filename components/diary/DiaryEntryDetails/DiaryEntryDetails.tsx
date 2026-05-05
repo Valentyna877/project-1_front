@@ -20,6 +20,27 @@ function formatDate(dateStr: string): string {
   });
 }
 
+const SENTENCES_PER_PARAGRAPH = 3;
+const AUTO_SPLIT_THRESHOLD = 200;
+
+function splitIntoParagraphs(text: string): string[] {
+  const explicit = text
+    .split(/(?:\r?\n){2,}/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+
+  return explicit.flatMap((chunk) => {
+    if (chunk.length <= AUTO_SPLIT_THRESHOLD) return [chunk];
+    const sentences = chunk.match(/[^.!?…]+[.!?…]+["')\]]*\s*|[^.!?…]+$/g);
+    if (!sentences || sentences.length <= SENTENCES_PER_PARAGRAPH) return [chunk];
+    const groups: string[] = [];
+    for (let i = 0; i < sentences.length; i += SENTENCES_PER_PARAGRAPH) {
+      groups.push(sentences.slice(i, i + SENTENCES_PER_PARAGRAPH).join('').trim());
+    }
+    return groups;
+  });
+}
+
 export default function DiaryEntryDetails({
   entry,
   onDelete,
@@ -77,7 +98,7 @@ export default function DiaryEntryDetails({
 
       <div className={styles.content}>
         <div className={styles.body}>
-          {entry.description.split('\n\n').map((paragraph, i) => (
+          {splitIntoParagraphs(entry.description).map((paragraph, i) => (
             <p key={i} className={styles.text}>
               {paragraph}
             </p>
