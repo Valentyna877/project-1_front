@@ -45,3 +45,30 @@
 :global(.react-datepicker__month) {
   min-height: 200px;
 }
+
+:global(.react-datepicker.theme-boy) {
+  background-color: var(--color-french-pass-lighter);
+  border: var(--color-french-pass-lighter);
+}
+
+:global(.react-datepicker.theme-girl) {
+  background-color: var(--color-pastel-pink-lighter);
+  border: var(--color-pastel-pink-lighter);
+}
+
+:global(.react-datepicker.theme-default) {
+  background-color: var(--color-oasis-lighter);
+  border: var(--color-oasis-lighter);
+}
+
+:global(.react-datepicker.theme-boy .react-datepicker__header) {
+  background-color: var(--color-french-pass-lighter);
+}
+
+:global(.react-datepicker.theme-girl .react-datepicker__header) {
+  background-color: var(--color-pastel-pink-lighter);
+}
+
+:global(.react-datepicker.theme-default .react-datepicker__header) {
+  background-color: var(--color-oasis-lighter);
+}
