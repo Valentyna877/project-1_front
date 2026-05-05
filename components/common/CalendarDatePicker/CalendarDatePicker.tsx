@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import 'react-datepicker/dist/react-datepicker.css';
 import { IMask, IMaskInput } from 'react-imask';
 import css from './CalendarDatePicker.module.css';
+import { useTheme } from '@/hooks/useTheme';
 
 interface CalendarDatePickerProps extends FieldProps {
   onDateSelect?: (dateStr: string) => void;
@@ -27,6 +28,7 @@ const CalendarDatePicker: React.FC<CalendarDatePickerProps> = ({
   labelClassName,
   ...props
 }) => {
+  const { themeClass } = useTheme();
   const dateValue = field.value ? new Date(field.value) : null;
 
   const handleChange = (date: Date | null) => {
@@ -55,6 +57,8 @@ const CalendarDatePicker: React.FC<CalendarDatePickerProps> = ({
           minDate={minDate}
           maxDate={maxDate}
           fixedHeight
+          calendarClassName={themeClass}
+          popperClassName={themeClass} 
           onCalendarClose={() => form.setFieldTouched(field.name, true)}
           showIcon
           icon={
@@ -64,7 +68,7 @@ const CalendarDatePicker: React.FC<CalendarDatePickerProps> = ({
           }
           customInput={
             <IMaskInput
-              mask="DD-MM-YYYY"
+              mask="DD.MM.YYYY"
               blocks={{
                 DD: { mask: IMask.MaskedRange, from: 1, to: 31 },
                 MM: { mask: IMask.MaskedRange, from: 1, to: 12 },
@@ -76,7 +80,7 @@ const CalendarDatePicker: React.FC<CalendarDatePickerProps> = ({
               }}
               onAccept={(value: string) => {
                 if (value.length === 10) {
-                  const [dd, mm, yyyy] = value.split('-');
+                  const [dd, mm, yyyy] = value.split('.');
                   const dateString = `${yyyy}-${mm}-${dd}`;
                   form.setFieldValue(field.name, dateString);
                 }

@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./WeekSelector.module.css";
 
-const TOTAL_WEEKS = 40;
+const TOTAL_WEEKS = 42;
 
 interface WeekSelectorProps {
   currentWeek: number;
@@ -13,18 +13,43 @@ interface WeekSelectorProps {
 
 const WeekSelector = ({ currentWeek, activeWeek }: WeekSelectorProps) => {
   const router = useRouter();
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const activeRef = useRef<HTMLButtonElement>(null);
   const hasMountedRef = useRef(false);
 
   useEffect(() => {
-    if (!activeRef.current) return;
-    activeRef.current.scrollIntoView({
-      behavior: hasMountedRef.current ? "smooth" : "instant",
-      block: "nearest",
-      inline: "center",
+    const wrapper = wrapperRef.current;
+    const active = activeRef.current;
+    if (!wrapper || !active) return;
+
+    const wrapperRect = wrapper.getBoundingClientRect();
+    const activeRect = active.getBoundingClientRect();
+    const target =
+      wrapper.scrollLeft +
+      (activeRect.left - wrapperRect.left) -
+      wrapper.clientWidth / 2 +
+      active.clientWidth / 2;
+
+    wrapper.scrollTo({
+      left: target,
+      behavior: hasMountedRef.current ? "smooth" : "auto",
     });
     hasMountedRef.current = true;
   }, [activeWeek]);
+
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      if (e.deltaY === 0) return;
+      e.preventDefault();
+      wrapper.scrollBy({ left: e.deltaY });
+    };
+
+    wrapper.addEventListener("wheel", handleWheel, { passive: false });
+    return () => wrapper.removeEventListener("wheel", handleWheel);
+  }, []);
 
   const handleWeekClick = (week: number) => {
     if (week > currentWeek) return;
@@ -33,6 +58,7 @@ const WeekSelector = ({ currentWeek, activeWeek }: WeekSelectorProps) => {
 
   return (
     <div
+      ref={wrapperRef}
       className={styles.wrapper}
       role="tablist"
       aria-label="Тижні вагітності"

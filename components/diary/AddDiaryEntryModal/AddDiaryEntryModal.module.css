@@ -1,13 +1,43 @@
-.container {
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
+.addDiaryModal {
+  --modal-max-w: 334px;
+  --modal-padding-y: 48px;
+  --modal-padding-x: 20px;
+  --modal-overflow: visible;
+  min-height: 695px;
 }
 
-.title {
+.addDiaryModalTitle {
+  margin-bottom: 48px;
   text-align: center;
-  font-size: 32px;
-  font-weight: 700;
-  margin-bottom: 40px;
-  font-family: var(--second-family);
+  font-weight: var(--fw-medium, 700);
+  font-size: 36px;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: var(--color-scheme-text);
+}
+
+.addDiaryModalForm {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+@media (min-width: 768px) {
+  .addDiaryModal {
+    --modal-max-w: 704px;
+    --modal-padding-y: 64px;
+    --modal-padding-x: 32px;
+    min-height: 755px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .addDiaryModal {
+    --modal-max-w: 768px;
+    min-height: 786px;
+  }
+
+  .addDiaryModalTitle {
+    font-size: 48px;
+  }
 }

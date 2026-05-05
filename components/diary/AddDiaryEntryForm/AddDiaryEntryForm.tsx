@@ -1,12 +1,13 @@
 'use client';
 
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage, FieldProps } from 'formik';
 import * as Yup from 'yup';
 import { useQueryClient } from '@tanstack/react-query';
 import { ToastProvider } from '@/components/common/Toast/ToastProvider';
 import MultiSelect from './MultiSelect';
 import css from './AddDiaryEntryForm.module.css';
 import { useDiaryStore } from '@/lib/store/diaryStore';
+import Button from '@/components/common/Button/Button';
 import { DiaryEntry } from '@/types/diary';
 
 interface FormValues {
@@ -53,11 +54,12 @@ export default function AddDiaryEntryForm({ onSuccess }: Props) {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      {() => (
+      {({ isSubmitting }) => (
         <Form className={css.form}>
           <div className={css.fieldWrapper}>
-            <label className={css.label}>Заголовок</label>
+            <label>Заголовок</label>
             <Field
+              type="text"
               name="title"
               placeholder="Введіть заголовок запису"
               className={css.input}
@@ -74,19 +76,38 @@ export default function AddDiaryEntryForm({ onSuccess }: Props) {
           </div>
 
           <div className={css.fieldWrapper}>
-            <label className={css.label}>Запис</label>
-            <Field
-              as="textarea"
-              name="text"
-              placeholder="Запишіть, як ви себе відчуваєте"
-              className={css.textarea}
-            />
+            <label>Запис</label>
+            <Field name="text">
+              {({ field }: FieldProps<string>) => (
+                <>
+                  <textarea
+                    {...field}
+                    maxLength={1000}
+                    placeholder="Запишіть, як ви себе відчуваєте"
+                    className={css.textarea}
+                  />
+                  <span className={css.counter}>
+                    {field.value?.length || 0}/1000
+                  </span>
+                </>
+              )}
+            </Field>
             <ErrorMessage name="text" component="span" className={css.error} />
           </div>
 
-          <button type="submit" className={css.submitBtn} disabled={isSaving}>
-            {isSaving ? 'Збереження...' : 'Зберегти'}
-          </button>
+          <div className={css.actions}>
+            <Button
+              variant="normal"
+              size="lg"
+              type="submit"
+              disabled={isSaving}
+              isLoading={isSubmitting}
+              loadingText="Збереження..."
+              className={css.submitBtn}
+            >
+              Зберегти
+            </Button>
+          </div>
         </Form>
       )}
     </Formik>

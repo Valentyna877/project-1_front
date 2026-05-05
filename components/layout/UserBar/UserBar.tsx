@@ -11,6 +11,7 @@ import ConfirmationModal from '@/components/common/ConfirmationModal/Confirmatio
 import Loader from '@/components/common/Loader/Loader';
 import { createPortal } from 'react-dom';
 import { useTheme } from '@/hooks/useTheme';
+import { ToastProvider } from '@/components/common/Toast/ToastProvider';
 
 export default function UserBar() {
   const { user, clearIsAuthenticated } = useAuthStore();
@@ -34,6 +35,7 @@ export default function UserBar() {
 
   const handleConfirm = () => {
     closeLogoutModal();
+    ToastProvider.success('Ви вийшли із облікового запису');
     mutate();
   };
 
