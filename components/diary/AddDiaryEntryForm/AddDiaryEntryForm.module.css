@@ -10,6 +10,16 @@
   position: relative;
 }
 
+.counter {
+  display: block;
+  position: absolute;
+  right: 20px;
+  font-size: 10px;
+  color: var(--color-neutral-darkest);
+  margin-top: 0;
+  text-align: right;
+}
+
 .fieldWrapper label,
 .label {
   margin-bottom: 8px;
@@ -68,6 +78,7 @@
 }
 
 @media (min-width: 768px) {
+
   .input,
   .textarea {
     min-width: 640px;
