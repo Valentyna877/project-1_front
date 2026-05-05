@@ -1,11 +1,3 @@
-/* desktop */
-@media (min-width: 1440px) {
-  .layout {
-    display: grid;
-    grid-template-columns: 312px 1fr;
-  }
-
-  .mobile_only {
-    display: none;
-  }
+.main {
+  flex: 1;
 }

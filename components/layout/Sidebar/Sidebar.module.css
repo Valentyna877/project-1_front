@@ -18,8 +18,9 @@
 
 @media screen and (min-width: 1440px) {
   .sidebar {
+    z-index: 0;
     position: static;
-    width: 100%;
+    width: 312px;
     height: 900px;
     transform: none;
     border-right: 1px solid var(--opacity-neutral-darkest-15);

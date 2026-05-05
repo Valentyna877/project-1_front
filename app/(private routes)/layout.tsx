@@ -1,3 +1,5 @@
+import css from './layout.module.css';
+
 interface PrivateRoutesLayoutProps {
   children: React.ReactNode;
 }
@@ -5,5 +7,9 @@ interface PrivateRoutesLayoutProps {
 export default function PrivateRoutesLayout({
   children,
 }: PrivateRoutesLayoutProps) {
-  return <>{children}</>;
+  return (
+    <>
+      <div className={css.wrapper}>{children}</div>
+    </>
+  );
 }
