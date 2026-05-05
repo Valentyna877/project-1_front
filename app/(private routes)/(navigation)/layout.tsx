@@ -19,7 +19,7 @@ export default function NavigationLayout({ children }: NavigationLayoutProps) {
       <div className={css.layout}>
         <Sidebar />
 
-        <main className={css.main}>
+        <main>
           <Breadcrumbs />
           {children}
         </main>
