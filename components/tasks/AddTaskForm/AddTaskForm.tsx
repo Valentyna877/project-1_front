@@ -2,7 +2,14 @@
 
 import css from './AddTaskForm.module.css';
 import { useId } from 'react';
-import { Formik, Form, Field, type FormikHelpers, ErrorMessage, FieldProps } from 'formik';
+import {
+  Formik,
+  Form,
+  Field,
+  type FormikHelpers,
+  ErrorMessage,
+  FieldProps,
+} from 'formik';
 import * as Yup from 'yup';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createTask, NewTask } from '@/lib/api/clientApi';
@@ -91,7 +98,7 @@ export default function AddTaskForm({ onClose }: TaskFormProps) {
                       type="text"
                       id={`${fieldId}-name`}
                       placeholder="Введіть назву завдання"
-                      className={`${css.input} ${hasError ? css['input-error'] : ''}`}
+                      className={`${css.addTaskFormInput} ${hasError ? css['input-error'] : ''}`}
                     />
                     {hasError && <span className={css.span}>{meta.error}</span>}
                   </>
