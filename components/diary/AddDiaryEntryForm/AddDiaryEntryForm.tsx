@@ -1,6 +1,6 @@
 'use client';
 
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage, FieldProps } from 'formik';
 import * as Yup from 'yup';
 import { useQueryClient } from '@tanstack/react-query';
 import { ToastProvider } from '@/components/common/Toast/ToastProvider';
@@ -57,65 +57,62 @@ export default function AddDiaryEntryForm({ onSuccess }: Props) {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      <Form className={css.form}>
-        <div className={css.fieldWrapper}>
-          <label>Заголовок</label>
-          <Field
-            type="text"
-            name="title"
-            placeholder="Введіть заголовок запису"
-            className={css.input}
-          />
-          <ErrorMessage name="title" component="span" className={css.error} />
-        </div>
+      {({ isSubmitting }) => (
+        <Form className={css.form}>
+          <div className={css.fieldWrapper}>
+            <label>Заголовок</label>
+            <Field
+              type="text"
+              name="title"
+              placeholder="Введіть заголовок запису"
+              className={css.input}
+            />
+            <ErrorMessage name="title" component="span" className={css.error} />
+          </div>
 
-        <div className={css.fieldWrapper}>
-          <label className={css.label}>Категорії</label>
-          <MultiSelect />
-        </div>
+          <div className={css.fieldWrapper}>
+            <label className={css.label}>Категорії</label>
+            <MultiSelect />
+          </div>
 
-        <div className={css.fieldWrapper}>
-          <label>Запис</label>
-          <Field name="text">
-            {({
-              field,
-              form,
-            }: {
-              field: { value: string; name: string; onBlur: (e: React.FocusEvent) => void };
-              form: { setFieldValue: (n: string, v: string) => void };
-            }) => (
-              <>
-                <textarea
-                  {...field}
-                  placeholder="Запишіть, як ви себе відчуваєте"
-                  className={css.textarea}
-                  maxLength={TEXT_MAX}
-                  onChange={(e) => {
-                    const v = e.target.value.slice(0, TEXT_MAX);
-                    form.setFieldValue(field.name, v);
-                  }}
-                />
-                <span className={css.counter}>
-                  {(field.value ?? '').length}/{TEXT_MAX}
-                </span>
-              </>
-            )}
-          </Field>
-        </div>
+          <div className={css.fieldWrapper}>
+            <label>Запис</label>
+            <Field name="text">
+              {({ field, form }: FieldProps<string>) => (
+                <>
+                  <textarea
+                    {...field}
+                    placeholder="Запишіть, як ви себе відчуваєте"
+                    className={css.textarea}
+                    maxLength={TEXT_MAX}
+                    onChange={(e) => {
+                      const v = e.target.value.slice(0, TEXT_MAX);
+                      form.setFieldValue(field.name, v);
+                    }}
+                  />
+                  <span className={css.counter}>
+                    {(field.value ?? '').length}/{TEXT_MAX}
+                  </span>
+                </>
+              )}
+            </Field>
+          </div>
 
-        <div className={css.actions}>
-          <Button
-            variant="normal"
-            size="lg"
-            type="submit"
-            disabled={isSaving}
-            loadingText="Збереження..."
-            className={css.submitBtn}
-          >
-            Зберегти
-          </Button>
-        </div>
-      </Form>
+          <div className={css.actions}>
+            <Button
+              variant="normal"
+              size="lg"
+              type="submit"
+              disabled={isSaving}
+              isLoading={isSubmitting}
+              loadingText="Збереження..."
+              className={css.submitBtn}
+            >
+              Зберегти
+            </Button>
+          </div>
+        </Form>
+      )}
     </Formik>
   );
 }

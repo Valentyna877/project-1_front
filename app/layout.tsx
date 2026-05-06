@@ -39,7 +39,7 @@ export default function RootLayout({
         <TanStackProvider>
           <AuthProvider>
             {children}
-            <Toaster richColors position="top-right" toastOptions={{ duration: 2000 }} />
+              <Toaster richColors position="top-right" toastOptions={{ duration: 2000 }} />
             <ReactQueryDevtools initialIsOpen={false} />
           </AuthProvider>
         </TanStackProvider>

@@ -23,7 +23,7 @@ function ConfirmationModal({
   cancelButtonText,
   onConfirm,
   onCancel,
-  confirmButtonVariant = 'cancel',
+  // confirmButtonVariant = 'cancel',
 }: ConfirmationModalProps) {
   return (
     <Modal

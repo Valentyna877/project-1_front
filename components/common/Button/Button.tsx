@@ -1,7 +1,7 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
 import clsx from 'clsx';
 import css from './Button.module.css';
-import { useTheme } from '@/hooks/useTheme';
+import { useTheme, Theme } from '@/hooks/useTheme';
 
 type ButtonVariant = 'normal' | 'cancel' | 'delete' | 'logout';
 type ButtonSize = 'sm' | 'md' | 'lg';
@@ -16,6 +16,7 @@ interface ButtonProps
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
   loadingText?: ReactNode;
+  themeOverride?: Theme;
 }
 
 function Button({
@@ -29,10 +30,12 @@ function Button({
   rightIcon,
   isLoading = false,
   disabled,
+  themeOverride,
   ...rest
 }: ButtonProps) {
   const isDisabled = Boolean(disabled) || isLoading;
-  const { themeClass } = useTheme();
+  const { themeClass: globalThemeClass } = useTheme();
+  const themeClass = themeOverride ? `theme-${themeOverride}` : globalThemeClass;
 
   return (
     <button

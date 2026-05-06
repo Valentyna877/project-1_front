@@ -33,7 +33,20 @@
     padding: var(--modal-padding-y) var(--modal-padding-x);
     position: relative;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
-    animation: scaleIn 0.2s ease;
+    /* animation: scaleIn 0.2s ease; */
+    animation: fadeDown 0.9s ease forwards;
+}
+
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-1000px) scale(0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 .content {
@@ -55,6 +68,12 @@
     cursor: pointer;
     stroke-width: 1px;
     stroke: var(--color-scheme-text);
+    transition: background-color 500ms ease-in-out, transform 500ms ease-in-out;
+}
+
+.closeButton:hover,
+.closeButton:focus {
+    transform: scale(1.5) rotate(180deg);
 }
 
 .closeIcon {
