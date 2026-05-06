@@ -3,13 +3,23 @@ import css from './AddDiaryEntryForm.module.css';
 import { getAllEmotions } from '@/lib/api/clientApi';
 import { useQuery } from '@tanstack/react-query';
 import { useDiaryStore } from '@/lib/store/diaryStore';
+import { useTheme } from '@/hooks/useTheme';
+
+const THEME_ACCENT: Record<string, string> = {
+  boy: '#adeffe',
+  girl: '#ffcbd3',
+  default: '#feeccc',
+};
 
 type OptionType = {
   value: string; // _id
   label: string; // title
 };
 
-const buildSelectStyles = (hasError: boolean): StylesConfig<OptionType> => ({
+const buildSelectStyles = (
+  hasError: boolean,
+  accent: string
+): StylesConfig<OptionType> => ({
   control: (styles, { isFocused }) => ({
     ...styles,
     outline: 'none',
@@ -27,6 +37,10 @@ const buildSelectStyles = (hasError: boolean): StylesConfig<OptionType> => ({
     borderRadius: '0 0 12px 12px',
     padding: '8px 0px',
     zIndex: 30,
+  }),
+  menuList: (base) => ({
+    ...base,
+    ...({ '--scrollbar-accent': accent } as Record<string, string>),
   }),
   menuPortal: (base) => ({ ...base, zIndex: 9999 }),
   multiValue: (styles) => {
@@ -112,6 +126,8 @@ interface MultiSelectProps {
 
 export default function MultiSelect({ hasError = false }: MultiSelectProps) {
   const MAX = 12;
+  const { theme } = useTheme();
+  const accent = THEME_ACCENT[theme] ?? THEME_ACCENT.default;
   const emotions = useDiaryStore((s) => s.draft.emotions);
   const setEmotions = useDiaryStore((s) => s.setEmotions);
 
@@ -142,11 +158,12 @@ export default function MultiSelect({ hasError = false }: MultiSelectProps) {
       isMulti
       name="emotions"
       className={css.EmotionMultiselect}
+      classNamePrefix="diarySelect"
       closeMenuOnSelect={false}
       hideSelectedOptions={false}
       blurInputOnSelect={false}
       components={{ Option }}
-      styles={buildSelectStyles(hasError)}
+      styles={buildSelectStyles(hasError, accent)}
       menuPortalTarget={typeof window !== 'undefined' ? document.body : null}
       menuPosition="fixed"
       isClearable={false}
