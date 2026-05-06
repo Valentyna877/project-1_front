@@ -12,6 +12,7 @@ import TaskItem from '../TaskItem/TaskItem';
 import { ToastProvider } from '@/components/common/Toast/ToastProvider';
 import Loader from '@/components/common/Loader/Loader';
 import { useTheme } from '@/hooks/useTheme';
+import '@/styles/animation.css';
 
 export default function TasksReminderCard() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -84,7 +85,7 @@ export default function TasksReminderCard() {
       <div className={`${css.taskCardBox} ${css[themeClass]}`}>
         <div className={css.taskTitleBox}>
           <h2>Важливі завдання</h2>
-          <button className={css.addTaskBtn} onClick={handleOpenModal}>
+          <button className={`${css.addTaskBtn}`} onClick={handleOpenModal}>
             <svg width={24} height={24}>
               <use href="/sprite.svg#icon-add_circle" />
             </svg>
@@ -154,11 +155,13 @@ export default function TasksReminderCard() {
     <div className={`${css.taskCardBox} ${css[themeClass]}`}>
       <div className={css.taskTitleBox}>
         <h2>Важливі завдання</h2>
-        <button className={css.addTaskBtn} onClick={handleOpenModal}>
-          <svg width={24} height={24}>
-            <use href="/sprite.svg#icon-add_circle" />
-          </svg>
-        </button>
+        <div className={`${css.btnWrapper} addBtnAnimation`}>
+          <button className={css.addTaskBtn} onClick={handleOpenModal}>
+            <svg width={24} height={24}>
+              <use href="/sprite.svg#icon-add_circle" />
+            </svg>
+          </button>
+        </div>
       </div>
 
       {data.length > 0 ? (

@@ -39,7 +39,7 @@ export default function TaskItem({
               handleCheck={() => handleCheckTask(!task.isDone, task._id)}
             />
           </div>
-          <div className={css.btnBlock}>
+          <div className={css.btnWrapper}>
             <button
               className={css.deleteBtn}
               onClick={() => handleDeleteTask(task._id)}

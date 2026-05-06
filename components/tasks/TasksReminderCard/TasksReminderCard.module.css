@@ -80,8 +80,8 @@
         margin: 16px 0 32px 0;
     }
 
-    .addTaskBtn:hover {
-        animation: addBtnAnimation .5s ease-in-out;
+    .btnWrapper:hover .addTaskBtn {
+    animation: addBtnAnimation .5s ease-in-out;
     }
 
     .taskSection {  
@@ -98,7 +98,6 @@
 
     50% {
         transform: translateY(-10px);
-
     }
 
     100% {
