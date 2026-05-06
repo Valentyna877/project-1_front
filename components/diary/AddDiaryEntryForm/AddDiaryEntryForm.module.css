@@ -1,6 +1,7 @@
 .form {
   display: flex;
   flex-direction: column;
+  gap: 24px;
   width: 100%;
 }
 
@@ -19,7 +20,6 @@
 
 .input,
 .textarea {
-  margin-bottom: 24px;
   padding: 8px 12px;
   width: 100%;
   max-width: 295px;
@@ -35,7 +35,6 @@
 
 .textarea {
   height: 250px;
-  margin-bottom: 8px;
   scrollbar-width: none;
 }
 
@@ -52,23 +51,17 @@
 
 .error {
   display: block;
-  margin-top: -16px;
-  margin-bottom: 8px;
+  margin-top: 4px;
   font-size: 12px;
   color: var(--color-red);
 }
 
 .counter {
   display: block;
-  margin-bottom: 16px;
+  margin-top: 4px;
   font-size: 12px;
   color: var(--opacity-neutral-darkest-60);
   text-align: right;
-}
-
-.fieldWrapper .error {
-  margin-top: 4px;
-  margin-bottom: 0;
 }
 
 .actions {
