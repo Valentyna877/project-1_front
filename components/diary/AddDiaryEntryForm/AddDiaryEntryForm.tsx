@@ -73,6 +73,9 @@ export default function AddDiaryEntryForm({ onSuccess }: Props) {
           <div className={css.fieldWrapper}>
             <label className={css.label}>Категорії</label>
             <MultiSelect />
+            {draft.emotions.length === 0 && (
+              <span className={css.error}>Оберіть хоча б одну категорію</span>
+            )}
           </div>
 
           <div className={css.fieldWrapper}>
@@ -96,6 +99,7 @@ export default function AddDiaryEntryForm({ onSuccess }: Props) {
                 </>
               )}
             </Field>
+            <ErrorMessage name="text" component="span" className={css.error} />
           </div>
 
           <div className={css.actions}>
