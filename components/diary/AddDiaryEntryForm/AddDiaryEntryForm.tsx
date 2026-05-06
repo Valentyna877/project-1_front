@@ -93,13 +93,19 @@ export default function AddDiaryEntryForm({ onSuccess }: Props) {
                       form.setFieldValue(field.name, v);
                     }}
                   />
-                  <span className={css.counter}>
-                    {(field.value ?? '').length}/{TEXT_MAX}
-                  </span>
+                  <div className={css.metaRow}>
+                    <ErrorMessage
+                      name="text"
+                      component="span"
+                      className={css.error}
+                    />
+                    <span className={css.counter}>
+                      {(field.value ?? '').length}/{TEXT_MAX}
+                    </span>
+                  </div>
                 </>
               )}
             </Field>
-            <ErrorMessage name="text" component="span" className={css.error} />
           </div>
 
           <div className={css.actions}>

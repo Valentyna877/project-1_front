@@ -64,6 +64,18 @@
   text-align: right;
 }
 
+.metaRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.metaRow .error,
+.metaRow .counter {
+  margin-top: 0;
+}
+
 .actions {
   display: flex;
   justify-content: center;
