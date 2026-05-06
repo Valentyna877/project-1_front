@@ -1,22 +1,51 @@
 import { StylesConfig } from 'react-select';
 import { GenderOption } from './gender-select.types';
 
-export const genderSelectStyles: StylesConfig<GenderOption, false> = {
+// export const genderSelectStyles: StylesConfig<GenderOption, false> = {
+//   control: (base, state) => ({
+//     ...base,
+//     width: '100%',
+//     minHeight: 40,
+//     backgroundColor: 'var(--color-neutral-lightest)',
+//     border: state.menuIsOpen
+//       ? '1px solid var(--opacity-neutral-darkest-15)'
+//       : '1px solid var(--opacity-transparent)',
+//     borderRadius: state.menuIsOpen ? '12px 12px 0 0' : 12,
+//     boxShadow: 'none',
+//     cursor: 'pointer',
+//     '&:hover': {
+//       border: state.menuIsOpen
+//         ? '1px solid var(--opacity-neutral-darkest-15)'
+//         : '1px solid var(--opacity-transparent)',
+//     },
+//   }),
+
+const getThemeShadow = (themeClass?: string) => {
+  if (themeClass === 'theme-girl')
+    return 'inset 0 0 0 2px var(--color-pastel-pink)';
+  if (themeClass === 'theme-boy')
+    return 'inset 0 0 0 2px var(--color-french-pass)';
+  return 'inset 0 0 0 2px var(--color-oasis)';
+};
+
+export const createGenderSelectStyles = (
+  themeClass?: string
+): StylesConfig<GenderOption, false> => ({
   control: (base, state) => ({
     ...base,
     width: '100%',
     minHeight: 40,
-    backgroundColor: 'var(--color-neutral-lightest)',
-    border: state.menuIsOpen
-      ? '1px solid var(--opacity-neutral-darkest-15)'
-      : '1px solid var(--opacity-transparent)',
+    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+    border: 'none',
     borderRadius: state.menuIsOpen ? '12px 12px 0 0' : 12,
-    boxShadow: 'none',
+    boxShadow: state.menuIsOpen ? 'none' : 'inset 0 0 0 0 transparent',
     cursor: 'pointer',
+    transition: 'box-shadow 250ms ease-in-out',
     '&:hover': {
-      border: state.menuIsOpen
-        ? '1px solid var(--opacity-neutral-darkest-15)'
-        : '1px solid var(--opacity-transparent)',
+      boxShadow: state.menuIsOpen ? 'none' : getThemeShadow(themeClass),
+    },
+    '&:focus-within': {
+      boxShadow: state.menuIsOpen ? 'none' : getThemeShadow(themeClass),
     },
   }),
 
@@ -102,24 +131,44 @@ export const genderSelectStyles: StylesConfig<GenderOption, false> = {
       backgroundColor: 'var(--opacity-neutral-darkest-15)',
     },
   }),
-};
+});
 
-export const onboardingGenderStyles: StylesConfig<GenderOption, false> = {
+// export const onboardingGenderStyles: StylesConfig<GenderOption, false> = {
+//   control: (base, state) => ({
+//     ...base,
+//     width: '100%',
+//     minHeight: 40,
+//     backgroundColor: 'var(--color-neutral-lightest)',
+//     border: state.menuIsOpen
+//       ? '1px solid var(--opacity-neutral-darkest-15)'
+//       : '1px solid var(--opacity-transparent)',
+//     borderRadius: state.menuIsOpen ? '12px 12px 0 0' : 12,
+//     boxShadow: 'none',
+//     cursor: 'pointer',
+//     '&:hover': {
+//       border: state.menuIsOpen
+//         ? '1px solid var(--opacity-neutral-darkest-15)'
+//         : '1px solid var(--opacity-transparent)',
+//     },
+//   }),
+export const createOnboardingGenderStyles = (
+  themeClass?: string
+): StylesConfig<GenderOption, false> => ({
   control: (base, state) => ({
     ...base,
     width: '100%',
     minHeight: 40,
-    backgroundColor: 'var(--color-neutral-lightest)',
-    border: state.menuIsOpen
-      ? '1px solid var(--opacity-neutral-darkest-15)'
-      : '1px solid var(--opacity-transparent)',
+    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+    border: 'none',
     borderRadius: state.menuIsOpen ? '12px 12px 0 0' : 12,
-    boxShadow: 'none',
+    boxShadow: state.menuIsOpen ? 'none' : 'inset 0 0 0 0 transparent',
     cursor: 'pointer',
+    transition: 'box-shadow 250ms ease-in-out',
     '&:hover': {
-      border: state.menuIsOpen
-        ? '1px solid var(--opacity-neutral-darkest-15)'
-        : '1px solid var(--opacity-transparent)',
+      boxShadow: state.menuIsOpen ? 'none' : getThemeShadow(themeClass),
+    },
+    '&:focus-within': {
+      boxShadow: state.menuIsOpen ? 'none' : getThemeShadow(themeClass),
     },
   }),
 
@@ -195,4 +244,4 @@ export const onboardingGenderStyles: StylesConfig<GenderOption, false> = {
     color: 'inherit',
     borderRadius: state.isFocused ? 12 : 0,
   }),
-};
+});
