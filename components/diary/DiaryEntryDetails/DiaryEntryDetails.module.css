@@ -83,7 +83,7 @@
 .body {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 }
 
 .text {
@@ -112,11 +112,21 @@
 }
 
 .wrapper {
-  scrollbar-width: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-scheme-accent) transparent;
 }
 
 .wrapper::-webkit-scrollbar {
-  display: none;
+  width: 4px;
+}
+
+.wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.wrapper::-webkit-scrollbar-thumb {
+  background: var(--color-scheme-accent);
+  border-radius: 2px;
 }
 
 @media (min-width: 1440px) {
