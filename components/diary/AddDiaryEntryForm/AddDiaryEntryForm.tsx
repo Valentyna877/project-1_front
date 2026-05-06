@@ -57,7 +57,7 @@ export default function AddDiaryEntryForm({ onSuccess }: Props) {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      {({ isSubmitting }) => (
+      {({ submitCount }) => (
         <Form className={css.form}>
           <div className={css.fieldWrapper}>
             <label>Заголовок</label>
@@ -67,15 +67,25 @@ export default function AddDiaryEntryForm({ onSuccess }: Props) {
               placeholder="Введіть заголовок запису"
               className={css.input}
             />
-            <ErrorMessage name="title" component="span" className={css.error} />
+            <div className={css.metaRow}>
+              <ErrorMessage
+                name="title"
+                component="span"
+                className={css.error}
+              />
+            </div>
           </div>
 
           <div className={css.fieldWrapper}>
             <label className={css.label}>Категорії</label>
             <MultiSelect />
-            {draft.emotions.length === 0 && (
-              <span className={css.error}>Оберіть хоча б одну категорію</span>
-            )}
+            <div className={css.metaRow}>
+              {submitCount > 0 && draft.emotions.length === 0 && (
+                <span className={css.error}>
+                  Оберіть хоча б одну категорію
+                </span>
+              )}
+            </div>
           </div>
 
           <div className={css.fieldWrapper}>
@@ -114,8 +124,6 @@ export default function AddDiaryEntryForm({ onSuccess }: Props) {
               size="lg"
               type="submit"
               disabled={isSaving}
-              isLoading={isSubmitting}
-              loadingText="Збереження..."
               className={css.submitBtn}
             >
               Зберегти

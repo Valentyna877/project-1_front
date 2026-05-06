@@ -50,30 +50,21 @@
 }
 
 .error {
-  display: block;
-  margin-top: 4px;
   font-size: 12px;
   color: var(--color-red);
 }
 
 .counter {
-  display: block;
-  margin-top: 4px;
+  margin-left: auto;
   font-size: 12px;
   color: var(--opacity-neutral-darkest-60);
-  text-align: right;
 }
 
 .metaRow {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   gap: 8px;
-}
-
-.metaRow .error,
-.metaRow .counter {
-  margin-top: 0;
+  min-height: 18px;
 }
 
 .actions {
