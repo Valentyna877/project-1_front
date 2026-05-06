@@ -102,7 +102,7 @@ h6 {
   overflow: hidden;
 }
 
-.body-lock {
+/* .body-lock {
   overflow: hidden;
   padding-right: var(--scrollbar-width, 0px);
-}
+} */

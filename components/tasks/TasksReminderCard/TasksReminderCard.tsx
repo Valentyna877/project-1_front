@@ -152,6 +152,7 @@ export default function TasksReminderCard() {
 
   return (
     <div className={`${css.taskCardBox} ${css[themeClass]}`}>
+      <div className={css.scrollContent}>
       <div className={css.taskTitleBox}>
         <h2>Важливі завдання</h2>
         <button className={css.addTaskBtn} onClick={handleOpenModal}>
@@ -230,10 +231,12 @@ export default function TasksReminderCard() {
           <p className={css.emptyTaskText}>Створіть мерщій нове завдання!</p>
           <Button className={css.emptyTaskBtn} onClick={handleOpenModal}>
             Створити завдання
-          </Button>
+              </Button>
+              
         </div>
       )}
-      <AddTaskModal isOpen={isOpen} onClose={handleCloseModal}></AddTaskModal>
+        <AddTaskModal isOpen={isOpen} onClose={handleCloseModal}></AddTaskModal>
+        </div>
     </div>
   );
 }
