@@ -43,27 +43,6 @@
 
 .entryWrapper {
   width: 335px;
-  height: 603px;
-}
-
-.entryWrapper > * {
-  height: 100%;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-scheme-accent) transparent;
-}
-
-.entryWrapper > *::-webkit-scrollbar {
-  width: 4px;
-}
-
-.entryWrapper > *::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.entryWrapper > *::-webkit-scrollbar-thumb {
-  background: var(--color-scheme-accent);
-  border-radius: 2px;
 }
 
 @media (min-width: 768px) {
@@ -74,10 +53,6 @@
   .inner,
   .entryWrapper {
     width: 704px;
-  }
-
-  .entryWrapper {
-    height: 785px;
   }
 }
 
