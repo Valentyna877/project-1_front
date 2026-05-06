@@ -24,6 +24,7 @@
     --modal-close-right: 16px;
     --modal-close-size: 32px;
     --modal-close-pad: 4px;
+    box-sizing: border-box;
     background: var(--modal-bg);
     border-radius: var(--modal-radius);
     width: 100%;

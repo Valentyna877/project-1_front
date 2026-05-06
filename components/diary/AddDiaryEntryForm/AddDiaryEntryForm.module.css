@@ -1,7 +1,6 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 24px;
   width: 100%;
 }
 
@@ -64,7 +63,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  min-height: 18px;
+  height: 24px;
 }
 
 .actions {

@@ -1,5 +1,5 @@
 .addDiaryModal {
-  --modal-max-w: 334px;
+  --modal-max-w: 335px;
   --modal-padding-y: 48px;
   --modal-padding-x: 20px;
   --modal-overflow: auto;
@@ -7,13 +7,19 @@
 }
 
 .addDiaryModalTitle {
-  margin-bottom: 48px;
+  margin-bottom: 20px;
   text-align: center;
   font-weight: var(--fw-medium, 700);
   font-size: 36px;
   line-height: 1.2;
   letter-spacing: 0.01em;
   color: var(--color-scheme-text);
+}
+
+@media (min-width: 768px) {
+  .addDiaryModalTitle {
+    margin-bottom: 48px;
+  }
 }
 
 .addDiaryModalForm {
