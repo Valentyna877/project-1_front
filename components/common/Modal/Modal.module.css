@@ -35,6 +35,11 @@
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
     /* animation: scaleIn 0.2s ease; */
     animation: fadeDown 0.9s ease forwards;
+    scrollbar-width: none;
+}
+
+.modal::-webkit-scrollbar {
+    display: none;
 }
 
 @keyframes fadeDown {
