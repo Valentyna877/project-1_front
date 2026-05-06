@@ -2,7 +2,7 @@
   --modal-max-w: 334px;
   --modal-padding-y: 48px;
   --modal-padding-x: 20px;
-  --modal-overflow: visible;
+  --modal-overflow: auto;
   min-height: 695px;
 }
 

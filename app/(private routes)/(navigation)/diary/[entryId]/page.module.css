@@ -2,6 +2,29 @@
   display: flex;
   justify-content: center;
   padding: 16px;
+  width: 100%;
+  min-height: 100%;
+}
+
+.theme-boy {
+  --color-scheme-foreground: var(--color-french-pass-lighter);
+  --color-scheme-foreground-alt: var(--color-french-pass-light);
+  --color-scheme-accent: var(--color-french-pass);
+  --color-scheme-hover: var(--color-french-pass-light);
+}
+
+.theme-girl {
+  --color-scheme-foreground: var(--color-pastel-pink-lighter);
+  --color-scheme-foreground-alt: var(--color-pastel-pink-light);
+  --color-scheme-accent: var(--color-pastel-pink);
+  --color-scheme-hover: var(--color-pastel-pink-light);
+}
+
+.theme-default {
+  --color-scheme-foreground: var(--color-oasis-lighter);
+  --color-scheme-foreground-alt: var(--color-oasis-light);
+  --color-scheme-accent: var(--color-oasis);
+  --color-scheme-hover: var(--color-oasis-light);
 }
 
 .inner {
@@ -9,24 +32,6 @@
   flex-direction: column;
   gap: 16px;
   width: 335px;
-}
-
-.back {
-  align-self: flex-start;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 0;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  color: #000;
-}
-
-.back svg {
-  flex-shrink: 0;
 }
 
 .loading {

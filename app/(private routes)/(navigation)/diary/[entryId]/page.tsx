@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import styles from './page.module.css';
@@ -9,14 +9,26 @@ import AddDiaryEntryModal from '@/components/diary/AddDiaryEntryModal/AddDiaryEn
 import { DiaryEntry } from '@/types/diary';
 import { deleteDiary, getDiary } from '@/lib/api/clientApi';
 import { useDiaryStore } from '@/lib/store/diaryStore';
+import { useTheme } from '@/hooks/useTheme';
 import { toast } from 'sonner';
 
 export default function DiaryEntryPage() {
   const { entryId } = useParams<{ entryId: string }>();
   const router = useRouter();
   const queryClient = useQueryClient();
+  const { themeClass } = useTheme();
   const { setEditingEntry, clearDraft } = useDiaryStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1440px)');
+    const apply = () => {
+      if (mq.matches) router.replace('/diary');
+    };
+    apply();
+    mq.addEventListener('change', apply);
+    return () => mq.removeEventListener('change', apply);
+  }, [router]);
 
   const { data: entry, isLoading } = useQuery<DiaryEntry>({
     queryKey: ['diary', entryId],
@@ -52,14 +64,8 @@ export default function DiaryEntryPage() {
   if (isLoading) return <p className={styles.loading}>Завантаження...</p>;
 
   return (
-    <div className={styles.page}>
+    <div className={`${styles.page} ${styles[themeClass]}`}>
       <div className={styles.inner}>
-        <button className={styles.back} onClick={() => router.back()}>
-          <svg width={24} height={24}>
-            <use href="/sprite.svg#icon-arrow_back" />
-          </svg>
-          Назад
-        </button>
         <div className={styles.entryWrapper}>
           <DiaryEntryDetails
             entry={entry}

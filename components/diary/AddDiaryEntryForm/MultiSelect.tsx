@@ -27,6 +27,7 @@ const selectStyles: StylesConfig<OptionType> = {
     padding: '8px 0px',
     zIndex: 30,
   }),
+  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
   multiValue: (styles) => {
     return {
       ...styles,
@@ -141,6 +142,8 @@ export default function MultiSelect() {
       blurInputOnSelect={false}
       components={{ Option }}
       styles={selectStyles}
+      menuPortalTarget={typeof window !== 'undefined' ? document.body : null}
+      menuPosition="fixed"
       isClearable={false}
       isOptionDisabled={(option) =>
         emotions.length >= MAX && !emotions.includes(option.value)

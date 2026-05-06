@@ -131,8 +131,18 @@
     letter-spacing: 0.2px;
   }
 
+  .date {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
   .text {
     font-size: 16px;
     line-height: 24px;
+  }
+
+  .emotion {
+    font-size: 14px;
+    line-height: 21px;
   }
 }
