@@ -4,18 +4,25 @@ import css from './page.module.css';
 import Image from 'next/image';
 import { IMG_VARS } from '@/app/imgVars';
 import LoginForm from '@/components/auth/LoginForm/LoginForm';
-import clsx from 'clsx';
 import Link from 'next/link';
-import { useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { ToastProvider } from '@/components/common/Toast/ToastProvider';
+import Button from '@/components/common/Button/Button';
+import AuthHeader from '@/components/auth/AuthHeader/AuthHeader';
+import { useGoogleLogin } from '@react-oauth/google';
+import { useMutation } from '@tanstack/react-query';
+import { loginGoogle } from '@/lib/api/clientApi';
+import { useAuthStore } from '@/lib/store/authStore';
 
 const Login = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
+  const setUser = useAuthStore((state) => state.setUser);
+
   const searchParams = useSearchParams();
   useEffect(() => {
     if (searchParams.has('error')) {
-      console.log(1);
-
       ToastProvider.error(
         'Упс, щось пішло не так! Будь ласка, увійдіть ще раз.'
       );
@@ -23,30 +30,69 @@ const Login = () => {
     }
   }, [searchParams]);
 
+  const googleLogin = useGoogleLogin({
+    onSuccess: (codeResponce) => {
+      mutate(codeResponce);
+    },
+    onError: () => {
+      setIsLoading(false);
+      ToastProvider.error('Щось пішло не так.');
+    },
+  });
+
+  const { mutate } = useMutation({
+    mutationFn: loginGoogle,
+    onSuccess: (data) => {
+      setUser(data);
+      router.push('/');
+    },
+    onError: () => {
+      setIsLoading(false);
+      ToastProvider.error('Щось пішло не так. Вже лагодимо!');
+    },
+  });
+
   return (
-    <main className={clsx('container', css.section)}>
+    <>
       <div className={css.content}>
-        <div className={css.header}>
-          <Link href="/">
-            <svg className={css['header-logo']}>
-              <use href="/sprite.svg#icon-logo"></use>
-            </svg>
-          </Link>
+        <div className={css['left-wrapper']}>
+          <AuthHeader />
+          <main className={css.section}>
+            <div className="container">
+              <div className={css['form-content']}>
+                <h1 className={css.title}>Вхід</h1>
+                <LoginForm isLoading={isLoading} setIsLoading={setIsLoading} />
+                <Button
+                  className={css['google-button']}
+                  type="button"
+                  variant={'cancel'}
+                  onClick={() => {
+                    setIsLoading(true);
+                    googleLogin();
+                  }}
+                  disabled={isLoading}
+                >
+                  <svg>
+                    <use href="/sprite.svg#icon-Google"></use>
+                  </svg>
+                  <p>Увійти через Google</p>
+                </Button>
+                <Link href={'/auth/register'} className={css.redirection}>
+                  Немає аккаунту? <span>Зареєструватися</span>
+                </Link>
+              </div>
+            </div>
+          </main>
         </div>
-        <h1 className={css.title}>Вхід</h1>
-        <LoginForm />
-        <Link href={'/auth/register'} className={css.redirection}>
-          Немає аккаунту? <span>Зареєструватися</span>
-        </Link>
+        <Image
+          className={css.img}
+          src={IMG_VARS.EGGS1X}
+          alt="eggs"
+          width={720}
+          height={900}
+        ></Image>
       </div>
-      <Image
-        className={css.img}
-        src={IMG_VARS.EGGS1X}
-        alt="eggs"
-        width={720}
-        height={900}
-      ></Image>
-    </main>
+    </>
   );
 };
 

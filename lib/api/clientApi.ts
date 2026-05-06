@@ -4,6 +4,7 @@ import { GetAllTasks, TaskDone } from '@/types/task';
 import { CreateDiaryDto, DiaryEntry } from '@/types/diary';
 import { BabyState, MomState, WeekInfo } from '@/types/weeks';
 import { UpdateUserPayload, User } from '@/types/user';
+import { UseGoogleLoginOptionsAuthCodeFlow } from '@react-oauth/google';
 
 export interface UserRegCreds {
   name: string;
@@ -36,6 +37,13 @@ export const registerUser = async (user: UserRegCreds): Promise<User> => {
 
 export const loginUser = async (user: UserLogCreds): Promise<User> => {
   const { data } = await nextServer.post<User>('/auth/login', user);
+  return data;
+};
+
+export const loginGoogle = async (
+  googleResponce: UseGoogleLoginOptionsAuthCodeFlow
+): Promise<User> => {
+  const { data } = await nextServer.post<User>('/auth/google', googleResponce);
   return data;
 };
 
@@ -89,10 +97,13 @@ export const updateTask = async (updated: UpdatedTask) => {
   const update = updated.payload;
   const payload = { update };
 
-  const { data } = await nextServer.patch<UpdateTask>(`/task/${updated.taskId}`, payload);
+  const { data } = await nextServer.patch<UpdateTask>(
+    `/task/${updated.taskId}`,
+    payload
+  );
 
-  return data
-}
+  return data;
+};
 
 export const checkedTask = async (status: TaskDone) => {
   const isDone = status.isDone;
@@ -105,12 +116,11 @@ export const checkedTask = async (status: TaskDone) => {
   return data;
 };
 
-
 export const deleteTask = async (taskId: string) => {
   const { data } = await nextServer.delete(`/tasks/${taskId}`);
 
   return data;
-}
+};
 
 export async function getDiaries(): Promise<DiaryEntry[]> {
   const { data } = await nextServer.get<DiaryEntry[]>('/diaries');
