@@ -6,6 +6,21 @@
   padding: 24px;
   border-radius: 32px;
   background: var(--color-scheme-foreground);
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-scheme-accent) transparent;
+}
+
+.wrapper::-webkit-scrollbar {
+  width: 4px;
+}
+
+.wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.wrapper::-webkit-scrollbar-thumb {
+  background: var(--color-scheme-accent);
+  border-radius: 2px;
 }
 
 .placeholder {
@@ -117,24 +132,6 @@
   font-size: 12px;
   line-height: 19px;
   color: #000;
-}
-
-.wrapper {
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-scheme-accent) transparent;
-}
-
-.wrapper::-webkit-scrollbar {
-  width: 4px;
-}
-
-.wrapper::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.wrapper::-webkit-scrollbar-thumb {
-  background: var(--color-scheme-accent);
-  border-radius: 2px;
 }
 
 @media (min-width: 1440px) {
