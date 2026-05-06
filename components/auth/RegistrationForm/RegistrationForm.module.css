@@ -50,8 +50,14 @@
 
 .span {
   position: absolute;
-  top: calc(100% + 3px);
+  top: calc(100%);
   color: var(--color-red);
+}
+
+.form .button {
+  height: 42px;
+
+  font-family: var(--font-family), sans-serif;
 }
 
 @media only screen and (min-width: 768px) {
