@@ -7,7 +7,6 @@
     display: grid;
     align-content: center;
     justify-items: center;
-    padding-top: 80px;
 }
 
 .error404 {
@@ -16,8 +15,19 @@
     font-weight: var(--fw-bold);
     font-size: 90px;
     line-height: 1;
-    color: var(--color-pastel-pink);
 }
+
+   .error404.theme-boy {
+       color: var(--color-french-pass);
+   }
+
+   .error404.theme-girl {
+       color: var(--color-pastel-pink);
+   }
+
+   .error404.theme-default {
+       color: var(--color-oasis);
+   }
 
 .title {
     margin: 0 0 10px 0;
@@ -34,6 +44,7 @@
 
 .text {
     margin: 0 0 30px 0;
+    text-align: center;
     font-size: 16px;
     color: var(--color-neutral);
 }

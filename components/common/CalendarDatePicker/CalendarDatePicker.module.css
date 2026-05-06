@@ -10,18 +10,6 @@
   font-size: 16px;
 }
 
-.placeholder {
-  border: 1px solid var(--opacity-transparent);
-  border-radius: 12px;
-  padding: 8px 12px;
-  width: 480px;
-  height: 40px;
-  background-color: var(--color-neutral-lightest);
-
-  font-family: 'Lato', sans-serif;
-  font-size: 16px;
-}
-
 :global(.react-datepicker__calendar-icon) {
   left: auto;
   right: 12px;
@@ -46,29 +34,143 @@
   min-height: 200px;
 }
 
-:global(.react-datepicker.theme-boy) {
-  background-color: var(--color-french-pass-lighter);
-  border: var(--color-french-pass-lighter);
-}
-
-:global(.react-datepicker.theme-girl) {
-  background-color: var(--color-pastel-pink-lighter);
-  border: var(--color-pastel-pink-lighter);
-}
-
-:global(.react-datepicker.theme-default) {
-  background-color: var(--color-oasis-lighter);
-  border: var(--color-oasis-lighter);
-}
-
+:global(.react-datepicker.theme-boy),
 :global(.react-datepicker.theme-boy .react-datepicker__header) {
   background-color: var(--color-french-pass-lighter);
 }
 
+:global(.react-datepicker.theme-girl),
 :global(.react-datepicker.theme-girl .react-datepicker__header) {
   background-color: var(--color-pastel-pink-lighter);
 }
 
+:global(.react-datepicker.theme-default),
 :global(.react-datepicker.theme-default .react-datepicker__header) {
   background-color: var(--color-oasis-lighter);
+}
+
+:global(.react-datepicker.theme-boy .react-datepicker__day:hover) {
+  background-color: var(--color-french-pass-light);
+  border-radius: 50%;
+}
+
+:global(.react-datepicker.theme-girl .react-datepicker__day:hover) {
+  background-color: var(--color-pastel-pink-light);
+  border-radius: 50%;
+}
+
+:global(.react-datepicker.theme-default .react-datepicker__day:hover) {
+  background-color: var(--color-oasis-light);
+  border-radius: 50%;
+}
+
+:global(.react-datepicker.theme-boy .react-datepicker__day--selected),
+:global(.react-datepicker.theme-boy .react-datepicker__day--keyboard-selected) {
+  background-color: var(--color-french-pass);
+  color: var(--color-scheme-text, #191919);
+  border-radius: 50%;
+}
+
+:global(.react-datepicker.theme-girl .react-datepicker__day--selected),
+:global(
+    .react-datepicker.theme-girl .react-datepicker__day--keyboard-selected
+  ) {
+  background-color: var(--color-pastel-pink);
+  color: var(--color-scheme-text, #191919);
+  border-radius: 50%;
+}
+
+:global(.react-datepicker.theme-default .react-datepicker__day--selected),
+:global(
+    .react-datepicker.theme-default .react-datepicker__day--keyboard-selected
+  ) {
+  background-color: var(--color-oasis);
+  color: var(--color-scheme-text);
+  border-radius: 50%;
+}
+
+:global(.react-datepicker.theme-boy .react-datepicker__day--selected:hover),
+:global(
+    .react-datepicker.theme-boy .react-datepicker__day--keyboard-selected:hover
+  ) {
+  background-color: var(--color-french-pass);
+}
+
+:global(.react-datepicker.theme-girl .react-datepicker__day--selected:hover),
+:global(
+    .react-datepicker.theme-girl .react-datepicker__day--keyboard-selected:hover
+  ) {
+  background-color: var(--color-pastel-pink);
+}
+
+:global(.react-datepicker.theme-default .react-datepicker__day--selected:hover),
+:global(
+    .react-datepicker.theme-default
+      .react-datepicker__day--keyboard-selected:hover
+  ) {
+  background-color: var(--color-oasis);
+}
+
+.datePickerWrapper {
+  position: relative;
+}
+
+.input.inputError,
+.input.inputError:hover,
+.input.inputError:focus,
+.input.inputError:active {
+  color: var(--color-red);
+  box-shadow: inset 0 0 0 2px var(--color-red);
+}
+
+.input.inputError::placeholder {
+  color: var(--color-red);
+}
+
+.errorSpan {
+  position: absolute;
+  top: calc(100% + 3px);
+  color: var(--color-red);
+  left: 0;
+}
+
+.input {
+  border-radius: 12px;
+  border: none;
+  box-shadow: inset 0 0 0 0 transparent;
+  padding: 8px 12px;
+  background-color: var(--opacity-neutral-darkest-5);
+  transition: box-shadow 250ms ease-in-out;
+}
+
+.theme-boy {
+}
+.theme-girl {
+}
+.theme-default {
+}
+
+.input.theme-boy:hover,
+.input.theme-boy:focus,
+.input.theme-boy:active {
+  box-shadow: inset 0 0 0 2px var(--color-french-pass);
+}
+
+.input.theme-girl:hover,
+.input.theme-girl:focus,
+.input.theme-girl:active {
+  box-shadow: inset 0 0 0 2px var(--color-pastel-pink);
+}
+
+.input.theme-default:hover,
+.input.theme-default:focus,
+.input.theme-default:active {
+  box-shadow: inset 0 0 0 2px var(--color-oasis);
+}
+
+.input.inputError,
+.input.inputError:hover,
+.input.inputError:focus,
+.input.inputError:active {
+  box-shadow: inset 0 0 0 2px var(--color-red);
 }

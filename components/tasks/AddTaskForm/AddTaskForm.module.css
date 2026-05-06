@@ -1,90 +1,105 @@
 .addTaskForm {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .addTaskformGroup {
-    display: flex;
-    position: relative;
-    flex-direction: column;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  margin-bottom: 24px;
 }
 
 .addTaskformGroup :global(.react-datepicker__input-container) {
-    position: inherit;
+  position: inherit;
 }
 
 .addTaskformGroup :global(.react-datepicker__view-calendar-icon input) {
-    width: 295px;
+  width: 295px;
 }
 
 .addTaskFormInput label {
-    margin-bottom: 8px;
-    line-height: 1.5;
+  margin-bottom: 8px;
+  line-height: 1.5;
 }
 
 .addTaskFormInput {
-    margin-bottom: 24px;
-    padding: 8px 12px;
-    width: 100%;
-    max-width: 295px;
-    height: 37px;
-    font-size: var(--fz-14);
-    border: 2px solid var(--opacity-transparent);
-    border-radius: 12px;
-    background-color: var(--opacity-neutral-darkest-5);
-    resize: none;
-    transition: border-color 250ms ease-in-out;
+  padding: 8px 12px;
+  width: 100%;
+  max-width: 295px;
+  height: 37px;
+  font-size: var(--fz-14);
+  border: 2px solid var(--opacity-transparent);
+  border-radius: 12px;
+  background-color: var(--opacity-neutral-darkest-5);
+  resize: none;
+  transition: border-color 250ms ease-in-out;
 }
 
 .addTaskFormInput::placeholder {
-    font-size: var(--fz-14);
-    font-weight: var(--fw-medium);
-    color: var(--opacity-neutral-darkest-60);
+  font-size: var(--fz-14);
+  font-weight: var(--fw-medium);
+  color: var(--opacity-neutral-darkest-60);
 }
 
 .addTaskFormInput:active::placeholder {
-    color: var(--color-neutral-darkest);
+  color: var(--color-neutral-darkest);
 }
 
 .addTaskFormInput:focus {
-    border: 2px solid var(--color-pastel-pink);
+  border: 2px solid var(--color-pastel-pink);
 }
 
 .addTaskFormInput:invalid {
-    border: 1px solid var(--color-red);
+  border: 1px solid var(--color-red);
 }
 
 .addTaskFormInput:invalid::placeholder {
-    color: var(--color-red);
+  color: var(--color-red);
 }
 
 .actions {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
+}
+
+.input-error {
+  color: var(--color-red);
+  box-shadow: inset 0 0 0 2px var(--color-red);
+}
+
+.input-error.input::placeholder {
+  color: var(--color-red);
+}
+
+.span {
+  position: absolute;
+  top: calc(100% + 3px);
+  color: var(--color-red);
 }
 
 .addTaskFormButton {
-    max-width: 295px;
-    height: 42px;
+  max-width: 295px;
+  height: 42px;
 }
 
 @media (min-width: 768px) {
-    .addTaskForm {
-        min-width: 640px;
-    }
+  .addTaskForm {
+    min-width: 640px;
+  }
 
-    .addTaskFormInput {
-        min-width: 640px;
-    }
+  .addTaskFormInput {
+    min-width: 640px;
+  }
 
-    .addTaskFormButton {
-        min-width: 268px;
-    }
+  .addTaskFormButton {
+    min-width: 268px;
+  }
 }
 
 @media (min-width: 1440px) {
-    .addTaskFormInput {
-        font-size: var(--fz-16);
-    }
+  .addTaskFormInput {
+    font-size: var(--fz-16);
+  }
 }
