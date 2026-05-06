@@ -1,7 +1,7 @@
 import { loginUser, UserLogCreds } from '@/lib/api/clientApi';
 import css from './LoginForm.module.css';
 import { Formik, Form, Field, FieldProps } from 'formik';
-import { useId, useState } from 'react';
+import { useId } from 'react';
 import * as Yup from 'yup';
 import { useMutation } from '@tanstack/react-query';
 import { useAuthStore } from '@/lib/store/authStore';
@@ -17,6 +17,11 @@ const initialValues: UserLogCreds = {
   password: '',
 };
 
+interface LoginFormProps {
+  isLoading: boolean;
+  setIsLoading: (isLoading: boolean) => void;
+}
+
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const formSchema = Yup.object().shape({
@@ -30,20 +35,19 @@ const formSchema = Yup.object().shape({
     .required("Обов'язково поле"),
 });
 
-const LoginForm = () => {
+const LoginForm = ({ isLoading, setIsLoading }: LoginFormProps) => {
   const fieldId = useId();
   const router = useRouter();
-  const [isRedirecting, setIsRedirecting] = useState(false);
   const setUser = useAuthStore((state) => state.setUser);
 
-  const { mutate, isPending } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
-      setIsRedirecting(true);
       setUser(data);
       router.push('/');
     },
     onError: (error) => {
+      setIsLoading(false);
       const err = error as AxiosError;
       ToastProvider.error(
         err.status === 401
@@ -53,9 +57,8 @@ const LoginForm = () => {
     },
   });
 
-  const isLoading = isPending || isRedirecting;
-
   const handleSubmit = (values: UserLogCreds): void => {
+    setIsLoading(true);
     mutate(values);
   };
 

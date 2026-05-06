@@ -5,12 +5,44 @@ import css from './page.module.css';
 import RegistrationForm from '@/components/auth/RegistrationForm/RegistrationForm';
 import Image from 'next/image';
 import { IMG_VARS } from '@/app/imgVars';
-import clsx from 'clsx';
 import Link from 'next/link';
 import AuthHeader from '@/components/auth/AuthHeader/AuthHeader';
 import Button from '@/components/common/Button/Button';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuthStore } from '@/lib/store/authStore';
+import { useGoogleLogin } from '@react-oauth/google';
+import { ToastProvider } from '@/components/common/Toast/ToastProvider';
+import { useMutation } from '@tanstack/react-query';
+import { loginGoogle } from '@/lib/api/clientApi';
 
 const Register = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
+  const setUser = useAuthStore((state) => state.setUser);
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: (codeResponce) => {
+      mutate(codeResponce);
+    },
+    onError: () => {
+      setIsLoading(false);
+      ToastProvider.error('Щось пішло не так.');
+    },
+  });
+
+  const { mutate } = useMutation({
+    mutationFn: loginGoogle,
+    onSuccess: (data) => {
+      setUser(data);
+      router.push('/');
+    },
+    onError: () => {
+      setIsLoading(false);
+      ToastProvider.error('Щось пішло не так. Вже лагодимо!');
+    },
+  });
+
   return (
     <>
       <div className={css.content}>
@@ -20,11 +52,19 @@ const Register = () => {
             <div className="container">
               <div className={css['form-content']}>
                 <h1 className={css.title}>Реєстрація</h1>
-                <RegistrationForm />
+                <RegistrationForm
+                  isLoading={isLoading}
+                  setIsLoading={setIsLoading}
+                />
                 <Button
                   className={css['google-button']}
                   type="button"
                   variant={'cancel'}
+                  onClick={() => {
+                    setIsLoading(true);
+                    googleLogin();
+                  }}
+                  disabled={isLoading}
                 >
                   <svg>
                     <use href="/sprite.svg#icon-Google"></use>

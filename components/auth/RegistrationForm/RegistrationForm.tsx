@@ -18,6 +18,11 @@ const initialValues: UserRegCreds = {
   password: '',
 };
 
+interface RegistrationFormProps {
+  isLoading: boolean;
+  setIsLoading: (isLoading: boolean) => void;
+}
+
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const formSchema = Yup.object().shape({
@@ -34,20 +39,22 @@ const formSchema = Yup.object().shape({
     .required("Обов'язково поле"),
 });
 
-const RegistrationForm = () => {
+const RegistrationForm = ({
+  isLoading,
+  setIsLoading,
+}: RegistrationFormProps) => {
   const fieldId = useId();
   const router = useRouter();
-  const [isRedirecting, setIsRedirecting] = useState(false);
   const setUser = useAuthStore((state) => state.setUser);
 
-  const { mutate, isPending } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: registerUser,
     onSuccess: (data) => {
-      setIsRedirecting(true);
       setUser(data);
       router.push('/profile/edit');
     },
     onError: (error) => {
+      setIsLoading(false);
       const err = error as AxiosError;
       ToastProvider.error(
         err.status === 400
@@ -57,9 +64,8 @@ const RegistrationForm = () => {
     },
   });
 
-  const isLoading = isPending || isRedirecting;
-
   const handleSubmit = (values: UserRegCreds): void => {
+    setIsLoading(true);
     mutate(values);
   };
 
