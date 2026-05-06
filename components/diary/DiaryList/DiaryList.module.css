@@ -69,6 +69,11 @@
     letter-spacing: 0.2px;
   }
 
+  .addButton {
+    font-size: 16px;
+    line-height: 26px;
+  }
+
   .list {
     overflow-y: auto;
     flex: 1;
