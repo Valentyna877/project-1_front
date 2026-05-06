@@ -1,6 +1,6 @@
 'use client';
 
-import { Formik, Form, Field, ErrorMessage, FieldProps } from 'formik';
+import { Formik, Form, Field, FieldProps } from 'formik';
 import * as Yup from 'yup';
 import { useQueryClient } from '@tanstack/react-query';
 import { ToastProvider } from '@/components/common/Toast/ToastProvider';
@@ -61,24 +61,33 @@ export default function AddDiaryEntryForm({ onSuccess }: Props) {
         <Form className={css.form}>
           <div className={css.fieldWrapper}>
             <label>Заголовок</label>
-            <Field
-              type="text"
-              name="title"
-              placeholder="Введіть заголовок запису"
-              className={css.input}
-            />
-            <div className={css.metaRow}>
-              <ErrorMessage
-                name="title"
-                component="span"
-                className={css.error}
-              />
-            </div>
+            <Field name="title">
+              {({ field, meta }: FieldProps<string>) => {
+                const hasError = meta.touched && !!meta.error;
+                return (
+                  <>
+                    <input
+                      {...field}
+                      type="text"
+                      placeholder="Введіть заголовок запису"
+                      className={`${css.input} ${hasError ? css.inputError : ''}`}
+                    />
+                    <div className={css.metaRow}>
+                      {hasError && (
+                        <span className={css.error}>{meta.error}</span>
+                      )}
+                    </div>
+                  </>
+                );
+              }}
+            </Field>
           </div>
 
           <div className={css.fieldWrapper}>
             <label className={css.label}>Категорії</label>
-            <MultiSelect />
+            <MultiSelect
+              hasError={submitCount > 0 && draft.emotions.length === 0}
+            />
             <div className={css.metaRow}>
               {submitCount > 0 && draft.emotions.length === 0 && (
                 <span className={css.error}>
@@ -91,30 +100,31 @@ export default function AddDiaryEntryForm({ onSuccess }: Props) {
           <div className={css.fieldWrapper}>
             <label>Запис</label>
             <Field name="text">
-              {({ field, form }: FieldProps<string>) => (
-                <>
-                  <textarea
-                    {...field}
-                    placeholder="Запишіть, як ви себе відчуваєте"
-                    className={css.textarea}
-                    maxLength={TEXT_MAX}
-                    onChange={(e) => {
-                      const v = e.target.value.slice(0, TEXT_MAX);
-                      form.setFieldValue(field.name, v);
-                    }}
-                  />
-                  <div className={css.metaRow}>
-                    <ErrorMessage
-                      name="text"
-                      component="span"
-                      className={css.error}
+              {({ field, form, meta }: FieldProps<string>) => {
+                const hasError = meta.touched && !!meta.error;
+                return (
+                  <>
+                    <textarea
+                      {...field}
+                      placeholder="Запишіть, як ви себе відчуваєте"
+                      className={`${css.textarea} ${hasError ? css.inputError : ''}`}
+                      maxLength={TEXT_MAX}
+                      onChange={(e) => {
+                        const v = e.target.value.slice(0, TEXT_MAX);
+                        form.setFieldValue(field.name, v);
+                      }}
                     />
-                    <span className={css.counter}>
-                      {(field.value ?? '').length}/{TEXT_MAX}
-                    </span>
-                  </div>
-                </>
-              )}
+                    <div className={css.metaRow}>
+                      {hasError && (
+                        <span className={css.error}>{meta.error}</span>
+                      )}
+                      <span className={css.counter}>
+                        {(field.value ?? '').length}/{TEXT_MAX}
+                      </span>
+                    </div>
+                  </>
+                );
+              }}
             </Field>
           </div>
 

@@ -9,14 +9,15 @@ type OptionType = {
   label: string; // title
 };
 
-const selectStyles: StylesConfig<OptionType> = {
+const buildSelectStyles = (hasError: boolean): StylesConfig<OptionType> => ({
   control: (styles, { isFocused }) => ({
     ...styles,
     outline: 'none',
-    boxShadow: 'none',
+    boxShadow: hasError ? 'inset 0 0 0 2px var(--color-red)' : 'none',
     backgroundColor: 'rgba(0, 0, 0, 0.05)',
     border: 'none',
     borderRadius: isFocused ? '12px 12px 0 0' : '12px',
+    '&:hover': { boxShadow: hasError ? 'inset 0 0 0 2px var(--color-red)' : 'none' },
   }),
   menu: (base) => ({
     ...base,
@@ -68,7 +69,7 @@ const selectStyles: StylesConfig<OptionType> = {
       },
     };
   },
-};
+});
 
 const Option = (props: OptionProps<OptionType>) => {
   const { isFocused, isSelected, label, innerProps } = props;
@@ -105,7 +106,11 @@ const Option = (props: OptionProps<OptionType>) => {
   );
 };
 
-export default function MultiSelect() {
+interface MultiSelectProps {
+  hasError?: boolean;
+}
+
+export default function MultiSelect({ hasError = false }: MultiSelectProps) {
   const MAX = 12;
   const emotions = useDiaryStore((s) => s.draft.emotions);
   const setEmotions = useDiaryStore((s) => s.setEmotions);
@@ -141,7 +146,7 @@ export default function MultiSelect() {
       hideSelectedOptions={false}
       blurInputOnSelect={false}
       components={{ Option }}
-      styles={selectStyles}
+      styles={buildSelectStyles(hasError)}
       menuPortalTarget={typeof window !== 'undefined' ? document.body : null}
       menuPosition="fixed"
       isClearable={false}

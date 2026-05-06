@@ -52,7 +52,8 @@
 
   .detailsWrapper {
     display: block;
-    width: 735px;
-    flex-shrink: 0;
+    flex: 1;
+    max-width: 643px;
+    min-width: 0;
   }
 }
