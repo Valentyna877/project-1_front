@@ -35,6 +35,11 @@
 
 .textarea {
   height: 250px;
+  scrollbar-width: none;
+}
+
+.textarea::-webkit-scrollbar {
+  display: none;
 }
 
 .input::placeholder,
@@ -50,6 +55,15 @@
   margin-bottom: 8px;
   font-size: 12px;
   color: var(--color-red);
+}
+
+.counter {
+  display: block;
+  margin-top: -16px;
+  margin-bottom: 8px;
+  font-size: 12px;
+  color: var(--opacity-neutral-darkest-60);
+  text-align: right;
 }
 
 .fieldWrapper .error {

@@ -19,12 +19,15 @@ interface Props {
   onSuccess: (entry?: DiaryEntry) => void;
 }
 
+const TEXT_MAX = 1000;
+
 const validationSchema = Yup.object().shape({
   title: Yup.string()
     .min(3, 'Занадто короткий заголовок')
     .required("Заголовок обов'язковий"),
   text: Yup.string()
     .min(10, 'Запис має бути інформативнішим')
+    .max(TEXT_MAX)
     .required('Поле запису не може бути порожнім'),
 });
 
@@ -69,20 +72,35 @@ export default function AddDiaryEntryForm({ onSuccess }: Props) {
         <div className={css.fieldWrapper}>
           <label className={css.label}>Категорії</label>
           <MultiSelect />
-          {draft.emotions.length === 0 && (
-            <span className={css.error}>Оберіть хоча б одну категорію</span>
-          )}
         </div>
 
         <div className={css.fieldWrapper}>
           <label>Запис</label>
-          <Field
-            as="textarea"
-            name="text"
-            placeholder="Запишіть, як ви себе відчуваєте"
-            className={css.textarea}
-          />
-          <ErrorMessage name="text" component="span" className={css.error} />
+          <Field name="text">
+            {({
+              field,
+              form,
+            }: {
+              field: { value: string; name: string; onBlur: (e: React.FocusEvent) => void };
+              form: { setFieldValue: (n: string, v: string) => void };
+            }) => (
+              <>
+                <textarea
+                  {...field}
+                  placeholder="Запишіть, як ви себе відчуваєте"
+                  className={css.textarea}
+                  maxLength={TEXT_MAX}
+                  onChange={(e) => {
+                    const v = e.target.value.slice(0, TEXT_MAX);
+                    form.setFieldValue(field.name, v);
+                  }}
+                />
+                <span className={css.counter}>
+                  {(field.value ?? '').length}/{TEXT_MAX}
+                </span>
+              </>
+            )}
+          </Field>
         </div>
 
         <div className={css.actions}>

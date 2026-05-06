@@ -111,6 +111,14 @@
   color: #000;
 }
 
+.wrapper {
+  scrollbar-width: none;
+}
+
+.wrapper::-webkit-scrollbar {
+  display: none;
+}
+
 @media (min-width: 1440px) {
   .wrapper {
     height: 727px;
@@ -126,18 +134,5 @@
   .text {
     font-size: 16px;
     line-height: 24px;
-  }
-
-  .wrapper::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  .wrapper::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .wrapper::-webkit-scrollbar-thumb {
-    background: var(--color-scheme-foreground-alt);
-    border-radius: 2px;
   }
 }
