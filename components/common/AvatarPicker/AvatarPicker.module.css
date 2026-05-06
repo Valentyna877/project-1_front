@@ -1,4 +1,4 @@
-.picker {
+/* /* .picker {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,13 +23,22 @@
   align-items: center;
 }
 
-.changeButton {
+.changeButton.changeButton {
+  font-family: var(--font-family);
+  border: none;
+  outline: none;
   font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #000;
   border-radius: 100px;
-  padding: 8px 20px;
+  padding: 8px 10px;
   text-align: center;
   cursor: pointer;
-  transition: background-color 150ms ease, box-shadow 150ms ease;
+  transition:
+    background-color 150ms ease,
+    box-shadow 150ms ease;
 }
 
 .changeButton.theme-boy:hover {
@@ -78,15 +87,157 @@
 
 /* PROFILE */
 
+/* .profile {
+  margin-bottom: 32px;
+}
+
+.profileButton.profileButton {
+  font-family: var(--font-family);
+  width: 335px;
+  height: 38px;
+  background: var(--opacity-neutral-darkest-5);
+  border-bottom: 4px solid var(--opacity-neutral-darkest-15);
+}
+
+@media (min-width: 768px) {
+  .profile {
+    flex-direction: row;
+    gap: 12px;
+  }
+
+  .profile .content {
+    align-items: flex-start;
+  }
+
+  .profileButton.profileButton {
+    width: 218px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .profileButton.profileButton {
+    font-family: 'Lato', sans-serif;
+    height: 42px;
+  }
+} */
+
+/* ONBOARDING */
+
+/* .avatarWrapper {
+  width: 164px;
+  height: 164px;
+}
+
+.onboarding {
+  flex-direction: column;
+  gap: 24px;
+}
+
+.onboarding {
+  margin-bottom: 32px;
+}
+
+.onboardingButton.onboardingButton {
+  min-width: 162px;
+  height: 38px;
+  background: var(--opacity-neutral-darkest-5);
+  border-bottom: 4px solid var(--opacity-neutral-darkest-15);
+}
+
+@media (min-width: 768px) {
+  .onboardingButton.onboardingButton {
+    width: 218px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .onboardingButton.onboardingButton {
+    height: 42px;
+  }
+}  */
+.picker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatarWrapper {
+  position: relative;
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.avatarImage {
+  object-fit: cover;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.changeButton {
+  font-family: var(--font-family);
+}
+
+/* .changeButton.theme-boy:hover {
+  background-color: var(--color-french-pass-lighter);
+  box-shadow: inset 0 -4px 0 0 var(--color-french-pass);
+}
+
+.changeButton.theme-girl:hover {
+  background-color: var(--color-pastel-pink-lighter);
+  box-shadow: inset 0 -4px 0 0 var(--color-pastel-pink);
+}
+
+.changeButton.theme-default:hover {
+  background-color: var(--color-oasis-lighter);
+  box-shadow: inset 0 -4px 0 0 var(--color-oasis);
+}
+
+.changeButton.theme-boy:focus-within {
+  outline: 2px solid var(--color-french-pass);
+  outline-offset: 2px;
+}
+
+.changeButton.theme-girl:focus-within {
+  outline: 2px solid var(--color-pastel-pink);
+  outline-offset: 2px;
+}
+
+.changeButton.theme-default:focus-within {
+  outline: 2px solid var(--color-oasis);
+  outline-offset: 2px;
+}
+
+.changeButton.disabled,
+.changeButton.disabled:hover {
+  cursor: not-allowed;
+  opacity: 0.6;
+  pointer-events: none;
+  background-color: transparent;
+  box-shadow: none;
+} */
+
+.error {
+  color: #e53935;
+  font-size: 12px;
+}
+
+/* PROFILE */
+
 .profile {
   margin-bottom: 32px;
 }
 
 .profileButton {
+  /* font-family: var(--font-family); */
   width: 335px;
   height: 38px;
-  background: var(--opacity-neutral-darkest-5);
-  border-bottom: 4px solid var(--opacity-neutral-darkest-15);
 }
 
 @media (min-width: 768px) {
@@ -107,6 +258,7 @@
 @media (min-width: 1440px) {
   .profileButton {
     height: 42px;
+    font-size: 16px;
   }
 }
 
@@ -126,21 +278,23 @@
   margin-bottom: 32px;
 }
 
-.onboardingButton {
+.onboardingButton.onboardingButton {
+  font-family: var(--font-family);
   min-width: 162px;
   height: 38px;
-  background: var(--opacity-neutral-darkest-5);
-  border-bottom: 4px solid var(--opacity-neutral-darkest-15);
+  padding: 8px 10px;
 }
 
 @media (min-width: 768px) {
   .onboardingButton {
-    width: 218px;
+    width: 164px;
   }
 }
 
 @media (min-width: 1440px) {
-  .onboardingButton {
+  .onboardingButton.onboardingButton {
+    font-size: 16px;
+    width: 179px;
     height: 42px;
   }
 }
