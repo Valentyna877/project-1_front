@@ -86,4 +86,24 @@
     background: var(--color-scheme-foreground-alt);
     border-radius: 2px;
   }
+
+  .addButton:hover .btnInner {
+    animation: addBtnAnimation .5s ease-in-out
+  }
+}
+
+@keyframes addBtnAnimation {
+  0% {
+    transform: translateY(0);
+    transform: rotateY(200deg);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0);
+    transform: rotateY(-200deg);
+  }
 }

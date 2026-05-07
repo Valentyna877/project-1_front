@@ -80,7 +80,7 @@
         margin: 16px 0 32px 0;
     }
 
-    .addTaskBtn:hover .btnWrapper {
+    .addTaskBtn:hover .btnInner {
     animation: addBtnAnimation .5s ease-in-out;
     }
 

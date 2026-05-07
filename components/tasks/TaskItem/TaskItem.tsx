@@ -43,7 +43,7 @@ export default function TaskItem({
             className={css.deleteBtn}
             onClick={() => handleDeleteTask(task._id)}
           >
-            <div className={css.btnWrapper}>
+            <div className={css.btnInner}>
               <svg width={18} height={18}>
                 <use href="/sprite.svg#icon-delete_forever" />
               </svg>

@@ -42,7 +42,7 @@
         transition: opacity 250ms ease-in-out;
     }
 
-    .deleteBtn:hover .btnWrapper {
+    .deleteBtn:hover .btnInner {
         animation: deleteBtnAnim .5s ease-in-out
     }
 }
