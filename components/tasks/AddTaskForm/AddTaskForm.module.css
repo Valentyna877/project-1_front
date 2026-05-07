@@ -29,17 +29,20 @@
   width: 100%;
   max-width: 295px;
   height: 37px;
+  font-family: var(--font-family), sans-serif;
   font-size: var(--fz-14);
-  border: 2px solid var(--opacity-transparent);
+
+  border: none;
   border-radius: 12px;
   background-color: var(--opacity-neutral-darkest-5);
   resize: none;
-  transition: border-color 250ms ease-in-out;
+  box-shadow: inset 0 0 0 0 transparent;
+
+  transition: box-shadow 250ms ease-in-out;
 }
 
 .addTaskFormInput::placeholder {
   font-size: var(--fz-14);
-  font-weight: var(--fw-medium);
   color: var(--opacity-neutral-darkest-60);
 }
 
@@ -47,8 +50,21 @@
   color: var(--color-neutral-darkest);
 }
 
-.addTaskFormInput:focus {
-  border: 2px solid var(--color-pastel-pink);
+.addTaskFormInput.theme-girl:focus,
+.addTaskFormInput.theme-girl:active,
+.addTaskFormInput.theme-girl:hover {
+  box-shadow: inset 0 0 0 2px var(--color-pastel-pink);
+}
+.addTaskFormInput.theme-boy:focus,
+.addTaskFormInput.theme-boy:active,
+.addTaskFormInput.theme-boy:hover {
+  box-shadow: inset 0 0 0 2px var(--color-french-pass);
+}
+
+.addTaskFormInput.theme-default:focus,
+.addTaskFormInput.theme-default:active,
+.addTaskFormInput.theme-default:hover {
+  box-shadow: inset 0 0 0 2px var(--color-oasis);
 }
 
 .addTaskFormInput:invalid {

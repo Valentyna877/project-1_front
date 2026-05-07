@@ -9,6 +9,7 @@ import css from './AddDiaryEntryForm.module.css';
 import { useDiaryStore } from '@/lib/store/diaryStore';
 import Button from '@/components/common/Button/Button';
 import { DiaryEntry } from '@/types/diary';
+import { useTheme } from '@/hooks/useTheme';
 
 interface FormValues {
   title: string;
@@ -34,6 +35,7 @@ const validationSchema = Yup.object().shape({
 export default function AddDiaryEntryForm({ onSuccess }: Props) {
   const queryClient = useQueryClient();
   const { submitDraft, setDraft, isSaving, draft, editingId } = useDiaryStore();
+  const { themeClass } = useTheme();
 
   const defaultValues: FormValues = {
     title: draft.title,
@@ -70,7 +72,7 @@ export default function AddDiaryEntryForm({ onSuccess }: Props) {
                       {...field}
                       type="text"
                       placeholder="Введіть заголовок запису"
-                      className={`${css.input} ${hasError ? css.inputError : ''}`}
+                      className={`${css.input} ${css[themeClass]} ${hasError ? css.inputError : ''}`}
                     />
                     <div className={css.metaRow}>
                       {hasError && (
@@ -90,9 +92,7 @@ export default function AddDiaryEntryForm({ onSuccess }: Props) {
             />
             <div className={css.metaRow}>
               {submitCount > 0 && draft.emotions.length === 0 && (
-                <span className={css.error}>
-                  Оберіть хоча б одну категорію
-                </span>
+                <span className={css.error}>Оберіть хоча б одну категорію</span>
               )}
             </div>
           </div>
@@ -107,7 +107,7 @@ export default function AddDiaryEntryForm({ onSuccess }: Props) {
                     <textarea
                       {...field}
                       placeholder="Запишіть, як ви себе відчуваєте"
-                      className={`${css.textarea} ${hasError ? css.inputError : ''}`}
+                      className={`${css.textarea} ${css[themeClass]} ${hasError ? css.inputError : ''}`}
                       maxLength={TEXT_MAX}
                       onChange={(e) => {
                         const v = e.target.value.slice(0, TEXT_MAX);

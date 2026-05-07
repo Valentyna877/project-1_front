@@ -20,14 +20,26 @@ const buildSelectStyles = (
   hasError: boolean,
   accent: string
 ): StylesConfig<OptionType> => ({
-  control: (styles, { isFocused }) => ({
+  control: (styles, { isFocused, menuIsOpen }) => ({
     ...styles,
     outline: 'none',
-    boxShadow: hasError ? 'inset 0 0 0 2px var(--color-red)' : 'none',
+    boxShadow: hasError
+      ? 'inset 0 0 0 2px var(--color-red)'
+      : 'inset 0 0 0 0 transparent',
     backgroundColor: 'rgba(0, 0, 0, 0.05)',
     border: 'none',
     borderRadius: isFocused ? '12px 12px 0 0' : '12px',
-    '&:hover': { boxShadow: hasError ? 'inset 0 0 0 2px var(--color-red)' : 'none' },
+    transition: 'box-shadow 250ms ease-in-out',
+    '&:hover': {
+      boxShadow: hasError
+        ? 'inset 0 0 0 2px var(--color-red)'
+        : isFocused
+          ? 'none'
+          : `inset 0 0 0 2px ${accent}`,
+    },
+    '&:focus-within': {
+      boxShadow: hasError ? 'inset 0 0 0 2px var(--color-red)' : 'none',
+    },
   }),
   menu: (base) => ({
     ...base,
@@ -53,6 +65,15 @@ const buildSelectStyles = (
       lineHeight: '160%',
     };
   },
+  placeholder: (base, state) => ({
+    ...base,
+    fontFamily: '"Lato", sans-serif',
+    color: 'var(--opacity-neutral-darkest-60)',
+    fontSize: 14,
+    '@media (min-width: 1440px)': {
+      fontSize: 16,
+    },
+  }),
   multiValueRemove: (base) => ({
     ...base,
     display: 'none',

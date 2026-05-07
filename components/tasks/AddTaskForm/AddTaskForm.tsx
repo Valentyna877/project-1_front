@@ -16,6 +16,7 @@ import { createTask, NewTask } from '@/lib/api/clientApi';
 import Button from '@/components/common/Button/Button';
 import CalendarDatePicker from '@/components/common/CalendarDatePicker/CalendarDatePicker';
 import { toast } from 'sonner';
+import { useTheme } from '@/hooks/useTheme';
 
 interface TaskFormProps {
   onClose?: () => void;
@@ -51,6 +52,7 @@ const AddTaskFormSchema = Yup.object().shape({
 export default function AddTaskForm({ onClose }: TaskFormProps) {
   const fieldId = useId();
   const queryClient = useQueryClient();
+  const { themeClass } = useTheme();
   const mutation = useMutation({
     mutationFn: createTask,
     onSuccess: () => {
@@ -98,7 +100,7 @@ export default function AddTaskForm({ onClose }: TaskFormProps) {
                       type="text"
                       id={`${fieldId}-name`}
                       placeholder="Введіть назву завдання"
-                      className={`${css.addTaskFormInput} ${hasError ? css['input-error'] : ''}`}
+                      className={`${css.addTaskFormInput} ${css[themeClass]} ${hasError ? css['input-error'] : ''}`}
                     />
                     {hasError && <span className={css.span}>{meta.error}</span>}
                   </>
