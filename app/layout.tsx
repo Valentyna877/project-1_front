@@ -5,7 +5,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Toaster } from 'sonner';
 import AuthProvider from '@/components/layout/AuthProvider/AuthProvider';
 import TanStackProvider from '@/components/layout/TanStackProvider/TanStackProvider';
-import Loader from '@/components/common/Loader/Loader';
+// import Loader from '@/components/common/Loader/Loader';
 
 const comfortaa = Comfortaa({
   subsets: ['latin', 'latin-ext', 'cyrillic', 'cyrillic-ext'],
