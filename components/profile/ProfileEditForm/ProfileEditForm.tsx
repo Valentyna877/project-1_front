@@ -15,14 +15,7 @@ import FormikGenderSelect from '@/components/common/GenderSelect/FormikGenderSel
 import { ToastProvider } from '@/components/common/Toast/ToastProvider';
 import { CalendarIcon } from 'lucide-react';
 import { useTheme } from '@/hooks/useTheme';
-import {
-  ErrorMessage,
-  Field,
-  FieldProps,
-  Form,
-  Formik,
-  FormikHelpers,
-} from 'formik';
+import { Field, FieldProps, Form, Formik, FormikHelpers } from 'formik';
 
 interface ProfileEditFormProps {
   user: User;
@@ -67,8 +60,8 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
   const router = useRouter();
 
   const initialValues: ProfileEditFormValues = {
-    name: user.name,
-    email: user.email,
+    name: '',
+    email: '',
     gender: user.gender,
     dueDate: normalizeDate(user.date),
   };
@@ -125,42 +118,6 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
     >
       {({ resetForm, dirty, isSubmitting }) => (
         <Form className={styles.form}>
-          {/* <div className={styles.field}>
-            <label htmlFor={`${fieldId}-name`} className={styles.label}>
-              Ім&apos;я
-            </label>
-            <Field
-              type="text"
-              name="name"
-              id={`${fieldId}-name`}
-              placeholder={user.name}
-              className={`${styles.input} ${styles[themeClass]}`}
-            />
-            <ErrorMessage
-              name="name"
-              component="span"
-              className={styles.error}
-            />
-          </div>
-
-          <div className={styles.field}>
-            <label htmlFor={`${fieldId}-email`} className={styles.label}>
-              Пошта
-            </label>
-            <Field
-              type="email"
-              name="email"
-              id={`${fieldId}-email`}
-              placeholder={user.email}
-              className={`${styles.input} ${styles[themeClass]}`}
-              readOnly
-            />
-            <ErrorMessage
-              name="email"
-              component="span"
-              className={styles.error}
-            />
-          </div> */}
           <div className={styles.field}>
             <label htmlFor={`${fieldId}-name`} className={styles.label}>
               Ім&apos;я
@@ -213,10 +170,7 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
           </div>
           <div className={styles.genderField}>
             <label className={styles.label}>Стать дитини</label>
-            <FormikGenderSelect
-              // styles={genderSelectStyles}
-              themeClass={themeClass}
-            />
+            <FormikGenderSelect themeClass={themeClass} />
           </div>
 
           <div className={styles.dateField}>
@@ -257,6 +211,18 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
               Зберегти зміни
             </Button>
           </div>
+          <Button
+            className={styles.btnChange}
+            variant="cancel"
+            size="sm"
+            onClick={() =>
+              ToastProvider.success(
+                'Лист для зміни пошти та пароля надіслано на пошту'
+              )
+            }
+          >
+            Змінити пошту та пароль
+          </Button>
         </Form>
       )}
     </Formik>
