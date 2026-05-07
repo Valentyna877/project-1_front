@@ -104,5 +104,5 @@ h6 {
 
 /* .body-lock {
   overflow: hidden;
-  padding-right: var(--scrollbar-width, 0px);
+  padding-right: 0px;
 } */

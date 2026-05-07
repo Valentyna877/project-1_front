@@ -152,7 +152,7 @@ export default function TasksReminderCard() {
 
   return (
     <div className={`${css.taskCardBox} ${css[themeClass]}`}>
-      <div className={css.scrollContent}>
+      <div className={`${css.scrollContent} ${css[themeClass]}`}>
       <div className={css.taskTitleBox}>
         <h2>Важливі завдання</h2>
         <button className={css.addTaskBtn} onClick={handleOpenModal}>

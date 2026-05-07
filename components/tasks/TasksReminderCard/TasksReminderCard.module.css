@@ -4,54 +4,8 @@
     padding: 24px;
     width: 335px;
     margin: 0 0 32px 0;
-    /* overflow: auto; */
-    /* overflow: visible; */
-    height: 390px;
-    /* max-height: 60vh; */
-    /* overflow: hidden; */
-    /* overflow-y: auto;
-    overflow-x: hidden; */
-    /* outline: transparent; */
-    /* scrollbar-width: thin;
-    scrollbar-color: #888 #f0f0f0; */
-    scrollbar-width: none;
-    
-}
-
-/* .scrollContent:hover {
-    overflow-y: auto;
-} */
-
-.scrollContent {
-    height: 100%;
-    overflow-x: hidden;
-    overflow: hidden;
-    overflow-y: scroll;
-}
-
-/* .body-lock {
-    overflow: hidden;
-    padding-right: var(--scrollbar-width, 0px);
-} */
-
-.scrollContent::-webkit-scrollbar {
-    width: 1px;
-    background: transparent;
-}
-
-.scrollContent::-webkit-scrollbar-track {
-    background: transparent;
-    border-radius: 2px;
-}
-
-.scrollContent::-webkit-scrollbar-thumb {
-    background: var(--color-oasis-light);
-    /* border-radius: 2px;
-    border: 2px solid var(--color-mariner-lightest); */
-}
-
-.scrollContent:hover::-webkit-scrollbar-thumb {
-    background: var(--color-oasis);
+    overflow: auto;
+    overflow: visible;
 }
 
 .taskCardBox.theme-boy {
@@ -124,6 +78,7 @@
         width: 390px;
         height: 498px;
         margin: 16px 0 32px 0;
+        scrollbar-width: none;
     }
 
     .addTaskBtn:hover {
@@ -132,6 +87,38 @@
 
     .taskSection {  
         font-size: 16px;
+    }
+
+    .scrollContent:hover {
+        overflow-y: auto;
+    }
+    
+    .scrollContent {
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+    
+    .scrollContent::-webkit-scrollbar {
+        width: 3px;
+        background: transparent; 
+    }
+    
+    .scrollContent::-webkit-scrollbar-track {
+        background: transparent;
+        border-radius: 2px;
+    }
+
+    .theme-boy.scrollContent:hover::-webkit-scrollbar-thumb  {
+        background-color: var(--color-french-pass);
+    }
+    
+    .theme-girl.scrollContent:hover::-webkit-scrollbar-thumb  {
+        background-color: var(--color-pastel-pink);
+    }
+    
+    .theme-default.scrollContent:hover::-webkit-scrollbar-thumb  {
+        background-color: var(--color-oasis);
     }
 }
 

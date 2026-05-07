@@ -48,11 +48,11 @@
 }
 
 .btnClose {
-  font-family: var(--font-family);
+  font-family: var(--font-family), sans-serif;
   width: 160px;
 }
 .btnSubmit {
-  font-family: var(--font-family);
+  font-family: var(--font-family), sans-serif;
   width: 160px;
 }
 
