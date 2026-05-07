@@ -1,6 +1,14 @@
 .form {
   max-width: 335px;
 }
+.field {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative; /* потрібно для absolute span */
+  margin-bottom: 24px; /* переносимо сюди з .input */
+}
+
 .label {
   font-family: var(--font-family), sans-serif;
   margin-bottom: 8px;
@@ -23,7 +31,7 @@
   padding: 8px 12px;
   width: 100%;
   height: 37px;
-  margin-bottom: 24px;
+  /* margin-bottom: 24px; */
   background: rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 0 0 0 transparent;
 
@@ -46,6 +54,24 @@
 .input.theme-default:active {
   box-shadow: inset 0 0 0 2px var(--color-oasis);
 }
+.input.inputError,
+.input.inputError:hover,
+.input.inputError:focus,
+.input.inputError:active {
+  color: var(--color-red);
+  box-shadow: inset 0 0 0 2px var(--color-red);
+}
+
+.input.inputError::placeholder {
+  color: var(--color-red);
+}
+.errorInput {
+  position: absolute;
+  top: calc(100%);
+  color: var(--color-red);
+  left: 0;
+}
+
 .genderField {
   margin-bottom: 24px;
 }

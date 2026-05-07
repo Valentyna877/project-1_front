@@ -118,7 +118,7 @@ import css from './AvatarPicker.module.css';
 import { getUser, updateAvatar } from '@/lib/api/clientApi';
 import { useAuthStore } from '@/lib/store/authStore';
 import { ToastProvider } from '@/components/common/Toast/ToastProvider';
-import { useTheme, Theme } from '@/hooks/useTheme';
+import { Theme } from '@/hooks/useTheme';
 import Button from '@/components/common/Button/Button';
 import clsx from 'clsx';
 
@@ -198,7 +198,7 @@ function AvatarPicker({
         {children}
         <Button
           className={clsx(css.changeButton, css[`${variant}Button`])}
-          variant="normal"
+          variant="cancel"
           size="sm"
           isLoading={loading}
           loadingText="Завантаження..."
