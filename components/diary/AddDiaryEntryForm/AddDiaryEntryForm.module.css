@@ -1,42 +1,62 @@
 .form {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
 }
 
 .fieldWrapper {
+  position: relative;
   display: flex;
   flex-direction: column;
-  position: relative;
-}
-
-.counter {
-  display: block;
-  right: 20px;
-  font-size: 10px;
-  color: var(--color-neutral-darkest);
-  margin-top: 0;
-  text-align: right;
-  margin-bottom: 16px;
+  align-self: stretch;
+  gap: 8px;
+  padding-bottom: 24px;
 }
 
 .fieldWrapper label,
 .label {
-  margin-bottom: 8px;
-  font-size: var(--fz-14);
-  line-height: 1.5;
+  font-size: 14px;
+  line-height: 21px;
+  color: #000;
 }
 
 .input,
 .textarea {
-  margin-bottom: 24px;
+  align-self: stretch;
   padding: 8px 12px;
-  width: 100%;
-  max-width: 295px;
-  font-size: var(--fz-14);
+  font-size: 14px;
+  line-height: 21px;
+  color: #000;
+  background: var(--opacity-neutral-darkest-5);
   border: none;
   border-radius: 12px;
-  background-color: var(--opacity-neutral-darkest-5);
+}
+
+.inputError {
+  box-shadow: inset 0 0 0 2px var(--color-red);
+}
+
+:global(.diarySelect__menu-list) {
+  scrollbar-width: auto;
+}
+
+:global(.diarySelect__menu-list)::-webkit-scrollbar {
+  width: 10px;
+}
+
+:global(.diarySelect__menu-list)::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+:global(.diarySelect__menu-list)::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-accent, #adeffe);
+  border-radius: 4px;
+  width: 10px;
+  height: 56px;
 }
 
 .input {
@@ -45,32 +65,49 @@
 
 .textarea {
   height: 250px;
-  margin-bottom: 8px;
+  padding: 12px;
+  resize: none;
+  scrollbar-width: none;
+}
+
+.textarea::-webkit-scrollbar {
+  display: none;
 }
 
 .input::placeholder,
 .textarea::placeholder {
-  font-size: var(--fz-14);
-  font-weight: var(--fw-medium);
+  font-size: 14px;
   color: var(--opacity-neutral-darkest-60);
 }
 
+.metaRow {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 18px;
+}
+
 .error {
-  display: block;
-  margin-top: -16px;
-  margin-bottom: 8px;
   font-size: 12px;
+  line-height: 18px;
   color: var(--color-red);
 }
 
-.fieldWrapper .error {
-  margin-top: 4px;
-  margin-bottom: 0;
+.counter {
+  margin-left: auto;
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--opacity-neutral-darkest-60);
 }
 
 .actions {
   display: flex;
   justify-content: center;
+  align-self: stretch;
 }
 
 .submitBtn {
@@ -84,17 +121,15 @@
 }
 
 @media (min-width: 768px) {
-
   .input,
   .textarea {
-    min-width: 640px;
-    max-width: 100%;
-    font-size: var(--fz-16);
+    font-size: 16px;
+    line-height: 24px;
   }
 
   .input::placeholder,
   .textarea::placeholder {
-    font-size: var(--fz-16);
+    font-size: 16px;
   }
 
   .submitBtn {

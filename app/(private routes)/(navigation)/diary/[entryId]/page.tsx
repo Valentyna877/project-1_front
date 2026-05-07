@@ -1,115 +1,80 @@
-// 'use client';
+'use client';
 
-// import { useEffect, useState } from 'react';
-// import { useParams } from 'next/navigation';
-// import { useRouter } from 'next/navigation';
-// import styles from './page.module.css';
-// import DiaryEntryDetails from '@/components/diary/DiaryEntryDetails/DiaryEntryDetails';
-// import { DiaryEntry } from '@/types/diary';
-// import { deleteDiary, getDiary } from '@/lib/api/clientApi';
-// import ConfirmationModal from '@/components/common/ConfirmationModal/ConfirmationModal';
-// import { toast } from 'sonner';
-// import { useMutation } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import styles from './page.module.css';
+import DiaryEntryDetails from '@/components/diary/DiaryEntryDetails/DiaryEntryDetails';
+import AddDiaryEntryModal from '@/components/diary/AddDiaryEntryModal/AddDiaryEntryModal';
+import { DiaryEntry } from '@/types/diary';
+import { deleteDiary, getDiary } from '@/lib/api/clientApi';
+import { useDiaryStore } from '@/lib/store/diaryStore';
+import { useTheme } from '@/hooks/useTheme';
+import { toast } from 'sonner';
 
-// export default function DiaryEntryPage() {
-//   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-//   const { entryId } = useParams<{ entryId: string }>();
-//   const router = useRouter();
-//   const [entry, setEntry] = useState<DiaryEntry | null>(null);
-//   const [isLoading, setIsLoading] = useState(true);
-//   const [entries, setEntries] = useState<DiaryEntry[]>([]);
-//   const [selectedEntry, setSelectedEntry] = useState<DiaryEntry | null>(null);
+export default function DiaryEntryPage() {
+  const { entryId } = useParams<{ entryId: string }>();
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  const { themeClass } = useTheme();
+  const { setEditingEntry, clearDraft } = useDiaryStore();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-//   // const deleteMutation = useMutation({
-//   //   mutationFn: deleteDiary,
-//   //   onSuccess: () => {
-//   //     console.log('success');
-//   //   },
-//   //   onError: () => {
-//   //     console.log('error');
-//   //   },
-//   // });
-//   // const handleDelete = (entryId: string) => {
-//   //   deleteMutation.mutate(entryId);
-//   // };
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1440px)');
+    const apply = () => {
+      if (mq.matches) router.replace('/diary');
+    };
+    apply();
+    mq.addEventListener('change', apply);
+    return () => mq.removeEventListener('change', apply);
+  }, [router]);
 
-//   // const [removeEntry, setRemoveEntry] = useState(false);
+  const { data: entry, isLoading } = useQuery<DiaryEntry>({
+    queryKey: ['diary', entryId],
+    queryFn: () => getDiary(entryId),
+    enabled: !!entryId,
+  });
 
-//   useEffect(() => {
-//     getDiary(entryId)
-//       .then(setEntry)
-//       .catch(console.error)
-//       .finally(() => setIsLoading(false));
-//   }, [entryId]);
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteDiary(id);
+      toast.success('Запис видалено');
+      queryClient.invalidateQueries({ queryKey: ['diary'] });
+      router.push('/diary');
+    } catch {
+      toast.error('Не вдалося видалити. Спробуйте пізніше');
+    }
+  };
 
-//   const handleDeleteClick = () => {
-//     setIsDeleteModalOpen(true);
-//   };
+  const handleEdit = (e: DiaryEntry) => {
+    setEditingEntry(e);
+    setIsModalOpen(true);
+  };
 
-//   const handleDelete = async (entryId: string) => {
-//     try {
-//       await deleteDiary(entryId);
-//       console.log(entryId);
+  const handleModalClose = (updated?: DiaryEntry) => {
+    setIsModalOpen(false);
+    clearDraft();
+    if (updated) {
+      queryClient.setQueryData(['diary', entryId], updated);
+      queryClient.invalidateQueries({ queryKey: ['diary'] });
+    }
+  };
 
-//       const updated = entries.filter((e) => e.id !== entryId);
-//       console.log(updated);
+  if (isLoading) return <p className={styles.loading}>Завантаження...</p>;
 
-//       setEntries(updated);
-
-//       setSelectedEntry(updated[0] ?? null);
-//     } catch (error) {
-//       console.error('Failed to delete entry:', error);
-//     }
-//   };
-
-//   // const handleDelete = async (id: string) => {
-//   //   try {
-//   //     await deleteDiary(id);
-//   //     router.push('/diary');
-//   //     toast.success('Запис видалено');
-//   //   } catch {
-//   //     toast.error('Не вдалося видалити. Спробуйте пізніше');
-//   //   }
-//   // };
-
-//   // const handleConfirmDelete = async () => {
-//   //   try {
-//   //     await removeEntry(entryId);
-//   //   } catch (error) {}
-//   // };
-
-//   // const handleDelete = async (entryId: string) => {
-//   //   try {
-//   //     await deleteDiary(entryId);
-//   //     console.log(entryId);
-
-//   //     const updated = entries.filter((e) => e.id !== entryId);
-//   //     console.log(updated);
-
-//   //     setEntries(updated);
-
-//   //     setSelectedEntry(updated[0] ?? null);
-//   //   } catch (error) {
-//   //     console.error('Failed to delete entry:', error);
-//   //   }
-//   // };
-
-//   if (isLoading) return <p className={styles.loading}>Завантаження...</p>;
-
-//   return (
-//     <div className={styles.page}>
-//       <DiaryEntryDetails entry={entry} onDelete={handleDelete} />
-//       <ConfirmationModal
-//         isOpen={isDeleteModalOpen}
-//         title="Ви точно хочете видалити?"
-//         confirmButtonText="Видалити"
-//         cancelButtonText="Скасувати"
-//         onConfirm={handleDeleteClick}
-//         onCancel={() => {
-//           setIsDeleteModalOpen(false);
-//         }}
-//         // confirmButtonVariant={}
-//       />
-//     </div>
-//   );
-// }
+  return (
+    <div className={`${styles.page} ${styles[themeClass]}`}>
+      <div className={styles.inner}>
+        <div className={styles.entryWrapper}>
+          <DiaryEntryDetails
+            entry={entry}
+            onDelete={handleDelete}
+            onEdit={handleEdit}
+          />
+        </div>
+      </div>
+      <AddDiaryEntryModal isOpen={isModalOpen} onClose={handleModalClose} />
+    </div>
+  );
+}

@@ -57,7 +57,9 @@ export default function DiaryEntryDetails({
   if (!entry) {
     return (
       <div className={styles.wrapper}>
-        <p className={styles.placeholder}>Ще немає записів</p>
+        <p className={styles.placeholder}>
+          Наразі записи у щоденнику відстні
+        </p>
       </div>
     );
   }
