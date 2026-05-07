@@ -4,7 +4,6 @@ import { User } from '@/types/user';
 import styles from './ProfileEditForm.module.css';
 import { useAuthStore } from '@/lib/store/authStore';
 import { useId, useState } from 'react';
-import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
 import Button from '@/components/common/Button/Button';
 import CalendarDatePicker from '@/components/common/CalendarDatePicker/CalendarDatePicker';
 import { FORTY_WEEKS, profileSchema } from './ProfileValidationSchema';
@@ -16,6 +15,7 @@ import FormikGenderSelect from '@/components/common/GenderSelect/FormikGenderSel
 import { ToastProvider } from '@/components/common/Toast/ToastProvider';
 import { CalendarIcon } from 'lucide-react';
 import { useTheme } from '@/hooks/useTheme';
+import { Field, FieldProps, Form, Formik, FormikHelpers } from 'formik';
 
 interface ProfileEditFormProps {
   user: User;
@@ -60,8 +60,8 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
   const router = useRouter();
 
   const initialValues: ProfileEditFormValues = {
-    name: user.name,
-    email: user.email,
+    name: '',
+    email: '',
     gender: user.gender,
     dueDate: normalizeDate(user.date),
   };
@@ -76,6 +76,9 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
     try {
       const payload: Record<string, unknown> = {};
 
+      if (values.name && values.name !== user.name) {
+        payload.name = values.name;
+      }
       if (values.gender !== undefined) {
         payload.gender = values.gender;
       }
@@ -119,45 +122,55 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
             <label htmlFor={`${fieldId}-name`} className={styles.label}>
               Ім&apos;я
             </label>
-            <Field
-              type="text"
-              name="name"
-              id={`${fieldId}-name`}
-              placeholder={user.name}
-              className={`${styles.input} ${styles[themeClass]}`}
-              readOnly
-            />
-            <ErrorMessage
-              name="name"
-              component="span"
-              className={styles.error}
-            />
+            <Field name="name">
+              {({ field, meta }: FieldProps) => {
+                const hasError = meta.touched && meta.error;
+                return (
+                  <>
+                    <input
+                      {...field}
+                      type="text"
+                      id={`${fieldId}-name`}
+                      placeholder={user.name}
+                      className={`${styles.input} ${styles[themeClass]} ${hasError ? styles.inputError : ''}`}
+                    />
+                    {hasError && (
+                      <span className={styles.errorInput}>{meta.error}</span>
+                    )}
+                  </>
+                );
+              }}
+            </Field>
           </div>
 
           <div className={styles.field}>
             <label htmlFor={`${fieldId}-email`} className={styles.label}>
               Пошта
             </label>
-            <Field
-              type="email"
-              name="email"
-              id={`${fieldId}-email`}
-              placeholder={user.email}
-              className={`${styles.input} ${styles[themeClass]}`}
-            />
-            <ErrorMessage
-              name="email"
-              component="span"
-              className={styles.error}
-            />
+            <Field name="email">
+              {({ field, meta }: FieldProps) => {
+                const hasError = meta.touched && meta.error;
+                return (
+                  <>
+                    <input
+                      {...field}
+                      type="email"
+                      id={`${fieldId}-email`}
+                      placeholder={user.email}
+                      readOnly
+                      className={`${styles.input} ${styles[themeClass]} ${hasError ? styles.error : ''}`}
+                    />
+                    {hasError && (
+                      <span className={styles.error}>{meta.error}</span>
+                    )}
+                  </>
+                );
+              }}
+            </Field>
           </div>
-
           <div className={styles.genderField}>
             <label className={styles.label}>Стать дитини</label>
-            <FormikGenderSelect
-              // styles={genderSelectStyles}
-              themeClass={themeClass}
-            />
+            <FormikGenderSelect themeClass={themeClass} />
           </div>
 
           <div className={styles.dateField}>
@@ -198,6 +211,18 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
               Зберегти зміни
             </Button>
           </div>
+          <Button
+            className={styles.btnChange}
+            variant="cancel"
+            size="sm"
+            onClick={() =>
+              ToastProvider.success(
+                'Лист для зміни пошти та пароля надіслано на пошту'
+              )
+            }
+          >
+            Змінити пошту та пароль
+          </Button>
         </Form>
       )}
     </Formik>

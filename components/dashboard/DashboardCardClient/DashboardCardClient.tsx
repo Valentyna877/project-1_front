@@ -8,11 +8,11 @@ import { useAuthStore } from '@/lib/store/authStore';
 import { ToastProvider } from '@/components/common/Toast/ToastProvider';
 import Loader from '@/components/common/Loader/Loader';
 import BabyTodayCard from '../BabyTodayCard/BabyTodayCard';
-import ErrorState from '@/components/common/ErrorState/ErrorState';
-import { useRouter } from 'next/navigation';
+import css from '../MomTipCard/MomTipCard.module.css';
+import { useTheme } from '@/hooks/useTheme';
 
 export default function DashboardCardClient() {
-  const router = useRouter();
+  const { theme, themeClass } = useTheme();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const { data, isLoading, isError } = useQuery({
     queryKey: ['weeks', isAuthenticated],
@@ -20,20 +20,21 @@ export default function DashboardCardClient() {
   });
 
   if (isLoading) {
-    return <Loader />;
+    return <Loader theme={theme} />;
   }
 
   if (isError) {
-    ToastProvider.error('Помилка при створенні завдання.');
+    ToastProvider.error('Не вдалось завантажити завдання.');
   }
 
   if (!data?.baby) {
     return (
-      <ErrorState
-        title="Виникла помилка"
-        description="Виникла помилка, спробуйте пізніше"
-        reset={router.refresh}
-      />
+      <div
+        className={`${css.momTipBox} ${css[themeClass]}`}
+        style={{ marginTop: '16px' }}
+      >
+        <p className={css.momTipText}>Виникла помилка...</p>
+      </div>
     );
   }
 

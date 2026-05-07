@@ -13,11 +13,24 @@
   height: 40px;
 }
 
+.userbar_info_user {
+  display: flex;
+  flex-direction: column;
+}
+
 .userbar_logout_btn {
   padding: 8px;
   width: 40px;
   height: 40px;
   background-color: transparent;
+  border-radius: 50%;
+  transition:
+    background-color 0.3s ease-in-out,
+    border-radius 0.3s ease-in-out;
+}
+
+.userbar_logout_btn:hover {
+  background-color: var(--opacity-neutral-darkest-5);
 }
 
 .userbar_username {
