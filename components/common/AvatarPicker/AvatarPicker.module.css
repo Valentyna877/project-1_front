@@ -38,7 +38,7 @@
   margin-bottom: 32px;
 }
 
-.profileButton {
+.profileButton.profileButton {
   font-family: var(--font-family), sans-serif;
   width: 335px;
   height: 38px;
@@ -54,7 +54,7 @@
     align-items: flex-start;
   }
 
-  .profileButton {
+  .profileButton.profileButton {
     width: 218px;
   }
 }
