@@ -3,11 +3,18 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  border-radius: 8px;
+  transition:
+    background-color 0.3s ease-in-out,
+    border-radius 0.3s ease-in-out;
+}
+
+.nav_item:hover {
+  background-color: var(--opacity-neutral-darkest-5);
 }
 
 .nav_item_active {
   background-color: var(--active-bg);
-  border-radius: 8px;
 }
 
 .theme-boy {
