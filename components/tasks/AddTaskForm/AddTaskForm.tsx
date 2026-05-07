@@ -16,6 +16,7 @@ import { createTask, NewTask } from '@/lib/api/clientApi';
 import Button from '@/components/common/Button/Button';
 import CalendarDatePicker from '@/components/common/CalendarDatePicker/CalendarDatePicker';
 import { toast } from 'sonner';
+import { format } from 'date-fns';
 
 interface TaskFormProps {
   onClose?: () => void;
@@ -32,6 +33,8 @@ const initialValues: AddTaskFormValues = {
 };
 
 const today = new Date();
+today.setHours(0, 0, 0, 0);
+const todayString = format(today, 'dd.MM.yyyy');
 
 const AddTaskFormSchema = Yup.object().shape({
   name: Yup.string()
@@ -113,7 +116,7 @@ export default function AddTaskForm({ onClose }: TaskFormProps) {
               name="date"
               component={CalendarDatePicker}
               id={`${fieldId}-date`}
-              placeholderText={today}
+              placeholderText={todayString}
               className={css.addTaskFormInput}
               minDate={today}
               dateFormat="dd-MM-yyyy"

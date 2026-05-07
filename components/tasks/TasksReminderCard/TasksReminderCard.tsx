@@ -12,6 +12,7 @@ import TaskItem from '../TaskItem/TaskItem';
 import { ToastProvider } from '@/components/common/Toast/ToastProvider';
 import Loader from '@/components/common/Loader/Loader';
 import { useTheme } from '@/hooks/useTheme';
+import '@/styles/animation.css';
 
 export default function TasksReminderCard() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -84,7 +85,7 @@ export default function TasksReminderCard() {
       <div className={`${css.taskCardBox} ${css[themeClass]}`}>
         <div className={css.taskTitleBox}>
           <h2>Важливі завдання</h2>
-          <button className={css.addTaskBtn} onClick={handleOpenModal}>
+          <button className={`${css.addTaskBtn}`} onClick={handleOpenModal}>
             <svg width={24} height={24}>
               <use href="/sprite.svg#icon-add_circle" />
             </svg>
@@ -98,6 +99,7 @@ export default function TasksReminderCard() {
       </div>
     );
   }
+
   const dayNow = new Date();
   dayNow.setHours(0, 0, 0, 0);
 
@@ -105,50 +107,60 @@ export default function TasksReminderCard() {
   const oneDay = Number(dayNow) + 24 * 60 * 60 * 1000;
   const oneWeek = Number(dayNow) + 7 * 24 * 60 * 60 * 1000;
 
-  const todayTasks = data.filter((task) => {
-    if (!task.isDone) {
-      return (
-        Number(new Date(task.date)) < oneDay &&
-        Number(new Date(task.date)) > today
-      );
-    }
-  });
+  const todayTasks = Array.isArray(data)
+    ? data.filter((task) => {
+        if (!task.isDone) {
+          return (
+            Number(new Date(task.date)) < oneDay &&
+            Number(new Date(task.date)) > today
+          );
+        }
+      })
+    : [];
 
-  const weekTasks = data.filter((task) => {
-    if (!task.isDone) {
-      return (
-        Number(new Date(task.date)) < oneWeek &&
-        Number(new Date(task.date)) > oneDay
-      );
-    }
-  });
+  const weekTasks = Array.isArray(data)
+    ? data.filter((task) => {
+        if (!task.isDone) {
+          return (
+            Number(new Date(task.date)) < oneWeek &&
+            Number(new Date(task.date)) > oneDay
+          );
+        }
+      })
+    : [];
 
-  const doneWeekTasks = data.filter((task) => {
-    if (task.isDone) {
-      return (
-        Number(new Date(task.date)) < oneWeek &&
-        Number(new Date(task.date)) > today
-      );
-    }
-  });
+  const doneWeekTasks = Array.isArray(data)
+    ? data.filter((task) => {
+        if (task.isDone) {
+          return (
+            Number(new Date(task.date)) < oneWeek &&
+            Number(new Date(task.date)) > today
+          );
+        }
+      })
+    : [];
 
-  const tasks = data.filter((task) => {
-    if (!task.isDone) {
-      return (
-        Number(new Date(task.date)) < today ||
-        Number(new Date(task.date)) > oneWeek
-      );
-    }
-  });
+  const tasks = Array.isArray(data)
+    ? data.filter((task) => {
+        if (!task.isDone) {
+          return (
+            Number(new Date(task.date)) < today ||
+            Number(new Date(task.date)) > oneWeek
+          );
+        }
+      })
+    : [];
 
-  const isDoneTasks = data.filter((task) => {
-    if (task.isDone) {
-      return (
-        Number(new Date(task.date)) < today ||
-        Number(new Date(task.date)) > oneWeek
-      );
-    }
-  });
+  const isDoneTasks = Array.isArray(data)
+    ? data.filter((task) => {
+        if (task.isDone) {
+          return (
+            Number(new Date(task.date)) < today ||
+            Number(new Date(task.date)) > oneWeek
+          );
+        }
+      })
+    : [];
 
   return (
     <div className={`${css.taskCardBox} ${css[themeClass]}`}>
@@ -156,9 +168,11 @@ export default function TasksReminderCard() {
       <div className={css.taskTitleBox}>
         <h2>Важливі завдання</h2>
         <button className={css.addTaskBtn} onClick={handleOpenModal}>
-          <svg width={24} height={24}>
-            <use href="/sprite.svg#icon-add_circle" />
-          </svg>
+          <div className={css.btnInner}>
+            <svg width={24} height={24}>
+              <use href="/sprite.svg#icon-add_circle" />
+            </svg>
+          </div>
         </button>
       </div>
 

@@ -32,10 +32,16 @@ function splitIntoParagraphs(text: string): string[] {
   return explicit.flatMap((chunk) => {
     if (chunk.length <= AUTO_SPLIT_THRESHOLD) return [chunk];
     const sentences = chunk.match(/[^.!?…]+[.!?…]+["')\]]*\s*|[^.!?…]+$/g);
-    if (!sentences || sentences.length <= SENTENCES_PER_PARAGRAPH) return [chunk];
+    if (!sentences || sentences.length <= SENTENCES_PER_PARAGRAPH)
+      return [chunk];
     const groups: string[] = [];
     for (let i = 0; i < sentences.length; i += SENTENCES_PER_PARAGRAPH) {
-      groups.push(sentences.slice(i, i + SENTENCES_PER_PARAGRAPH).join('').trim());
+      groups.push(
+        sentences
+          .slice(i, i + SENTENCES_PER_PARAGRAPH)
+          .join('')
+          .trim()
+      );
     }
     return groups;
   });
@@ -90,9 +96,11 @@ export default function DiaryEntryDetails({
               aria-label="Видалити запис"
               onClick={() => setOpenModal(true)}
             >
-              <svg width={24} height={24}>
-                <use href="/sprite.svg#icon-delete_forever" />
-              </svg>
+              <div className={styles.btnInner}>
+                <svg width={24} height={24}>
+                  <use href="/sprite.svg#icon-delete_forever" />
+                </svg>
+              </div>
             </button>
           )}
         </div>
