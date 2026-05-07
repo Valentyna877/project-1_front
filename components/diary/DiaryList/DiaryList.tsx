@@ -33,9 +33,11 @@ export default function DiaryList({
           onClick={onModalOpen}
         >
           Новий запис
-          <svg width={24} height={24}>
-            <use href="/sprite.svg#icon-add_circle" />
-          </svg>
+          <div className={styles.btnInner}>
+            <svg width={24} height={24}>
+              <use href="/sprite.svg#icon-add_circle" />
+            </svg>
+          </div>
         </button>
       </div>
 

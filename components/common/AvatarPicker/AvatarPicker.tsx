@@ -200,7 +200,7 @@ function AvatarPicker({
         {children}
         <Button
           className={clsx(css.changeButton, css[`${variant}Button`])}
-          variant="normal"
+          variant="cancel"
           size="sm"
           isLoading={loading}
           loadingText="Завантаження..."

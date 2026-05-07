@@ -35,6 +35,14 @@
 }
 
 @media (min-width: 1440px) {
+  .header {
+    display: none;
+  }
+
+  .burger_menu_overlay {
+    display: none;
+  }
+
   .burger_btn {
     display: none;
   }
