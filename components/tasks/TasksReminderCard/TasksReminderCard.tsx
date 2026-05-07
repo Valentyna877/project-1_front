@@ -155,13 +155,13 @@ export default function TasksReminderCard() {
     <div className={`${css.taskCardBox} ${css[themeClass]}`}>
       <div className={css.taskTitleBox}>
         <h2>Важливі завдання</h2>
-        <div className={`${css.btnWrapper} addBtnAnimation`}>
-          <button className={css.addTaskBtn} onClick={handleOpenModal}>
+        <button className={css.addTaskBtn} onClick={handleOpenModal}>
+          <div className={`${css.btnWrapper} addBtnAnimation`}>
             <svg width={24} height={24}>
               <use href="/sprite.svg#icon-add_circle" />
             </svg>
-          </button>
-        </div>
+          </div>
+        </button>
       </div>
 
       {data.length > 0 ? (

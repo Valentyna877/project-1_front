@@ -42,12 +42,7 @@
         transition: opacity 250ms ease-in-out;
     }
 
-    .btnWrapper {
-        width: 42px;
-        height: 42px;
-    }
-
-    .btnWrapper:hover .deleteBtn {
+    .deleteBtn:hover .btnWrapper {
         animation: deleteBtnAnim .5s ease-in-out
     }
 }
