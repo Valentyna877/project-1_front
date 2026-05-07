@@ -1,4 +1,3 @@
-
 .taskCardBox {
     border: 0px solid var(--color-scheme-border);
     border-radius: 32px;
@@ -6,6 +5,7 @@
     width: 335px;
     margin: 0 0 32px 0;
     overflow: auto;
+    overflow: visible;
 }
 
 .taskCardBox.theme-boy {
@@ -78,6 +78,7 @@
         width: 390px;
         height: 498px;
         margin: 16px 0 32px 0;
+        scrollbar-width: none;
     }
 
     .addTaskBtn:hover {
@@ -86,6 +87,38 @@
 
     .taskSection {  
         font-size: 16px;
+    }
+
+    .scrollContent:hover {
+        overflow-y: auto;
+    }
+    
+    .scrollContent {
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+    
+    .scrollContent::-webkit-scrollbar {
+        width: 3px;
+        background: transparent; 
+    }
+    
+    .scrollContent::-webkit-scrollbar-track {
+        background: transparent;
+        border-radius: 2px;
+    }
+
+    .theme-boy.scrollContent:hover::-webkit-scrollbar-thumb  {
+        background-color: var(--color-french-pass);
+    }
+    
+    .theme-girl.scrollContent:hover::-webkit-scrollbar-thumb  {
+        background-color: var(--color-pastel-pink);
+    }
+    
+    .theme-default.scrollContent:hover::-webkit-scrollbar-thumb  {
+        background-color: var(--color-oasis);
     }
 }
 
