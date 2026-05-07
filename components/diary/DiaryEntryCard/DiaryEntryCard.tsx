@@ -22,7 +22,7 @@ function CardContent({ entry }: { entry: DiaryEntry }) {
   return (
     <>
       <div className={styles.row}>
-        <span className={styles.title}>{entry.title}</span>
+        <h3 className={styles.title}>{entry.title}</h3>
         <span className={styles.date}>{formatDate(entry.date)}</span>
       </div>
       {entry.emotions.length > 0 && (

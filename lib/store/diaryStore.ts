@@ -49,7 +49,7 @@ export const useDiaryStore = create<DiaryStore>()(
           draft: {
             title: entry.title,
             description: entry.description,
-            date: entry.date,
+            date: entry.date?.slice(0, 10) ?? toLocalDate(),
             emotions: entry.emotions.map((e) => e._id),
           },
         }),

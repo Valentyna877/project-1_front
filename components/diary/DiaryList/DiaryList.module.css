@@ -69,21 +69,18 @@
     letter-spacing: 0.2px;
   }
 
+  .addButton {
+    font-size: 16px;
+    line-height: 26px;
+  }
+
   .list {
     overflow-y: auto;
     flex: 1;
+    scrollbar-width: none;
   }
 
   .list::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  .list::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .list::-webkit-scrollbar-thumb {
-    background: var(--color-scheme-foreground-alt);
-    border-radius: 2px;
+    display: none;
   }
 }

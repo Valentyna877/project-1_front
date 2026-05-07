@@ -1,6 +1,6 @@
 'use client';
 
-import { Formik, Form, Field, ErrorMessage, FieldProps } from 'formik';
+import { Formik, Form, Field, FieldProps } from 'formik';
 import * as Yup from 'yup';
 import { useQueryClient } from '@tanstack/react-query';
 import { ToastProvider } from '@/components/common/Toast/ToastProvider';
@@ -19,12 +19,15 @@ interface Props {
   onSuccess: (entry?: DiaryEntry) => void;
 }
 
+const TEXT_MAX = 1000;
+
 const validationSchema = Yup.object().shape({
   title: Yup.string()
     .min(3, 'Занадто короткий заголовок')
     .required("Заголовок обов'язковий"),
   text: Yup.string()
     .min(10, 'Запис має бути інформативнішим')
+    .max(TEXT_MAX)
     .required('Поле запису не може бути порожнім'),
 });
 
@@ -54,45 +57,75 @@ export default function AddDiaryEntryForm({ onSuccess }: Props) {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      {({ isSubmitting }) => (
+      {({ submitCount }) => (
         <Form className={css.form}>
           <div className={css.fieldWrapper}>
             <label>Заголовок</label>
-            <Field
-              type="text"
-              name="title"
-              placeholder="Введіть заголовок запису"
-              className={css.input}
-            />
-            <ErrorMessage name="title" component="span" className={css.error} />
+            <Field name="title">
+              {({ field, meta }: FieldProps<string>) => {
+                const hasError = meta.touched && !!meta.error;
+                return (
+                  <>
+                    <input
+                      {...field}
+                      type="text"
+                      placeholder="Введіть заголовок запису"
+                      className={`${css.input} ${hasError ? css.inputError : ''}`}
+                    />
+                    <div className={css.metaRow}>
+                      {hasError && (
+                        <span className={css.error}>{meta.error}</span>
+                      )}
+                    </div>
+                  </>
+                );
+              }}
+            </Field>
           </div>
 
           <div className={css.fieldWrapper}>
             <label className={css.label}>Категорії</label>
-            <MultiSelect />
-            {draft.emotions.length === 0 && (
-              <span className={css.error}>Оберіть хоча б одну категорію</span>
-            )}
+            <MultiSelect
+              hasError={submitCount > 0 && draft.emotions.length === 0}
+            />
+            <div className={css.metaRow}>
+              {submitCount > 0 && draft.emotions.length === 0 && (
+                <span className={css.error}>
+                  Оберіть хоча б одну категорію
+                </span>
+              )}
+            </div>
           </div>
 
           <div className={css.fieldWrapper}>
             <label>Запис</label>
             <Field name="text">
-              {({ field }: FieldProps<string>) => (
-                <>
-                  <textarea
-                    {...field}
-                    maxLength={1000}
-                    placeholder="Запишіть, як ви себе відчуваєте"
-                    className={css.textarea}
-                  />
-                  <span className={css.counter}>
-                    {field.value?.length || 0}/1000
-                  </span>
-                </>
-              )}
+              {({ field, form, meta }: FieldProps<string>) => {
+                const hasError = meta.touched && !!meta.error;
+                return (
+                  <>
+                    <textarea
+                      {...field}
+                      placeholder="Запишіть, як ви себе відчуваєте"
+                      className={`${css.textarea} ${hasError ? css.inputError : ''}`}
+                      maxLength={TEXT_MAX}
+                      onChange={(e) => {
+                        const v = e.target.value.slice(0, TEXT_MAX);
+                        form.setFieldValue(field.name, v);
+                      }}
+                    />
+                    <div className={css.metaRow}>
+                      {hasError && (
+                        <span className={css.error}>{meta.error}</span>
+                      )}
+                      <span className={css.counter}>
+                        {(field.value ?? '').length}/{TEXT_MAX}
+                      </span>
+                    </div>
+                  </>
+                );
+              }}
             </Field>
-            <ErrorMessage name="text" component="span" className={css.error} />
           </div>
 
           <div className={css.actions}>
@@ -101,8 +134,6 @@ export default function AddDiaryEntryForm({ onSuccess }: Props) {
               size="lg"
               type="submit"
               disabled={isSaving}
-              isLoading={isSubmitting}
-              loadingText="Збереження..."
               className={css.submitBtn}
             >
               Зберегти
