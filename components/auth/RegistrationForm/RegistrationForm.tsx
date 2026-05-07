@@ -148,12 +148,7 @@ const RegistrationForm = ({
                 }}
               </Field>
             </div>
-            <Button
-              className={css.button}
-              type="submit"
-              disabled={isLoading}
-              isLoading={isSubmitting}
-            >
+            <Button className={css.button} type="submit" disabled={isLoading}>
               Зареєструватись
             </Button>
           </Form>
