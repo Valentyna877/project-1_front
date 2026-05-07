@@ -3,20 +3,31 @@ import css from './AddDiaryEntryForm.module.css';
 import { getAllEmotions } from '@/lib/api/clientApi';
 import { useQuery } from '@tanstack/react-query';
 import { useDiaryStore } from '@/lib/store/diaryStore';
+import { useTheme } from '@/hooks/useTheme';
+
+const THEME_ACCENT: Record<string, string> = {
+  boy: '#adeffe',
+  girl: '#ffcbd3',
+  default: '#feeccc',
+};
 
 type OptionType = {
   value: string; // _id
   label: string; // title
 };
 
-const selectStyles: StylesConfig<OptionType> = {
+const buildSelectStyles = (
+  hasError: boolean,
+  accent: string
+): StylesConfig<OptionType> => ({
   control: (styles, { isFocused }) => ({
     ...styles,
     outline: 'none',
-    boxShadow: 'none',
+    boxShadow: hasError ? 'inset 0 0 0 2px var(--color-red)' : 'none',
     backgroundColor: 'rgba(0, 0, 0, 0.05)',
     border: 'none',
     borderRadius: isFocused ? '12px 12px 0 0' : '12px',
+    '&:hover': { boxShadow: hasError ? 'inset 0 0 0 2px var(--color-red)' : 'none' },
   }),
   menu: (base) => ({
     ...base,
@@ -27,6 +38,11 @@ const selectStyles: StylesConfig<OptionType> = {
     padding: '8px 0px',
     zIndex: 30,
   }),
+  menuList: (base) => ({
+    ...base,
+    ...({ '--scrollbar-accent': accent } as Record<string, string>),
+  }),
+  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
   multiValue: (styles) => {
     return {
       ...styles,
@@ -67,7 +83,7 @@ const selectStyles: StylesConfig<OptionType> = {
       },
     };
   },
-};
+});
 
 const Option = (props: OptionProps<OptionType>) => {
   const { isFocused, isSelected, label, innerProps } = props;
@@ -104,8 +120,14 @@ const Option = (props: OptionProps<OptionType>) => {
   );
 };
 
-export default function MultiSelect() {
+interface MultiSelectProps {
+  hasError?: boolean;
+}
+
+export default function MultiSelect({ hasError = false }: MultiSelectProps) {
   const MAX = 12;
+  const { theme } = useTheme();
+  const accent = THEME_ACCENT[theme] ?? THEME_ACCENT.default;
   const emotions = useDiaryStore((s) => s.draft.emotions);
   const setEmotions = useDiaryStore((s) => s.setEmotions);
 
@@ -136,11 +158,14 @@ export default function MultiSelect() {
       isMulti
       name="emotions"
       className={css.EmotionMultiselect}
+      classNamePrefix="diarySelect"
       closeMenuOnSelect={false}
       hideSelectedOptions={false}
       blurInputOnSelect={false}
       components={{ Option }}
-      styles={selectStyles}
+      styles={buildSelectStyles(hasError, accent)}
+      menuPortalTarget={typeof window !== 'undefined' ? document.body : null}
+      menuPosition="fixed"
       isClearable={false}
       isOptionDisabled={(option) =>
         emotions.length >= MAX && !emotions.includes(option.value)

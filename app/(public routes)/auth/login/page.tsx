@@ -38,13 +38,17 @@ const Login = () => {
       setIsLoading(false);
       ToastProvider.error('Щось пішло не так.');
     },
+    onNonOAuthError: () => {
+      setIsLoading(false);
+      ToastProvider.error('Щось пішло не так.');
+    },
   });
 
   const { mutate } = useMutation({
     mutationFn: loginGoogle,
     onSuccess: (data) => {
       setUser(data);
-      router.push('/');
+      router.push(data.isNewUser ? '/profile/edit' : '/');
     },
     onError: () => {
       setIsLoading(false);
