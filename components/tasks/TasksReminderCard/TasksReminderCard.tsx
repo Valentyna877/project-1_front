@@ -16,7 +16,7 @@ import { useTheme } from '@/hooks/useTheme';
 export default function TasksReminderCard() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-  const { theme, themeClass } = useTheme();
+  const { themeClass } = useTheme();
 
   const queryClient = useQueryClient();
 
@@ -200,7 +200,7 @@ export default function TasksReminderCard() {
               />
             </ul>
           )}
-          <p className={css.taskSection}>Інші не виконані завдвння:</p>
+          <p className={css.taskSection}>Інші не виконані завдання:</p>
           {tasks.length === 0 ? (
             <p>Завдання виконані</p>
           ) : (

@@ -34,11 +34,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="uk">
+    <html lang="uk" data-scroll-behavior="smooth">
       <body className={`${comfortaa.variable} ${lato.variable} `}>
         <TanStackProvider>
           <AuthProvider>
-            {children}
+              {children}
               <Toaster richColors position="top-right" toastOptions={{ duration: 2000 }} />
             <ReactQueryDevtools initialIsOpen={false} />
           </AuthProvider>
