@@ -2,7 +2,7 @@
   max-width: 335px;
 }
 .label {
-  font-family: var(--font-family);
+  font-family: var(--font-family), sans-serif;
   margin-bottom: 8px;
   display: block;
   font-weight: var(--fw-regular);
@@ -13,6 +13,7 @@
 .input {
   cursor: pointer;
   outline: none;
+  font-family: var(--font-family), sans-serif;
   font-weight: var(--fw-regular);
   font-size: 14px;
   line-height: 1.5;
@@ -58,7 +59,7 @@
   width: 335px;
   height: 37px;
   background-color: var(--color-neutral-lightest);
-  font-family: var(--font-family);
+  font-family: var(--font-family), sans-serif;
   font-size: 14px;
 }
 .buttons {
@@ -67,11 +68,11 @@
 }
 
 .btnClose {
-  font-family: var(--font-family);
+  font-family: var(--font-family), sans-serif;
   width: 160px;
 }
 .btnSubmit {
-  font-family: var(--font-family);
+  font-family: var(--font-family), sans-serif;
   width: 160px;
 }
 
@@ -108,12 +109,14 @@
     font-size: 16px;
   }
   .btnClose {
+    font-size: 16px;
     width: 165px;
     height: 42px;
   }
   .btnSubmit {
+    font-size: 16px;
     width: 149px;
     height: 42px;
-    padding: 8px 14px;
+    padding: 2px 2px;
   }
 }
