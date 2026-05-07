@@ -20,6 +20,10 @@ export interface Emotions {
 
 export type UserLogCreds = Omit<UserRegCreds, 'name'>;
 
+interface UserGoogle extends User {
+  isNewUser: boolean;
+}
+
 export const getUser = async (): Promise<User> => {
   const { data } = await nextServer.get<User>('/users/me');
   return data;
@@ -42,8 +46,11 @@ export const loginUser = async (user: UserLogCreds): Promise<User> => {
 
 export const loginGoogle = async (
   googleResponce: UseGoogleLoginOptionsAuthCodeFlow
-): Promise<User> => {
-  const { data } = await nextServer.post<User>('/auth/google', googleResponce);
+): Promise<UserGoogle> => {
+  const { data } = await nextServer.post<UserGoogle>(
+    '/auth/google',
+    googleResponce
+  );
   return data;
 };
 
