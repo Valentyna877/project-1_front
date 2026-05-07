@@ -53,6 +53,7 @@
   .detailsWrapper {
     display: block;
     flex: 1;
+    max-width: 643px;
     min-width: 0;
   }
 }

@@ -4,10 +4,16 @@
   overflow-x: auto;
   scroll-padding-inline: 16px;
   scrollbar-width: none;
+  cursor: grab;
+  user-select: none;
 }
 
 .wrapper::-webkit-scrollbar {
   display: none;
+}
+
+.grabbing {
+  cursor: grabbing;
 }
 
 @media (min-width: 768px) {

@@ -35,7 +35,6 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
             throw new Error();
           }
         } else {
-          await deleteCookies();
           clearIsAuthenticated();
         }
       } catch {

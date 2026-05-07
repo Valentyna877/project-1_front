@@ -13,9 +13,9 @@ import { getUser } from '@/lib/api/clientApi';
 import { useRouter } from 'next/navigation';
 import { GenderValue } from '@/components/common/GenderSelect/gender-select.types';
 import FormikGenderSelect from '@/components/common/GenderSelect/FormikGenderSelect';
-import { genderSelectStyles } from '@/components/common/GenderSelect/gender-select.styles';
 import { ToastProvider } from '@/components/common/Toast/ToastProvider';
 import { CalendarIcon } from 'lucide-react';
+import { useTheme } from '@/hooks/useTheme';
 
 interface ProfileEditFormProps {
   user: User;
@@ -45,7 +45,7 @@ const formatDisplayDate = (date?: string | null): string => {
 
   if (date.includes('T')) {
     const [yyyy, mm, dd] = date.split('T')[0].split('-');
-    return `${dd}-${mm}-${yyyy}`;
+    return `${dd}.${mm}.${yyyy}`;
   }
   const match = date.match(/^(\d{4})-(\d{2})-(\d{2})$/);
   if (match) return `${match[3]}-${match[2]}-${match[1]}`;
@@ -56,6 +56,7 @@ const formatDisplayDate = (date?: string | null): string => {
 export default function ProfileEditForm({ user }: ProfileEditFormProps) {
   const fieldId = useId();
   const setUser = useAuthStore((state) => state.setUser);
+  const { themeClass } = useTheme();
   const router = useRouter();
 
   const initialValues: ProfileEditFormValues = {
@@ -123,7 +124,7 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
               name="name"
               id={`${fieldId}-name`}
               placeholder={user.name}
-              className={styles.input}
+              className={`${styles.input} ${styles[themeClass]}`}
               readOnly
             />
             <ErrorMessage
@@ -142,7 +143,7 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
               name="email"
               id={`${fieldId}-email`}
               placeholder={user.email}
-              className={styles.input}
+              className={`${styles.input} ${styles[themeClass]}`}
             />
             <ErrorMessage
               name="email"
@@ -153,7 +154,10 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
 
           <div className={styles.genderField}>
             <label className={styles.label}>Стать дитини</label>
-            <FormikGenderSelect styles={genderSelectStyles} />
+            <FormikGenderSelect
+              // styles={genderSelectStyles}
+              themeClass={themeClass}
+            />
           </div>
 
           <div className={styles.dateField}>
@@ -170,8 +174,6 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
               showIcon={CalendarIcon}
             />
           </div>
-
-          <ErrorMessage name="dueDate" component="p" />
 
           <div className={styles.buttons}>
             <Button

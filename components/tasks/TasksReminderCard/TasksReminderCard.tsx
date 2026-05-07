@@ -98,13 +98,18 @@ export default function TasksReminderCard() {
       </div>
     );
   }
+  const dayNow = new Date();
+  dayNow.setHours(0, 0, 0, 0);
+
+  const today = Number(dayNow);
+  const oneDay = Number(dayNow) + 24 * 60 * 60 * 1000;
+  const oneWeek = Number(dayNow) + 7 * 24 * 60 * 60 * 1000;
 
   const todayTasks = data.filter((task) => {
     if (!task.isDone) {
       return (
-        Number(new Date(task.date)) <
-          Number(new Date()) + 24 * 60 * 60 * 1000 &&
-        Number(new Date(task.date)) > Number(new Date())
+        Number(new Date(task.date)) < oneDay &&
+        Number(new Date(task.date)) > today
       );
     }
   });
@@ -112,9 +117,8 @@ export default function TasksReminderCard() {
   const weekTasks = data.filter((task) => {
     if (!task.isDone) {
       return (
-        Number(new Date(task.date)) <
-          Number(new Date()) + 7 * 24 * 60 * 60 * 1000 &&
-        Number(new Date(task.date)) > Number(new Date()) + 24 * 60 * 60 * 1000
+        Number(new Date(task.date)) < oneWeek &&
+        Number(new Date(task.date)) > oneDay
       );
     }
   });
@@ -122,9 +126,8 @@ export default function TasksReminderCard() {
   const doneWeekTasks = data.filter((task) => {
     if (task.isDone) {
       return (
-        Number(new Date(task.date)) <
-          Number(new Date()) + 7 * 24 * 60 * 60 * 1000 &&
-        Number(new Date(task.date)) > Number(new Date())
+        Number(new Date(task.date)) < oneWeek &&
+        Number(new Date(task.date)) > today
       );
     }
   });
@@ -132,9 +135,8 @@ export default function TasksReminderCard() {
   const tasks = data.filter((task) => {
     if (!task.isDone) {
       return (
-        Number(new Date(task.date)) < Number(new Date()) ||
-        Number(new Date(task.date)) >
-          Number(new Date()) + 7 * 24 * 60 * 60 * 1000
+        Number(new Date(task.date)) < today ||
+        Number(new Date(task.date)) > oneWeek
       );
     }
   });
@@ -142,15 +144,15 @@ export default function TasksReminderCard() {
   const isDoneTasks = data.filter((task) => {
     if (task.isDone) {
       return (
-        Number(new Date(task.date)) < Number(new Date()) ||
-        Number(new Date(task.date)) >
-          Number(new Date()) + 7 * 24 * 60 * 60 * 1000
+        Number(new Date(task.date)) < today ||
+        Number(new Date(task.date)) > oneWeek
       );
     }
   });
 
   return (
     <div className={`${css.taskCardBox} ${css[themeClass]}`}>
+      <div className={`${css.scrollContent} ${css[themeClass]}`}>
       <div className={css.taskTitleBox}>
         <h2>Важливі завдання</h2>
         <button className={css.addTaskBtn} onClick={handleOpenModal}>
@@ -229,10 +231,12 @@ export default function TasksReminderCard() {
           <p className={css.emptyTaskText}>Створіть мерщій нове завдання!</p>
           <Button className={css.emptyTaskBtn} onClick={handleOpenModal}>
             Створити завдання
-          </Button>
+              </Button>
+              
         </div>
       )}
-      <AddTaskModal isOpen={isOpen} onClose={handleCloseModal}></AddTaskModal>
+        <AddTaskModal isOpen={isOpen} onClose={handleCloseModal}></AddTaskModal>
+        </div>
     </div>
   );
 }

@@ -14,6 +14,8 @@
 .labelCheckbox {
     display: flex;
     gap: 16px;
+    justify-content: center;
+    align-items: center;
     min-height: 28px;
 }
 
@@ -40,8 +42,9 @@
 
 .defaultCheckbox:checked+.labelCheckbox>.itemText {
     text-decoration: line-through;
-    font-size: 14px;
+    transform:scale(1.1);
     line-height: 150%;
+
 }
 
 .itemText {
@@ -52,6 +55,7 @@
     line-height: 160%;
     color: var(--color-scheme-text);
     word-break: break-all;
+    transition: transform 250ms ease-in-out;
 }
 
 @media only screen and (min-width: 1440px) {

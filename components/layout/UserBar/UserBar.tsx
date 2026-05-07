@@ -49,13 +49,15 @@ export default function UserBar() {
 
       <div className={css.user_bar_container}>
         <div className={css.user_bar_info}>
-          <Image
-            src={user.avatar}
-            alt="avatar"
-            width={40}
-            height={40}
-            className={css.avatar}
-          />
+          {user.avatar && (
+            <Image
+              src={user.avatar}
+              alt="avatar"
+              width={40}
+              height={40}
+              className={css.avatar}
+            />
+          )}
 
           <div className={css.userbar_info_user}>
             <Link href={'/profile'} className={css.userbar_username}>
