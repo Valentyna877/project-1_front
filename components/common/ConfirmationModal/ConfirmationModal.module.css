@@ -3,7 +3,7 @@
     --modal-padding-y: 64px;
     --modal-padding-x: 20px;
     --modal-radius: 40px;
-    --modal-overflow: visible;
+    --modal-overflow: auto;
 
     --modal-close-top: 24px;
     --modal-close-right: 24px;
