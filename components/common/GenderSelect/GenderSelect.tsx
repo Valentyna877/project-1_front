@@ -2,18 +2,63 @@
 
 import { useId } from 'react';
 import Select, { SingleValue, StylesConfig } from 'react-select';
-import { genderOptions, GenderOption, GenderValue } from './gender-select.types';
-import { genderSelectStyles as defaultGenderStyles } from './gender-select.styles';
+import {
+  genderOptions,
+  GenderOption,
+  GenderValue,
+} from './gender-select.types';
+// import { genderSelectStyles as defaultGenderStyles } from './gender-select.styles';
+import { createGenderSelectStyles } from './gender-select.styles';
 
+// type Props = {
+//   value: GenderValue | null;
+//   onChange: (value: GenderValue | null) => void;
+//   styles?: StylesConfig<GenderOption, false>;
+//   placeholder?: string;
+// };
+
+// function GenderSelect({
+//   value,
+//   onChange,
+//   styles = defaultGenderStyles,
+//   placeholder = 'Оберіть стать дитини',
+// }: Props) {
+//   const id = useId();
+
+//   const selectedOption = genderOptions.find((o) => o.value === value) ?? null;
+
+//   const handleChange = (option: SingleValue<GenderOption>) => {
+//     onChange(option ? option.value : null);
+//   };
+
+//   return (
+//     <Select
+//       instanceId={id}
+//       classNamePrefix="react-select"
+//       options={genderOptions}
+//       placeholder={placeholder}
+//       isSearchable={false}
+//       styles={styles}
+//       value={selectedOption}
+//       onChange={handleChange}
+//     />
+//   );
+// }
 type Props = {
-    value: GenderValue | null;
+  value: GenderValue | null;
   onChange: (value: GenderValue | null) => void;
-  styles?: StylesConfig<GenderOption, false>;
+  themeClass?: string;
   placeholder?: string;
 };
 
-function GenderSelect({ value, onChange, styles = defaultGenderStyles, placeholder = 'Оберіть стать дитини', }: Props) {
+function GenderSelect({
+  value,
+  onChange,
+  themeClass,
+  placeholder = 'Оберіть стать дитини',
+}: Props) {
   const id = useId();
+  const styles = createGenderSelectStyles(themeClass);
 
   const selectedOption = genderOptions.find((o) => o.value === value) ?? null;
 
@@ -23,15 +68,15 @@ function GenderSelect({ value, onChange, styles = defaultGenderStyles, placehold
 
   return (
     <Select
-    instanceId={id}
-    classNamePrefix="react-select"
-    options={genderOptions}
-    placeholder={placeholder}
-    isSearchable={false}
-    styles={styles}
-    value={selectedOption}
-    onChange={handleChange}
-  />
+      instanceId={id}
+      classNamePrefix="react-select"
+      options={genderOptions}
+      placeholder={placeholder}
+      isSearchable={false}
+      styles={styles}
+      value={selectedOption}
+      onChange={handleChange}
+    />
   );
 }
 
