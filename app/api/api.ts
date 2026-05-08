@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "http://localhost:3001/api/",
+  baseURL: "https://project-1-back.onrender.com",
   withCredentials: true,
 });
