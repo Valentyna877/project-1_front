@@ -172,7 +172,6 @@ export default function Login() {
     <>
       <Suspense fallback={null}>
         <SearchParamsHandler />
-      </Suspense>
 
       <div className={css.content}>
         <div className={css['left-wrapper']}>
@@ -211,7 +210,8 @@ export default function Login() {
           width={720}
           height={900}
         />
-      </div>
+        </div>
+          </Suspense>
     </>
   );
 }
