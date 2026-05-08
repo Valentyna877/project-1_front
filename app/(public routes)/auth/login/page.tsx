@@ -1,6 +1,5 @@
-export const dynamic = "force-dynamic";
-
 'use client';
+export const dynamic = "force-dynamic";
 
 import css from './page.module.css';
 import Image from 'next/image';
