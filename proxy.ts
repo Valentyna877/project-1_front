@@ -2,7 +2,6 @@ import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { checkSession } from './lib/api/serverApi';
 import { parse } from 'cookie';
-import { deleteCookies } from './lib/actions/deleteCookies';
 
 const privateRoutes = ['/profile', '/journey', '/diary'];
 const authRoutes = ['/auth'];

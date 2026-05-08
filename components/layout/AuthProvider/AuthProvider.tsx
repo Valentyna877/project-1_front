@@ -1,6 +1,7 @@
 'use client';
 
 import Loader from '@/components/common/Loader/Loader';
+import { useTheme } from '@/hooks/useTheme';
 import { deleteCookies } from '@/lib/actions/deleteCookies';
 import { checkSession, getUser } from '@/lib/api/clientApi';
 import { useAuthStore } from '@/lib/store/authStore';
@@ -17,6 +18,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const clearIsAuthenticated = useAuthStore(
     (state) => state.clearIsAuthenticated
   );
+  const { theme } = useTheme();
 
   const [isChecking, setIsChecking] = useState<boolean>(false);
 
@@ -49,7 +51,9 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   return (
     <>
-      {isChecking && !user ? createPortal(<Loader />, document.body) : children}
+      {isChecking && !user
+        ? createPortal(<Loader theme={theme} />, document.body)
+        : children}
     </>
   );
 };
