@@ -4,6 +4,7 @@ import { GenderValue } from '@/components/common/GenderSelect/gender-select.type
 export const FORTY_WEEKS = 40 * 7 * 24 * 60 * 60 * 1000;
 
 export const profileSchema = Yup.object().shape({
+  name: Yup.string().max(32, 'Імʼя не може перевищувати 32 символи'),
   gender: Yup.mixed<GenderValue>()
     .oneOf(['boy', 'girl', 'unknown'], 'Невідоме значення')
     .nullable(),

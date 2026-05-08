@@ -12,6 +12,7 @@ import Loader from '@/components/common/Loader/Loader';
 import { createPortal } from 'react-dom';
 import { useTheme } from '@/hooks/useTheme';
 import { ToastProvider } from '@/components/common/Toast/ToastProvider';
+import Link from 'next/link';
 
 export default function UserBar() {
   const { user, clearIsAuthenticated } = useAuthStore();
@@ -49,18 +50,24 @@ export default function UserBar() {
       <div className={css.user_bar_container}>
         <div className={css.user_bar_info}>
           {user.avatar && (
-            <Image
-              src={user.avatar}
-              alt="avatar"
-              width={40}
-              height={40}
-              className={css.avatar}
-            />
+            <Link href={'/profile'}>
+              <Image
+                src={user.avatar}
+                alt="avatar"
+                width={40}
+                height={40}
+                className={css.avatar}
+              />
+            </Link>
           )}
 
-          <div>
-            <div className={css.userbar_username}>{user.name}</div>
-            <div className={css.userbar_useremail}>{user.email}</div>
+          <div className={css.userbar_info_user}>
+            <Link href={'/profile'} className={css.userbar_username}>
+              {user.name}
+            </Link>
+            <Link href={'/profile'} className={css.userbar_useremail}>
+              {user.email}
+            </Link>
           </div>
         </div>
 

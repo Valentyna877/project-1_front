@@ -93,10 +93,6 @@
   transition: background 0.2s;
 }
 
-.iconBtn:hover {
-  background: var(--color-scheme-foreground-alt);
-}
-
 .content {
   display: flex;
   flex-direction: column;
@@ -156,8 +152,36 @@
     line-height: 24px;
   }
 
-  .emotion {
-    font-size: 14px;
-    line-height: 21px;
+  .iconBtn:hover .btnInner {
+    animation: deleteBtnAnim .5s ease-in-out;
+  }
+
+  .wrapper::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .wrapper::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .wrapper::-webkit-scrollbar-thumb {
+    background: var(--color-scheme-foreground-alt);
+    border-radius: 2px;
+  }
+
+}
+
+
+@keyframes deleteBtnAnim {
+  25% {
+    transform: translateY(-10px) rotateZ(-5deg);
+  }
+
+  50% {
+    transform: translateY(-5px) rotateZ(-15deg);
+  }
+
+  75% {
+    transform: rotateZ(15deg);
   }
 }
