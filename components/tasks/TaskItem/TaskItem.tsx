@@ -39,16 +39,16 @@ export default function TaskItem({
               handleCheck={() => handleCheckTask(!task.isDone, task._id)}
             />
           </div>
-          <div className={css.btnBlock}>
-            <button
-              className={css.deleteBtn}
-              onClick={() => handleDeleteTask(task._id)}
-            >
+          <button
+            className={css.deleteBtn}
+            onClick={() => handleDeleteTask(task._id)}
+          >
+            <div className={css.btnInner}>
               <svg width={18} height={18}>
                 <use href="/sprite.svg#icon-delete_forever" />
               </svg>
-            </button>
-          </div>
+            </div>
+          </button>
           <ConfirmationModal
             isOpen={isOpenDelete}
             title="Ви впевнені що хочете видалити завдання?"

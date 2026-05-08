@@ -10,20 +10,13 @@ interface NavigationLayoutProps {
 export default function NavigationLayout({ children }: NavigationLayoutProps) {
   return (
     <>
-      {/* mobile */}
-      <div className={css.mobile_only}>
-        <Header />
-      </div>
+      <Header />
+      <Sidebar />
 
-      {/* desktop */}
-      <div className={css.layout}>
-        <Sidebar />
-
-        <main className={css.main}>
-          <Breadcrumbs />
-          {children}
-        </main>
-      </div>
+      <main className={css.main}>
+        <Breadcrumbs />
+        {children}
+      </main>
     </>
   );
 }

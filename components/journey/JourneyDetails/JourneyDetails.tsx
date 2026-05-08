@@ -110,7 +110,7 @@ const JourneyDetails = ({ weekNumber }: JourneyDetailsProps) => {
               {status === "error" && (
                 <p className={styles.error}>
                   Ой! Не вдалося завантажити дані. <br />
-                  <span>Спробуйте оновити сторінку або перевірте зв'язок.</span>
+                  <span>Спробуйте оновити сторінку або перевірте зв&apos;язок.</span>
                 </p>
               )}
             </div>

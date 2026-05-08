@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default function BabyTodayCard({ babyInfo }: Props) {
-  const { theme, themeClass } = useTheme();
+  const { themeClass } = useTheme();
   return (
     <div className={`${css.babyCardBox} ${css[themeClass]}`}>
       <h2>Малюк сьогодні</h2>

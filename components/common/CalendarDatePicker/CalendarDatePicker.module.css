@@ -73,8 +73,8 @@
 
 :global(.react-datepicker.theme-girl .react-datepicker__day--selected),
 :global(
-    .react-datepicker.theme-girl .react-datepicker__day--keyboard-selected
-  ) {
+  .react-datepicker.theme-girl .react-datepicker__day--keyboard-selected
+) {
   background-color: var(--color-pastel-pink);
   color: var(--color-scheme-text, #191919);
   border-radius: 50%;
@@ -82,8 +82,8 @@
 
 :global(.react-datepicker.theme-default .react-datepicker__day--selected),
 :global(
-    .react-datepicker.theme-default .react-datepicker__day--keyboard-selected
-  ) {
+  .react-datepicker.theme-default .react-datepicker__day--keyboard-selected
+) {
   background-color: var(--color-oasis);
   color: var(--color-scheme-text);
   border-radius: 50%;
@@ -91,23 +91,23 @@
 
 :global(.react-datepicker.theme-boy .react-datepicker__day--selected:hover),
 :global(
-    .react-datepicker.theme-boy .react-datepicker__day--keyboard-selected:hover
-  ) {
+  .react-datepicker.theme-boy .react-datepicker__day--keyboard-selected:hover
+) {
   background-color: var(--color-french-pass);
 }
 
 :global(.react-datepicker.theme-girl .react-datepicker__day--selected:hover),
 :global(
-    .react-datepicker.theme-girl .react-datepicker__day--keyboard-selected:hover
-  ) {
+  .react-datepicker.theme-girl .react-datepicker__day--keyboard-selected:hover
+) {
   background-color: var(--color-pastel-pink);
 }
 
 :global(.react-datepicker.theme-default .react-datepicker__day--selected:hover),
 :global(
-    .react-datepicker.theme-default
-      .react-datepicker__day--keyboard-selected:hover
-  ) {
+  .react-datepicker.theme-default
+    .react-datepicker__day--keyboard-selected:hover
+) {
   background-color: var(--color-oasis);
 }
 

@@ -39,7 +39,6 @@ export const proxy = async (req: NextRequest) => {
           if (parsed.sessionId)
             cookieStore.set('sessionId', parsed.sessionId, options);
         }
-
         if (isAuthRoute) {
           return NextResponse.redirect(new URL('/', req.url), {
             headers: { Cookie: cookieStore.toString() },
@@ -84,9 +83,9 @@ export const proxy = async (req: NextRequest) => {
 
 export const config = {
   matcher: [
-    '/auth/:path*',
-    '/profile/:path*',
-    '/journey/:path*',
-    '/diary/:path*',
+    '/auth/:path',
+    '/profile/:path',
+    '/journey/:path',
+    '/diary/:path',
   ],
 };

@@ -35,12 +35,14 @@
         opacity: 1;
     }
 
+
+
     .deleteBtn {
         opacity: 0;
         transition: opacity 250ms ease-in-out;
     }
 
-    .deleteBtn:hover {
+    .deleteBtn:hover .btnInner {
         animation: deleteBtnAnim .5s ease-in-out
     }
 }
@@ -58,3 +60,4 @@
         transform: rotateZ(15deg);
     }
 }
+
