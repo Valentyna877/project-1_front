@@ -30,7 +30,7 @@
 }
 
 @media (min-width: 1440px) {
-  .addDiaryModal.modal {
+  .addDiaryModal {
     --modal-max-w: 768px;
   }
 
