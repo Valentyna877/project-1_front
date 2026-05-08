@@ -1,4 +1,10 @@
-import { loginUser, UserLogCreds } from '@/lib/api/clientApi';
+'use client';
+
+import {
+  changeCreds,
+  UserChangeCreds,
+  UserLogCreds,
+} from '@/lib/api/clientApi';
 import css from './ResetData.module.css';
 import { Formik, Form, Field, FieldProps } from 'formik';
 import { useId, useState } from 'react';
@@ -10,13 +16,19 @@ import { useRouter } from 'next/navigation';
 import Loader from '@/components/common/Loader/Loader';
 import { createPortal } from 'react-dom';
 import { ToastProvider } from '@/components/common/Toast/ToastProvider';
-import { useTheme } from '@/hooks/useTheme';
 import clsx from 'clsx';
+import { User } from '@/types/user';
+import { AxiosError } from 'axios';
 
 const initialValues: UserLogCreds = {
   email: '',
   password: '',
 };
+
+interface ResetDataFormProps {
+  user: User;
+  token: string;
+}
 
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -29,98 +41,132 @@ const formSchema = Yup.object()
       .min(8, 'Пароль має містити мінімум 8 символів')
       .max(128, 'Пароль не може перевищувати 128 символів'),
   })
-  .test('Змініть хочаб одне поле', (value) => {
-    if (!value) return false;
-    return Object.values(value).some(
-      (v) => v !== undefined && v !== null && v !== ''
-    );
+  .test('Змініть хочаб одне поле', function (value) {
+    if (!value.email && !value.password) {
+      return this.createError({
+        path: 'general',
+        message: 'Необхідно заповнити хоча б одне поле',
+      });
+    }
+    return true;
   });
 
-const ResetDataForm = () => {
+const ResetDataForm = ({ user, token }: ResetDataFormProps) => {
   const fieldId = useId();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const setUser = useAuthStore((state) => state.setUser);
-  const user = useAuthStore((state) => state.user);
-  const { theme } = useTheme();
+  const clearIsAuthenticated = useAuthStore(
+    (state) => state.clearIsAuthenticated
+  );
 
   const { mutate } = useMutation({
-    mutationFn: loginUser,
-    onSuccess: (data) => {
-      setUser(data);
-      router.push('/profile');
-      ToastProvider.success('Дані успішно змінено!');
+    mutationFn: changeCreds,
+    onSuccess: () => {
+      clearIsAuthenticated();
+      ToastProvider.success('Дані успішно змінено! Увійдіть заново');
+      router.push('/auth/login');
     },
-    onError: () => {
-      setIsLoading(false);
-      ToastProvider.error('Щось пішло не так. Вже лагодимо!');
+    onError: (error) => {
+      const err = error as AxiosError;
+      if (err.status === 400) {
+        ToastProvider.error('Таку пошту вже зайнято!');
+        setIsLoading(false);
+      } else {
+        ToastProvider.error('Упс, щось пішло не так. Спробуйте ще раз!');
+        // router.push('/');
+      }
     },
   });
 
   const handleSubmit = (values: UserLogCreds): void => {
     setIsLoading(true);
-    mutate(values);
+    const payload: UserChangeCreds = { token };
+
+    if (values.email.trim()) {
+      payload.email = values.email.trim();
+    }
+    if (values.password.trim()) {
+      payload.password = values.password.trim();
+    }
+    mutate(payload);
   };
 
   return (
     <>
-      {isLoading && createPortal(<Loader theme={theme} />, document.body)}
+      {isLoading && createPortal(<Loader />, document.body)}
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
         validationSchema={formSchema}
       >
-        <Form className={css.form}>
-          <div className={css['field-set']}>
-            <label htmlFor={`${fieldId}-email`}></label>
-            <Field name="email">
-              {({ field, meta }: FieldProps) => {
-                const hasError = meta.touched && meta.error;
-                return (
-                  <>
-                    <input
-                      {...field}
-                      type="email"
-                      id={`${fieldId}-email`}
-                      placeholder={user?.email}
-                      autoComplete={'email'}
-                      className={`${css.input} ${hasError ? css['input-error'] : ''}`}
-                    />
-                    {hasError && <span className={css.span}>{meta.error}</span>}
-                  </>
-                );
-              }}
-            </Field>
-          </div>
-          <div className={css['field-set']}>
-            <label htmlFor={`${fieldId}-password`}></label>
-            <Field name="password">
-              {({ field, meta }: FieldProps) => {
-                const hasError = meta.touched && meta.error;
-                return (
-                  <>
-                    <input
-                      {...field}
-                      type="password"
-                      id={`${fieldId}-password`}
-                      placeholder={'********'}
-                      autoComplete={'new-password'}
-                      className={`${css.input} ${hasError ? css['input-error'] : ''}`}
-                    />
-                    {hasError && <span className={css.span}>{meta.error}</span>}
-                  </>
-                );
-              }}
-            </Field>
-          </div>
-          <Button
-            className={clsx(css.button)}
-            type="submit"
-            disabled={isLoading}
-          >
-            Змінити
-          </Button>
-        </Form>
+        {({ errors }) => {
+          const generalError = (errors as Record<string, string>).general;
+          return (
+            <Form className={css.form}>
+              {generalError && (
+                <span
+                  className={css['second-span']}
+                  style={{ textAlign: 'center', marginBottom: '10px' }}
+                >
+                  {generalError}
+                </span>
+              )}
+              <div className={css['field-set']}>
+                <label htmlFor={`${fieldId}-email`}></label>
+                <Field name="email">
+                  {({ field, meta }: FieldProps) => {
+                    const hasError = meta.touched && meta.error;
+                    return (
+                      <>
+                        <input
+                          {...field}
+                          type="email"
+                          id={`${fieldId}-email`}
+                          placeholder={user.email}
+                          autoComplete={'email'}
+                          className={`${css.input} ${hasError ? css['input-error'] : ''}`}
+                        />
+                        {hasError && (
+                          <span className={css.span}>{meta.error}</span>
+                        )}
+                      </>
+                    );
+                  }}
+                </Field>
+              </div>
+              <div className={css['field-set']}>
+                <label htmlFor={`${fieldId}-password`}></label>
+                <Field name="password">
+                  {({ field, meta }: FieldProps) => {
+                    const hasError = meta.touched && meta.error;
+                    return (
+                      <>
+                        <input
+                          {...field}
+                          type="password"
+                          id={`${fieldId}-password`}
+                          placeholder={'********'}
+                          autoComplete={'new-password'}
+                          className={`${css.input} ${hasError ? css['input-error'] : ''}`}
+                        />
+                        {hasError && (
+                          <span className={css.span}>{meta.error}</span>
+                        )}
+                      </>
+                    );
+                  }}
+                </Field>
+              </div>
+              <Button
+                className={clsx(css.button)}
+                type="submit"
+                disabled={isLoading}
+              >
+                Змінити
+              </Button>
+            </Form>
+          );
+        }}
       </Formik>
     </>
   );

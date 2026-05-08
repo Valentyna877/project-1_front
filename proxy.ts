@@ -4,7 +4,7 @@ import { checkSession } from './lib/api/serverApi';
 import { parse } from 'cookie';
 
 const privateRoutes = ['/profile', '/journey', '/diary'];
-const authRoutes = ['/auth'];
+const authRoutes = ['/auth/login', '/auth/register'];
 
 export const proxy = async (req: NextRequest) => {
   const cookieStore = await cookies();
@@ -81,10 +81,5 @@ export const proxy = async (req: NextRequest) => {
 };
 
 export const config = {
-  matcher: [
-    '/auth/:path',
-    '/profile/:path',
-    '/journey/:path',
-    '/diary/:path',
-  ],
+  matcher: ['/auth/:path', '/profile/:path', '/journey/:path', '/diary/:path'],
 };
