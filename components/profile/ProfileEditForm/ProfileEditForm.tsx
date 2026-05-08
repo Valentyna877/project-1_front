@@ -8,7 +8,7 @@ import Button from '@/components/common/Button/Button';
 import CalendarDatePicker from '@/components/common/CalendarDatePicker/CalendarDatePicker';
 import { FORTY_WEEKS, profileSchema } from './ProfileValidationSchema';
 import { nextServer } from '@/lib/api/api';
-import { getUser } from '@/lib/api/clientApi';
+import { getUser, reqEmail } from '@/lib/api/clientApi';
 import { useRouter } from 'next/navigation';
 import { GenderValue } from '@/components/common/GenderSelect/gender-select.types';
 import FormikGenderSelect from '@/components/common/GenderSelect/FormikGenderSelect';
@@ -215,11 +215,12 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
             className={styles.btnChange}
             variant="cancel"
             size="sm"
-            onClick={() =>
+            onClick={() => {
               ToastProvider.success(
                 'Лист для зміни пошти та пароля надіслано на пошту'
-              )
-            }
+              );
+              reqEmail(user.email);
+            }}
           >
             Змінити пошту та пароль
           </Button>

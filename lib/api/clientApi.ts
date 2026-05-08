@@ -20,6 +20,12 @@ export interface Emotions {
 
 export type UserLogCreds = Omit<UserRegCreds, 'name'>;
 
+export interface UserChangeCreds {
+  email?: string;
+  password?: string;
+  token: string;
+}
+
 interface UserGoogle extends User {
   isNewUser: boolean;
 }
@@ -56,6 +62,20 @@ export const loginGoogle = async (
 
 export const logoutUser = async (): Promise<void> => {
   await nextServer.post('/auth/logout');
+};
+
+export const verifyTokenOnBackend = async (token: string): Promise<User> => {
+  const { data } = await nextServer.post<User>('/auth/token', { token });
+  return data;
+};
+
+export const changeCreds = async (body: UserChangeCreds): Promise<User> => {
+  const { data } = await nextServer.post<User>('/auth/change', body);
+  return data;
+};
+
+export const reqEmail = async (email: string) => {
+  await nextServer.post('/auth/requestemail', { email });
 };
 
 export interface NewTask {

@@ -1,0 +1,90 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.field-set {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+}
+
+.input {
+  border-radius: 12px;
+  border: none;
+  box-shadow: inset 0 0 0 0 var(--color-pastel-pink);
+  padding: 8px 12px;
+  background-color: var(--opacity-neutral-darkest-5);
+
+  transition: box-shadow 250ms ease-in-out;
+}
+
+.input::placeholder {
+  color: var(--opacity-neutral-darkest-60);
+}
+
+.input:focus,
+.input:hover,
+.input:active {
+  box-shadow: inset 0 0 0 2px var(--color-pastel-pink);
+}
+
+.input-error {
+  color: var(--color-red);
+  box-shadow: inset 0 0 0 2px var(--color-red);
+}
+
+.input-error.input::placeholder {
+  color: var(--color-red);
+}
+
+.form {
+  position: relative;
+}
+
+.span {
+  position: absolute;
+  top: calc(92%);
+  color: var(--color-red);
+}
+
+.second-span {
+  top: -20%;
+  right: 50;
+  position: absolute;
+  color: var(--color-red);
+}
+
+.form .button {
+  height: 42px;
+  font-family: var(--font-family), sans-serif;
+}
+
+@media only screen and (min-width: 768px) {
+  .form {
+    width: 480px;
+  }
+
+  .second-span {
+    right: 120px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .field-set label {
+    font-size: 16px;
+  }
+
+  .input {
+    font-size: 16px;
+  }
+
+  .second-span {
+    right: 120px;
+  }
+}
