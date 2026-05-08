@@ -1,110 +1,110 @@
-.confirmationModal {
-    --modal-max-w: 335px;
-    --modal-padding-y: 64px;
-    --modal-padding-x: 20px;
-    --modal-radius: 40px;
-    --modal-overflow: auto;
+.confirmationModal.confirmationModal {
+  --modal-max-w: 335px;
+  --modal-padding-y: 64px;
+  --modal-padding-x: 20px;
+  --modal-radius: 40px;
+  --modal-overflow: auto;
 
-    --modal-close-top: 24px;
-    --modal-close-right: 24px;
-    --modal-close-size: 24px;
-    --modal-close-pad: 0;
+  --modal-close-top: 24px;
+  --modal-close-right: 24px;
+  --modal-close-size: 24px;
+  --modal-close-pad: 0;
 
-    width: 100%;
-    max-width: 335px;
+  width: 100%;
+  max-width: 335px;
 }
 
-.confirmationModalTitle {
-    width: 100%;
-    margin-bottom: 48px;
-    text-align: center;
-    font-family: var(--second-family);
-    font-weight: 700;
-    font-size: 36px;
-    line-height: 120%;
-    letter-spacing: 0.01em;
-    color: var(--color-scheme-text);
+.confirmationModalTitle.confirmationModalTitle {
+  width: 100%;
+  margin-bottom: 48px;
+  text-align: center;
+  font-family: var(--second-family);
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 120%;
+  letter-spacing: 0.01em;
+  color: var(--color-scheme-text);
 }
 
-.confirmationModalActions {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    width: 100%;
+.confirmationModalActions.confirmationModalActions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
 }
 
-.confirmationModalButton {
-    width: 100%;
-    height: 46px;
+.confirmationModalButton.confirmationModalButton {
+  width: 100%;
+  height: 46px;
 
-    padding: 10px 24px;
-    border-radius: 100px;
+  padding: 10px 24px;
+  border-radius: 100px;
 
-    font-family: var(--font-family);
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 160%;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 160%;
 
-    color: var(--color-scheme-text);
+  color: var(--color-scheme-text);
 }
 
-.confirmationCloseButton {
-    color: var(--color-scheme-text);
+.confirmationCloseButton.confirmationCloseButton {
+  color: var(--color-scheme-text);
 }
 
-.confirmationCloseIcon {
-    width: 24px;
-    height: 24px;
+.confirmationCloseIcon.confirmationCloseIcon {
+  width: 24px;
+  height: 24px;
 }
 
 @media (min-width: 768px) {
-    .confirmationModal {
-        --modal-max-w: 704px;
-        --modal-padding-y: 64px;
-        --modal-padding-x: 32px;
+  .confirmationModal.confirmationModal {
+    --modal-max-w: 704px;
+    --modal-padding-y: 64px;
+    --modal-padding-x: 32px;
 
-        --modal-close-top: 24px;
-        --modal-close-right: 32px;
-        --modal-close-size: 32px;
+    --modal-close-top: 24px;
+    --modal-close-right: 32px;
+    --modal-close-size: 32px;
 
-        max-width: 704px;
-    }
+    max-width: 704px;
+  }
 
-    .confirmationModalTitle {
-        font-size: 36px;
-        margin-bottom: 48px;
-    }
+  .confirmationModalTitle.confirmationModalTitle {
+    font-size: 36px;
+    margin-bottom: 48px;
+  }
 
-    .confirmationModalActions {
-        flex-direction: row;
-        justify-content: center;
-        gap: 32px;
-    }
+  .confirmationModalActions.confirmationModalActions {
+    flex-direction: row;
+    justify-content: center;
+    gap: 32px;
+  }
 
-    .modal.confirmationModalButton {
-        width: 268px;
-        height: 42px;
-        font-size: 16px;
-    }
+  .confirmationModalButton.confirmationModalButton {
+    width: 268px;
+    height: 42px;
+    font-size: 16px;
+  }
 }
 
 @media (min-width: 1440px) {
-    .modal.confirmationModal {
-        --modal-max-w: 768px;
-        --modal-padding-y: 64px;
-        --modal-padding-x: 64px;
+  .confirmationModal.confirmationModal {
+    --modal-max-w: 768px;
+    --modal-padding-y: 64px;
+    --modal-padding-x: 64px;
 
-        --modal-close-top: 32px;
-        --modal-close-right: 32px;
+    --modal-close-top: 32px;
+    --modal-close-right: 32px;
 
-        max-width: 768px;
-    }
+    max-width: 768px;
+  }
 
-    .confirmationModalTitle {
-        font-size: 48px;
-    }
+  .confirmationModalTitle.confirmationModalTitle {
+    font-size: 48px;
+  }
 
-    .confirmationModalButton {
-        height: 46px;
-    }
+  .confirmationModalButton.confirmationModalButton {
+    height: 46px;
+  }
 }
