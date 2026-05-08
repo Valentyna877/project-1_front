@@ -3,6 +3,7 @@ import css from './page.module.css';
 import { IMG_VARS } from '@/app/imgVars';
 import OnboardingClient from '@/components/profile/OnboardingForm/OnboardingClient';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function OnboardingPage() {
     return (
@@ -18,8 +19,7 @@ export default function OnboardingPage() {
                 <OnboardingClient />
             </div>
             <div className={css.imageSide}>
-                <img src={IMG_VARS.PLANT1X}
-                    srcSet={`${IMG_VARS.PLANT1X} 1x, ${IMG_VARS.PLANT2X} 2x`}
+                <Image src={IMG_VARS.PLANT1X}
                     alt='plant' />
             </div>
             </div>

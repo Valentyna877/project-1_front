@@ -1,5 +1,4 @@
 // 'use client';
-// export const dynamic = "force-dynamic";
 
 // import css from './page.module.css';
 // import Image from 'next/image';
@@ -103,7 +102,6 @@
 
 // export default Login;
 
-
 'use client';
 export const dynamic = "force-dynamic";
 
@@ -122,6 +120,7 @@ import { useMutation } from '@tanstack/react-query';
 import { loginGoogle } from '@/lib/api/clientApi';
 import { useAuthStore } from '@/lib/store/authStore';
 import { useState } from 'react';
+
 
 function SearchParamsHandler() {
   const searchParams = useSearchParams();
@@ -173,7 +172,6 @@ export default function Login() {
     <>
       <Suspense fallback={null}>
         <SearchParamsHandler />
-      </Suspense>
 
       <div className={css.content}>
         <div className={css['left-wrapper']}>
@@ -183,7 +181,7 @@ export default function Login() {
               <div className={css['form-content']}>
                 <h1 className={css.title}>Вхід</h1>
                 <LoginForm isLoading={isLoading} setIsLoading={setIsLoading} />
-                <Button
+    <Button
                   className={css['google-button']}
                   type="button"
                   variant={'cancel'}
@@ -212,7 +210,8 @@ export default function Login() {
           width={720}
           height={900}
         />
-      </div>
+        </div>
+          </Suspense>
     </>
   );
 }
