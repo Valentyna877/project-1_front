@@ -1,4 +1,4 @@
-.addDiaryModal {
+.addDiaryModal.addDiaryModal {
   --modal-max-w: 335px;
   --modal-padding-y: 48px;
   --modal-padding-x: 20px;
@@ -10,7 +10,7 @@
   gap: 20px;
 }
 
-.addDiaryModalTitle {
+.addDiaryModalTitle.addDiaryModalTitle {
   align-self: stretch;
   text-align: center;
   font-weight: 700;
@@ -21,7 +21,7 @@
 }
 
 @media (min-width: 768px) {
-  .modal.addDiaryModal {
+  .addDiaryModal.addDiaryModal {
     --modal-max-w: 704px;
     --modal-padding-y: 64px;
     --modal-padding-x: 32px;
@@ -30,11 +30,11 @@
 }
 
 @media (min-width: 1440px) {
-  .modal.addDiaryModal {
+  .addDiaryModal.addDiaryModal {
     --modal-max-w: 704px;
   }
 
-  .addDiaryModalTitle {
+  .addDiaryModalTitle.addDiaryModalTitle {
     font-size: 48px;
     line-height: 58px;
     letter-spacing: 0.48px;
