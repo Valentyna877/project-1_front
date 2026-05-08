@@ -6,6 +6,7 @@ import { IMG_VARS } from '@/app/imgVars';
 import LoginForm from '@/components/auth/LoginForm/LoginForm';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { Suspense } from "react";
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ToastProvider } from '@/components/common/Toast/ToastProvider';
 import Button from '@/components/common/Button/Button';
@@ -20,19 +21,19 @@ const Login = () => {
   const router = useRouter();
   const setUser = useAuthStore((state) => state.setUser);
 
-  const searchParams = useSearchParams();
-  useEffect(() => {
-    if (searchParams.has('error')) {
-      ToastProvider.error(
-        'Упс, щось пішло не так! Будь ласка, увійдіть ще раз.'
-      );
-      window.history.replaceState(null, '', '/auth/login');
-    }
-  }, [searchParams]);
+  // const searchParams = useSearchParams();
+  // useEffect(() => {
+  //   if (searchParams.has('error')) {
+  //     ToastProvider.error(
+  //       'Упс, щось пішло не так! Будь ласка, увійдіть ще раз.'
+  //     );
+  //     window.history.replaceState(null, '', '/auth/login');
+  //   }
+  // }, [searchParams]);
 
   const googleLogin = useGoogleLogin({
-    onSuccess: (codeResponce) => {
-      mutate(codeResponce);
+    onSuccess: (codeResponse) => {
+      mutate(codeResponse);
     },
     onError: () => {
       setIsLoading(false);
@@ -58,6 +59,7 @@ const Login = () => {
 
   return (
     <>
+      <Suspense>
       <div className={css.content}>
         <div className={css['left-wrapper']}>
           <AuthHeader />
@@ -95,7 +97,8 @@ const Login = () => {
           width={720}
           height={900}
         ></Image>
-      </div>
+        </div>
+        </Suspense>
     </>
   );
 };
