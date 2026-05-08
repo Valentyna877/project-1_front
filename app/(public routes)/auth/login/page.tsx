@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 'use client';
 
 import css from './page.module.css';
@@ -6,7 +8,6 @@ import { IMG_VARS } from '@/app/imgVars';
 import LoginForm from '@/components/auth/LoginForm/LoginForm';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { Suspense } from "react";
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ToastProvider } from '@/components/common/Toast/ToastProvider';
 import Button from '@/components/common/Button/Button';
@@ -59,7 +60,6 @@ const Login = () => {
 
   return (
     <>
-      <Suspense>
       <div className={css.content}>
         <div className={css['left-wrapper']}>
           <AuthHeader />
@@ -98,7 +98,6 @@ const Login = () => {
           height={900}
         ></Image>
         </div>
-        </Suspense>
     </>
   );
 };
