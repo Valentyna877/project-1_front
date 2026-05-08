@@ -21,91 +21,71 @@ export const proxy = async (req: NextRequest) => {
 
   if (!accessToken) {
     if (refreshToken) {
-      const res = await checkSession();
-      if (res.data?.success) {
-        const setCookie = res.headers['set-cookie'];
-        // const { headers } = await checkSession();
-        // const setCookie = headers['set-cookie'];
-        if (setCookie) {
-          const cookieArray = Array.isArray(setCookie) ? setCookie : [setCookie];
-          for (const cookieStr of cookieArray) {
-            const parsed = parse(cookieStr);
-            const options = {
-              expires: parsed.Expires ? new Date(parsed.Expires) : undefined,
-              path: parsed.Path,
-              maxAge: Number(parsed['Max-age']),
-            };
-            if (parsed.accessToken)
-              cookieStore.set('accessToken', parsed.accessToken, options);
-            if (parsed.refreshToken)
-              cookieStore.set('refreshToken', parsed.refreshToken, options);
-            if (parsed.sessionId)
-              cookieStore.set('sessionId', parsed.sessionId, options);
-          }
+      const { headers } = await checkSession();
+      const setCookie = headers['set-cookie'];
+      if (setCookie) {
+        const cookieArray = Array.isArray(setCookie) ? setCookie : [setCookie];
+        for (const cookieStr of cookieArray) {
+          const parsed = parse(cookieStr);
+          const options = {
+            expires: parsed.Expires ? new Date(parsed.Expires) : undefined,
+            path: parsed.Path,
+            maxAge: Number(parsed['Max-age']),
+          };
+          if (parsed.accessToken)
+            cookieStore.set('accessToken', parsed.accessToken, options);
+          if (parsed.refreshToken)
+            cookieStore.set('refreshToken', parsed.refreshToken, options);
+          if (parsed.sessionId)
+            cookieStore.set('sessionId', parsed.sessionId, options);
         }
-
-          if (isAuthRoute) {
-            return NextResponse.redirect(new URL('/', req.url), {
-              headers: { Cookie: cookieStore.toString() },
-            });
-          }
-          if (isPrivateRoute) {
-            return NextResponse.next({
-              headers: { Cookie: cookieStore.toString() },
-            });
-          }
-        } else {
-          const url = new URL('/auth/login', req.url);
-          url.searchParams.set('error', 'session_expired');
-          const response = NextResponse.redirect(url);
-          response.cookies.delete('accessToken');
-          response.cookies.delete('refreshToken');
-          response.cookies.delete('sessionId');
-          return response;
+        if (isAuthRoute) {
+          return NextResponse.redirect(new URL('/', req.url), {
+            headers: { Cookie: cookieStore.toString() },
+          });
         }
-      }
-      if (isAuthRoute) {
-        return NextResponse.redirect(new URL('/', req.url));
-        
-
-// Закомментированая часть, это как было у Влада, чисто попробовала, если вариант фигня,
-//  то верну, как было, уберу обработку))
-
-        // const response = NextResponse.next();
-        // response.cookies.delete('accessToken');
-        // response.cookies.delete('refreshToken');
-        // response.cookies.delete('sessionId');
-
-        // return response;
-      }
-
-      if (isPrivateRoute) {
-              return NextResponse.next();
-        // const url = new URL('/auth/login', req.url);
-        // url.searchParams.set('error', 'session_expired');
-        // const response = NextResponse.redirect(url);
-
-        // response.cookies.delete('accessToken');
-        // response.cookies.delete('refreshToken');
-        // response.cookies.delete('sessionId');
-
-        // return response;
+        if (isPrivateRoute) {
+          return NextResponse.next({
+            headers: { Cookie: cookieStore.toString() },
+          });
+        }
       }
     }
-
     if (isAuthRoute) {
-      return NextResponse.redirect(new URL('/', req.url));
-    }
-    if (isPrivateRoute) {
-      return NextResponse.next();
-    }
-  };
+      const response = NextResponse.next();
+      response.cookies.delete('accessToken');
+      response.cookies.delete('refreshToken');
+      response.cookies.delete('sessionId');
 
-  export const config = {
-    matcher: [
-      '/auth/:path*',
-      '/profile/:path*',
-      '/journey/:path*',
-      '/diary/:path*',
-    ],
-  };
+      return response;
+    }
+
+    if (isPrivateRoute) {
+      const url = new URL('/auth/login', req.url);
+      url.searchParams.set('error', 'session_expired');
+      const response = NextResponse.redirect(url);
+
+      response.cookies.delete('accessToken');
+      response.cookies.delete('refreshToken');
+      response.cookies.delete('sessionId');
+
+      return response;
+    }
+  }
+
+  if (isAuthRoute) {
+    return NextResponse.redirect(new URL('/', req.url));
+  }
+  if (isPrivateRoute) {
+    return NextResponse.next();
+  }
+};
+
+export const config = {
+  matcher: [
+    '/auth/:path',
+    '/profile/:path',
+    '/journey/:path',
+    '/diary/:path',
+  ],
+};
