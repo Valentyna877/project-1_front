@@ -12,7 +12,7 @@ const comfortaa = Comfortaa({
   weight: ['700'],
   variable: '--second-family',
   display: 'swap',
-  fallback: [], 
+  fallback: [],
 });
 
 const lato = Lato({
@@ -20,12 +20,17 @@ const lato = Lato({
   weight: ['400', '700'],
   variable: '--font-family',
   display: 'swap',
-  fallback: [], 
+  fallback: [],
 });
 
 export const metadata: Metadata = {
   title: 'Лелека',
-  description: 'Застосунок для вагітних.',
+  description: 'Застосунок для вагітних',
+  openGraph: {
+    title: 'Лелека',
+    description: 'Застосунок для вагітних',
+    url: 'https://project-1-front-nu.vercel.app/',
+  },
 };
 
 export default function RootLayout({
@@ -38,8 +43,12 @@ export default function RootLayout({
       <body className={`${comfortaa.variable} ${lato.variable} `}>
         <TanStackProvider>
           <AuthProvider>
-              {children}
-              <Toaster richColors position="top-right" toastOptions={{ duration: 2000 }} />
+            {children}
+            <Toaster
+              richColors
+              position="top-right"
+              toastOptions={{ duration: 2000 }}
+            />
             <ReactQueryDevtools initialIsOpen={false} />
           </AuthProvider>
         </TanStackProvider>
