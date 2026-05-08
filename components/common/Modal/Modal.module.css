@@ -15,10 +15,10 @@
 .modal {
     --modal-bg: var(--color-scheme-background, #fff);
     --modal-radius: 40px;
-    /* --modal-max-w: calc(100vw - 32px); */
-    /* --modal-max-h: calc(100vh - 32px); */
-    /* --modal-padding-y: 48px; */
-    /* --modal-padding-x: 20px; */
+    --modal-max-w: calc(100vw - 32px);
+    --modal-max-h: calc(100vh - 32px);
+    --modal-padding-y: 48px;
+    --modal-padding-x: 20px;
     --modal-overflow: auto;
     --modal-close-top: 16px;
     --modal-close-right: 16px;
