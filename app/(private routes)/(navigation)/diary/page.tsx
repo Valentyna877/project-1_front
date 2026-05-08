@@ -1,11 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import '@/app/globals.css';
-
 import styles from './page.module.css';
-
 import DiaryList from '@/components/diary/DiaryList/DiaryList';
 import DiaryEntryDetails from '@/components/diary/DiaryEntryDetails/DiaryEntryDetails';
 import GreetingBlock from '@/components/common/GreetingBlock/GreetingBlock';
@@ -27,14 +25,17 @@ export default function DiaryPage() {
     queryFn: getDiaries,
   });
 
-  const [selectedEntry, setSelectedEntry] = useState<DiaryEntry | null>(null);
+  // const [selectedEntry, setSelectedEntry] = useState<DiaryEntry | null>(null);
+  const [selectedEntry, setSelectedEntry] = useState<DiaryEntry | null>(
+    () => (entries.length > 0 ? entries[0] : null)
+  );
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    if (entries.length > 0) {
-      setSelectedEntry((prev) => prev ?? entries[0]);
-    }
-  }, [entries]);
+  // useEffect(() => {
+  //   if (entries.length > 0) {
+  //     setSelectedEntry((prev) => prev ?? entries[0]);
+  //   }
+  // }, [entries]);
 
   const handleOpenCreate = () => {
     clearDraft();

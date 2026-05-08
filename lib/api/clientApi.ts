@@ -45,11 +45,11 @@ export const loginUser = async (user: UserLogCreds): Promise<User> => {
 };
 
 export const loginGoogle = async (
-  googleResponce: UseGoogleLoginOptionsAuthCodeFlow
+  googleResponse: UseGoogleLoginOptionsAuthCodeFlow
 ): Promise<UserGoogle> => {
   const { data } = await nextServer.post<UserGoogle>(
     '/auth/google',
-    googleResponce
+    googleResponse
   );
   return data;
 };

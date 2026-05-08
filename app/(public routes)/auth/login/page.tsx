@@ -31,8 +31,8 @@ const Login = () => {
   }, [searchParams]);
 
   const googleLogin = useGoogleLogin({
-    onSuccess: (codeResponce) => {
-      mutate(codeResponce);
+    onSuccess: (codeResponse) => {
+      mutate(codeResponse);
     },
     onError: () => {
       setIsLoading(false);
@@ -95,7 +95,7 @@ const Login = () => {
           width={720}
           height={900}
         ></Image>
-      </div>
+        </div>
     </>
   );
 };

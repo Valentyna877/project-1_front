@@ -1,25 +1,6 @@
 import { StylesConfig } from 'react-select';
 import { GenderOption } from './gender-select.types';
 
-// export const genderSelectStyles: StylesConfig<GenderOption, false> = {
-//   control: (base, state) => ({
-//     ...base,
-//     width: '100%',
-//     minHeight: 40,
-//     backgroundColor: 'var(--color-neutral-lightest)',
-//     border: state.menuIsOpen
-//       ? '1px solid var(--opacity-neutral-darkest-15)'
-//       : '1px solid var(--opacity-transparent)',
-//     borderRadius: state.menuIsOpen ? '12px 12px 0 0' : 12,
-//     boxShadow: 'none',
-//     cursor: 'pointer',
-//     '&:hover': {
-//       border: state.menuIsOpen
-//         ? '1px solid var(--opacity-neutral-darkest-15)'
-//         : '1px solid var(--opacity-transparent)',
-//     },
-//   }),
-
 const getThemeShadow = (themeClass?: string) => {
   if (themeClass === 'theme-girl')
     return 'inset 0 0 0 2px var(--color-pastel-pink)';
@@ -58,7 +39,7 @@ export const createGenderSelectStyles = (
     ...base,
     fontFamily: '"Lato", sans-serif',
     fontSize: 14,
-    color: 'var(--opacity-neutral-darkest-60)',
+    color: 'var(--color-neutral-darkest);',
     '@media (min-width: 1440px)': {
       fontSize: 16,
     },
@@ -133,24 +114,6 @@ export const createGenderSelectStyles = (
   }),
 });
 
-// export const onboardingGenderStyles: StylesConfig<GenderOption, false> = {
-//   control: (base, state) => ({
-//     ...base,
-//     width: '100%',
-//     minHeight: 40,
-//     backgroundColor: 'var(--color-neutral-lightest)',
-//     border: state.menuIsOpen
-//       ? '1px solid var(--opacity-neutral-darkest-15)'
-//       : '1px solid var(--opacity-transparent)',
-//     borderRadius: state.menuIsOpen ? '12px 12px 0 0' : 12,
-//     boxShadow: 'none',
-//     cursor: 'pointer',
-//     '&:hover': {
-//       border: state.menuIsOpen
-//         ? '1px solid var(--opacity-neutral-darkest-15)'
-//         : '1px solid var(--opacity-transparent)',
-//     },
-//   }),
 export const createOnboardingGenderStyles = (
   themeClass?: string
 ): StylesConfig<GenderOption, false> => ({
