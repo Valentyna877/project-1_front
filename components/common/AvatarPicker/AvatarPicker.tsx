@@ -112,7 +112,7 @@
 
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import Image from 'next/image';
 import css from './AvatarPicker.module.css';
 import { getUser, updateAvatar } from '@/lib/api/clientApi';
@@ -135,15 +135,17 @@ function AvatarPicker({
   variant = 'onboarding',
   themeOverride,
 }: Props) {
-  const [previewUrl, setPreviewUrl] = useState(profilePhotoUrl ?? '');
+  // const [previewUrl, setPreviewUrl] = useState(profilePhotoUrl ?? '');
+  const [previewUrl, setPreviewUrl] = useState(() => profilePhotoUrl ?? '');
   const [loading, setLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const setUser = useAuthStore((state) => state.setUser);
 
-  useEffect(() => {
-    setPreviewUrl(profilePhotoUrl ?? '');
-  }, [profilePhotoUrl]);
+  // useEffect(() => {
+  //   setPreviewUrl(profilePhotoUrl ?? '');
+  // }, [profilePhotoUrl]);
+  
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

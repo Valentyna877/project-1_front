@@ -5,7 +5,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Toaster } from 'sonner';
 import AuthProvider from '@/components/layout/AuthProvider/AuthProvider';
 import TanStackProvider from '@/components/layout/TanStackProvider/TanStackProvider';
-import Loader from '@/components/common/Loader/Loader';
+// import Loader from '@/components/common/Loader/Loader';
 
 const comfortaa = Comfortaa({
   subsets: ['latin', 'latin-ext', 'cyrillic', 'cyrillic-ext'],
@@ -34,11 +34,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="uk">
+    <html lang="uk" data-scroll-behavior="smooth">
       <body className={`${comfortaa.variable} ${lato.variable} `}>
         <TanStackProvider>
           <AuthProvider>
-            {children}
+              {children}
               <Toaster richColors position="top-right" toastOptions={{ duration: 2000 }} />
             <ReactQueryDevtools initialIsOpen={false} />
           </AuthProvider>

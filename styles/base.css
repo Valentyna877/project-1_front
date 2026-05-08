@@ -106,3 +106,40 @@ h6 {
   overflow: hidden;
   padding-right: 0px;
 } */
+
+/* Тема neutral */
+.theme-neutral html {
+  --scroll-thumb: var(--color-oasis);
+  --scroll-track: var(--color-oasis-light);
+}
+
+/* Тема girl */
+.theme-girl html {
+  --scroll-thumb: var(--color-pastel-pink);
+  --scroll-track: var(--color-pastel-pink-light);
+}
+
+/* Тема boy */
+.theme-boy html {
+  --scroll-thumb: var(--color-french-pass);
+  --scroll-track: var(--color-french-pass-light);
+}
+
+/* Глобальний скролбар */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scroll-thumb) var(--scroll-track);
+}
+
+html::-webkit-scrollbar {
+  width: 8px;
+}
+
+html::-webkit-scrollbar-track {
+  background: var(--scroll-track);
+}
+
+html::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-thumb);
+  border-radius: 8px;
+}
