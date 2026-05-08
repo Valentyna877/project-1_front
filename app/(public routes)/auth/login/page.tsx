@@ -21,15 +21,15 @@ const Login = () => {
   const router = useRouter();
   const setUser = useAuthStore((state) => state.setUser);
 
-  // const searchParams = useSearchParams();
-  // useEffect(() => {
-  //   if (searchParams.has('error')) {
-  //     ToastProvider.error(
-  //       'Упс, щось пішло не так! Будь ласка, увійдіть ще раз.'
-  //     );
-  //     window.history.replaceState(null, '', '/auth/login');
-  //   }
-  // }, [searchParams]);
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    if (searchParams.has('error')) {
+      ToastProvider.error(
+        'Упс, щось пішло не так! Будь ласка, увійдіть ще раз.'
+      );
+      window.history.replaceState(null, '', '/auth/login');
+    }
+  }, [searchParams]);
 
   const googleLogin = useGoogleLogin({
     onSuccess: (codeResponse) => {
