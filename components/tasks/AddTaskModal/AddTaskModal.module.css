@@ -36,7 +36,7 @@
 
 @media (min-width: 1440px) {
     .addTaskModal {
-        --modal-max-w: 768px;
+        --modal-max-w: 704px;
         --modal-padding-y: 64px;
         --modal-padding-x: 32px;
         min-height: 472px;
