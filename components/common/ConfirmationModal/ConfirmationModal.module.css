@@ -58,53 +58,53 @@
 }
 
 @media (min-width: 768px) {
-.confirmationModal {
-    --modal-max-w: 704px;
-    --modal-padding-y: 64px;
-    --modal-padding-x: 32px;
+    .confirmationModal {
+        --modal-max-w: 704px;
+        --modal-padding-y: 64px;
+        --modal-padding-x: 32px;
 
-    --modal-close-top: 24px;
-    --modal-close-right: 32px;
-    --modal-close-size: 32px;
+        --modal-close-top: 24px;
+        --modal-close-right: 32px;
+        --modal-close-size: 32px;
 
-    max-width: 704px;
-}
+        max-width: 704px;
+    }
 
-.confirmationModalTitle {
-    font-size: 36px;
-    margin-bottom: 48px;
-}
+    .confirmationModalTitle {
+        font-size: 36px;
+        margin-bottom: 48px;
+    }
 
-.confirmationModalActions {
-    flex-direction: row;
-    justify-content: center;
-    gap: 32px;
-}
+    .confirmationModalActions {
+        flex-direction: row;
+        justify-content: center;
+        gap: 32px;
+    }
 
-.confirmationModalButton {
-    width: 268px;
-    height: 42px;
-    font-size: 16px;
-}
+    .modal.confirmationModalButton {
+        width: 268px;
+        height: 42px;
+        font-size: 16px;
+    }
 }
 
 @media (min-width: 1440px) {
-.confirmationModal {
-    --modal-max-w: 768px;
-    --modal-padding-y: 64px;
-    --modal-padding-x: 64px;
+    .modal.confirmationModal {
+        --modal-max-w: 768px;
+        --modal-padding-y: 64px;
+        --modal-padding-x: 64px;
 
-    --modal-close-top: 32px;
-    --modal-close-right: 32px;
+        --modal-close-top: 32px;
+        --modal-close-right: 32px;
 
-    max-width: 768px;
-}
+        max-width: 768px;
+    }
 
-.confirmationModalTitle {
-    font-size: 48px;
-}
+    .confirmationModalTitle {
+        font-size: 48px;
+    }
 
-.confirmationModalButton {
-    height: 46px;
-}
+    .confirmationModalButton {
+        height: 46px;
+    }
 }
