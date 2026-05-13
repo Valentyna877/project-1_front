@@ -33,7 +33,18 @@ It helps users:
 
 ## 🖼️ Screenshots/DEMO
 
-> ⚠️
+### Themes
+
+<p align="center">
+  <img src="/screenshots/dashboard-girl.jpg" width="48%" />
+  <img src="/screenshots/dashboard-default.jpg" width="48%" />
+</p>
+
+### Diary Modal
+
+<p align="center">
+  <img src="/screenshots/diary-modal.jpg" width="80%" />
+</p>
 
 ---
 
