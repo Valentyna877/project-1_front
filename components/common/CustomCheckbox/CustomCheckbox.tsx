@@ -17,7 +17,7 @@ export default function CustomCheckbox({
     <div className={css.taskCustomCheckbox}>
       <input
         onChange={handleCheck}
-        className={`${css.defaultCheckbox} .visually-hidden`}
+        className={`${css.defaultCheckbox} visually-hidden`}
         type="checkbox"
         name="taskCheckbox"
         id={id}
