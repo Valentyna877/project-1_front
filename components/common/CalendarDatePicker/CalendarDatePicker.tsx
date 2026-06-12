@@ -1,7 +1,7 @@
 'use client';
 import { FieldProps, useField } from 'formik';
 import DatePicker from 'react-datepicker';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import { useEffect, useRef } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import css from './CalendarDatePicker.module.css';
@@ -36,7 +36,7 @@ const CalendarDatePicker: React.FC<CalendarDatePickerProps> = ({
 }) => {
   const { themeClass: globalThemeClass } = useTheme();
   const themeClass = themeOverride ? `theme-${themeOverride}` : globalThemeClass;
-  const dateValue = field.value ? new Date(field.value) : null;
+  const dateValue = field.value ? parseISO(field.value) : null;
 
   const [, meta] = useField(field.name);
   const hasError = Boolean(meta.touched && meta.error);
