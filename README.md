@@ -36,14 +36,14 @@ It helps users:
 ### Themes
 
 <p align="center">
-  <img src="/screenshots/dashboard-girl.jpg" width="48%" />
-  <img src="/screenshots/dashboard-default.jpg" width="48%" />
+  <img src="./public/screenshots/dashboard-girl.jpg" width="48%" />
+  <img src="./public/screenshots/dashboard-default.jpg" width="48%" />
 </p>
 
 ### Diary Modal
 
 <p align="center">
-  <img src="/screenshots/diary-modal.jpg" width="80%" />
+  <img src="./public/screenshots/diary-modal.jpg" width="80%" />
 </p>
 
 ---
