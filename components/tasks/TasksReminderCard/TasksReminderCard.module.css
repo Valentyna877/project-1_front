@@ -90,7 +90,7 @@
     }
 
     .scrollContent:hover {
-        overflow-y: auto;
+        overflow-y: scroll;
     }
     
     .scrollContent {
