@@ -88,6 +88,10 @@
     .taskSection {  
         font-size: 16px;
     }
+
+    .scrollContent:hover {
+        overflow-y: scroll;
+    }
     
     .scrollContent {
         height: 100%;
