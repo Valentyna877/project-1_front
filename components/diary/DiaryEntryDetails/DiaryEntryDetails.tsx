@@ -63,9 +63,7 @@ export default function DiaryEntryDetails({
   if (!entry) {
     return (
       <div className={styles.wrapper}>
-        <p className={styles.placeholder}>
-          Наразі записи у щоденнику відстні
-        </p>
+        <p className={styles.placeholder}>Наразі записи у щоденнику відстні</p>
       </div>
     );
   }
@@ -78,12 +76,14 @@ export default function DiaryEntryDetails({
           {onEdit && (
             <button
               className={styles.iconBtn}
-              aria-label="Edit entry"
+              aria-label="Редагувати запис"
               onClick={() => onEdit(entry)}
             >
-              <svg width={24} height={24}>
-                <use href="/sprite.svg#icon-edit_square" />
-              </svg>
+              <div className={styles.btnInner}>
+                <svg width={24} height={24}>
+                  <use href="/sprite.svg#icon-edit_square" />
+                </svg>
+              </div>
             </button>
           )}
         </div>
