@@ -30,15 +30,28 @@
     height: 216px;
     margin-bottom: 16px;
     flex-shrink: 0;
-
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 500ms ease-in-out;
+    animation: pulse 4.5s infinite;
+    transform-origin: center;
 }
 
-.babyImg:hover {
-    transform: scale(1.1);
+@keyframes pulse {
+    0% {
+        transform: scale(0.85);
+        opacity: 0.78;
+    }
+
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(0.85);
+        opacity: 0.78;
+    }
 }
 
 .strong {
@@ -95,6 +108,7 @@
         height: 421px;
         margin: 32px 0 24px 0;
         overflow: auto;
+        scrollbar-width: none;
     }
 
     .babyInfoBox {
@@ -109,12 +123,43 @@
         margin-bottom: 0;
     }
 
-        .babyInfo {
-            font-size: 16px;
-        }
+    .babyInfo {
+        font-size: 16px;
+    }
 
     .babyCardText {
         font-size: 16px;
     }
-}
 
+    .scrollContent:hover {
+        overflow-y: scroll;
+    }
+    
+    .scrollContent {
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+    
+    .scrollContent::-webkit-scrollbar {
+        width: 3px;
+        background: transparent;
+    }
+    
+    .scrollContent::-webkit-scrollbar-track {
+        background: transparent;
+        border-radius: 2px;
+    }
+    
+    .theme-boy.scrollContent:hover::-webkit-scrollbar-thumb {
+        background-color: var(--color-french-pass);
+    }
+    
+    .theme-girl.scrollContent:hover::-webkit-scrollbar-thumb {
+        background-color: var(--color-pastel-pink);
+    }
+    
+    .theme-default.scrollContent:hover::-webkit-scrollbar-thumb {
+        background-color: var(--color-oasis);
+    }
+}

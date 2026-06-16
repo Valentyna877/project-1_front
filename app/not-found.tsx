@@ -2,7 +2,7 @@
 
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import ButtonLink from '@/components/common/Button/ButtonLink';
+// import ButtonLink from '@/components/common/Button/ButtonLink';
 import css from './not-found.module.css';
 import './globals.css';
 import Loader from '@/components/common/Loader/Loader';

@@ -11,6 +11,7 @@ export default function BabyTodayCard({ babyInfo }: Props) {
   const { themeClass } = useTheme();
   return (
     <div className={`${css.babyCardBox} ${css[themeClass]}`}>
+      <div className={`${css.scrollContent} ${css[themeClass]}`}>
       <h2>Малюк сьогодні</h2>
       <div className={css.babyInfoBox}>
         <Image
@@ -37,7 +38,8 @@ export default function BabyTodayCard({ babyInfo }: Props) {
           </p>
         </div>
       </div>
-      <p className={css.babyCardText}>{babyInfo?.babyDevelopment}</p>
+        <p className={css.babyCardText}>{babyInfo?.babyDevelopment}</p>
+      </div>
     </div>
   );
 }

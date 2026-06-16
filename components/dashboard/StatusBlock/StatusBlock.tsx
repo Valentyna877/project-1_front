@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default function StatusBlock({ days, weeks }: Props) {
-  const { theme, themeClass } = useTheme();
+  const { themeClass } = useTheme();
   return (
     <div className={css.statusBlockBox}>
       <div className={`${css.statusBox} ${css[themeClass]}`}>

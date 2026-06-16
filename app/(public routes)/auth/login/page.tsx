@@ -181,7 +181,7 @@ export default function Login() {
               <div className={css['form-content']}>
                 <h1 className={css.title}>Вхід</h1>
                 <LoginForm isLoading={isLoading} setIsLoading={setIsLoading} />
-    <Button
+                <Button
                   className={css['google-button']}
                   type="button"
                   variant={'cancel'}

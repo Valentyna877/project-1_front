@@ -67,6 +67,11 @@
 html {
   scroll-behavior: smooth;
   color-scheme: light;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
 }
 
 body {
@@ -78,6 +83,7 @@ body {
   background: var(--color-white);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 h1,
@@ -102,44 +108,33 @@ h6 {
   overflow: hidden;
 }
 
-/* .body-lock {
+.scrollThumb {
+  position: absolute;
+  width: 100%;
+  border-radius: 6px;
+  transition: top ease-in-out;
+}
+
+.scrollbar {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 6px;
+  height: 100%;
+  background: transparent;
+  pointer-events: none;
+  z-index: 9999;
   overflow: hidden;
-  padding-right: 0px;
-} */
-
-/* Тема neutral */
-.theme-neutral html {
-  --scroll-thumb: var(--color-oasis);
-  --scroll-track: var(--color-oasis-light);
 }
 
-/* Тема girl */
-.theme-girl html {
-  --scroll-thumb: var(--color-pastel-pink);
-  --scroll-track: var(--color-pastel-pink-light);
+html[data-theme='default'] .scrollThumb {
+  background: var(--color-oasis);
 }
 
-/* Тема boy */
-.theme-boy html {
-  --scroll-thumb: var(--color-french-pass);
-  --scroll-track: var(--color-french-pass-light);
+html[data-theme='girl'] .scrollThumb {
+  background: var(--color-pastel-pink);
 }
 
-/* Глобальний скролбар */
-html {
-  scrollbar-width: thin;
-  scrollbar-color: var(--scroll-thumb) var(--scroll-track);
-}
-
-html::-webkit-scrollbar {
-  width: 8px;
-}
-
-html::-webkit-scrollbar-track {
-  background: var(--scroll-track);
-}
-
-html::-webkit-scrollbar-thumb {
-  background-color: var(--scroll-thumb);
-  border-radius: 8px;
+html[data-theme='boy'] .scrollThumb {
+  background: var(--color-french-pass);
 }

@@ -6,13 +6,15 @@ type Props = {
 };
 
 export default function MomTipCard({ momDailyTip }: Props) {
-  const { theme, themeClass } = useTheme();
+  const { themeClass } = useTheme();
   return (
     <div className={`${css.momTipBox} ${css[themeClass]}`}>
+      <div className={`${css.scrollContent} ${css[themeClass]}`}>
       <h2>Порада для мами</h2>
       <p className={css.momTipText}>
         {momDailyTip ? `${momDailyTip}` : 'Помилка'}
       </p>
+      </div>
     </div>
   );
 }

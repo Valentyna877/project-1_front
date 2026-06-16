@@ -22,8 +22,8 @@ const Register = () => {
   const setUser = useAuthStore((state) => state.setUser);
 
   const googleLogin = useGoogleLogin({
-    onSuccess: (codeResponce) => {
-      mutate(codeResponce);
+    onSuccess: (codeResponse) => {
+      mutate(codeResponse);
     },
     onError: () => {
       setIsLoading(false);
