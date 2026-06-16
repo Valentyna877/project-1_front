@@ -39,10 +39,42 @@
         height: 138px;
         margin: 0 0 32px 0;
         overflow: auto;
+        scrollbar-width: none;
     }
 
     .momTipText {
         font-size: 16px;
     }
-}
 
+    .scrollContent:hover {
+        overflow-y: scroll;
+    }
+    
+    .scrollContent {
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+    
+    .scrollContent::-webkit-scrollbar {
+        width: 3px;
+        background: transparent;
+    }
+    
+    .scrollContent::-webkit-scrollbar-track {
+        background: transparent;
+        border-radius: 2px;
+    }
+    
+    .theme-boy.scrollContent:hover::-webkit-scrollbar-thumb {
+        background-color: var(--color-french-pass);
+    }
+    
+    .theme-girl.scrollContent:hover::-webkit-scrollbar-thumb {
+        background-color: var(--color-pastel-pink);
+    }
+    
+    .theme-default.scrollContent:hover::-webkit-scrollbar-thumb {
+        background-color: var(--color-oasis);
+    }
+}

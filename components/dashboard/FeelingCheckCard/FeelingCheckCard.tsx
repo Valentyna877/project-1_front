@@ -9,7 +9,7 @@ import { useTheme } from '@/hooks/useTheme';
 export default function FeelingCheckCard() {
   const router = useRouter();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-  const { theme, themeClass } = useTheme();
+  const { themeClass } = useTheme();
 
   const handleDiaryRedirect = () => {
     if (isAuthenticated) {

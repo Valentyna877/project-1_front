@@ -6,6 +6,8 @@ import { Toaster } from 'sonner';
 import AuthProvider from '@/components/layout/AuthProvider/AuthProvider';
 import TanStackProvider from '@/components/layout/TanStackProvider/TanStackProvider';
 import NavigationLoader from '@/components/common/NavigationLoader/NavigationLoader';
+import ThemeProvider from '@/components/common/ThemeProvider/ThemeProvider';
+import CustomScrollbar from '@/components/common/CustomScrollBar/CustomScrollBar';
 
 const comfortaa = Comfortaa({
   subsets: ['latin', 'latin-ext', 'cyrillic', 'cyrillic-ext'],
@@ -29,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Лелека',
     description: 'Застосунок для вагітних',
-    url: 'https://project-1-front-nu.vercel.app/',
+    url: 'https://project-1-front-nu.vercel.app',
   },
 };
 
@@ -41,10 +43,12 @@ export default function RootLayout({
   return (
     <html lang="uk" data-scroll-behavior="smooth">
       <body className={`${comfortaa.variable} ${lato.variable} `}>
+        <ThemeProvider>
         <TanStackProvider>
           <AuthProvider>
             <NavigationLoader />
-            {children}
+              {children}
+              <CustomScrollbar/>
             <Toaster
               richColors
               position="top-right"
@@ -52,7 +56,8 @@ export default function RootLayout({
             />
             <ReactQueryDevtools initialIsOpen={false} />
           </AuthProvider>
-        </TanStackProvider>
+          </TanStackProvider>
+          </ThemeProvider>
       </body>
     </html>
   );

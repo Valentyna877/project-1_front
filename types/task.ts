@@ -1,4 +1,3 @@
-
 export interface GetAllTasks {
     _id: string;
     name: string;

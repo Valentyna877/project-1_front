@@ -6,7 +6,7 @@ import AuthHeader from '@/components/auth/AuthHeader/AuthHeader';
 import ResetDataForm from '@/components/auth/ResetDataForm/ResetDataForm';
 import { redirect } from 'next/navigation';
 import { verifyTokenOnBackend } from '@/lib/api/clientApi';
-import { ToastProvider } from '@/components/common/Toast/ToastProvider';
+// import { ToastProvider } from '@/components/common/Toast/ToastProvider';
 
 const ResetData = async ({
   searchParams,
